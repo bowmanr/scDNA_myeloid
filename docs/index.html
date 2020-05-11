@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2020-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="intro.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>3</b> Data Extraction and Setup</a><ul>
+<li class="chapter" data-level="3.1" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>3.1</b> Tapestri Package</a></li>
+<li class="chapter" data-level="3.2" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>3.2</b> Post processing</a></li>
+<li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cohort-description.html"><a href="cohort-description.html"><i class="fa fa-check"></i><b>4</b> Cohort Description</a></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a><ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</h1>
+<p class="author"><em>Robert Bowman</em></p>
+<p class="date"><em>2020-05-11</em></p>
+</div>
+<div id="foreward" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Foreward</h1>
+<p>What you’ll find here is a walk-through on how we analyzed the data in the manuscript <a href="https://www.biorxiv.org/content/10.1101/2020.02.07.938860v1">here</a>. This is one of the largest projects I have undertaken, and one of the first where I have made a concerted effort to make the code completely available, and easily accessible. I think like most of my biologically-trained peers, the idea of sharing all of the code in the project, and its’ certain inefficiencies, is a humbling process. I am excited to hear feedback on our approach, and am sure there are many places where the code, the approach, and the science can be improved. Given the rate of progress in the single cell field as a whole, I anticipate that many of the approaches we employed here will be quickly updated with new ones as time goes on. Infact, even as we completed this project, sample handling was changed as new R packages were rolled out from the team out at Mission Bio. I’ll keep this updated with our most recent approaches as I anticiapte this will continue to change rapidly.</p>
+<p>All inquiries on bioinformatic troubleshooting or methodology can be referred to myself (Bobby, <a href="mailto:bowmanr@mskcc.org">bowmanr@mskcc.org</a>, <a href="https://twitter.com/bowman_rl">bowman_rl</a>. Linde Miles (<a href="mailto:milesl@mskcc.org">milesl@mskcc.org</a> <a href="https://twitter.com/lindemilesphd">lindemilesphd</a>) is the approrpiate person to direct questions toward for the wet lab work including sample preparation, library preparation and sequencing. For anything else, you’re probably best off emailing me, Linde and Ross (<a href="mailto:leviner@mskcc.org">leviner@mskcc.org</a>, <a href="https://twitter.com/rosslevinemd">rosslevinemd</a>) collectively, we’re all very invested in seeing others harvest more out of this data.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

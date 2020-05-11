@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introduction | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introduction | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introduction | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2020-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="data-extraction-and-setup.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>3</b> Data Extraction and Setup</a><ul>
+<li class="chapter" data-level="3.1" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>3.1</b> Tapestri Package</a></li>
+<li class="chapter" data-level="3.2" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>3.2</b> Post processing</a></li>
+<li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cohort-description.html"><a href="cohort-description.html"><i class="fa fa-check"></i><b>4</b> Cohort Description</a></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a><ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
+<p>To begin, I assume that you have read through our paper on <a href="https://www.biorxiv.org/content/10.1101/2020.02.07.938860v1">Biorxiv</a>, and I hope to update this one day with a link to a peer reviewed journal.</p>
+<ul>
+<li>I’ll summarize our goals briefly. We sought to:
+<ul>
+<li>Understand the genetic makeup of myeloid malignancy on a single cell level.<br />
+</li>
+<li>Determine the number, size, and diversity of clones as disease progressed.<br />
+</li>
+<li>Identify patterns of comutation, and abundance in dominant vs minor clones.<br />
+</li>
+<li>Determine if genetic alterations, alone or in combination, altered the immunophenotype of malignant cells.</li>
+</ul></li>
+</ul>
+<p>In order to acheive these goals, we used a commercial platform from Mission Bio called Tapestri. Conflict of interest statements can be found in our manuscript on <a href="https://www.biorxiv.org/content/10.1101/2020.02.07.938860v1">Biorxiv</a>. In short, this methodology uses single cell droplet encapsulation and barcoded beads to perform amplicon next generation sequencing. We designed a custom panel to focus on the 30 most commonly mutated genes in myeloid malignancies. Full details on the panel and sample processing can be found in the manuscript. A work flow is presented below: <img src="images/EF2.jpeg" width="75%" style="display: block; margin: auto;" /> Much of the upfront analysis is performed on the Tapestri Pipeline produced by Mission Bio available on the Bluebee platform. I will defer all questions on the exact details of the parameters used in this phase of analysis to the Mission Bio team. I would suggest reading <a href="https://genome.cshlp.org/content/early/2018/08/07/gr.232272.117">here</a> and <a href="https://missionbio.com/docs-tapestri-pipeline/">here</a> as starting points.</p>
+<p>Here we will primarily with how the data was processed downstream in R and to the right of the red dashed line. Our primary output from Bluebee as the .loom file which contained a useful formating of the multi sample VCF file produced by GATK. For the publication, this .loom file was loaded into Tapestri Insights, a GUI from Mission Bio that allowed for sample filtering based on parameters described in the manuscript. From there a filtered set of cells were exported from Tapestri Insights, and matrices for each column of the VCF file were produced. I will include some of this code and decription of why we did it this way in an <a href="AppendixA.html#AppendixA">Appendix A</a>, but since then, MissionBio has releassed a convenient R package and I find all future analyses will go from there. So, instead, this guide will use their package, I anticipate some of the data might change from our publication, but I guess we’ll see.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-extraction-and-setup.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

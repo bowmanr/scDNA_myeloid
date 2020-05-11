@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.2 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.2 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.2 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2020-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tapestri-library.html"/>
+<link rel="next" href="assessing-clonal-abundance.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>3</b> Data Extraction and Setup</a><ul>
+<li class="chapter" data-level="3.1" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>3.1</b> Tapestri Package</a></li>
+<li class="chapter" data-level="3.2" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>3.2</b> Post processing</a></li>
+<li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cohort-description.html"><a href="cohort-description.html"><i class="fa fa-check"></i><b>4</b> Cohort Description</a></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a><ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="post-processing" class="section level2">
+<h2><span class="header-section-number">3.2</span> Post processing</h2>
+<p>Next we’ll read the files back in and put them into a list. After that I will walk through some steps we used to process the data a little further. Here we made a decision in the project to focus only on protein encoding SNVs, of course there is likely rich data in the splice mutations and that is for further followup. Importantly, we also made the decision to focus only on cells with complete genotype information, and exclude cells that had missing genotypes for a cell of interest. A complimentary manuscript by Koichi Takahashi’s group at MD Anderson analyzed their dataset, and I encourage whoever is reading this to take a look at their bioRxiv preprint. I’ll update this reference once they paper is published.</p>
+<p>Our streps for post processing are below: + Filter variants through a blacklist removing recurrent variants that we think are likely sequencing errors + Annotating SNVS for protein encoding functions, and removing synonymous and splice variants + Remove variants that are mutated in &lt;2 cells + Remove remaining cells with any unknown genotypes + Remove variants that are mutated in &lt;2 cells again now that we have removed cells that were low quality</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">processed_SNV_files &lt;-<span class="kw">grep</span>(<span class="st">&quot;MSK&quot;</span>,<span class="kw">list.files</span>(<span class="st">&quot;./analysis/&quot;</span>,<span class="dt">full.names =</span> <span class="ot">TRUE</span>),<span class="dt">value=</span><span class="ot">TRUE</span>)
+<span class="kw">names</span>(processed_SNV_files)&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(<span class="kw">grep</span>(<span class="st">&quot;MSK&quot;</span>,<span class="kw">list.files</span>(<span class="st">&quot;./analysis/&quot;</span>),<span class="dt">value=</span><span class="ot">TRUE</span>),<span class="dt">split=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>))[,<span class="dv">1</span>]
+
+SNV&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(processed_SNV_files),<span class="cf">function</span>(x){
+  y&lt;-<span class="kw">readRDS</span>(processed_SNV_files[x])
+  <span class="kw">data.frame</span>(<span class="st">&quot;Cell&quot;</span>=<span class="kw">rownames</span>(y), <span class="co">#moving the cell name into data.frame prevents some errors later</span>
+             y<span class="op">$</span>data) <span class="co">#extracts the genotype matrix from the analyte object</span>
+}), <span class="kw">names</span>(processed_SNV_files))</code></pre></div>
+<p>So one important note is that the variant annotation we used in the manuscript was done with Tapesstri Insights. Which was quite convenient as it put out a 1:1 mapping of SNV to amino acid changes, presumably by having a list of preferred TXIDs for each gene. So I’ve outlined what I think is a decent approach to this here. <em>Importantly, this approach removes variants that are not protein encoding, and thus removes splice variants</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">txdb &lt;-<span class="st"> </span>TxDb.Hsapiens.UCSC.hg19.knownGene
+blacklist &lt;-<span class="kw">read.delim</span>(<span class="st">&quot;./blacklist.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
+
+variants &lt;-<span class="st"> </span><span class="kw">lapply</span>(SNV,<span class="cf">function</span>(x){
+  experimental_variants &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[ <span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;Cell&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">&amp;</span><span class="st"> </span><span class="co">#remove the Cell column</span>
+<span class="st">                                        </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;^chr&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">&amp;</span><span class="st"> </span><span class="co">#remove control loci</span>
+<span class="st">                                        </span><span class="op">!</span><span class="kw">colnames</span>(x)<span class="op">%in%</span>blacklist[,<span class="dv">1</span>]] <span class="co">#remove blacklsited SNVs</span>
+  variants_matrix&lt;-<span class="kw">data.frame</span>(experimental_variants,
+                                <span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(experimental_variants,<span class="dt">split=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>)))
+  <span class="kw">colnames</span>(variants_matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SNV&quot;</span>,<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;chr&quot;</span>,<span class="st">&quot;start&quot;</span>,<span class="st">&quot;ref&quot;</span>,<span class="st">&quot;alt&quot;</span>)
+  variants_matrix<span class="op">$</span>ref&lt;-<span class="kw">as</span>(variants_matrix<span class="op">$</span>ref, <span class="st">&quot;DNAStringSet&quot;</span>)
+  variants_matrix<span class="op">$</span>alt&lt;-<span class="kw">as</span>(variants_matrix<span class="op">$</span>alt, <span class="st">&quot;DNAStringSet&quot;</span>)
+  variant_gRange&lt;-<span class="kw">makeGRangesFromDataFrame</span>(variants_matrix,
+                                           <span class="dt">seqnames.field =</span> <span class="st">&quot;chr&quot;</span>,
+                                           <span class="dt">start.field=</span><span class="st">&quot;start&quot;</span>,
+                                           <span class="dt">end.field=</span><span class="st">&quot;start&quot;</span>,
+                                           <span class="dt">keep.extra.columns=</span><span class="ot">TRUE</span>)
+  out&lt;-<span class="st">  </span><span class="kw">predictCoding</span>(variant_gRange, txdb, <span class="dt">seqSource=</span>Hsapiens,<span class="dt">varAllele=</span>variant_gRange<span class="op">$</span>alt)
+  out2&lt;-out<span class="op">%&gt;%</span><span class="kw">filter</span>(CONSEQUENCE<span class="op">==</span><span class="st">&quot;nonsynonymous&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">mutate</span>(<span class="dt">AA=</span><span class="kw">paste0</span>(gene,<span class="st">&quot;.&quot;</span>,REFAA,PROTEINLOC,VARAA))<span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">select</span>(SNV,AA)
+  <span class="kw">return</span>(<span class="kw">data.frame</span>(out2)<span class="op">%&gt;%</span><span class="kw">distinct</span>(SNV,AA))
+  })
+
+<span class="co">#select the correct variants, this is an example. Probably better off coming up with a list of TXIDs or CDSIDs you want for each gene.</span>
+variants[[<span class="st">&quot;MSK15&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK15&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>,<span class="st">&quot;DNMT3A.R446Q&quot;</span>))
+variants[[<span class="st">&quot;MSK18&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK18&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>))
+variants[[<span class="st">&quot;MSK71&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK71&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.Y685C&quot;</span>))
+variants[[<span class="st">&quot;MSK91&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK91&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;IDH2.R88Q&quot;</span>,<span class="st">&quot;IDH2.R10Q&quot;</span>))</code></pre></div>
+<p>Now we’ll take this list of variants and subset the genotype matrices and proceed through the following steps: + Remove variants that are mutated in &lt;2 cells + Remove remaining cells with any unknown genotypes + Remove variants that are mutated in &lt;2 cells again now that we have removed cells that were low quality</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filtered_NGT&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(SNV),<span class="cf">function</span>(sample){
+  <span class="kw">setNames</span>(<span class="kw">data.frame</span>(SNV[[sample]][,<span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>,<span class="kw">as.character</span>(variants[[sample]]<span class="op">$</span>SNV))]),
+           <span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>,variants[[sample]]<span class="op">$</span>AA))
+}),<span class="kw">names</span>(SNV))
+
+final_NGTs&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(filtered_NGT),<span class="cf">function</span>(x){
+    filtered_NGT[[x]] <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                    </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(.) <span class="op">||</span><span class="st"> </span><span class="kw">sum</span>(.<span class="op">%in%</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="op">&gt;=</span><span class="dv">2</span>) <span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">filter_all</span>(<span class="kw">all_vars</span>(.<span class="op">!=</span><span class="dv">3</span>)) <span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(.) <span class="op">||</span><span class="st"> </span><span class="kw">sum</span>(.<span class="op">%in%</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="op">&gt;=</span><span class="dv">2</span>) 
+}),<span class="kw">names</span>(filtered_NGT))</code></pre></div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tapestri-library.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assessing-clonal-abundance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
