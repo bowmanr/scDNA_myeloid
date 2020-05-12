@@ -187,20 +187,8 @@ clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</
          })),<span class="st">&quot;Clone&quot;</span>=y<span class="op">$</span>Clone)
     set &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">inner_join</span>(<span class="kw">data.frame</span>(clonal_abundance[[sample_to_test]]),z,<span class="dt">by=</span><span class="st">&quot;Clone&quot;</span>)),
                   <span class="kw">c</span>(<span class="st">&quot;Clone&quot;</span>,<span class="st">&quot;Count&quot;</span>,<span class="st">&quot;LCI&quot;</span>,<span class="st">&quot;UCI&quot;</span>))<span class="op">%&gt;%</span><span class="kw">filter</span>(LCI<span class="op">&gt;=</span>clone_cutoff)
-})</code></pre></div>
-<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(clonal_abundance_boot_CI) &lt;-<span class="kw">names</span>(clonal_abundance)</code></pre></div>
+})
+<span class="kw">names</span>(clonal_abundance_boot_CI) &lt;-<span class="kw">names</span>(clonal_abundance)</code></pre></div>
 <p>Now that we have a set of clones that we believe reproducibily have at least 10 cells, we remove cells and variants that are no longer represented at sufficient coverage.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clone_filtered_NGTs &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(sample_to_test){
 
@@ -216,8 +204,7 @@ clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</
   <span class="kw">mode</span>(clone_matrix) &lt;-<span class="st"> &quot;numeric&quot;</span>
   <span class="kw">colnames</span>(clone_matrix) &lt;-<span class="kw">colnames</span>(NGT_to_clone[[sample_to_test]])[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]
   variants_to_remove&lt;-<span class="kw">names</span>(<span class="kw">which</span>(<span class="kw">colSums</span>(clone_matrix)<span class="op">==</span><span class="dv">0</span>))
-  <span class="kw">print</span>(variants_to_remove)      
- 
+
   ## Check other conditions of interest that might remove sample from further processing
   <span class="cf">if</span>(<span class="kw">nrow</span>(clone_matrix)<span class="op">==</span><span class="dv">1</span>) {
     <span class="kw">return</span>(<span class="st">&quot;Only 1 clone left&quot;</span>)
@@ -228,10 +215,10 @@ clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</
     <span class="co"># Select only clones that survive the bootstrapping, and remove variants that fall out</span>
     NGT_to_clone_subset &lt;-<span class="st"> </span>NGT_to_clone[[sample_to_test]]<span class="op">%&gt;%</span>
 <span class="st">                            </span><span class="kw">filter</span>(Clone<span class="op">%in%</span>clonal_abundance_boot_CI[[sample_to_test]]<span class="op">$</span>Clone)<span class="op">%&gt;%</span>
-<span class="st">                            </span><span class="kw">select</span>(<span class="op">!</span><span class="st">`</span><span class="dt">variants_to_remove</span><span class="st">`</span>) 
+<span class="st">                            </span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove))
     
     <span class="co">#Create a key for the new and old clone names after removing variants that are no longer present</span>
-    clone_key &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;New&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span>variants_to_remove),<span class="dt">MARGIN=</span><span class="dv">1</span>,
+    clone_key &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;New&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove)),<span class="dt">MARGIN=</span><span class="dv">1</span>,
                                         <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}),
                             <span class="st">&quot;Old&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix),<span class="dt">MARGIN=</span><span class="dv">1</span>,
                                         <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}))
@@ -244,14 +231,6 @@ clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</
     <span class="kw">return</span>(NGT_to_clone_subset)
   }
 }),<span class="kw">names</span>(clonal_abundance_boot_CI))</code></pre></div>
-<pre><code>## character(0)</code></pre>
-<pre><code>## Note: Using an external vector in selections is ambiguous.
-## ℹ Use `all_of(variants_to_remove)` instead of `variants_to_remove` to silence this message.
-## ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
-## This message is displayed once per session.</code></pre>
-<pre><code>## character(0)
-## character(0)
-## character(0)</code></pre>
 <p>One last step I find useful is to explicitly state the genotype of each mutation in each clone. This si useful for the clonotype plots we’ll make later.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clonal_architecture &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(sample_to_test){
 

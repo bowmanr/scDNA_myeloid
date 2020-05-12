@@ -156,7 +156,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(tidyr)
 <span class="kw">library</span>(purrr)
 <span class="kw">library</span>(tapestri)</code></pre></div>
-<p>Place the downloaded files into a new folder called “data” also make an “analysis” folder. We’ll save things there frequently just to provide checkpoints so everything does not need to be run from scratch. The following took &lt;20 minutes for the 6 samples on my mac book, but obivously would take much longer for the whole cohort. The final step using the “convert_to_analyte” function in unnecessary, but you will see it comes into play when we merge with the DNA+protein data later in the paper.</p>
+<p>Place the downloaded files into a new folder called “data” also make an “analysis” folder. We’ll save things there frequently just to provide checkpoints so everything does not need to be run from scratch.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system</span>(<span class="st">&quot;mkdir /Users/bowmanr/Projects/scDNA/data&quot;</span>)
+<span class="kw">system</span>(<span class="st">&quot;mkdir /Users/bowmanr/Projects/scDNA/analysis&quot;</span>)</code></pre></div>
+<p>The following took &lt;20 minutes for the 6 samples on my mac book, but obivously would take much longer for the whole cohort. The final step using the “convert_to_analyte” function in unnecessary, but you will see it comes into play when we merge with the DNA+protein data later in the paper.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_set &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;./data/&quot;</span>,<span class="dt">full.names =</span> <span class="ot">TRUE</span>)
 <span class="kw">names</span>(sample_set) &lt;-<span class="kw">list.files</span>(<span class="st">&quot;./data/&quot;</span>)
 

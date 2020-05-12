@@ -142,6 +142,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="data-extraction-and-setup" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data Extraction and Setup</h1>
+<p>This section will explore how we take the data from the tapestri pipeline and process it in R. This was previously done with an intermediate step through Tapestri Insights, however R package development from the Mission Bio team has now obviated that step. For the manuscript, we indeed used Tapestri Insights, but I now recommend the appraoch here. One major file we’ll work with the numeric genotype matrix, which contains numeric values representing:</p>
+<p><strong>NGT.csv</strong> - genotype call converted to categorical (0-reference, 1-heterozygous mutation, 2-homozygous mutation, 3-unknown). Calls are made by GATK/Haplotypecaller.</p>
 </div>
             </section>
 
