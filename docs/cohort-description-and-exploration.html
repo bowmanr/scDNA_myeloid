@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-11" />
+<meta name="date" content="2020-05-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,13 +147,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>These files are going to look a little bit different than the ones we just made as far as protein nomenclature and the order of the columns in the NGT file. But this is the analysis that was used in the paper, and very little else should differ</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(ggplot2)</code></pre></div>
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(ComplexHeatmap)
+<span class="kw">library</span>(pals)
+<span class="kw">library</span>(cowplot)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA&quot;</span>)
 final_NGTs&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_NGTs.rds&quot;</span>)
 pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)
 final_sample_set&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)</code></pre></div>
 <p>We need to expand upon the phenotype matrix a bit to consolidate genotypes and phenotypes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_mut_melt&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">high_quality_samples&lt;-<span class="kw">names</span>(final_NGTs)[<span class="kw">sapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
+  <span class="kw">nrow</span>(final_NGTs[[x]])<span class="op">&gt;</span><span class="dv">100</span>
+  <span class="co">#ncol(final_NGTs[[x]])&gt;1</span>
+})]
+
+final_mut_melt&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
   <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=x,
              <span class="st">&quot;Mutation&quot;</span>=<span class="kw">colnames</span>(final_NGTs[[x]]),
              <span class="st">&quot;Gene&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(<span class="kw">colnames</span>(final_NGTs[[x]]),<span class="dt">split=</span><span class="st">&quot;[:_]&quot;</span>))[,<span class="dv">1</span>])

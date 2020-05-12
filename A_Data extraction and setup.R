@@ -29,6 +29,8 @@ named_sample_NGTs<-lapply(sample_NGTs,function(x){
 })
 saveRDS(named_sample_NGTs,file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_NGTs.rds")
 
+sample_NGTs <- readRDS("/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_NGTs.rds")
+sample_SNPS<-readRDS(file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_SNPS.rds")
 
 pheno <- read.xls("/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/pheno_MBio.xlsx")
 

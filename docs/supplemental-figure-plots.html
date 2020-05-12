@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-11" />
+<meta name="date" content="2020-05-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,24 +147,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Total number of mutations identified
 gg_mut_count&lt;-<span class="kw">ggplot</span>(final_mut_melt,<span class="kw">aes</span>(<span class="dt">x=</span>Gene))<span class="op">+</span>
 <span class="st">                        </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;count&quot;</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">12</span>)<span class="op">+</span>
+<span class="st">                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
 <span class="st">                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span>
 <span class="st">                        </span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of mutations&quot;</span>)<span class="op">+</span>
 <span class="st">                        </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>, <span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),
-                              <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))
-gg_mut_count</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+                              <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
+<span class="st">                        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Melt to get a tally of how many mutations per patient
 melted_mut_mat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">count</span>(final_mut_melt, Gene, Sample))
 melted_mut_mat<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(melted_mut_mat<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(melted_mut_mat<span class="op">$</span>Gene),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)))
 gg_mut_patient&lt;-<span class="kw">ggplot</span>(melted_mut_mat,<span class="kw">aes</span>(<span class="dt">x=</span>Gene))<span class="op">+</span>
 <span class="st">                      </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;count&quot;</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span><span class="dv">12</span>)<span class="op">+</span>
+<span class="st">                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span><span class="dv">10</span>)<span class="op">+</span>
 <span class="st">                      </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of patients with mutation&quot;</span>)<span class="op">+</span>
 <span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>,<span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),
-                            <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))
-gg_mut_patient</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+                            <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
+<span class="st">                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Total nunber of mutant genes per patient
 gg_mutated_genes_per_patient&lt;-melted_mut_mat<span class="op">%&gt;%</span>
 <span class="st">                                          </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span>
@@ -173,11 +171,10 @@ gg_mutated_genes_per_patient&lt;-melted_mut_mat<span class="op">%&gt;%</span>
 <span class="st">                                          </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span>
 <span class="st">                                          </span><span class="kw">xlab</span>(<span class="st">&quot;Number of genes&quot;</span>)<span class="op">+</span>
 <span class="st">                                          </span><span class="kw">ggtitle</span>(<span class="st">&quot;Mutant genes per patient&quot;</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">12</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))
-
-gg_mutated_genes_per_patient</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Total number of mutations per patient
 melted_variant_mat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">count</span>(final_mut_melt, Mutation, Sample))
 melted_variant_mat<span class="op">$</span>Mutation&lt;-<span class="st"> </span><span class="kw">factor</span>(melted_variant_mat<span class="op">$</span>Mutation, <span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(melted_variant_mat<span class="op">$</span>Mutation), <span class="dt">decreasing=</span><span class="ot">TRUE</span>)))
@@ -185,44 +182,57 @@ gg_mutations_per_patient&lt;-melted_variant_mat<span class="op">%&gt;%</span>
 <span class="st">                                        </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span>
 <span class="st">                                        </span>tally<span class="op">%&gt;%</span>
 <span class="st">                                        </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>n))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span>
-<span class="st">                                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">12</span>)<span class="op">+</span>
+<span class="st">                                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
 <span class="st">                                        </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Variants per patient&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Number of variants&quot;</span>)
-gg_mutations_per_patient</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<span class="st">                                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Variants per patient&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Number of variants&quot;</span>)<span class="op">+</span><span class="st">                              </span>
+<span class="st">                                        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
+<span class="st">                                        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_grid</span>(gg_mut_count,gg_mut_patient,
+          gg_mutated_genes_per_patient,gg_mutations_per_patient,
+          <span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,
+          <span class="dt">labels =</span> <span class="st">&quot;AUTO&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-10"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-10-1.png" alt="Extended Figure 1A-D" width="864" />
+<p class="caption">
+Figure 4.1: Extended Figure 1A-D
+</p>
+</div>
+<p>An extra plot worth noting is below. How many cells are in each sample?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Cells per sample
-gg_cells_per_patient&lt;-<span class="kw">data.frame</span>(<span class="st">&quot;Cells&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_NGTs,nrow)))<span class="op">%&gt;%</span>
+<span class="kw">data.frame</span>(<span class="st">&quot;Cells&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_NGTs,nrow)))<span class="op">%&gt;%</span>
 <span class="st">                                          </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Cells))<span class="op">+</span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)<span class="op">+</span>
-<span class="st">                                                  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">12</span>)<span class="op">+</span>
+<span class="st">                                                  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
 <span class="st">                                                  </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                                                  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Informative Cells per Sample&quot;</span>)
-gg_cells_per_patient</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<span class="st">                                                  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Informative Cells per Sample&quot;</span>)<span class="op">+</span>
+<span class="st">                                                  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
+<span class="st">                                                  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-11-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>Next we want to make the co-occurence matrix on a sample level</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cooccur)
 <span class="kw">library</span>(reshape2)
 
 ### create matrix for oncoprint
 mut_mat &lt;-<span class="st"> </span><span class="kw">table</span>(melted_mut_mat<span class="op">$</span>Sample,melted_mut_mat<span class="op">$</span>Gene)
-mut_mat &lt;-<span class="st"> </span>mut_mat[,<span class="kw">colSums</span>(mut_mat)<span class="op">!=</span><span class="dv">0</span>]
 
 ### Prepare matrix for co occurence map
-cooccur_mat &lt;-<span class="st"> </span><span class="kw">cooccur</span>(<span class="dt">mat=</span><span class="kw">t</span>(mut_mat),<span class="dt">type=</span><span class="st">&quot;spp_site&quot;</span>,<span class="dt">only_effects =</span> <span class="ot">FALSE</span>,<span class="dt">eff_matrix=</span><span class="ot">TRUE</span>,<span class="dt">thresh=</span><span class="ot">FALSE</span>,<span class="dt">eff_standard=</span><span class="ot">FALSE</span>,<span class="dt">spp_names=</span><span class="ot">TRUE</span>)<span class="op">$</span>results
-cooccur_mat<span class="op">$</span>score&lt;-<span class="st">  </span><span class="kw">ifelse</span>(cooccur_mat[,<span class="st">&quot;p_lt&quot;</span>]<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="op">-</span><span class="dv">1</span>,<span class="kw">ifelse</span>(cooccur_mat[,<span class="st">&quot;p_gt&quot;</span>]<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="dv">1</span>,<span class="dv">0</span>))
-cooccur_mat_subset &lt;-<span class="st"> </span><span class="kw">rbind</span>(cooccur_mat[,<span class="kw">c</span>(<span class="st">&quot;sp1_name&quot;</span>,<span class="st">&quot;sp2_name&quot;</span>,<span class="st">&quot;score&quot;</span>)],<span class="kw">c</span>(<span class="kw">setdiff</span>(cooccur_mat<span class="op">$</span>sp2_name,cooccur_mat<span class="op">$</span>sp1_name),<span class="kw">setdiff</span>(cooccur_mat<span class="op">$</span>sp1_name,cooccur_mat<span class="op">$</span>sp2_name),<span class="dv">0</span>))
-cooccur_data_mat &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(cooccur_mat_subset, sp1_name  <span class="op">~</span><span class="st"> </span>sp2_name, <span class="dt">value.var=</span><span class="st">&quot;score&quot;</span>)
-<span class="kw">rownames</span>(cooccur_data_mat) &lt;-<span class="st"> </span>cooccur_data_mat[,<span class="dv">1</span>]
-cooccur_data_mat2&lt;-cooccur_data_mat[,<span class="op">-</span><span class="dv">1</span>]
-cooccur_data_mat2[<span class="kw">is.na</span>(cooccur_data_mat2)]&lt;-<span class="dv">0</span>
-cooccur_data_mat2[<span class="kw">lower.tri</span>(cooccur_data_mat2)]&lt;-<span class="ot">NA</span>
-cooccur_data_mat2<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">rownames</span>(cooccur_data_mat2)
-cooccur_data_mat_melt &lt;-<span class="st"> </span><span class="kw">na.omit</span>(<span class="kw">melt</span>(cooccur_data_mat2, <span class="st">&#39;Gene&#39;</span>, <span class="dt">variable_name=</span><span class="st">&#39;Gene2&#39;</span>))
-cooccur_data_mat_melt<span class="op">$</span>variable &lt;-<span class="st"> </span><span class="kw">factor</span>(cooccur_data_mat_melt<span class="op">$</span>variable, <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">levels</span>(cooccur_data_mat_melt<span class="op">$</span>variable)))
+cooccur_mat &lt;-<span class="st"> </span><span class="kw">cooccur</span>(<span class="dt">mat=</span><span class="kw">t</span>(mut_mat), <span class="dt">type=</span><span class="st">&quot;spp_site&quot;</span>,
+                       <span class="dt">only_effects =</span> <span class="ot">FALSE</span>,<span class="dt">eff_matrix=</span><span class="ot">TRUE</span>,
+                       <span class="dt">thresh=</span><span class="ot">FALSE</span>, <span class="dt">eff_standard=</span><span class="ot">FALSE</span>,<span class="dt">spp_names=</span><span class="ot">TRUE</span>)<span class="op">$</span>results
 
+cooccur_data_mat &lt;-<span class="st"> </span>cooccur_mat<span class="op">%&gt;%</span>
+<span class="st">                            </span><span class="kw">mutate</span>(<span class="dt">score=</span><span class="kw">ifelse</span>(p_lt<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="op">-</span><span class="dv">1</span>,
+                                            <span class="kw">ifelse</span>(p_gt<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="dv">1</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span>
+<span class="st">                            </span><span class="kw">select</span>(sp1_name,sp2_name,score)<span class="op">%&gt;%</span>
+<span class="st">                            </span><span class="kw">add_row</span>(<span class="dt">sp2_name=</span><span class="kw">setdiff</span>(.<span class="op">$</span>sp1_name,.<span class="op">$</span>sp2_name),
+                                    <span class="dt">sp1_name=</span><span class="kw">setdiff</span>(.<span class="op">$</span>sp2_name,.<span class="op">$</span>sp1_name),
+                                               <span class="dt">score=</span><span class="dv">0</span>)
+cooccur_data_mat<span class="op">$</span>sp1_name&lt;-<span class="kw">factor</span>(cooccur_data_mat<span class="op">$</span>sp1_name,<span class="dt">levels=</span><span class="kw">unique</span>(cooccur_data_mat<span class="op">$</span>sp1_name))
+cooccur_data_mat<span class="op">$</span>sp2_name&lt;-<span class="kw">factor</span>(cooccur_data_mat<span class="op">$</span>sp2_name,
+                                  <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">levels</span>(cooccur_data_mat<span class="op">$</span>sp1_name)))
   
   <span class="co"># Triangle heatmap to compare cohorts</span>
-  grob_corrplot&lt;-<span class="kw">ggplot</span>(cooccur_data_mat_melt, <span class="kw">aes</span>(Gene, variable))<span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(value)), <span class="dt">color=</span><span class="st">&#39;grey90&#39;</span>) <span class="op">+</span>
+  grob_corrplot&lt;-<span class="kw">ggplot</span>(cooccur_data_mat<span class="op">%&gt;%</span><span class="kw">filter</span>(sp1_name<span class="op">!=</span><span class="st">&quot;BRAF&quot;</span>), <span class="kw">aes</span>(sp1_name,sp2_name))<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(score)), <span class="dt">color=</span><span class="st">&#39;grey90&#39;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;-1&quot;</span>=<span class="st">&quot;firebrick3&quot;</span>,<span class="st">&quot;0&quot;</span>=<span class="st">&quot;white&quot;</span>,<span class="st">&quot;1&quot;</span>=<span class="st">&quot;steelblue2&quot;</span>),<span class="st">&quot;Correlation&quot;</span>,
                       <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Mutually Exclusive&quot;</span>,<span class="st">&quot;Not Significant&quot;</span>,<span class="st">&quot;Mutually Inclusive&quot;</span>))<span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">10</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
@@ -233,7 +243,7 @@ cooccur_data_mat_melt<span class="op">$</span>variable &lt;-<span class="st"> </
           <span class="dt">legend.direction =</span> <span class="st">&quot;vertical&quot;</span>)<span class="op">+</span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.key.size =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>,<span class="st">&quot;line&quot;</span>))
 grob_corrplot</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_mut_melt<span class="op">$</span>Variant_Class&lt;-<span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;fs</span><span class="ch">\\</span><span class="st">*&quot;</span>,final_mut_melt<span class="op">$</span>Mutation),<span class="st">&quot;Indel&quot;</span>,
                                  <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;INS_&quot;</span>,final_mut_melt<span class="op">$</span>Mutation),<span class="st">&quot;Indel&quot;</span>,
                                         <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;ins&quot;</span>,final_mut_melt<span class="op">$</span>Mutation),<span class="st">&quot;Indel&quot;</span>,
@@ -284,52 +294,16 @@ alter_fun =<span class="st"> </span><span class="kw">list</span>(
 )
 
 
-<span class="kw">library</span>(ComplexHeatmap)
-
-sample_key&lt;-<span class="kw">read.delim</span>(<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/OS_and_Cheatsheet/Mission_Bio_MRN_RunID_Samples.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
-sample_clinical&lt;-<span class="kw">read.delim</span>(<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/OS_and_Cheatsheet/sample_clinical_information.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
-
-merged_set&lt;-<span class="kw">full_join</span>(sample_key,sample_clinical,<span class="dt">by=</span><span class="st">&quot;Molecular_accession_num&quot;</span>)
-
-missing_patient_info&lt;-<span class="kw">setdiff</span>(<span class="kw">colnames</span>(final_mat),merged_set<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample.Name<span class="op">%in%</span><span class="kw">colnames</span>(final_mat))<span class="op">%&gt;%</span><span class="kw">distinct</span>(Sample.Name)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample.Name))
-complete_patient_info&lt;-<span class="kw">intersect</span>(<span class="kw">colnames</span>(final_mat),merged_set<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample.Name<span class="op">%in%</span><span class="kw">colnames</span>(final_mat))<span class="op">%&gt;%</span><span class="kw">distinct</span>(Sample.Name)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample.Name))
-
-
-set&lt;-<span class="kw">rbind</span>(<span class="kw">data.frame</span>(merged_set<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample.Name<span class="op">%in%</span>complete_patient_info)<span class="op">%&gt;%</span><span class="kw">select</span>(Dx,Disease.Status,Sample.Name)),
-      <span class="kw">data.frame</span>(<span class="st">&quot;Dx&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;^CH&quot;</span>,missing_patient_info),<span class="st">&quot;CH&quot;</span>,<span class="st">&quot;AML&quot;</span>),
-                 <span class="st">&quot;Disease.Status&quot;</span>=<span class="ot">NA</span>,
-                <span class="st">&quot;Sample.Name&quot;</span>=missing_patient_info))
-
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;S5522&quot;</span>),<span class="st">&quot;Dx&quot;</span>] &lt;-<span class="st"> &quot;tAML&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;F7469&quot;</span>,<span class="st">&quot;F7469dnew&quot;</span>,<span class="st">&quot;MA4244B&quot;</span>,<span class="st">&quot;MA6300B&quot;</span>,<span class="st">&quot;MA6363C&quot;</span>),<span class="st">&quot;Dx&quot;</span>] &lt;-<span class="st"> &quot;sAML&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;RF2768&quot;</span>,<span class="st">&quot;R6501&quot;</span>,<span class="st">&quot;CB0346&quot;</span>,<span class="st">&quot;CB4833&quot;</span>,<span class="st">&quot;E3083new&quot;</span>,<span class="st">&quot;E6502&quot;</span>,<span class="st">&quot;E6522&quot;</span>,<span class="st">&quot;E8261&quot;</span>,<span class="st">&quot;F5348&quot;</span>,<span class="st">&quot;R2278new&quot;</span>),<span class="st">&quot;Dx&quot;</span>] &lt;-<span class="st"> &quot;AML&quot;</span>
-
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;S5046&quot;</span>,<span class="st">&quot;S5331&quot;</span>,<span class="st">&quot;S4410&quot;</span>,<span class="st">&quot;S6225&quot;</span>,<span class="st">&quot;S5522&quot;</span>,<span class="st">&quot;CB4833&quot;</span>,<span class="st">&quot;E3083new&quot;</span>,<span class="st">&quot;E6502&quot;</span>),<span class="st">&quot;Disease.Status&quot;</span>] &lt;-<span class="st"> &quot;Relapse&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;S3326&quot;</span>,<span class="st">&quot;S5346&quot;</span>,<span class="st">&quot;S5480&quot;</span>,<span class="st">&quot;S5941&quot;</span>,<span class="st">&quot;Meyer_1&quot;</span>,<span class="st">&quot;17-005&quot;</span>,<span class="st">&quot;17-006&quot;</span>,<span class="st">&quot;17-020&quot;</span>,<span class="st">&quot;17-021&quot;</span>),<span class="st">&quot;Disease.Status&quot;</span>] &lt;-<span class="st"> &quot;Newly Diagnosed&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;RF2768&quot;</span>,<span class="st">&quot;R6501&quot;</span>,<span class="st">&quot;CB0346&quot;</span>,<span class="st">&quot;F5348&quot;</span>,<span class="st">&quot;R2278new&quot;</span>),<span class="st">&quot;Disease.Status&quot;</span>] &lt;-<span class="st"> &quot;Newly Diagnosed&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;E6522&quot;</span>,<span class="st">&quot;F7469&quot;</span>,<span class="st">&quot;F7469dnew&quot;</span>,<span class="st">&quot;MA6300B&quot;</span>,<span class="st">&quot;MA6363C&quot;</span>),<span class="st">&quot;Disease.Status&quot;</span>] &lt;-<span class="st"> &quot;Newly Transformed&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;E8261&quot;</span>,<span class="st">&quot;MA4244B&quot;</span>),<span class="st">&quot;Disease.Status&quot;</span>] &lt;-<span class="st"> &quot;Refractory&quot;</span>
-
-
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;MA0092A&quot;</span>,<span class="st">&quot;MA1715B&quot;</span>,<span class="st">&quot;MA4244A&quot;</span>,<span class="st">&quot;MA4849B&quot;</span>,<span class="st">&quot;MA6300A&quot;</span>,<span class="st">&quot;MA6363B&quot;</span>,<span class="st">&quot;MA9521A&quot;</span>,<span class="st">&quot;MA9521B&quot;</span>),<span class="st">&quot;Dx&quot;</span>] &lt;-<span class="st"> &quot;MPN&quot;</span>
-set[set<span class="op">$</span>Sample.Name<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;MA0092A&quot;</span>,<span class="st">&quot;MA1715B&quot;</span>,<span class="st">&quot;MA4244A&quot;</span>,<span class="st">&quot;MA4849B&quot;</span>,<span class="st">&quot;MA6300A&quot;</span>,<span class="st">&quot;MA6363B&quot;</span>,<span class="st">&quot;MA9521A&quot;</span>,<span class="st">&quot;MA9521B&quot;</span>),<span class="st">&quot;Disease.Status&quot;</span>] &lt;-<span class="st"> &quot;Chronic Stage&quot;</span>
-
-set_dedup&lt;-set[<span class="op">!</span><span class="kw">duplicated</span>(<span class="kw">as.matrix</span>(set<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample.Name<span class="op">%in%</span><span class="kw">colnames</span>(final_mat)))),]
-
-set_dedup&lt;-<span class="kw">read.delim</span>(<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/OS_and_Cheatsheet/BB_merged_sample_clinical_information.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,<span class="dt">row.names=</span><span class="dv">4</span>)[,<span class="op">-</span><span class="dv">1</span>]
-
-<span class="kw">colnames</span>(set_dedup) &lt;-<span class="kw">c</span>(<span class="st">&quot;Diagnosis&quot;</span>,<span class="st">&quot;Status&quot;</span>)
-set_dedup&lt;-<span class="st"> </span>set_dedup[<span class="kw">colnames</span>(final_mat),]
-set_dedup[<span class="kw">is.na</span>(set_dedup[,<span class="dv">2</span>]),<span class="st">&quot;Status&quot;</span>] &lt;-<span class="st"> &quot;Other&quot;</span>
-
-color_set &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Diagnosis&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">okabe</span>(<span class="dt">n=</span><span class="kw">length</span>(<span class="kw">unique</span>(set_dedup[,<span class="dv">1</span>]))),<span class="kw">c</span>( <span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MDS&quot;</span>,<span class="st">&quot;MPN&quot;</span>, <span class="st">&quot;AML&quot;</span>, <span class="st">&quot;sAML&quot;</span> ,<span class="st">&quot;tAML&quot;</span>,<span class="st">&quot;Other&quot;</span>) ),
-                       <span class="st">&quot;Status&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">tol</span>(<span class="dt">n=</span>(<span class="kw">length</span>(<span class="kw">unique</span>(set_dedup[,<span class="dv">2</span>])))),<span class="kw">c</span>(<span class="st">&quot;Newly Diagnosed&quot;</span>,<span class="st">&quot;Relapse/Refractory&quot;</span>,<span class="st">&quot;Newly Transformed&quot;</span>,<span class="st">&quot;Persistent&quot;</span>,<span class="st">&quot;Chronic Stage&quot;</span>, <span class="st">&quot;Other&quot;</span>)))                       
+<span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+pheno<span class="op">$</span>Disease.Status &lt;-<span class="st"> </span><span class="kw">as.character</span>(pheno<span class="op">$</span>Disease.Status)
+pheno<span class="op">$</span>Disease.Status[<span class="kw">is.na</span>(pheno<span class="op">$</span>Disease.Status)] &lt;-<span class="st"> &quot;Other&quot;</span>
+color_set &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Dx&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">okabe</span>(<span class="dt">n=</span><span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="dv">1</span>])))),<span class="kw">c</span>( <span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MDS&quot;</span>,<span class="st">&quot;MPN&quot;</span>, <span class="st">&quot;AML&quot;</span>, <span class="st">&quot;sAML&quot;</span> ,<span class="st">&quot;tAML&quot;</span>,<span class="st">&quot;Other&quot;</span>) ),
+                       <span class="st">&quot;Disease.Status&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">tol</span>(<span class="dt">n=</span>(<span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="dv">2</span>]))))),<span class="kw">c</span>(<span class="st">&quot;Newly Diagnosed&quot;</span>,<span class="st">&quot;Relapse/Refractory&quot;</span>,<span class="st">&quot;Newly Transformed&quot;</span>,<span class="st">&quot;Persistent&quot;</span>,<span class="st">&quot;Chronic Stage&quot;</span>, <span class="st">&quot;Other&quot;</span>)))                       
                                                     
 top_annotation=<span class="kw">HeatmapAnnotation</span>(<span class="dt">cbar =</span> <span class="kw">anno_oncoprint_barplot</span>(),
-                  <span class="dt">df=</span>set_dedup[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],
-                  <span class="dt">col =</span><span class="kw">list</span>(<span class="st">&quot;Diagnosis&quot;</span>=color_set[[<span class="dv">1</span>]],
-                            <span class="st">&quot;Status&quot;</span>=color_set[[<span class="dv">2</span>]])
-                  )
+                  <span class="dt">df=</span>pheno[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],
+                  <span class="dt">col =</span>color_set)
+                  
 
 
 
@@ -337,6 +311,7 @@ column_title =<span class="st"> &quot;&quot;</span>
 heatmap_legend_param =<span class="st"> </span><span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&quot;Alternations&quot;</span>, 
                             <span class="dt">at =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>), 
                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>))
+
 <span class="kw">oncoPrint</span>(final_mat,
           <span class="dt">alter_fun =</span> alter_fun, 
           <span class="dt">col =</span> col, 
@@ -344,6 +319,8 @@ heatmap_legend_param =<span class="st"> </span><span class="kw">list</span>(<spa
          <span class="co">#heatmap_legend_param = list(direction = &quot;horizontal&quot;),</span>
           <span class="co">#column_title = column_title# </span>
           <span class="dt">heatmap_legend_param =</span> heatmap_legend_param)</code></pre></div>
+<pre><code>## All mutation types: Missense, Indel, Nonsense</code></pre>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 <!-- </div> -->
