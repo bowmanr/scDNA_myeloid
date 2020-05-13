@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-12" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="assessing-clonal-abundance.html"/>
-<link rel="next" href="supplemental-figure-plots.html"/>
+<link rel="next" href="cohort-description-ef1a-d.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -114,7 +115,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
-<li class="chapter" data-level="4.1" data-path="supplemental-figure-plots.html"><a href="supplemental-figure-plots.html"><i class="fa fa-check"></i><b>4.1</b> Supplemental Figure Plots</a></li>
+<li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
+<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -144,29 +147,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="cohort-description-and-exploration" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Cohort description and exploration</h1>
-<p>These files are going to look a little bit different than the ones we just made as far as protein nomenclature and the order of the columns in the NGT file. But this is the analysis that was used in the paper, and very little else should differ</p>
+<p>These files are going to look a little bit different than the ones we just made as far as protein nomenclature and the order of the columns in the NGT file. But this is the analysis that was used in the paper, and very little else should differ.</p>
+<p>Let’s start by loading in some packages that are recurrently used. Other packages that are only used in one chunk of code are listed appropriately below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(ComplexHeatmap)
-<span class="kw">library</span>(pals)
-<span class="kw">library</span>(cowplot)</code></pre></div>
+<span class="kw">library</span>(ggplot2)</code></pre></div>
+<p>Here we will focus on the cohort level analysis, and load in the NGT files <em>before</em> they were filtered for clonality.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA&quot;</span>)
 final_NGTs&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_NGTs.rds&quot;</span>)
-pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)
-final_sample_set&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)</code></pre></div>
-<p>We need to expand upon the phenotype matrix a bit to consolidate genotypes and phenotypes.</p>
+pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</code></pre></div>
+<p>One filter we put in was to exclude samples &lt;100 cells.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">high_quality_samples&lt;-<span class="kw">names</span>(final_NGTs)[<span class="kw">sapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
   <span class="kw">nrow</span>(final_NGTs[[x]])<span class="op">&gt;</span><span class="dv">100</span>
-  <span class="co">#ncol(final_NGTs[[x]])&gt;1</span>
-})]
-
-final_mut_melt&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
+})]</code></pre></div>
+<p>Next we want a catalogue of all mutations so we can determine how many patients were mutated for each gene and how many different mutations were seen in total for each gene.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_mut_melt&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
   <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=x,
              <span class="st">&quot;Mutation&quot;</span>=<span class="kw">colnames</span>(final_NGTs[[x]]),
              <span class="st">&quot;Gene&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(<span class="kw">colnames</span>(final_NGTs[[x]]),<span class="dt">split=</span><span class="st">&quot;[:_]&quot;</span>))[,<span class="dv">1</span>])
-      }))
-final_mut_melt<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(final_mut_melt<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(final_mut_melt<span class="op">$</span>Gene), <span class="dt">decreasing=</span><span class="ot">TRUE</span>)))</code></pre></div>
+      }))</code></pre></div>
+<p>Next pages will go into how we made each of the Figures.</p>
 </div>
             </section>
 
@@ -174,7 +174,7 @@ final_mut_melt<span class="op">$</span>Gene&lt;-<span class="st"> </span><span c
         </div>
       </div>
 <a href="assessing-clonal-abundance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="supplemental-figure-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cohort-description-ef1a-d.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-12" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -114,7 +115,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
-<li class="chapter" data-level="4.1" data-path="supplemental-figure-plots.html"><a href="supplemental-figure-plots.html"><i class="fa fa-check"></i><b>4.1</b> Supplemental Figure Plots</a></li>
+<li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
+<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -151,8 +154,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 SNV&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(processed_SNV_files),<span class="cf">function</span>(x){
   y&lt;-<span class="kw">readRDS</span>(processed_SNV_files[x])
-  <span class="kw">data.frame</span>(<span class="st">&quot;Cell&quot;</span>=<span class="kw">rownames</span>(y), <span class="co">#moving the cell name into data.frame prevents some errors later</span>
-             y<span class="op">$</span>data) <span class="co">#extracts the genotype matrix from the analyte object</span>
+  <span class="kw">data.frame</span>(<span class="st">&quot;Cell&quot;</span>=<span class="kw">rownames</span>(y), <span class="co"># moving the cell name into data.frame prevents some errors later</span>
+             y<span class="op">$</span>data) <span class="co"># extracts the genotype matrix from the analyte object</span>
 }), <span class="kw">names</span>(processed_SNV_files))</code></pre></div>
 <p>So one important note is that the variant annotation we used in the manuscript was done with Tapesstri Insights. Which was quite convenient as it put out a 1:1 mapping of SNV to amino acid changes, presumably by having a list of preferred TXIDs for each gene. So I’ve outlined what I think is a decent approach to this here. <em>Importantly, this approach removes variants that are not protein encoding, and thus removes splice variants</em></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">txdb &lt;-<span class="st"> </span>TxDb.Hsapiens.UCSC.hg19.knownGene
@@ -179,7 +182,8 @@ variants &lt;-<span class="st"> </span><span class="kw">lapply</span>(SNV,<span 
   <span class="kw">return</span>(<span class="kw">data.frame</span>(out2)<span class="op">%&gt;%</span><span class="kw">distinct</span>(SNV,AA))
   })
 
-<span class="co">#select the correct variants, this is an example. Probably better off coming up with a list of TXIDs or CDSIDs you want for each gene.</span>
+<span class="co"># Select the correct variants, this is an example. </span>
+<span class="co"># Probably better off coming up with a list of TXIDs or CDSIDs you want for each gene.</span>
 variants[[<span class="st">&quot;MSK15&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK15&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>,<span class="st">&quot;DNMT3A.R446Q&quot;</span>))
 variants[[<span class="st">&quot;MSK18&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK18&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>))
 variants[[<span class="st">&quot;MSK71&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK71&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.Y685C&quot;</span>))

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.2 Oncoprint | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.2 Oncoprint | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.2 Oncoprint | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2020-05-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cohort-description-ef1a-d.html"/>
+<link rel="next" href="cohort-level-clonality-analysis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>3</b> Data Extraction and Setup</a><ul>
+<li class="chapter" data-level="3.1" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>3.1</b> Tapestri Package</a></li>
+<li class="chapter" data-level="3.2" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>3.2</b> Post processing</a></li>
+<li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
+<li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
+<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a><ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="oncoprint" class="section level2">
+<h2><span class="header-section-number">4.2</span> Oncoprint</h2>
+<p>Now we are going to make the oncoprint that is in Figure 1A. Check out this <a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/oncoprint.html">example</a> from the ComplexHeatmap package for a better understanding of why things are formatted the way they are.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pals) <span class="co"># great package with color palettes in R</span>
+<span class="kw">library</span>(ComplexHeatmap) <span class="co">#used for making the oncoprint</span>
+
+<span class="co">#Here we will identify whether a variant is an indel, Nonsense or Missense mutation</span>
+<span class="co">#Next we group samples together and pivot the matrix into wide format</span>
+fill_values &lt;-<span class="kw">setNames</span>(<span class="kw">as.list</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(<span class="kw">levels</span>(final_mut_melt<span class="op">$</span>Gene)))),<span class="kw">levels</span>(final_mut_melt<span class="op">$</span>Gene))
+mut_mat_wide&lt;-final_mut_melt<span class="op">%&gt;%</span>
+<span class="st">                        </span><span class="kw">mutate</span>(<span class="dt">Variant_Class=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;fs</span><span class="ch">\\</span><span class="st">*|INS_|ins|ext|del&quot;</span>,.<span class="op">$</span>Mutation),<span class="st">&quot;Indel&quot;</span>,
+                                                  <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">*$&quot;</span>,.<span class="op">$</span>Mutation),<span class="st">&quot;Nonsense&quot;</span>,<span class="st">&quot;Missense&quot;</span>)))<span class="op">%&gt;%</span>
+<span class="st">                        </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;Gene&quot;</span>,<span class="st">&quot;Variant_Class&quot;</span>,<span class="st">&quot;Sample&quot;</span>),<span class="kw">as.character</span>())<span class="op">%&gt;%</span>
+<span class="st">                        </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span>
+<span class="st">                        </span><span class="kw">pivot_wider</span>(<span class="dt">id_cols=</span>Sample, 
+                                     <span class="dt">names_from  =</span> Gene, 
+                                     <span class="dt">values_from =</span> Variant_Class,
+                                     <span class="dt">values_fn   =</span> <span class="kw">list</span>(<span class="dt">Variant_Class =</span>list),
+                                     <span class="dt">values_fill =</span> <span class="kw">list</span>(<span class="dt">Variant_Class =</span> <span class="st">&quot; &quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">                        </span><span class="kw">ungroup</span>(Sample)<span class="op">%&gt;%</span><span class="kw">data.frame</span>()
+
+<span class="co"># At this point, each column is actually a list, and variants are represnted as a list within a list. </span>
+<span class="co"># So we want to unpack it a bit, and turn those variant lists in a ; separated vector</span>
+mut_mat_wide_storage &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(mut_mat_wide)){ <span class="co"># start at 2 to ignore the first column of sample names</span>
+  mut_mat_wide_storage[[i]]&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(mut_mat_wide[,i],<span class="cf">function</span>(x){
+    <span class="cf">if</span>(x<span class="op">==</span><span class="st">&quot; &quot;</span>){
+      <span class="kw">return</span>(x)
+    } <span class="cf">else</span>{
+    <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;;&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;;&quot;</span>)
+      }
+   }
+   ))
+}
+
+## The rest of this just turns this back into a matrix in the format suggested by ComplexHeatmap
+mut_mat_wide_storage[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">as.character</span>(mut_mat_wide[,<span class="st">&quot;Sample&quot;</span>])
+final_mat &lt;-<span class="st"> </span><span class="kw">do.call</span>(cbind,mut_mat_wide_storage)
+<span class="kw">colnames</span>(final_mat) &lt;-<span class="st"> </span><span class="kw">colnames</span>(mut_mat_wide)
+<span class="kw">rownames</span>(final_mat) &lt;-<span class="st"> </span>final_mat[,<span class="dv">1</span>]
+final_mat &lt;-<span class="st"> </span><span class="kw">t</span>(final_mat[,<span class="op">-</span><span class="dv">1</span>])
+
+
+<span class="co">#Now we set up the color schemes for the variants on each row</span>
+variant_type_colors =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span> =<span class="st"> &quot;darkorchid2&quot;</span>, <span class="st">&quot;Nonsense&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;Missense&quot;</span> =<span class="st"> &quot;darkgreen&quot;</span>)
+alter_functions =<span class="st"> </span><span class="kw">list</span>(
+  <span class="dt">background =</span> <span class="cf">function</span>(x, y, w, h) {
+    <span class="kw">grid.rect</span>(x, y, w, h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.25</span>, <span class="st">&quot;mm&quot;</span>), 
+              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> <span class="st">&quot;#CCCCCC&quot;</span>, <span class="dt">col =</span> <span class="ot">NA</span>))
+  },
+  <span class="dt">Indel =</span> <span class="cf">function</span>(x, y, w, h) {
+    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), 
+              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Indel&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))
+  },
+  <span class="dt">Nonsense =</span> <span class="cf">function</span>(x, y, w, h) {
+    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), 
+              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Nonsense&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))
+  },
+  <span class="dt">Missense =</span> <span class="cf">function</span>(x, y, w, h) {
+    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">*</span><span class="fl">0.33</span>, 
+              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Missense&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))
+  }
+)
+
+<span class="co"># Establish colors for each disease state and diagnosis</span>
+color_set &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Dx&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">okabe</span>(<span class="dt">n=</span><span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="st">&quot;Dx&quot;</span>])))),
+                                    <span class="kw">c</span>( <span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MDS&quot;</span>,<span class="st">&quot;MPN&quot;</span>, <span class="st">&quot;AML&quot;</span>, <span class="st">&quot;sAML&quot;</span> ,<span class="st">&quot;tAML&quot;</span>,<span class="st">&quot;Other&quot;</span>) ),
+                  <span class="st">&quot;Disease.Status&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">tol</span>(<span class="dt">n=</span>(<span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="st">&quot;Disease.Status&quot;</span>]))))),
+                                    <span class="kw">c</span>(<span class="st">&quot;Newly Diagnosed&quot;</span>,<span class="st">&quot;Relapse/Refractory&quot;</span>,<span class="st">&quot;Newly Transformed&quot;</span>,
+                                      <span class="st">&quot;Persistent&quot;</span>,<span class="st">&quot;Chronic Stage&quot;</span>, <span class="st">&quot;Other&quot;</span>)))                       
+                
+<span class="co"># Format the annotations at the top of the oncoprint                                    </span>
+top_annotation &lt;-<span class="st"> </span><span class="kw">HeatmapAnnotation</span>(<span class="dt">cbar =</span> <span class="kw">anno_oncoprint_barplot</span>(),
+                                    <span class="dt">df   =</span> pheno[,<span class="kw">c</span>(<span class="st">&quot;Dx&quot;</span>,<span class="st">&quot;Disease.Status&quot;</span>)],
+                                    <span class="dt">col  =</span> color_set,
+                                    <span class="dt">annotation_name_side =</span> <span class="st">&quot;left&quot;</span>)
+
+<span class="co"># Indicate what should be included in the legend                  </span>
+heatmap_legend_param &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title  =</span> <span class="st">&quot;Alternations&quot;</span>, 
+                             <span class="dt">at     =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>), 
+                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>))
+
+<span class="co"># Make the oncoprint</span>
+<span class="kw">oncoPrint</span>(final_mat,
+          <span class="dt">alter_fun            =</span> alter_functions, 
+          <span class="dt">col                  =</span> variant_type_colors, 
+          <span class="dt">top_annotation       =</span> top_annotation,
+          <span class="dt">heatmap_legend_param =</span> heatmap_legend_param)</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-14-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cohort-description-ef1a-d.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cohort-level-clonality-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-12" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -114,7 +115,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
-<li class="chapter" data-level="4.1" data-path="supplemental-figure-plots.html"><a href="supplemental-figure-plots.html"><i class="fa fa-check"></i><b>4.1</b> Supplemental Figure Plots</a></li>
+<li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
+<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -146,16 +149,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.3</span> Assessing clonal abundance</h2>
 <p>This will be the last code example that proceeds with our limited sample set. After this, the tutorial will procede with the data used in the manuscript. This analysis will focus only on samples that have greater than one mutation.</p>
 <p>The general workflow is as follows * Select samples that have at least 2 mutaions * Clone assigment * Tally clonal abundance * Establish a clonal abundance confidence itnerval</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Select samples with at least 2 mutations </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Select samples with at least 2 mutations </span>
 clonal_sample_set &lt;-<span class="st"> </span><span class="kw">names</span>(final_NGTs)[<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_NGTs,dim))[,<span class="dv">2</span>]<span class="op">&gt;</span><span class="dv">2</span>]
 
-<span class="co">#Order columns based on computed_VAF, and assign a clone to each cell</span>
+<span class="co"># Order columns based on computed_VAF, and assign a clone to each cell</span>
 NGT_to_clone&lt;-<span class="kw">lapply</span>(final_NGTs[clonal_sample_set],<span class="cf">function</span>(y){
   bulk_VAF_order &lt;-<span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">colSums</span>(y[,<span class="op">-</span><span class="dv">1</span>]),<span class="dt">decreasing=</span><span class="ot">TRUE</span>))
   y[,<span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>,bulk_VAF_order)] <span class="op">%&gt;%</span><span class="kw">unite</span>(<span class="st">&quot;Clone&quot;</span>,<span class="kw">all_of</span>(<span class="st">`</span><span class="dt">bulk_VAF_order</span><span class="st">`</span>),<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>)
  })
 
-<span class="co">#Tally clones</span>
+<span class="co"># Tally clones</span>
 clonal_abundance&lt;-<span class="st"> </span><span class="kw">lapply</span>(NGT_to_clone,<span class="cf">function</span>(x){
   x<span class="op">%&gt;%</span><span class="kw">count</span>(Clone,<span class="dt">name=</span><span class="st">&quot;Count&quot;</span>)<span class="op">%&gt;%</span><span class="kw">arrange</span>(Count)
  })
@@ -167,7 +170,7 @@ resample_fun&lt;-<span class="cf">function</span>(data){
 }
 
 replicates &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># we did 10,000. Keeping it low here for run time.</span>
-clone_cutoff &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># minimum number of cells to keep a clone</span>
+clone_cutoff &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># minimum number of cells in order to retain a clone</span>
 clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">names</span>(NGT_to_clone),<span class="cf">function</span>(sample_to_test){
     test&lt;-<span class="kw">replicate</span>(<span class="dt">n=</span>replicates,<span class="kw">resample_fun</span>(NGT_to_clone[[sample_to_test]]),<span class="dt">simplify =</span> <span class="st">&quot;array&quot;</span>)
     <span class="cf">if</span>(<span class="kw">class</span>(test)<span class="op">==</span><span class="st">&quot;list&quot;</span>){
@@ -194,56 +197,55 @@ clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</
 <p>Now that we have a set of clones that we believe reproducibily have at least 10 cells, we remove cells and variants that are no longer represented at sufficient coverage.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clone_filtered_NGTs &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(sample_to_test){
 
-  ## Determine if there are any clones left to process
+  <span class="co"># Determine if there are any clones left to process</span>
   <span class="cf">if</span>(<span class="kw">nrow</span>(clonal_abundance_boot_CI[[sample_to_test]])<span class="op">==</span><span class="dv">0</span>) {
     <span class="kw">return</span>(<span class="st">&quot;No clones after boostrapping&quot;</span>)
   }
   
-  ## Determine if there are any mutations that are no longer found in a stable clone
+  <span class="co"># Determine if there are any mutations that are no longer found in a stable clone</span>
   clone_matrix&lt;-<span class="kw">as.matrix</span>(<span class="kw">do.call</span>(rbind,
-                                  <span class="kw">strsplit</span>(clonal_abundance_boot_CI[[sample_to_test]][,<span class="st">&quot;Clone&quot;</span>],
-                                           <span class="dt">split=</span><span class="st">&quot;_&quot;</span>)))
+                                <span class="kw">strsplit</span>(clonal_abundance_boot_CI[[sample_to_test]][,<span class="st">&quot;Clone&quot;</span>],<span class="dt">split=</span><span class="st">&quot;_&quot;</span>)))
   <span class="kw">mode</span>(clone_matrix) &lt;-<span class="st"> &quot;numeric&quot;</span>
   <span class="kw">colnames</span>(clone_matrix) &lt;-<span class="kw">colnames</span>(NGT_to_clone[[sample_to_test]])[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]
   variants_to_remove&lt;-<span class="kw">names</span>(<span class="kw">which</span>(<span class="kw">colSums</span>(clone_matrix)<span class="op">==</span><span class="dv">0</span>))
 
-  ## Check other conditions of interest that might remove sample from further processing
+  <span class="co"># Check other conditions of interest that might remove sample from further processing</span>
   <span class="cf">if</span>(<span class="kw">nrow</span>(clone_matrix)<span class="op">==</span><span class="dv">1</span>) {
     <span class="kw">return</span>(<span class="st">&quot;Only 1 clone left&quot;</span>)
   }<span class="cf">else</span>  <span class="cf">if</span>(<span class="kw">length</span>(<span class="kw">setdiff</span>(<span class="kw">colnames</span>(clone_matrix),<span class="kw">c</span>(variants_to_remove)))<span class="op">&lt;=</span><span class="dv">1</span>){
     <span class="kw">return</span>(<span class="st">&quot;Removed all but 1 variant&quot;</span>)
   }<span class="cf">else</span> {
-  
-    <span class="co"># Select only clones that survive the bootstrapping, and remove variants that fall out</span>
-    NGT_to_clone_subset &lt;-<span class="st"> </span>NGT_to_clone[[sample_to_test]]<span class="op">%&gt;%</span>
-<span class="st">                            </span><span class="kw">filter</span>(Clone<span class="op">%in%</span>clonal_abundance_boot_CI[[sample_to_test]]<span class="op">$</span>Clone)<span class="op">%&gt;%</span>
-<span class="st">                            </span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove))
-    
-    <span class="co">#Create a key for the new and old clone names after removing variants that are no longer present</span>
-    clone_key &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;New&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove)),<span class="dt">MARGIN=</span><span class="dv">1</span>,
-                                        <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}),
-                            <span class="st">&quot;Old&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix),<span class="dt">MARGIN=</span><span class="dv">1</span>,
-                                        <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}))
-    
-    <span class="co">#If there are any variants to remove and clones that need to be renamed</span>
-    <span class="cf">if</span>(<span class="kw">any</span>(clone_key<span class="op">$</span>New<span class="op">!=</span>clone_key<span class="op">$</span>Old)){
-        NGT_to_clone_subset<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">sapply</span>(NGT_to_clone_subset<span class="op">$</span>Clone,<span class="cf">function</span>(x){
-                                          clone_key<span class="op">$</span>New[<span class="kw">match</span>(x,clone_key<span class="op">$</span>Old)]})
+      <span class="co"># Select only clones that survive the bootstrapping, and remove variants that fall out</span>
+      NGT_to_clone_subset &lt;-<span class="st"> </span>NGT_to_clone[[sample_to_test]]<span class="op">%&gt;%</span>
+<span class="st">                                </span><span class="kw">filter</span>(Clone<span class="op">%in%</span>clonal_abundance_boot_CI[[sample_to_test]]<span class="op">$</span>Clone)<span class="op">%&gt;%</span>
+<span class="st">                                </span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove))
+        
+      <span class="co"># Create a key for the new and old clone names after removing variants that are no longer present</span>
+      clone_key &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;New&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove)),<span class="dt">MARGIN=</span><span class="dv">1</span>,
+                                            <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}),
+                                <span class="st">&quot;Old&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix),<span class="dt">MARGIN=</span><span class="dv">1</span>,
+                                            <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}))
+        
+      <span class="co"># If there are any variants to remove and clones that need to be renamed</span>
+      <span class="cf">if</span>(<span class="kw">any</span>(clone_key<span class="op">$</span>New<span class="op">!=</span>clone_key<span class="op">$</span>Old)){
+            NGT_to_clone_subset<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">sapply</span>(NGT_to_clone_subset<span class="op">$</span>Clone,<span class="cf">function</span>(x){
+                                              clone_key<span class="op">$</span>New[<span class="kw">match</span>(x,clone_key<span class="op">$</span>Old)]})
+      }
+      <span class="kw">return</span>(NGT_to_clone_subset)
     }
-    <span class="kw">return</span>(NGT_to_clone_subset)
-  }
 }),<span class="kw">names</span>(clonal_abundance_boot_CI))</code></pre></div>
 <p>One last step I find useful is to explicitly state the genotype of each mutation in each clone. This si useful for the clonotype plots we’ll make later.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clonal_architecture &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(sample_to_test){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clonal_architecture &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(test_sample){
 
-  clonal_architecture&lt;-clone_filtered_NGTs[[sample_to_test]]<span class="op">%&gt;%</span>
-<span class="st">                                                </span><span class="kw">select</span>(<span class="op">!</span>Cell)<span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                                                </span><span class="kw">distinct</span>()<span class="op">%&gt;%</span>
-<span class="st">                                                </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">!</span>Clone,<span class="dt">names_to=</span><span class="st">&quot;Mutant&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;Genotype&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">                                                </span><span class="kw">mutate</span>(<span class="dt">Genotype=</span><span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">3</span>,<span class="ot">NA</span>,
-                                                                   <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">0</span>,<span class="st">&quot;WT&quot;</span>,
-                                                                   <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">1</span>,<span class="st">&quot;Heterozygous&quot;</span>,                                                                                   <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">2</span>,<span class="st">&quot;Homozygous&quot;</span>,<span class="ot">NA</span>)))))
-  
+  clonal_architecture&lt;-clone_filtered_NGTs[[test_sample]]<span class="op">%&gt;%</span>
+<span class="st">                                            </span><span class="kw">select</span>(<span class="op">!</span>Cell)<span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                                            </span><span class="kw">distinct</span>()<span class="op">%&gt;%</span>
+<span class="st">                                            </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">!</span>Clone,
+                                                         <span class="dt">names_to=</span><span class="st">&quot;Mutant&quot;</span>,
+                                                         <span class="dt">values_to=</span><span class="st">&quot;Genotype&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">                                            </span><span class="kw">mutate</span>(<span class="dt">Genotype=</span><span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">3</span>,<span class="ot">NA</span>,
+                                                             <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">0</span>,<span class="st">&quot;WT&quot;</span>,
+                                                              <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">1</span>,<span class="st">&quot;Heterozygous&quot;</span>,                                                                          <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">2</span>,<span class="st">&quot;Homozygous&quot;</span>,<span class="ot">NA</span>)))))
 }), <span class="kw">names</span>(clonal_abundance_boot_CI))</code></pre></div>
 <p>Lastly, we are going to package everything together into a list format for easy access later.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_sample_summary&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_architecture),<span class="cf">function</span>(sample){
