@@ -1,0 +1,57 @@
+### Clonograph: Figure 1D
+This is probably our favorite way of looking at the data.
+
+```{r fig.align="center",fig.height=4,fig.width=6,fig.cap="Miles et al. Figure 1D"}
+library(RColorBrewer)
+final_sample_summary<-readRDS(file="./data/final_sample_summary.rds")
+
+sample <-"MSK45"
+sample_list <-final_sample_summary
+
+# Extract out the sample of interest    
+clonal_abundance <-sample_list[[sample]]$Clones 
+clonal_architecture <-sample_list[[sample]]$Architecture 
+
+# Ensure the order of the clone abundance and clone architecture are the same.
+clonal_architecture$Clone <- factor(clonal_architecture$Clone, levels=rev(clonal_abundance$Clone))
+clonal_abundance$Clone <- factor(clonal_abundance$Clone, levels=levels(clonal_architecture$Clone))
+
+# Generate clonal abundance barplot
+gg_clonal_barplot <- ggplot(data=clonal_abundance, aes(x=Clone, y=Count,fill=Count)) + 
+                              geom_col()+ 
+                              theme_classic(base_size=7)+
+                              scale_y_continuous(expand=c(0.01,0))+
+                              #ylim() + 
+                              ylab("Cell Count")+
+                              geom_errorbar(aes(ymin = LCI, ymax = UCI), width = 0.2)+
+                              scale_fill_distiller(name = "Value", palette = "Reds", direction = 1) +
+                              theme(axis.title.x = element_blank(), 
+                                    axis.text.x = element_blank(), 
+                                    axis.ticks.x = element_blank(),
+                                    axis.line.x =element_blank(),
+                                    legend.position = "none",
+                                    plot.margin=unit(c(0,0,0,0),"cm"))
+
+# Generate mutation heatmap
+gg_heatmap <- ggplot(data=clonal_architecture,
+                     aes(x=Clone, y=Mutant, fill=Genotype))+
+                     geom_tile() +
+                     scale_fill_manual(values=c("WT"=brewer.pal(7,"Reds")[1],
+                                                "Heterozygous"=brewer.pal(7,"Reds")[3],
+                                                "Homozygous"=brewer.pal(7,"Reds")[6],
+                                                "Unknown"="grey50"),name="Genotype")+
+                    theme_classic(base_size=7) +
+                    ylab("Mutation")+
+                    scale_y_discrete(limits = rev(levels(clonal_architecture$Mutant)))+
+                          theme(legend.position = "right", legend.direction = "vertical",
+                          axis.text.x = element_blank(), 
+                          axis.line=element_blank(),
+                          axis.title.x=element_blank(),
+                          axis.ticks.x = element_blank(),
+                          plot.margin=unit(c(0,0,0,0),"cm"))
+
+# Put it all together
+plot_grid(gg_clonal_barplot,gg_heatmap,ncol=1,align="v",axis="lr",rel_heights = c(1,0.75))
+
+```  
+

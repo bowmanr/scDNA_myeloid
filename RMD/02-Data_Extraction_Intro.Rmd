@@ -1,4 +1,4 @@
-# Data Extraction and Setup
+## Data Extraction and Setup
 
 This section will explore how we take the data from the tapestri pipeline and process it in R.  This was previously done with an intermediate step through Tapestri Insights, however R package development from the Mission Bio team has now obviated that step.  For the manuscript, we indeed used Tapestri Insights, but I now recommend the appraoch here.  One major file we'll work with the numeric genotype matrix, which contains numeric values representing:
 

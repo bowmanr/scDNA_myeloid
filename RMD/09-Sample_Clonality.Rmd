@@ -1,0 +1,236 @@
+### Sample clonality: Figure 1C,E Figure 2A,B 
+Now we focused on patient samples that were included in the clonality analysis.  This the filtered set o f patients that had >100 cells, more than 1 mutation, and more than 1 clone following bootstrapping and estalbishing 95% confidence inervals > 10 cells.
+```{r}
+final_sample_summary<-readRDS(file="./data/final_sample_summary.rds")
+pheno<-readRDS(file="./data/pheno.rds")
+```
+
+Next we are going to build a data frame indicating the mutation status of various patients with regard to epigenetic modifiers (*D*NMT3a,*T*ET2, *A*SXL1, *I*DH1/2, DTAI) and signalling genes (FLT3, vs JAK2 vs NRAS/KRAS)
+
+```{r, message=FALSE,warning=FALSE}
+library(magrittr) # for %<>% 
+
+#Tabulate presence/absence of a mutation
+mutants_in_each_sample<-do.call(rbind,lapply(names(final_sample_summary),function(x){
+  y<-colnames(final_sample_summary[[x]]$NGT)
+  z <- list()
+  z$Sample <- x
+  z$DNMT3A <- ifelse(any(grepl("DNMT3A",y)),1,0)
+  z$TET2 <- ifelse(any(grepl("TET2",y)),1,0)
+  z$ASXL1 <- ifelse(any(grepl("ASXL1",y)),1,0)
+  z$IDH <- ifelse(any(grepl("IDH",y)),1,0)
+  z$FLT3 <- ifelse(any(grepl("FLT3",y)),1,0)
+  z$KIT <- ifelse(any(grepl("KIT",y)),1,0) # n=1 sample, we put it in the "signalling category"
+  z$RAS <- ifelse(any(grepl("RAS",y)),1,0)
+  z$JAK2 <- ifelse(any(grepl("JAK2",y)),1,0)
+  z$PTPN11 <- ifelse(any(grepl("PTPN11",y)),1,0)
+  data.frame(t(do.call(rbind,z)))
+}))
+
+# Bin into groups based on mutations and disease type
+mutants_in_each_sample%<>%mutate(Group=case_when(
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&(RAS==0&FLT3==0)~'DTAI',
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&((RAS==1&FLT3==0)|
+                                                                   (PTPN11==1&FLT3==0))~'DTAI-RAS',
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&(RAS==0&FLT3==1)~'DTAI-FLT3',
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&((RAS==1&FLT3==1)|
+                                                               (PTPN11==1&FLT3==1))~'DTAI-FLT3-RAS',
+                          (TET2==0&DNMT3A==0&IDH==0&ASXL1==0)&(RAS==1|FLT3==1|JAK2==1|KIT==1)~'Signaling'))%>%
+                          left_join(pheno,by="Sample")%>%
+                          mutate(Final_group=case_when(
+                                          grepl("AML|Other",Dx)~Group,
+                                          !grepl("AML|Other",Dx)~Dx
+                                        ))
+
+# Order the groups to match how we have them in the paper
+mutants_in_each_sample$Final_group <- factor(mutants_in_each_sample$Final_group,
+                                              levels=c("CH","MPN","Signaling","DTAI",
+                                                       "DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
+
+```
+
+Next we want to calculate a few metrics for each patient sample.
+```{r message=FALSE,warning=FALSE}
+library(vegan) 
+clonal_level_info<-data.frame(do.call(rbind,lapply(names(final_sample_summary),function(y){
+  x <- final_sample_summary[[y]]$Clones
+  data.frame("Sample"=y,
+             "Shannon"=vegan::diversity(x[,1],index="shannon"),
+             "Number_of_clones"=length(x[,1]),
+             "Number_of_mutations"=ncol(final_sample_summary[[y]]$NGT),
+             "Number_of_mutations_in_dominant_clone"=sum(as.numeric(do.call(rbind,
+                                           strsplit(as.character(x[nrow(x),2]),split="_")))),
+             "Dominant_clone_size"=max(x[,1]/sum(x[,1]))) #,
+           })))
+
+```
+
+
+Now we'll merge the data frames together and plot some of the data found in Figure 1 and Figure 2
+```{r, fig.align="center",fig.width=7.3,fig.height=3,fig.cap="Miles et al: Figure 1C,E",message=FALSE,warning=FALSE}
+
+# Combine the data frame
+test<-mutants_in_each_sample%>%inner_join(clonal_level_info)
+
+# Number of mutations
+gg_number_of_mutations<-ggplot(test%>%group_by(Final_group)%>%
+                                  summarise(mean=mean(Number_of_mutations),
+                                            sd = sd(Number_of_mutations),
+                                            sem = sd(Number_of_mutations)/
+                                                      sqrt(length(Number_of_mutations))),
+                                    aes(x=Final_group,y=mean,fill=Final_group))+
+                                    geom_bar(stat="identity",color="black")+
+                                    geom_errorbar(aes(ymin = mean-sem, ymax = mean+sem),width=0.5,lwd=0.5)+
+                                    theme_classic(base_size = 8)+
+                                    ylab("Number of mutations")+xlab("")+ggtitle("")+
+                                    scale_y_continuous(limits = c(0,9), expand = c(0, 0)) +
+                                    theme(axis.text.x = element_text(angle=30,hjust=1)) +
+                                    scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
+
+# Number of clones
+gg_number_of_clones<-ggplot(test,aes(y=Number_of_clones,x=Final_group,fill=Final_group))+
+                                  geom_boxplot(outlier.shape = NA)+  
+                                  geom_jitter(width = 0.1,size=0.5)+
+                                  theme_classic(base_size = 8)+
+                                  ylab("Number of clones")+
+                                  xlab("")+
+                                  theme(axis.text.x = element_text(angle=30,hjust=1)) +
+                                  scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
+
+plot_grid(gg_number_of_mutations,gg_number_of_clones,ncol=2,align="hv",axis="ltrb",labels=c("C","E"))
+```
+
+Compute statistics for the different group comparisons. We used a Benjamini & Hochberg FDR for multiple test correction with a significance cutoff of 0.1.
+```{r message=FALSE,warning=FALSE}
+library(reshape2) #for melt, I need to come up with a better way to do this, if anyone has ideas let me know!
+pvalues_Number_of_clones<-test%>%{melt(pairwise.t.test(.$Number_of_clones,g=.$Final_group,
+                                                     data=.,p.adjust.method="fdr")$p.value)}%>%
+                                     filter(!is.na(value))%>%filter(value<0.1)
+
+pvalues_Number_of_mutations<-test%>%{melt(pairwise.t.test(.$Number_of_mutations,g=.$Final_group,
+                                                     data=.,p.adjust.method="fdr")$p.value)}%>%
+                                     filter(!is.na(value))%>%filter(value<0.1)
+```
+
+```{r, echo = FALSE,warning=FALSE,messsage=FALSE,results="as.is"}
+kable(pvalues_Number_of_clones, "html",caption="Number of Clones",
+             col.names=c("Group 1","Group 2","FDR"))%>%
+  kable_styling(full_width = FALSE, position = "float_left")
+
+kable(pvalues_Number_of_mutations, "html",caption="Number of Mutations",
+             col.names=c("Group 1","Group 2","FDR"))%>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+
+Now for Figure 2:
+```{r, fig.align="center",fig.width=7.3,fig.height=3,fig.cap="Miles et al: Figure 2A-B"}
+# Shannon diversity index
+gg_shannon<-ggplot(test,aes(y=Shannon,x=Final_group,fill=Final_group))+
+                        geom_boxplot(outlier.shape = NA)+  
+                        geom_jitter(width = 0.1,size=0.5)+
+                        theme_classic(base_size = 8)+
+                        ylab("Shannon diveristy index")+
+                        xlab("")+
+                        theme(axis.text.x = element_text(angle=30,hjust=1)) +
+                        scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
+
+# Number of mutations in each cohort
+gg_Number_of_mutations_in_Dclone<-ggplot(test%>%group_by(Final_group)%>%
+                                       summarise(mean=mean(Number_of_mutations_in_dominant_clone),
+                                                 sd = sd(Number_of_mutations_in_dominant_clone),
+                                                 sem = sd(Number_of_mutations_in_dominant_clone)/
+                                                       sqrt(length(Number_of_mutations_in_dominant_clone))),
+                                       aes(x=Final_group,y=mean,fill=Final_group))+
+                                          geom_bar(stat="identity",color="black")+
+                                          geom_errorbar(aes(ymin = mean-sem, ymax = mean+sem),width=0.5,lwd=0.5)+
+                                          theme_classic(base_size = 8)+
+                                          ylab("Number of mutations \n in dominant clone")+xlab("")+ggtitle("")+
+                                          scale_y_continuous(limits = c(0,4.5), expand = c(0, 0)) +
+                                          theme(axis.text.x = element_text(angle=30,hjust=1)) +
+                                          scale_fill_brewer(type="seq",palette = "Reds",
+                                                            aesthetics = "fill",guide=FALSE)
+
+plot_grid(gg_shannon,gg_Number_of_mutations_in_Dclone,ncol=2,align="hv",axis="ltrb",labels=c("A","B"))
+
+
+pvalues_Shannon<-test%>%{melt(pairwise.t.test(.$Shannon,g=.$Final_group,
+                                                        data=.,p.adjust.method="fdr")$p.value)}%>%
+                                              filter(!is.na(value))%>%filter(value<0.1)
+
+pvalues_Number_of_mutations_in_dominant_clone<-test%>%{melt(pairwise.t.test(
+                                                        .$Number_of_mutations_in_dominant_clone,
+                                                        g=.$Final_group,
+                                                        data=.,p.adjust.method="fdr")$p.value)}%>%
+                                              filter(!is.na(value))%>%filter(value<0.1)
+
+```
+
+```{r, echo = FALSE,warning=FALSE,messsage=FALSE}
+kable(pvalues_Shannon, "html",caption="Shannon diversity index",
+             col.names=c("Group 1","Group 2","FDR"))%>%
+  kable_styling(full_width = FALSE, position = "float_left")
+
+kable(pvalues_Number_of_mutations_in_dominant_clone, "html",caption="Dominant clone mutations",
+             col.names=c("Group 1","Group 2","FDR"))%>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+
+A few interesting points in Extended Figure 3
+```{r,warning=FALSE,message=FALSE, fig.align="center",fig.width=7.3,fig.height=3,fig.cap="Miles et al: Extended Figure 3A-B"}
+
+# Dominant clone size
+gg_dominant_clone_size<-ggplot(test,
+                            aes(y=Dominant_clone_size,x=Final_group,fill=Final_group))+
+                            geom_boxplot(outlier.shape = NA)+  
+                            geom_jitter(width = 0.1,size=0.5)+
+                            theme_classic(base_size = 8)+
+                            ylab("Fraction of sample \n in dominant clone")+
+                            xlab("")+
+                            theme(axis.text.x = element_text(angle=30,hjust=1)) +
+                            scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
+
+
+# determine the number of mutants alleles in each clone
+clone_size_by_genetic_density<- do.call(rbind,lapply(final_sample_summary,function(x){
+                                    possible_clones_subset <-x$Clones%>%filter(Clone%in% x$Clones[,"Clone"] )
+                                    clones<-possible_clones_subset[,"Clone"]
+                                    dedup<-x$NGT[!duplicated(x$NGT)&x$NGT[,"Clone"]%in%clones,]
+                                    set_mat<-full_join(possible_clones_subset[,1:2],dedup)
+                                    counts <-set_mat[,"Count"]
+                                    weights<-set_mat[,"Count"]/sum(set_mat[,"Count"])
+                                    genetic_complexity <- rowSums(set_mat[,-c(1:2)])
+                                    return(data.frame("Clone_size"=weights,
+                                                      "Genetic_density"=genetic_complexity))
+}))
+
+
+gg_clone_size_by_genetic_density<-ggplot(clone_size_by_genetic_density,
+                                              aes(y=Clone_size,x=factor(Genetic_density),
+                                                  fill=factor(Genetic_density)))+
+                                              geom_jitter(width = 0.1,size=0.5)+
+                                              geom_boxplot(outlier.shape = NA)+  
+                                              theme_bw(base_size = 8)+
+                                              ylab("Fraction of sample in clone")+
+                                              xlab("Number of mutant alleles")+
+                                              scale_fill_brewer(type="seq",palette = "Greens",
+                                                                aesthetics = "fill",guide=FALSE)
+
+plot_grid(gg_dominant_clone_size,gg_clone_size_by_genetic_density,align="hv",axis="tb",ncol=2,labels=c("A","B"))
+```
+
+```{r}
+
+pvalues_Dominant_clone_size<-test%>%{melt(pairwise.t.test(.$Dominant_clone_size,g=.$Final_group,
+                                                     data=.,p.adjust.method="fdr")$p.value)}%>%
+                                     filter(!is.na(value))%>%filter(value<0.1)
+
+```
+
+```{r, echo = FALSE,warning=FALSE,messsage=FALSE}
+kable(pvalues_Dominant_clone_size, "html",caption="Dominant clone size",
+             col.names=c("Group 1","Group 2","FDR"))%>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+

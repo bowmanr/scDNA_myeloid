@@ -1,0 +1,277 @@
+##Figure 2: Clonality
+We next wanted to determine if a given gene is likely to be found in the dominant clone or only ib subclones.  Of course, nearly all mutations found in the dominant clone were also found in subclones. We attempted to find mutations that were exclusively found in the dominant clone, but did not observe any. This is likely complicated by the fact that many subclones are not the most "genetically dense" clone as explored in Figure 3 of the manuscript.  We decided to address that with the markov models described elsewhere, and instead classified a mutation on whether it was present present or absent in the dominant clone.
+
+```{r setup3, eval=TRUE, include=FALSE}
+library(knitr)
+library(kableExtra)
+opts_knit$set(root.dir = '/Users/bowmanr/Projects/scDNA')
+```
+
+
+```{r, fig.align="center",message=FALSE,warning=FALSE,fig.cap="Miles et al. Figure 2C"}
+library(tidyr)
+library(dplyr)
+library(RColorBrewer)
+library(ggplot2)
+library(pals)
+library(cowplot)
+setwd("/Users/bowmanr/Projects/scDNA")
+final_sample_summary<-readRDS(file="/Users/bowmanr/Projects/scDNA/data/final_sample_summary.rds")
+pheno<-readRDS(file="./data/pheno.rds")
+
+
+clone_size_by_gene<- do.call(rbind,lapply(names(final_sample_summary),function(x){
+  # select the clones
+  clones<-final_sample_summary[[x]]$Clones%>%select(Clone)
+  
+  # Compute the relative clone size
+  Clone_size<-final_sample_summary[[x]]$Clones%>%transmute(Clone_size=Count/sum(Count))%>%pull(Clone_size)
+  names(Clone_size) <- clones[,"Clone"]
+  
+  # Extract the mutations
+  mutations <- colnames(final_sample_summary[[x]]$NGT%>%select(!Clone))
+  
+  # Identify the dominant clone, which is the last one in this data frame
+  dominant_clone <- clones[nrow(clones),]
+  
+  # Compute the bulk VAF for each mutation
+  VAFs <- final_sample_summary[[x]]$NGT%>%select(`mutations`)%>%
+                              summarise_all(funs(mean(.)/2))
+
+  # Separate the clone into a deduplicated NGT matrix
+  mut_mat<-final_sample_summary[[x]]$Clones%>%
+                              select(Clone)%>%
+                              separate(col=Clone,into=mutations,sep="_")
+  
+  # Create a composite data frame and turn it into long form
+  data.frame(clones,Clone_size,mut_mat,"Sample"=x)%>%
+            pivot_longer(cols=all_of(mutations),names_to="Variant", values_to="Genotype")%>%
+            
+            filter(Genotype!=0)%>% # remove WT entries
+            separate(col=Variant, into="Gene",extra="drop",sep="\\.|_",remove=FALSE)%>% # For later useage in plotting
+            group_by(Variant)%>% 
+            filter(Clone_size==max(Clone_size))%>% #identify largest clone
+            mutate(Clonality=case_when(
+                          Clone==`dominant_clone`~"Dominant",
+                          Clone!=`dominant_clone`~"Subclone"))%>% #label clones
+            inner_join(data.frame("VAF"=t(VAFs),
+                                  "Variant"=names(VAFs))) # merge with bulk VAF info
+}))
+
+# Tally the number of times a gene is in the dominant and subclone
+tally_set<-data.frame(table(clone_size_by_gene$Gene,
+                           clone_size_by_gene$Clonality))%>%
+                      pivot_wider(names_from=Var2,values_from=Freq)%>%
+                      mutate(Ratio=Dominant/(Subclone+Dominant))%>% #calculate the dominant ratio
+                      arrange(Ratio) 
+  
+# For plotting purposes establish order of the y axis
+clone_size_by_gene$Gene <- factor(clone_size_by_gene$Gene, levels=tally_set$Var1)
+
+# Linde and I spent too much time picking the exact shade of red we wanted for this paper....
+color_red<-brewer.pal(5,"Reds")[5]
+
+# For plotting purposes establish order of stacked bars
+clone_size_by_gene$Clonality<-factor(clone_size_by_gene$Clonality,levels=c("Subclone","Dominant"))
+
+#plot the data
+ggA<-ggplot(tally(clone_size_by_gene%>%group_by(Gene,Clonality)),
+            aes(x=factor(Gene),fill=Clonality,y=n,label=n))+
+            guides(fill=FALSE,color=FALSE)+
+            scale_y_continuous( expand = c(0, 0.0))+ #removes white space near the axis of the bars
+            geom_bar(stat="identity",position="fill")+
+            xlab("")+coord_flip()+
+            scale_fill_manual(values=c("Dominant"=color_red,
+                                       "Subclone"="grey80"))+
+            ylab("Fraction of mutant clones \n with mutation in dominant clone")+
+            theme_bw(base_size=8)+theme(legend.position = "bottom")
+  
+ggB<-ggplot(clone_size_by_gene, 
+            aes(y=Clone_size, x=Gene, fill=Gene)) +
+            geom_boxplot(alpha = 0.5,outlier.shape = NA)+
+            geom_point(aes(color=Clonality,group=Clonality), 
+                       position = position_jitterdodge(), size=0.3)+
+            scale_fill_manual(values=tol.rainbow(n=length(levels(clone_size_by_gene$Gene))))+
+            scale_color_manual(values=c("Dominant"=color_red,
+                                        "Subclone"="grey20"))+
+            coord_flip()+
+            theme_bw(base_size=8)+guides(fill=FALSE,color=FALSE)+
+            theme(axis.text.y = element_blank(),
+                  axis.ticks.y  = element_blank(),
+                  axis.title.y = element_blank())+
+            scale_y_continuous(limits = c(0,1), expand = c(0, 0.05)) +
+            ylab("Fraction of cells \n in largest mutant clone")+
+            theme(legend.position = "bottom")
+
+spacer <- plot_grid(NULL) # plot looks better with a little spacer
+
+plot_grid(ggA,spacer,ggB,align="h",axis="tb",
+          ncol=3,rel_widths=c(1,0.05,1))
+```
+
+### Clonality in disease states
+We can look at this in a little more resolution on individual genes across disease course.
+
+```{r, message=FALSE,warning=FALSE,fig.cap="Clonality by Diagnosis",fig.align="center"}
+library(magrittr)
+
+# Incorporate Diagnosis and disease state
+clone_size_by_gene_Dx<-inner_join(clone_size_by_gene,pheno)
+
+# We focused on a subset of genes
+genes_of_interest <- c("DNMT3A","TET2","ASXL1","IDH1","IDH2",
+                       "JAK2","NRAS","KRAS","FLT3","NPM1")
+
+# We had an interest in DNMT3A R882 point mutants, so we can extract those out
+clone_size_by_gene_Dx%<>%mutate(Gene=case_when(
+                          grepl("DNMT3A.p.R882",Variant)~"DNMT3A.p.R882",
+                          TRUE~as.character(Gene)))
+
+clone_size_by_gene_Dx$Dx <- factor(clone_size_by_gene_Dx$Dx,
+                                   levels=c("CH","MPN","Other","sAML","tAML","AML"))
+
+mutation_dominance_by_dx<-ggplot(tally(clone_size_by_gene_Dx%>%
+                        filter(Gene%in%c("DNMT3A","TET2","ASXL1",
+                                         "DNMT3A.p.R882","IDH1","IDH2"))%>%                   
+                        group_by(Gene,Dx,Clonality)) ,
+                        aes(x=Dx,fill=Clonality,y=n)) +
+                        facet_wrap(~factor(Gene,
+                                            levels=c("DNMT3A","TET2","ASXL1",
+                                                     "DNMT3A.p.R882","IDH1","IDH2")),ncol=3)+
+                        geom_col(position="fill")+
+                        xlab("")+
+                        scale_fill_manual(values=c("Dominant"=color_red,
+                                                 "Subclone"="grey80"))+
+                        ylab("Number of samples")+
+                        theme_bw(base_size=10)+
+                        theme(legend.position = "right",
+                            axis.text.x =element_text(angle=30,hjust=1))
+mutation_dominance_by_dx
+```
+
+
+
+### Clonality in co-mutational groups
+We can also look at it across the DTAI /RAS/FLT3 groups we defined in the paper. Here includes a little code from earlier in the tutorial to set up those groups again
+```{r, fig.align="center",fig.cap="Miles et al Extended Figure 3C"}
+mutants_in_each_sample<-do.call(rbind,lapply(names(final_sample_summary),function(x){
+  y<-colnames(final_sample_summary[[x]]$NGT)
+  z <- list()
+  z$Sample <- x
+  z$DNMT3A <- ifelse(any(grepl("DNMT3A",y)),1,0)
+  z$TET2 <- ifelse(any(grepl("TET2",y)),1,0)
+  z$ASXL1 <- ifelse(any(grepl("ASXL1",y)),1,0)
+  z$IDH <- ifelse(any(grepl("IDH",y)),1,0)
+  z$FLT3 <- ifelse(any(grepl("FLT3",y)),1,0)
+  z$KIT <- ifelse(any(grepl("KIT",y)),1,0) # n=1 sample, we put it in the "signalling category"
+  z$RAS <- ifelse(any(grepl("RAS",y)),1,0)
+  z$JAK2 <- ifelse(any(grepl("JAK2",y)),1,0)
+  z$PTPN11 <- ifelse(any(grepl("PTPN11",y)),1,0)
+  data.frame(t(do.call(rbind,z)))
+}))
+
+# Bin into groups based on mutations and disease type
+mutants_in_each_sample%<>%mutate(Group=case_when(
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&(RAS==0&FLT3==0)~'DTAI',
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&((RAS==1&FLT3==0)|
+                                                                   (PTPN11==1&FLT3==0))~'DTAI-RAS',
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&(RAS==0&FLT3==1)~'DTAI-FLT3',
+                          (TET2==1|DNMT3A==1|IDH==1|ASXL1==1)&((RAS==1&FLT3==1)|
+                                                               (PTPN11==1&FLT3==1))~'DTAI-FLT3-RAS',
+                          (TET2==0&DNMT3A==0&IDH==0&ASXL1==0)&(RAS==1|FLT3==1|JAK2==1|KIT==1)~'Signaling'))%>%
+                          left_join(pheno,by="Sample")%>%
+                          mutate(Final_group=case_when(
+                                          grepl("AML|Other",Dx)~Group,
+                                          !grepl("AML|Other",Dx)~Dx
+                                        ))
+
+# Order the groups to match how we have them in the paper
+mutants_in_each_sample$Final_group <- factor(mutants_in_each_sample$Final_group,
+                                              levels=c("CH","MPN","Signaling","DTAI",
+                                                       "DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
+
+# Now merge this with our new data frame defined above
+
+clone_size_by_gene_DTAI<-left_join(clone_size_by_gene_Dx,mutants_in_each_sample,by="Sample")
+
+mutation_dominance_by_DTAI<-ggplot(tally(clone_size_by_gene_DTAI%>%
+                                    filter(Gene%in%c("DNMT3A","TET2","ASXL1",
+                                                     "DNMT3A.p.R882","IDH1","IDH2"))%>%
+                                    group_by(Gene,Final_group,Clonality)) ,
+                        aes(x=Final_group,fill=Clonality,y=n)) +
+                        facet_wrap(~factor(Gene,
+                                            levels=c("DNMT3A","TET2","ASXL1",
+                                                     "DNMT3A.p.R882","IDH1","IDH2")),ncol=3)+
+                        geom_col()+
+                        xlab("")+
+                        scale_fill_manual(values=c("Dominant"=color_red,
+                                                 "Subclone"="grey80"))+
+                        ylab("Number of samples")+
+                        theme_bw(base_size=10)+
+                        theme(legend.position = "right",
+                            axis.text.x =element_text(angle=30,hjust=1))
+mutation_dominance_by_DTAI
+
+```
+
+
+### Clonality assocation with VAF
+We can also look at the VAF of each gene and see if that is associated with dominant vs subclone status for each state of disease, or the grouping we setup in the main figure
+
+```{r,fig.align="center",message=FALSE,fig.cap="Miles et al Extended Figure 3D"}
+library(ggbeeswarm)
+pheno<-readRDS(file="./data/pheno.rds")
+
+data_to_plot<-inner_join(clone_size_by_gene,pheno)%>%
+                          filter(as.character(Gene)%in%genes_of_interest &
+                                !Dx%in%c("CH"))%>%
+                          group_by(Gene,Clonality)
+
+summarized_data <-data_to_plot%>%summarise(mean=mean(VAF),            
+                                           sd = sd(VAF),
+                                           sem = sd(VAF)/sqrt(length(VAF)))
+
+
+clonality_VAF<-ggplot(data_to_plot,aes(x=Clonality,y=VAF,color=Clonality))+
+                    facet_wrap(~factor(Gene,levels=genes_of_interest),
+                                scale="free_x",ncol=5)+
+                    ggbeeswarm::geom_beeswarm()+
+                    geom_errorbar(data=summarized_data,aes(x=Clonality,
+                                                           y=mean,
+                                                           ymin=mean-sem,
+                                                           ymax=mean+sem),
+                                                           color="black")+
+                    scale_color_manual(values=c("Dominant"=color_red,
+                                                "Subclone"="grey50"))+
+                    xlab("")+        ylab("Computed VAF")+
+                    theme_classic()+guides(fill=FALSE)+
+                    theme(axis.ticks.x = element_blank(),
+                          axis.text.x = element_blank())+
+                    scale_y_continuous(limits=c(0,1.1),
+                                       breaks=c(0,.25,.5,.75,1),
+                                   labels=c("0","0.25","0.50","0.75","1.0"))
+
+clonality_VAF
+```
+
+Statistics below
+```{r message=FALSE,warning=FALSE}
+library(broom)
+clonality_VAF_pvalues<-data.frame(data_to_plot)%>% 
+                                filter(as.character(Clonality)%in%c("Dominant","Subclone")&
+                                         Gene!="IDH2")%>%
+                                group_by(Gene)%>%
+                                select(VAF,Clonality)%>%
+                                do(tidy(t.test(VAF ~ Clonality, data = .)))%>%
+                                select(Gene,Dominant_VAF=estimate2,Subclone_VAF=estimate1,
+                                       p.value)%>%
+                                mutate_if(is.numeric, funs(as.character(signif(., 3))))
+```
+
+
+```{r, echo = FALSE,warning=FALSE,messsage=FALSE}
+kable(clonality_VAF_pvalues, "html")%>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+
