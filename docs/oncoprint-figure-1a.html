@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.2 Oncoprint | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <title>4.2 Oncoprint: Figure 1A | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
   <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
   <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.2 Oncoprint | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:title" content="4.2 Oncoprint: Figure 1A | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.2 Oncoprint | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta name="twitter:title" content="4.2 Oncoprint: Figure 1A | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   
   <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-13" />
+<meta name="date" content="2020-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="cohort-description-ef1a-d.html"/>
-<link rel="next" href="cohort-level-clonality-analysis.html"/>
+<link rel="next" href="sample-clonality-figure-1ce-figure-2ab.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -116,8 +116,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
 <li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
-<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
-<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint-figure-1a.html"><a href="oncoprint-figure-1a.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="4.3" data-path="sample-clonality-figure-1ce-figure-2ab.html"><a href="sample-clonality-figure-1ce-figure-2ab.html"><i class="fa fa-check"></i><b>4.3</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="4.4" data-path="clonograph-figure-1d.html"><a href="clonograph-figure-1d.html"><i class="fa fa-check"></i><b>4.4</b> Clonograph: Figure 1D</a></li>
+<li class="chapter" data-level="4.5" data-path="gene-clonality-figure-2.html"><a href="gene-clonality-figure-2.html"><i class="fa fa-check"></i><b>4.5</b> Gene Clonality: Figure 2</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -145,8 +147,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="oncoprint" class="section level2">
-<h2><span class="header-section-number">4.2</span> Oncoprint</h2>
+<div id="oncoprint-figure-1a" class="section level2">
+<h2><span class="header-section-number">4.2</span> Oncoprint: Figure 1A</h2>
 <p>Now we are going to make the oncoprint that is in Figure 1A. Check out this <a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/oncoprint.html">example</a> from the ComplexHeatmap package for a better understanding of why things are formatted the way they are.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pals) <span class="co"># great package with color palettes in R</span>
 <span class="kw">library</span>(ComplexHeatmap) <span class="co">#used for making the oncoprint</span>
@@ -233,7 +235,7 @@ heatmap_legend_param &lt;-<span class="st"> </span><span class="kw">list</span>(
           <span class="dt">col                  =</span> variant_type_colors, 
           <span class="dt">top_annotation       =</span> top_annotation,
           <span class="dt">heatmap_legend_param =</span> heatmap_legend_param)</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-14-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-15-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
             </section>
 
@@ -241,7 +243,7 @@ heatmap_legend_param &lt;-<span class="st"> </span><span class="kw">list</span>(
         </div>
       </div>
 <a href="cohort-description-ef1a-d.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cohort-level-clonality-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sample-clonality-figure-1ce-figure-2ab.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

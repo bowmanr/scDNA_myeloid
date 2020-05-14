@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.3 Cohort level clonality analysis | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <title>4.3 Sample clonality: Figure 1C,E Figure 2A,B | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
   <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
   <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.3 Cohort level clonality analysis | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:title" content="4.3 Sample clonality: Figure 1C,E Figure 2A,B | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.3 Cohort level clonality analysis | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta name="twitter:title" content="4.3 Sample clonality: Figure 1C,E Figure 2A,B | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   
   <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-13" />
+<meta name="date" content="2020-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="oncoprint.html"/>
-<link rel="next" href="final-words.html"/>
+<link rel="prev" href="oncoprint-figure-1a.html"/>
+<link rel="next" href="clonograph-figure-1d.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -116,8 +116,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
 <li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
-<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
-<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint-figure-1a.html"><a href="oncoprint-figure-1a.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="4.3" data-path="sample-clonality-figure-1ce-figure-2ab.html"><a href="sample-clonality-figure-1ce-figure-2ab.html"><i class="fa fa-check"></i><b>4.3</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="4.4" data-path="clonograph-figure-1d.html"><a href="clonograph-figure-1d.html"><i class="fa fa-check"></i><b>4.4</b> Clonograph: Figure 1D</a></li>
+<li class="chapter" data-level="4.5" data-path="gene-clonality-figure-2.html"><a href="gene-clonality-figure-2.html"><i class="fa fa-check"></i><b>4.5</b> Gene Clonality: Figure 2</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -145,8 +147,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="cohort-level-clonality-analysis" class="section level2">
-<h2><span class="header-section-number">4.3</span> Cohort level clonality analysis</h2>
+<div id="sample-clonality-figure-1ce-figure-2ab" class="section level2">
+<h2><span class="header-section-number">4.3</span> Sample clonality: Figure 1C,E Figure 2A,B</h2>
 <p>Now we focused on patient samples that were included in the clonality analysis. This the filtered set o f patients that had &gt;100 cells, more than 1 mutation, and more than 1 clone following bootstrapping and estalbishing 95% confidence inervals &gt; 10 cells.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_sample_summary&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)
 pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</code></pre></div>
@@ -231,8 +233,8 @@ gg_number_of_clones&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes
 <span class="st">                                  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
 
 <span class="kw">plot_grid</span>(gg_number_of_mutations,gg_number_of_clones,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;C&quot;</span>,<span class="st">&quot;E&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-18-1.png" alt="Miles et al: Figure 1C,E" width="700.8" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-19-1.png" alt="Miles et al: Figure 1C,E" width="700.8" />
 <p class="caption">
 Figure 4.2: Miles et al: Figure 1C,E
 </p>
@@ -248,7 +250,7 @@ pvalues_Number_of_mutations&lt;-test<span class="op">%&gt;%</span>{<span class="
 <span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
 <table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
-<span id="tab:unnamed-chunk-20">Table 4.1: </span>Number of Clones
+<span id="tab:unnamed-chunk-21">Table 4.1: </span>Number of Clones
 </caption>
 <thead>
 <tr>
@@ -378,7 +380,7 @@ DTAI-RAS
 </table>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-20">Table 4.1: </span>Number of Mutations
+<span id="tab:unnamed-chunk-21">Table 4.1: </span>Number of Mutations
 </caption>
 <thead>
 <tr>
@@ -563,23 +565,23 @@ gg_shannon&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes</span>(<
 
 <span class="co"># Number of mutations in each cohort</span>
 gg_Number_of_mutations_in_Dclone&lt;-<span class="kw">ggplot</span>(test<span class="op">%&gt;%</span><span class="kw">group_by</span>(Final_group)<span class="op">%&gt;%</span>
-<span class="st">                                         </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(Number_of_mutations_in_dominant_clone),
-                                                   <span class="dt">sd =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone),
-                                                   <span class="dt">sem =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone)<span class="op">/</span>
-<span class="st">                                                         </span><span class="kw">sqrt</span>(<span class="kw">length</span>(Number_of_mutations_in_dominant_clone))),
-                                         <span class="kw">aes</span>(<span class="dt">x=</span>Final_group,<span class="dt">y=</span>mean,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
-<span class="st">                                            </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span>
-<span class="st">                                            </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean<span class="op">-</span>sem, <span class="dt">ymax =</span> mean<span class="op">+</span>sem),<span class="dt">width=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                                            </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                                            </span><span class="kw">ylab</span>(<span class="st">&quot;Number of mutations </span><span class="ch">\n</span><span class="st"> in dominant clone&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                                            </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span>
-<span class="st">                                            </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">                                            </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,
-                                                              <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
+<span class="st">                                       </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(Number_of_mutations_in_dominant_clone),
+                                                 <span class="dt">sd =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone),
+                                                 <span class="dt">sem =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone)<span class="op">/</span>
+<span class="st">                                                       </span><span class="kw">sqrt</span>(<span class="kw">length</span>(Number_of_mutations_in_dominant_clone))),
+                                       <span class="kw">aes</span>(<span class="dt">x=</span>Final_group,<span class="dt">y=</span>mean,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean<span class="op">-</span>sem, <span class="dt">ymax =</span> mean<span class="op">+</span>sem),<span class="dt">width=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">ylab</span>(<span class="st">&quot;Number of mutations </span><span class="ch">\n</span><span class="st"> in dominant clone&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
+<span class="st">                                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span>
+<span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">                                          </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,
+                                                            <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
 
 <span class="kw">plot_grid</span>(gg_shannon,gg_Number_of_mutations_in_Dclone,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-21"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-21-1.png" alt="Miles et al: Figure 2A-B" width="700.8" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-22-1.png" alt="Miles et al: Figure 2A-B" width="700.8" />
 <p class="caption">
 Figure 4.3: Miles et al: Figure 2A-B
 </p>
@@ -595,7 +597,7 @@ pvalues_Number_of_mutations_in_dominant_clone&lt;-test<span class="op">%&gt;%</s
 <span class="st">                                              </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
 <table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
-<span id="tab:unnamed-chunk-22">Table 4.2: </span>Shannon diversity index
+<span id="tab:unnamed-chunk-23">Table 4.2: </span>Shannon diversity index
 </caption>
 <thead>
 <tr>
@@ -747,7 +749,7 @@ DTAI-RAS
 </table>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-22">Table 4.2: </span>Dominant clone mutations
+<span id="tab:unnamed-chunk-23">Table 4.2: </span>Dominant clone mutations
 </caption>
 <thead>
 <tr>
@@ -923,15 +925,15 @@ gg_dominant_clone_size&lt;-<span class="kw">ggplot</span>(test,
 
 <span class="co"># determine the number of mutants alleles in each clone</span>
 clone_size_by_genetic_density&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_sample_summary,<span class="cf">function</span>(x){
-  possible_clones_subset &lt;-x<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Clone<span class="op">%in%</span><span class="st"> </span>x<span class="op">$</span>Clones[,<span class="st">&quot;Clone&quot;</span>] )
-  clones&lt;-possible_clones_subset[,<span class="st">&quot;Clone&quot;</span>]
-  dedup&lt;-x<span class="op">$</span>NGT[<span class="op">!</span><span class="kw">duplicated</span>(x<span class="op">$</span>NGT)<span class="op">&amp;</span>x<span class="op">$</span>NGT[,<span class="st">&quot;Clone&quot;</span>]<span class="op">%in%</span>clones,]
-  set_mat&lt;-<span class="kw">full_join</span>(possible_clones_subset[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],dedup)
-  counts &lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]
-  weights&lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]<span class="op">/</span><span class="kw">sum</span>(set_mat[,<span class="st">&quot;Count&quot;</span>])
-  genetic_complexity &lt;-<span class="st"> </span><span class="kw">rowSums</span>(set_mat[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)])
-  <span class="kw">return</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Clone_size&quot;</span>=weights,
-                    <span class="st">&quot;Genetic_density&quot;</span>=genetic_complexity))
+                                    possible_clones_subset &lt;-x<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Clone<span class="op">%in%</span><span class="st"> </span>x<span class="op">$</span>Clones[,<span class="st">&quot;Clone&quot;</span>] )
+                                    clones&lt;-possible_clones_subset[,<span class="st">&quot;Clone&quot;</span>]
+                                    dedup&lt;-x<span class="op">$</span>NGT[<span class="op">!</span><span class="kw">duplicated</span>(x<span class="op">$</span>NGT)<span class="op">&amp;</span>x<span class="op">$</span>NGT[,<span class="st">&quot;Clone&quot;</span>]<span class="op">%in%</span>clones,]
+                                    set_mat&lt;-<span class="kw">full_join</span>(possible_clones_subset[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],dedup)
+                                    counts &lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]
+                                    weights&lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]<span class="op">/</span><span class="kw">sum</span>(set_mat[,<span class="st">&quot;Count&quot;</span>])
+                                    genetic_complexity &lt;-<span class="st"> </span><span class="kw">rowSums</span>(set_mat[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)])
+                                    <span class="kw">return</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Clone_size&quot;</span>=weights,
+                                                      <span class="st">&quot;Genetic_density&quot;</span>=genetic_complexity))
 }))
 
 
@@ -947,8 +949,8 @@ gg_clone_size_by_genetic_density&lt;-<span class="kw">ggplot</span>(clone_size_b
                                                                 <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
 
 <span class="kw">plot_grid</span>(gg_dominant_clone_size,gg_clone_size_by_genetic_density,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;tb&quot;</span>,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-23-1.png" alt="Miles et al: Extended Figure 3A-B" width="700.8" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-24"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-24-1.png" alt="Miles et al: Extended Figure 3A-B" width="700.8" />
 <p class="caption">
 Figure 4.4: Miles et al: Extended Figure 3A-B
 </p>
@@ -958,7 +960,7 @@ Figure 4.4: Miles et al: Extended Figure 3A-B
 <span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-25">Table 4.3: </span>Dominant clone size
+<span id="tab:unnamed-chunk-26">Table 4.3: </span>Dominant clone size
 </caption>
 <thead>
 <tr>
@@ -1042,16 +1044,14 @@ DTAI
 </tr>
 </tbody>
 </table>
-
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="oncoprint.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="oncoprint-figure-1a.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clonograph-figure-1d.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

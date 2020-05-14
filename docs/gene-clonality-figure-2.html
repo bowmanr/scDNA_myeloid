@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.5 Gene Clonality: Figure 2 | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.5 Gene Clonality: Figure 2 | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.5 Gene Clonality: Figure 2 | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2020-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="clonograph-figure-1d.html"/>
+<link rel="next" href="final-words.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>3</b> Data Extraction and Setup</a><ul>
+<li class="chapter" data-level="3.1" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>3.1</b> Tapestri Package</a></li>
+<li class="chapter" data-level="3.2" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>3.2</b> Post processing</a></li>
+<li class="chapter" data-level="3.3" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>3.3</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
+<li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint-figure-1a.html"><a href="oncoprint-figure-1a.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="4.3" data-path="sample-clonality-figure-1ce-figure-2ab.html"><a href="sample-clonality-figure-1ce-figure-2ab.html"><i class="fa fa-check"></i><b>4.3</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="4.4" data-path="clonograph-figure-1d.html"><a href="clonograph-figure-1d.html"><i class="fa fa-check"></i><b>4.4</b> Clonograph: Figure 1D</a></li>
+<li class="chapter" data-level="4.5" data-path="gene-clonality-figure-2.html"><a href="gene-clonality-figure-2.html"><i class="fa fa-check"></i><b>4.5</b> Gene Clonality: Figure 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a><ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="gene-clonality-figure-2" class="section level2">
+<h2><span class="header-section-number">4.5</span> Gene Clonality: Figure 2</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
+clone_size_by_gene&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(x){
+  clones&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">select</span>(Clone)
+  Clone_size&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">transmute</span>(<span class="dt">Clone_size=</span>Count<span class="op">/</span><span class="kw">sum</span>(Count))<span class="op">%&gt;%</span><span class="kw">pull</span>(Clone_size)
+  <span class="kw">names</span>(Clone_size) &lt;-<span class="st"> </span>clones[,<span class="st">&quot;Clone&quot;</span>]
+  mutations &lt;-<span class="st"> </span><span class="kw">colnames</span>(final_sample_summary[[x]]<span class="op">$</span>NGT<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span>Clone))
+  dominant_clone &lt;-<span class="st"> </span>clones[<span class="kw">nrow</span>(clones),]
+  VAFs &lt;-<span class="st"> </span>final_sample_summary[[x]]<span class="op">$</span>NGT<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">mutations</span><span class="st">`</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="kw">mean</span>(.)<span class="op">/</span><span class="dv">2</span>))
+
+  mut_mat&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">select</span>(Clone)<span class="op">%&gt;%</span>
+<span class="st">                                  </span><span class="kw">separate</span>(<span class="dt">col=</span>Clone,<span class="dt">into=</span>mutations,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>)<span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="co">#arbitrarily large number of columns selected and leftover subsequently removed in next line</span>
+<span class="st">                                  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(.)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+  <span class="kw">data.frame</span>(clones,Clone_size,mut_mat,<span class="st">&quot;Sample&quot;</span>=x)<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">all_of</span>(mutations),<span class="dt">names_to=</span><span class="st">&quot;Variant&quot;</span>, <span class="dt">values_to=</span><span class="st">&quot;Genotype&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">filter</span>(Genotype<span class="op">!=</span><span class="dv">0</span>)<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">separate</span>(<span class="dt">col=</span>Variant, <span class="dt">into=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">extra=</span><span class="st">&quot;drop&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.|_&quot;</span>,<span class="dt">remove=</span><span class="ot">FALSE</span>)<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">group_by</span>(Variant)<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">mutate</span>(<span class="dt">Clonality=</span><span class="kw">case_when</span>(
+                          Clone<span class="op">==</span><span class="st">`</span><span class="dt">dominant_clone</span><span class="st">`</span><span class="op">~</span><span class="st">&quot;Dominant&quot;</span>,
+                          Clone<span class="op">!=</span><span class="st">`</span><span class="dt">dominant_clone</span><span class="st">`</span><span class="op">~</span><span class="st">&quot;Subclone&quot;</span>))<span class="op">%&gt;%</span>
+<span class="st">            </span><span class="kw">inner_join</span>(<span class="kw">data.frame</span>(<span class="st">&quot;VAF&quot;</span>=<span class="kw">t</span>(VAFs),
+                                  <span class="st">&quot;Variant&quot;</span>=<span class="kw">names</span>(VAFs)))
+}))
+
+tally_set&lt;-<span class="kw">data.frame</span>(<span class="kw">table</span>(clone_size_by_gene<span class="op">$</span>Gene,
+                           clone_size_by_gene<span class="op">$</span>Clonality))<span class="op">%&gt;%</span>
+<span class="st">                      </span><span class="kw">pivot_wider</span>(<span class="dt">names_from=</span>Var2,<span class="dt">values_from=</span>Freq)<span class="op">%&gt;%</span>
+<span class="st">                      </span><span class="kw">mutate</span>(<span class="dt">Ratio=</span>Dominant<span class="op">/</span>(Subclone<span class="op">+</span>Dominant))<span class="op">%&gt;%</span>
+<span class="st">                      </span><span class="kw">arrange</span>(Ratio)
+  
+clone_size_by_gene<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">factor</span>(clone_size_by_gene<span class="op">$</span>Gene, <span class="dt">levels=</span>tally_set<span class="op">$</span>Var1)
+color_red&lt;-<span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>]
+
+clone_size_by_gene<span class="op">$</span>Clonality&lt;-<span class="kw">factor</span>(clone_size_by_gene<span class="op">$</span>Clonality,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Subclone&quot;</span>,<span class="st">&quot;Dominant&quot;</span>))
+
+ggA&lt;-<span class="kw">ggplot</span>(<span class="kw">tally</span>(clone_size_by_gene<span class="op">%&gt;%</span><span class="kw">group_by</span>(Gene,Clonality)),
+            <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(Gene),<span class="dt">fill=</span>Clonality,<span class="dt">y=</span>n,<span class="dt">label=</span>n))<span class="op">+</span>
+<span class="st">            </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="ot">FALSE</span>,<span class="dt">color=</span><span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">scale_y_continuous</span>( <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.0</span>))<span class="op">+</span>
+<span class="st">            </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">position=</span><span class="st">&quot;fill&quot;</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">coord_flip</span>()<span class="op">+</span>
+<span class="st">            </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;Dominant&quot;</span>=color_red,
+                                       <span class="st">&quot;Subclone&quot;</span>=<span class="st">&quot;grey80&quot;</span>))<span class="op">+</span>
+<span class="st">            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of mutant clones </span><span class="ch">\n</span><span class="st"> </span>
+<span class="st">                 with mutation in dominant clone&quot;</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">theme_bw</span>(<span class="dt">base_size=</span><span class="dv">8</span>)<span class="op">+</span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)
+  
+ggB&lt;-<span class="kw">ggplot</span>(clone_size_by_gene, 
+            <span class="kw">aes</span>(<span class="dt">y=</span>Clone_size, <span class="dt">x=</span>Gene, <span class="dt">fill=</span>Gene)) <span class="op">+</span>
+<span class="st">            </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>,<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Clonality,<span class="dt">group=</span>Clonality), 
+                       <span class="dt">position =</span> <span class="kw">position_jitterdodge</span>(), <span class="dt">size=</span><span class="fl">0.3</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">tol.rainbow</span>(<span class="dt">n=</span><span class="kw">length</span>(<span class="kw">levels</span>(clone_size_by_gene<span class="op">$</span>Gene))))<span class="op">+</span>
+<span class="st">            </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;Dominant&quot;</span>=color_red,
+                                        <span class="st">&quot;Subclone&quot;</span>=<span class="st">&quot;grey20&quot;</span>))<span class="op">+</span>
+<span class="st">            </span><span class="kw">coord_flip</span>()<span class="op">+</span>
+<span class="st">            </span><span class="kw">theme_bw</span>(<span class="dt">base_size=</span><span class="dv">8</span>)<span class="op">+</span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="ot">FALSE</span>,<span class="dt">color=</span><span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(),
+                  <span class="dt">axis.ticks.y  =</span> <span class="kw">element_blank</span>(),
+                  <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>())<span class="op">+</span>
+<span class="st">            </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)) <span class="op">+</span>
+<span class="st">            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of cells </span><span class="ch">\n</span><span class="st"> </span>
+<span class="st">                 in largest mutant clone&quot;</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)
+
+spacer &lt;-<span class="st"> </span><span class="kw">plot_grid</span>(<span class="ot">NULL</span>)
+
+<span class="kw">plot_grid</span>(ggA,spacer,ggB,<span class="dt">align=</span><span class="st">&quot;h&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;tb&quot;</span>,
+          <span class="dt">ncol=</span><span class="dv">3</span>,<span class="dt">rel_widths=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.05</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="clonograph-figure-1d.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

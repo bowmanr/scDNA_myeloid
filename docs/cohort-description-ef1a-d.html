@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-13" />
+<meta name="date" content="2020-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="cohort-description-and-exploration.html"/>
-<link rel="next" href="oncoprint.html"/>
+<link rel="next" href="oncoprint-figure-1a.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -116,8 +116,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="cohort-description-and-exploration.html"><a href="cohort-description-and-exploration.html"><i class="fa fa-check"></i><b>4</b> Cohort description and exploration</a><ul>
 <li class="chapter" data-level="4.1" data-path="cohort-description-ef1a-d.html"><a href="cohort-description-ef1a-d.html"><i class="fa fa-check"></i><b>4.1</b> Cohort Description: EF1A-D</a></li>
-<li class="chapter" data-level="4.2" data-path="oncoprint.html"><a href="oncoprint.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint</a></li>
-<li class="chapter" data-level="4.3" data-path="cohort-level-clonality-analysis.html"><a href="cohort-level-clonality-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Cohort level clonality analysis</a></li>
+<li class="chapter" data-level="4.2" data-path="oncoprint-figure-1a.html"><a href="oncoprint-figure-1a.html"><i class="fa fa-check"></i><b>4.2</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="4.3" data-path="sample-clonality-figure-1ce-figure-2ab.html"><a href="sample-clonality-figure-1ce-figure-2ab.html"><i class="fa fa-check"></i><b>4.3</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="4.4" data-path="clonograph-figure-1d.html"><a href="clonograph-figure-1d.html"><i class="fa fa-check"></i><b>4.4</b> Clonograph: Figure 1D</a></li>
+<li class="chapter" data-level="4.5" data-path="gene-clonality-figure-2.html"><a href="gene-clonality-figure-2.html"><i class="fa fa-check"></i><b>4.5</b> Gene Clonality: Figure 2</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -201,8 +203,8 @@ gg_mut_patient&lt;-<span class="kw">ggplot</span>(melted_mut_mat,<span class="kw
           gg_mutated_genes_per_patient,gg_mutations_per_patient,
           <span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,
           <span class="dt">labels =</span> <span class="st">&quot;AUTO&quot;</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-11-1.png" alt="Extended Figure 1A-D" width="864" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-12-1.png" alt="Extended Figure 1A-D" width="864" />
 <p class="caption">
 Figure 4.1: Extended Figure 1A-D
 </p>
@@ -216,7 +218,7 @@ Figure 4.1: Extended Figure 1A-D
 <span class="st">                                      </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Informative Cells per Sample&quot;</span>)<span class="op">+</span>
 <span class="st">                                      </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
 <span class="st">                                      </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">8</span>)</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-12-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-13-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>Next we want to make the co-occurence matrix on a sample level</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cooccur)
 
@@ -268,7 +270,7 @@ grob_corrplot&lt;-<span class="kw">ggplot</span>(cooccur_data_mat<span class="op
 <span class="st">                      </span><span class="kw">theme</span>(<span class="dt">legend.key.size =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>,<span class="st">&quot;line&quot;</span>))
 
 grob_corrplot</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-13-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-14-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
             </section>
 
@@ -276,7 +278,7 @@ grob_corrplot</code></pre></div>
         </div>
       </div>
 <a href="cohort-description-and-exploration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="oncoprint.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="oncoprint-figure-1a.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

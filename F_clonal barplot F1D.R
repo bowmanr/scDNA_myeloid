@@ -3,7 +3,7 @@ source("/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Scripts/mB
 final_sample_summary<-readRDS(file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/final_sample_summary.rds")
 clonal_sample_set_after_boostrap<-readRDS(file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/clonal_sample_set_after_boostrap")
 
-sample <-"E8566"
+sample <-"MSK45"
 
   clonal_abundance_subset <-final_sample_summary[[sample]]$Clones 
   clonal_architecture <-final_sample_summary[[sample]]$Architecture 
