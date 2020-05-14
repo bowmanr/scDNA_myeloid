@@ -151,7 +151,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.1</span> Tapestri Package</h2>
 <p>The purpose of this section is to demonstrate how to extract the data. We will use the tapestri package.</p>
 <p>The ‘tapestri’ package is available from Mission Bio <a href="https://support.missionbio.com/hc/en-us/articles/360042455574-tapestri-R-Package">here</a>. We’ll use this to read in our sample files. You’ll notice in a lot of the code, we are going to run loops and lapply over all of the samples. For reproducibility purposes, I am going to show a limited example on 5 samples for preprocessing, and later we will load an rds object with all the data in the paper.</p>
-<p>Critical files used for analysis can be found on google drive <a href="Google%20drive%20link">here</a>. We’re working on getting all of the processsed and raw data up on dbGAP now. Next, make a project folder and set the working directory to that folder:</p>
+<p>Critical files used for analysis can be found on google drive <a href="https://drive.google.com/open?id=17Zw6Ixu93UM7M5Vyl_aOJ7aX2iYIb8If">here</a>. We’re working on getting all of the processsed and raw data up on dbGAP now. Next, make a project folder and set the working directory to that folder:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA&quot;</span>)</code></pre></div>
 <p>Load in the relevant packages we will use later.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
@@ -185,6 +185,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                              <span class="dt">name=</span>i)
   <span class="kw">saveRDS</span>(snv,<span class="kw">paste0</span>(<span class="st">&quot;./analysis/&quot;</span>,i,<span class="st">&quot;.rds&quot;</span>))
 }</code></pre></div>
+
 </div>
             </section>
 

@@ -1,0 +1,75 @@
+## Post processing
+Next we'll read the files back in and put them into a list. After that I will walk through some steps we used to process the data a little further.  Here we made a decision in the project to focus only on protein encoding SNVs, of course there is likely rich data in the splice mutations and that is for further followup.  Importantly, we also made the decision to focus only on cells with complete genotype information, and exclude cells that had missing genotypes for a cell of interest.  A complimentary manuscript by Koichi Takahashi's group at MD Anderson analyzed their dataset, and I encourage whoever is reading this to take a look at their bioRxiv preprint.  I'll update this reference once they paper is published.
+
+Our streps for post processing are below:
+ + Filter variants through a blacklist removing recurrent variants that we think are likely sequencing errors
+ + Annotating SNVS for protein encoding functions, and removing synonymous and splice variants
+ + Remove variants that are mutated in <2 cells
+ + Remove remaining cells with any unknown genotypes
+ + Remove variants that are mutated in <2 cells again now that we have removed cells that were low quality
+
+```{r reread SNV files, message=FALSE}
+processed_SNV_files <-grep("MSK",list.files("./analysis/",full.names = TRUE),value=TRUE)
+names(processed_SNV_files)<-do.call(rbind,strsplit(grep("MSK",list.files("./analysis/"),value=TRUE),split="\\."))[,1]
+
+SNV<-setNames(lapply(names(processed_SNV_files),function(x){
+  y<-readRDS(processed_SNV_files[x])
+  data.frame("Cell"=rownames(y), # moving the cell name into data.frame prevents some errors later
+             y$data) # extracts the genotype matrix from the analyte object
+}), names(processed_SNV_files))
+```
+
+So one important note is that the variant annotation we used in the manuscript was done with Tapesstri Insights. Which was quite convenient as it put out a 1:1 mapping of SNV to amino acid changes, presumably by having a list of preferred TXIDs for each gene.  So I've outlined what I think is a decent approach to this here. *Importantly, this approach removes variants that are not protein encoding, and thus removes splice variants*
+
+```{r create protein annotations, message=FALSE,warning=FALSE,cache=TRUE}
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+blacklist <-read.delim("./blacklist.txt",sep="\t")
+
+variants <- lapply(SNV,function(x){
+  experimental_variants <- colnames(x)[ !grepl("Cell",colnames(x))& #remove the Cell column
+                                        !grepl("^chr",colnames(x))& #remove control loci
+                                        !colnames(x)%in%blacklist[,1]] #remove blacklsited SNVs
+  variants_matrix<-data.frame(experimental_variants,
+                                do.call(rbind,strsplit(experimental_variants,split="\\.")))
+  colnames(variants_matrix) <- c("SNV","gene","chr","start","ref","alt")
+  variants_matrix$ref<-as(variants_matrix$ref, "DNAStringSet")
+  variants_matrix$alt<-as(variants_matrix$alt, "DNAStringSet")
+  variant_gRange<-makeGRangesFromDataFrame(variants_matrix,
+                                           seqnames.field = "chr",
+                                           start.field="start",
+                                           end.field="start",
+                                           keep.extra.columns=TRUE)
+  out<-  predictCoding(variant_gRange, txdb, seqSource=Hsapiens,varAllele=variant_gRange$alt)
+  out2<-out%>%filter(CONSEQUENCE=="nonsynonymous")%>%
+              mutate(AA=paste0(gene,".",REFAA,PROTEINLOC,VARAA))%>%
+              select(SNV,AA)
+  return(data.frame(out2)%>%distinct(SNV,AA))
+  })
+
+# Select the correct variants, this is an example. 
+# Probably better off coming up with a list of TXIDs or CDSIDs you want for each gene.
+variants[["MSK15"]]<-variants[["MSK15"]] %>% filter(!AA%in%c("DNMT3A.R693C","DNMT3A.R446Q"))
+variants[["MSK18"]]<-variants[["MSK18"]] %>% filter(!AA%in%c("DNMT3A.R693C"))
+variants[["MSK71"]]<-variants[["MSK71"]] %>% filter(!AA%in%c("DNMT3A.Y685C"))
+variants[["MSK91"]]<-variants[["MSK91"]] %>% filter(!AA%in%c("IDH2.R88Q","IDH2.R10Q"))
+```
+
+Now we'll take this list of variants and subset the genotype matrices and proceed through the following steps:
+ + Remove variants that are mutated in <2 cells
+ + Remove remaining cells with any unknown genotypes
+ + Remove variants that are mutated in <2 cells again now that we have removed cells that were low quality
+ 
+```{r annotate NGT column names to protein IDs filter hits,cache=TRUE}
+filtered_NGT<-setNames(lapply(names(SNV),function(sample){
+  setNames(data.frame(SNV[[sample]][,c("Cell",as.character(variants[[sample]]$SNV))]),
+           c("Cell",variants[[sample]]$AA))
+}),names(SNV))
+
+final_NGTs<-setNames(lapply(names(filtered_NGT),function(x){
+    filtered_NGT[[x]] %>% 
+                    select_if(~ !is.numeric(.) || sum(.%in%c(1,2))>=2) %>%
+                    filter_all(all_vars(.!=3)) %>%
+                    select_if(~ !is.numeric(.) || sum(.%in%c(1,2))>=2) 
+}),names(filtered_NGT))
+```
+

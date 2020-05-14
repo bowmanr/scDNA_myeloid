@@ -1,0 +1,127 @@
+## Assessing clonal abundance
+This will be the last code example that proceeds with our limited sample set. After this, the tutorial will procede with the data used in the manuscript. This analysis will focus only on samples that have greater than one mutation.
+
+The general workflow is as follows
+* Select samples that have at least 2 mutaions
+* Clone assigment
+* Tally clonal abundance
+* Establish a clonal abundance confidence itnerval
+```{r, establish clonal abundance,cache=TRUE,warning=FALSE}
+# Select samples with at least 2 mutations 
+clonal_sample_set <- names(final_NGTs)[do.call(rbind,lapply(final_NGTs,dim))[,2]>2]
+
+# Order columns based on computed_VAF, and assign a clone to each cell
+NGT_to_clone<-lapply(final_NGTs[clonal_sample_set],function(y){
+  bulk_VAF_order <-names(sort(colSums(y[,-1]),decreasing=TRUE))
+  y[,c("Cell",bulk_VAF_order)] %>%unite("Clone",all_of(`bulk_VAF_order`),sep="_", remove = FALSE)
+ })
+
+# Tally clones
+clonal_abundance<- lapply(NGT_to_clone,function(x){
+  x%>%count(Clone,name="Count")%>%arrange(Count)
+ })
+
+# Setup a resampling function to generate multiple clonal abundance tallies
+resample_fun<-function(data){
+  x <- data[sample(x=1:nrow(data),replace=TRUE),]
+  return(as.matrix(x%>%count(Clone,name="Count")%>%arrange(Count)))
+}
+
+replicates <- 100 # we did 10,000. Keeping it low here for run time.
+clone_cutoff <- 10 # minimum number of cells in order to retain a clone
+clonal_abundance_boot_CI <- lapply(names(NGT_to_clone),function(sample_to_test){
+    test<-replicate(n=replicates,resample_fun(NGT_to_clone[[sample_to_test]]),simplify = "array")
+    if(class(test)=="list"){
+      y <- setNames(lapply(test,data.frame),1:replicates) %>%
+           imap(.x = ., ~ set_names(.x, c("Clone", .y))) %>% 
+           purrr::reduce(full_join, by = "Clone")%>%
+           mutate_if(names(.)!="Clone",as.numeric)%>%
+           mutate_each(funs(replace(., is.na(.), 0)))
+      }
+    if(class(test)=="array"){
+      y <- setNames(apply(test,3,data.frame),1:replicates) %>%
+           imap(.x = ., ~ set_names(.x, c("Clone", .y))) %>% 
+           purrr::reduce(full_join, by = "Clone")%>%
+           mutate_if(names(.)!="Clone",as.numeric)%>%
+           mutate_each(funs(replace(., is.na(.), 0)))
+      }
+    z <- data.frame(t(apply(y%>%select(-Clone),1,function(p){
+            quantile(p,probs=c(0.025,0.975))
+         })),"Clone"=y$Clone)
+    set <- setNames(data.frame(inner_join(data.frame(clonal_abundance[[sample_to_test]]),z,by="Clone")),
+                  c("Clone","Count","LCI","UCI"))%>%filter(LCI>=clone_cutoff)
+})
+names(clonal_abundance_boot_CI) <-names(clonal_abundance)
+```
+
+Now that we have a set of clones that we believe reproducibily have at least 10 cells, we remove cells and variants that are no longer represented at sufficient coverage.
+
+```{r filter NGTs, cache=TRUE}
+clone_filtered_NGTs <- setNames(lapply(names(clonal_abundance_boot_CI),function(sample_to_test){
+
+  # Determine if there are any clones left to process
+  if(nrow(clonal_abundance_boot_CI[[sample_to_test]])==0) {
+    return("No clones after boostrapping")
+  }
+  
+  # Determine if there are any mutations that are no longer found in a stable clone
+  clone_matrix<-as.matrix(do.call(rbind,
+                                strsplit(clonal_abundance_boot_CI[[sample_to_test]][,"Clone"],split="_")))
+  mode(clone_matrix) <- "numeric"
+  colnames(clone_matrix) <-colnames(NGT_to_clone[[sample_to_test]])[-c(1,2)]
+  variants_to_remove<-names(which(colSums(clone_matrix)==0))
+
+  # Check other conditions of interest that might remove sample from further processing
+  if(nrow(clone_matrix)==1) {
+    return("Only 1 clone left")
+  }else  if(length(setdiff(colnames(clone_matrix),c(variants_to_remove)))<=1){
+    return("Removed all but 1 variant")
+  }else {
+      # Select only clones that survive the bootstrapping, and remove variants that fall out
+      NGT_to_clone_subset <- NGT_to_clone[[sample_to_test]]%>%
+                                filter(Clone%in%clonal_abundance_boot_CI[[sample_to_test]]$Clone)%>%
+                                select(!all_of(variants_to_remove))
+        
+      # Create a key for the new and old clone names after removing variants that are no longer present
+      clone_key <- data.frame("New"=apply(data.frame(clone_matrix)%>%select(!all_of(variants_to_remove)),MARGIN=1,
+                                            function(x){ paste(x,sep="_",collapse="_")}),
+                                "Old"=apply(data.frame(clone_matrix),MARGIN=1,
+                                            function(x){ paste(x,sep="_",collapse="_")}))
+        
+      # If there are any variants to remove and clones that need to be renamed
+      if(any(clone_key$New!=clone_key$Old)){
+            NGT_to_clone_subset$Clone <- sapply(NGT_to_clone_subset$Clone,function(x){
+                                              clone_key$New[match(x,clone_key$Old)]})
+      }
+      return(NGT_to_clone_subset)
+    }
+}),names(clonal_abundance_boot_CI))
+```
+
+One last step I find useful is to explicitly state the genotype of each mutation in each clone. This si useful for the clonotype plots we'll make later.
+```{r clonal architecture, }
+clonal_architecture <- setNames(lapply(names(clonal_abundance_boot_CI),function(test_sample){
+
+  clonal_architecture<-clone_filtered_NGTs[[test_sample]]%>%
+                                            select(!Cell)%>% 
+                                            distinct()%>%
+                                            pivot_longer(cols=!Clone,
+                                                         names_to="Mutant",
+                                                         values_to="Genotype") %>%
+                                            mutate(Genotype=ifelse(Genotype==3,NA,
+                                                             ifelse(Genotype==0,"WT",
+                                                              ifelse(Genotype==1,"Heterozygous",                                                                          ifelse(Genotype==2,"Homozygous",NA)))))
+}), names(clonal_abundance_boot_CI))
+```
+   
+Lastly, we are going to package everything together into a list format for easy access later.
+
+```{r save final_sample_summary}
+final_sample_summary<-setNames(lapply(names(clonal_architecture),function(sample){
+   return(list("Clones"=clonal_abundance_boot_CI[[sample]],
+               "NGT"=clone_filtered_NGTs[[sample]],
+               "Architecture"=clonal_architecture[[sample]]))
+}),names(clonal_abundance_boot_CI))
+
+saveRDS(final_sample_summary,file="./analysis/final_sample_summary.rds")
+```

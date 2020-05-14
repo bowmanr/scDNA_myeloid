@@ -1,0 +1,53 @@
+## Tapestri Package {#tapestri_library}
+The purpose of this section is to demonstrate how to extract the data.  We will use the tapestri package.
+
+The 'tapestri' package is available from Mission Bio [here](https://support.missionbio.com/hc/en-us/articles/360042455574-tapestri-R-Package).  We'll use this to read in our sample files.  You'll notice in a lot of the code, we are going to run loops and lapply over all of the samples. For reproducibility purposes, I am going to show a limited example on 5 samples for preprocessing, and later we will load an rds object with all the data in the paper. 
+
+Critical files used for analysis can be found on google drive [here](https://drive.google.com/open?id=17Zw6Ixu93UM7M5Vyl_aOJ7aX2iYIb8If). We're working on getting all of the processsed and raw data up on dbGAP now. Next, make a project folder and set the working directory to that folder:
+
+```{r set working directory, eval=FALSE}
+setwd("/Users/bowmanr/Projects/scDNA")
+```
+
+Load in the relevant packages we will use later.
+```{r packages ,message=FALSE, warning=FALSE}
+options(stringsAsFactors = FALSE)
+library(VariantAnnotation)
+library(plyranges)
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(tapestri)
+```
+
+Place the downloaded files into a new folder called "data" also make an "analysis" folder. We'll save things there frequently just to provide checkpoints so everything does not need to be run from scratch.  
+
+```{r eval=FALSE}
+system("mkdir /Users/bowmanr/Projects/scDNA/data")
+system("mkdir /Users/bowmanr/Projects/scDNA/analysis")
+```
+
+The following took <20 minutes for the 6 samples on my mac book, but obivously would take much longer for the whole cohort. The final step using the "convert_to_analyte" function in unnecessary, but you will see it comes into play when we merge with the DNA+protein data later in the paper.
+
+```{r load in NGT files, message=FALSE,eval=FALSE,cache = FALSE}
+sample_set <- list.files("./data/",full.names = TRUE)
+names(sample_set) <-list.files("./data/")
+
+for(i in names(sample_set)){
+  barcode_files<-grep("barcode",list.files(sample_set[i],full.names=TRUE),value=TRUE)
+  loom_files<-grep("loom$",list.files(sample_set[i],full.names=TRUE),value=TRUE)
+  header_files<-grep("vcf_header.txt$",list.files(sample_set[i],full.names=TRUE),value=TRUE)
+  barcodes <- read_barcodes(barcode_files,header_files)
+  loom <- connect_to_loom(loom_files)
+  ngt_file <- extract_genotypes(loom, barcodes, 
+                              gt.filter=TRUE, gt.gqc = 30,
+                              gt.dpc = 10, gt.afc = 20,  gt.mv = 50, 
+                              gt.mc = 50, gt.mm = 1, gt.mask = TRUE)
+  snv <- convert_to_analyte(data=as.data.frame(ngt_file),
+                             type='snv',
+                             name=i)
+  saveRDS(snv,paste0("./analysis/",i,".rds"))
+}
+```

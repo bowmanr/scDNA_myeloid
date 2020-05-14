@@ -233,8 +233,8 @@ gg_number_of_clones&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes
 <span class="st">                                  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
 
 <span class="kw">plot_grid</span>(gg_number_of_mutations,gg_number_of_clones,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;C&quot;</span>,<span class="st">&quot;E&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-19-1.png" alt="Miles et al: Figure 1C,E" width="700.8" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-18-1.png" alt="Miles et al: Figure 1C,E" width="700.8" />
 <p class="caption">
 Figure 4.2: Miles et al: Figure 1C,E
 </p>
@@ -250,7 +250,7 @@ pvalues_Number_of_mutations&lt;-test<span class="op">%&gt;%</span>{<span class="
 <span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
 <table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
-<span id="tab:unnamed-chunk-21">Table 4.1: </span>Number of Clones
+<span id="tab:unnamed-chunk-20">Table 4.1: </span>Number of Clones
 </caption>
 <thead>
 <tr>
@@ -380,7 +380,7 @@ DTAI-RAS
 </table>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-21">Table 4.1: </span>Number of Mutations
+<span id="tab:unnamed-chunk-20">Table 4.1: </span>Number of Mutations
 </caption>
 <thead>
 <tr>
@@ -580,8 +580,8 @@ gg_Number_of_mutations_in_Dclone&lt;-<span class="kw">ggplot</span>(test<span cl
                                                             <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
 
 <span class="kw">plot_grid</span>(gg_shannon,gg_Number_of_mutations_in_Dclone,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-22-1.png" alt="Miles et al: Figure 2A-B" width="700.8" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-21"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-21-1.png" alt="Miles et al: Figure 2A-B" width="700.8" />
 <p class="caption">
 Figure 4.3: Miles et al: Figure 2A-B
 </p>
@@ -597,7 +597,7 @@ pvalues_Number_of_mutations_in_dominant_clone&lt;-test<span class="op">%&gt;%</s
 <span class="st">                                              </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
 <table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
-<span id="tab:unnamed-chunk-23">Table 4.2: </span>Shannon diversity index
+<span id="tab:unnamed-chunk-22">Table 4.2: </span>Shannon diversity index
 </caption>
 <thead>
 <tr>
@@ -749,7 +749,7 @@ DTAI-RAS
 </table>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-23">Table 4.2: </span>Dominant clone mutations
+<span id="tab:unnamed-chunk-22">Table 4.2: </span>Dominant clone mutations
 </caption>
 <thead>
 <tr>
@@ -949,8 +949,8 @@ gg_clone_size_by_genetic_density&lt;-<span class="kw">ggplot</span>(clone_size_b
                                                                 <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
 
 <span class="kw">plot_grid</span>(gg_dominant_clone_size,gg_clone_size_by_genetic_density,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;tb&quot;</span>,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-24"></span>
-<img src="scDNA_files/figure-html/unnamed-chunk-24-1.png" alt="Miles et al: Extended Figure 3A-B" width="700.8" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-23-1.png" alt="Miles et al: Extended Figure 3A-B" width="700.8" />
 <p class="caption">
 Figure 4.4: Miles et al: Extended Figure 3A-B
 </p>
@@ -960,7 +960,7 @@ Figure 4.4: Miles et al: Extended Figure 3A-B
 <span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-26">Table 4.3: </span>Dominant clone size
+<span id="tab:unnamed-chunk-25">Table 4.3: </span>Dominant clone size
 </caption>
 <thead>
 <tr>

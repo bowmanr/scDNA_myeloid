@@ -149,54 +149,73 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="gene-clonality-figure-2" class="section level2">
 <h2><span class="header-section-number">4.5</span> Gene Clonality: Figure 2</h2>
+<p>We next wanted to determine if a given gene is likely to be found in the dominant clone or only ib subclones. Of course, nearly all mutations found in the dominant clone were also found in subclones. We attempted to find mutations that were exclusively found in the dominant clone, but did not observe any. This is likely complicated by the fact that many subclones are not the most “genetically dense” clone as explored in Figure 3 of the manuscript. We decided to address that with the markov models described elsewhere, and instead classified a mutation on whether it was present present or absent in the dominant clone.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
+
 clone_size_by_gene&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(x){
+  <span class="co"># select the clones</span>
   clones&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">select</span>(Clone)
+  
+  <span class="co"># Compute the relative clone size</span>
   Clone_size&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">transmute</span>(<span class="dt">Clone_size=</span>Count<span class="op">/</span><span class="kw">sum</span>(Count))<span class="op">%&gt;%</span><span class="kw">pull</span>(Clone_size)
   <span class="kw">names</span>(Clone_size) &lt;-<span class="st"> </span>clones[,<span class="st">&quot;Clone&quot;</span>]
+  
+  <span class="co"># Extract the mutations</span>
   mutations &lt;-<span class="st"> </span><span class="kw">colnames</span>(final_sample_summary[[x]]<span class="op">$</span>NGT<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span>Clone))
+  
+  <span class="co"># Identify the dominant clone, which is the last one in this data frame</span>
   dominant_clone &lt;-<span class="st"> </span>clones[<span class="kw">nrow</span>(clones),]
+  
+  <span class="co"># Compute the bulk VAF for each mutation</span>
   VAFs &lt;-<span class="st"> </span>final_sample_summary[[x]]<span class="op">$</span>NGT<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">mutations</span><span class="st">`</span>)<span class="op">%&gt;%</span>
 <span class="st">                              </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="kw">mean</span>(.)<span class="op">/</span><span class="dv">2</span>))
 
-  mut_mat&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">select</span>(Clone)<span class="op">%&gt;%</span>
-<span class="st">                                  </span><span class="kw">separate</span>(<span class="dt">col=</span>Clone,<span class="dt">into=</span>mutations,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>)<span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="co">#arbitrarily large number of columns selected and leftover subsequently removed in next line</span>
-<span class="st">                                  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(.)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+  <span class="co"># Separate the clone into a deduplicated NGT matrix</span>
+  mut_mat&lt;-final_sample_summary[[x]]<span class="op">$</span>Clones<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(Clone)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">separate</span>(<span class="dt">col=</span>Clone,<span class="dt">into=</span>mutations,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>)
+  
+  <span class="co"># Create a composite data frame and turn it into long form</span>
   <span class="kw">data.frame</span>(clones,Clone_size,mut_mat,<span class="st">&quot;Sample&quot;</span>=x)<span class="op">%&gt;%</span>
 <span class="st">            </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">all_of</span>(mutations),<span class="dt">names_to=</span><span class="st">&quot;Variant&quot;</span>, <span class="dt">values_to=</span><span class="st">&quot;Genotype&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">            </span><span class="kw">filter</span>(Genotype<span class="op">!=</span><span class="dv">0</span>)<span class="op">%&gt;%</span>
-<span class="st">            </span><span class="kw">separate</span>(<span class="dt">col=</span>Variant, <span class="dt">into=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">extra=</span><span class="st">&quot;drop&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.|_&quot;</span>,<span class="dt">remove=</span><span class="ot">FALSE</span>)<span class="op">%&gt;%</span>
-<span class="st">            </span><span class="kw">group_by</span>(Variant)<span class="op">%&gt;%</span>
-<span class="st">            </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span>
+<span class="st">            </span>
+<span class="st">            </span><span class="kw">filter</span>(Genotype<span class="op">!=</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove WT entries</span>
+<span class="st">            </span><span class="kw">separate</span>(<span class="dt">col=</span>Variant, <span class="dt">into=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">extra=</span><span class="st">&quot;drop&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.|_&quot;</span>,<span class="dt">remove=</span><span class="ot">FALSE</span>)<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># For later useage in plotting</span>
+<span class="st">            </span><span class="kw">group_by</span>(Variant)<span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">            </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span><span class="st"> </span><span class="co">#identify largest clone</span>
 <span class="st">            </span><span class="kw">mutate</span>(<span class="dt">Clonality=</span><span class="kw">case_when</span>(
                           Clone<span class="op">==</span><span class="st">`</span><span class="dt">dominant_clone</span><span class="st">`</span><span class="op">~</span><span class="st">&quot;Dominant&quot;</span>,
-                          Clone<span class="op">!=</span><span class="st">`</span><span class="dt">dominant_clone</span><span class="st">`</span><span class="op">~</span><span class="st">&quot;Subclone&quot;</span>))<span class="op">%&gt;%</span>
+                          Clone<span class="op">!=</span><span class="st">`</span><span class="dt">dominant_clone</span><span class="st">`</span><span class="op">~</span><span class="st">&quot;Subclone&quot;</span>))<span class="op">%&gt;%</span><span class="st"> </span><span class="co">#label clones</span>
 <span class="st">            </span><span class="kw">inner_join</span>(<span class="kw">data.frame</span>(<span class="st">&quot;VAF&quot;</span>=<span class="kw">t</span>(VAFs),
-                                  <span class="st">&quot;Variant&quot;</span>=<span class="kw">names</span>(VAFs)))
+                                  <span class="st">&quot;Variant&quot;</span>=<span class="kw">names</span>(VAFs))) <span class="co"># merge with bulk VAF info</span>
 }))
 
+<span class="co"># Tally the number of times a gene is in the dominant and subclone</span>
 tally_set&lt;-<span class="kw">data.frame</span>(<span class="kw">table</span>(clone_size_by_gene<span class="op">$</span>Gene,
                            clone_size_by_gene<span class="op">$</span>Clonality))<span class="op">%&gt;%</span>
 <span class="st">                      </span><span class="kw">pivot_wider</span>(<span class="dt">names_from=</span>Var2,<span class="dt">values_from=</span>Freq)<span class="op">%&gt;%</span>
-<span class="st">                      </span><span class="kw">mutate</span>(<span class="dt">Ratio=</span>Dominant<span class="op">/</span>(Subclone<span class="op">+</span>Dominant))<span class="op">%&gt;%</span>
-<span class="st">                      </span><span class="kw">arrange</span>(Ratio)
+<span class="st">                      </span><span class="kw">mutate</span>(<span class="dt">Ratio=</span>Dominant<span class="op">/</span>(Subclone<span class="op">+</span>Dominant))<span class="op">%&gt;%</span><span class="st"> </span><span class="co">#calculate the dominant ratio</span>
+<span class="st">                      </span><span class="kw">arrange</span>(Ratio) 
   
+<span class="co"># For plotting purposes establish order of the y axis</span>
 clone_size_by_gene<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">factor</span>(clone_size_by_gene<span class="op">$</span>Gene, <span class="dt">levels=</span>tally_set<span class="op">$</span>Var1)
+
+<span class="co"># Linde and I spent too much time picking the exact shade of red we wanted for this paper....</span>
 color_red&lt;-<span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>]
 
+<span class="co"># For plotting purposes establish order of stacked bars</span>
 clone_size_by_gene<span class="op">$</span>Clonality&lt;-<span class="kw">factor</span>(clone_size_by_gene<span class="op">$</span>Clonality,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Subclone&quot;</span>,<span class="st">&quot;Dominant&quot;</span>))
 
+<span class="co">#plot the data</span>
 ggA&lt;-<span class="kw">ggplot</span>(<span class="kw">tally</span>(clone_size_by_gene<span class="op">%&gt;%</span><span class="kw">group_by</span>(Gene,Clonality)),
             <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(Gene),<span class="dt">fill=</span>Clonality,<span class="dt">y=</span>n,<span class="dt">label=</span>n))<span class="op">+</span>
 <span class="st">            </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="ot">FALSE</span>,<span class="dt">color=</span><span class="ot">FALSE</span>)<span class="op">+</span>
-<span class="st">            </span><span class="kw">scale_y_continuous</span>( <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.0</span>))<span class="op">+</span>
+<span class="st">            </span><span class="kw">scale_y_continuous</span>( <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.0</span>))<span class="op">+</span><span class="st"> </span><span class="co">#removes white space near the axis of the bars</span>
 <span class="st">            </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">position=</span><span class="st">&quot;fill&quot;</span>)<span class="op">+</span>
 <span class="st">            </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">coord_flip</span>()<span class="op">+</span>
 <span class="st">            </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;Dominant&quot;</span>=color_red,
                                        <span class="st">&quot;Subclone&quot;</span>=<span class="st">&quot;grey80&quot;</span>))<span class="op">+</span>
-<span class="st">            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of mutant clones </span><span class="ch">\n</span><span class="st"> </span>
-<span class="st">                 with mutation in dominant clone&quot;</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of mutant clones </span><span class="ch">\n</span><span class="st"> with mutation in dominant clone&quot;</span>)<span class="op">+</span>
 <span class="st">            </span><span class="kw">theme_bw</span>(<span class="dt">base_size=</span><span class="dv">8</span>)<span class="op">+</span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)
   
 ggB&lt;-<span class="kw">ggplot</span>(clone_size_by_gene, 
@@ -213,15 +232,19 @@ ggB&lt;-<span class="kw">ggplot</span>(clone_size_by_gene,
                   <span class="dt">axis.ticks.y  =</span> <span class="kw">element_blank</span>(),
                   <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>())<span class="op">+</span>
 <span class="st">            </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)) <span class="op">+</span>
-<span class="st">            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of cells </span><span class="ch">\n</span><span class="st"> </span>
-<span class="st">                 in largest mutant clone&quot;</span>)<span class="op">+</span>
+<span class="st">            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of cells </span><span class="ch">\n</span><span class="st"> in largest mutant clone&quot;</span>)<span class="op">+</span>
 <span class="st">            </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)
 
-spacer &lt;-<span class="st"> </span><span class="kw">plot_grid</span>(<span class="ot">NULL</span>)
+spacer &lt;-<span class="st"> </span><span class="kw">plot_grid</span>(<span class="ot">NULL</span>) <span class="co"># plot looks better with a little spacer</span>
 
 <span class="kw">plot_grid</span>(ggA,spacer,ggB,<span class="dt">align=</span><span class="st">&quot;h&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;tb&quot;</span>,
           <span class="dt">ncol=</span><span class="dv">3</span>,<span class="dt">rel_widths=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.05</span>,<span class="dv">1</span>))</code></pre></div>
-<p><img src="scDNA_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-27"></span>
+<img src="scDNA_files/figure-html/unnamed-chunk-27-1.png" alt="Miles et al. Figure 2C" width="672" />
+<p class="caption">
+Figure 4.6: Miles et al. Figure 2C
+</p>
+</div>
 
 </div>
 <!-- </div> -->
