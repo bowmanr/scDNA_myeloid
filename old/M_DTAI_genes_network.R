@@ -5,6 +5,11 @@ final_sample_summary<-readRDS(file="/Volumes/LevineLab/Levine Lab/Bobby/Collabor
 clonal_sample_set_after_boostrap<-readRDS(file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/clonal_sample_set_after_boostrap")
 DTAI_genes <- c("ASXL1","DNMT3A","TET2","IDH1","IDH2")
 
+
+setwd("/Users/bowmanr/Projects/scDNA")
+final_sample_summary<-readRDS(file="./data/final_sample_summary.rds")
+pheno<-readRDS(file="./data/pheno.rds")
+
 genes_in_each_sample<-setNames(mclapply(mc.cores = 4,final_sample_summary[clonal_sample_set_after_boostrap],function(x){
   aggregate_by<-do.call(rbind,strsplit(colnames(x$NGT),split="[_\\.]")) [,1][-length(colnames(x$NGT))]}), clonal_sample_set_after_boostrap)
 

@@ -16,7 +16,7 @@ rownames(data)<-unique(unlist(list_of_mutants))
 data$Sample<-unique(unlist(list_of_mutants))
 data$Group <- ifelse(grepl("CH",rownames(data)),"CH","AML")
 
-DTAI_in_dominant_clone<-lapply(final_sample_summary[clonal_sample_set_after_boostrap],function(sample){
+DTAI_in_dominant_clone<-lapply(final_sample_summary,function(sample){
   variants<-colnames(sample$NGT)[1:(length(colnames(sample$NGT))-1)]
   genes <-do.call(rbind,strsplit(variants,split="[_\\.]"))[,1]
   clones<-sample$Clones[,"Clone"]

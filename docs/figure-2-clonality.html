@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-14" />
+<meta name="date" content="2020-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -126,6 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
 <li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
 <li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
+<li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>4</b> Final Words</a></li>
@@ -571,6 +572,366 @@ NPM1
 </tr>
 </tbody>
 </table>
+
+</div>
+<div id="co-mutation-and-clonality" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Co-mutation and clonality</h3>
+<p>Some of our motivations for this section were: 1) Are epigenetic mutations found in the same cell, if so, are these cells the dominant clone? 2) Are there Tet2 IDH in the same sample, and if so same cell? 3) Are there signaling in the same sample, and if so same cell?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="kw">library</span>(UpSetR)
+<span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(RColorBrewer)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(pals)
+<span class="kw">library</span>(cowplot)
+<span class="kw">library</span>(tibble)
+
+<span class="kw">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA&quot;</span>)
+final_sample_summary&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)
+pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</code></pre></div>
+<p>Extract sample level co mutational data for genes of interest</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_mutations&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(sample){
+  <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=sample,
+            <span class="st">&quot;DNMT3A&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;DNMT3A&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;TET2&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;TET2&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;IDH2&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;IDH2&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;IDH1&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;IDH1&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;ASXL1&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;ASXL1&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;FLT3&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;FLT3&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;JAK2&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;JAK2&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;NRAS&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;NRAS&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;KRAS&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;KRAS&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>),
+             <span class="st">&quot;PTPN11&quot;</span>=<span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;PTPN11&quot;</span>,<span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT))),<span class="dv">1</span>,<span class="dv">0</span>)
+            )
+}))</code></pre></div>
+<p>Extract clone level data for genes of interest</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clone_mutations&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(sample){
+<span class="co"># select the clones</span>
+  clones&lt;-final_sample_summary[[sample]]<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">select</span>(Clone)
+  <span class="co"># Extract the mutations</span>
+  mutations &lt;-<span class="st"> </span><span class="kw">colnames</span>(final_sample_summary[[sample]]<span class="op">$</span>NGT<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span>Clone))
+
+  <span class="co"># Separate clones into mutations, and identify the mutations in the dominant clone</span>
+  out&lt;-final_sample_summary[[sample]]<span class="op">$</span>Clones<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">mutate</span>(<span class="dt">Clone_size=</span>Count<span class="op">/</span><span class="kw">sum</span>(Count))<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(Clone,Clone_size)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">separate</span>(<span class="dt">col=</span>Clone,<span class="dt">into=</span>mutations,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">remove=</span><span class="ot">FALSE</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span>mutations,<span class="dt">names_to=</span><span class="st">&quot;Variant&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;Genotype&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">add_column</span>(<span class="dt">Sample=</span><span class="st">`</span><span class="dt">sample</span><span class="st">`</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">group_by</span>(Clone)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">mutate</span>(<span class="dt">WT=</span><span class="kw">ifelse</span>(<span class="kw">all</span>(Genotype<span class="op">==</span><span class="dv">0</span>),<span class="dv">1</span>,<span class="dv">0</span>))<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(WT<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Genotype<span class="op">!=</span><span class="dv">0</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">ungroup</span>()<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">mutate</span>(<span class="dt">Clonality=</span><span class="kw">ifelse</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size),
+                                                      <span class="st">&quot;Dominant&quot;</span>,<span class="st">&quot;Subclone&quot;</span>))<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">group_by</span>(Clone)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">mutate</span>(<span class="dt">Gene=</span><span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(Variant,<span class="st">&quot;[</span><span class="ch">\\</span><span class="st">._]&quot;</span>))[,<span class="dv">1</span>])<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">mutate</span>(<span class="dt">DNMT3A=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;DNMT3A&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">TET2=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;TET2&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">ASXL1=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;ASXL1&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">IDH1=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;IDH1&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">IDH2=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;IDH2&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">FLT3=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;FLT3&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">NRAS=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;NRAS&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">KRAS=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;KRAS&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">PTPN11=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;PTPN11&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>),
+                                     <span class="dt">JAK2=</span><span class="kw">ifelse</span>(<span class="kw">any</span>(Gene<span class="op">%in%</span><span class="st">&quot;JAK2&quot;</span>),<span class="dv">1</span>,<span class="dv">0</span>))<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">ungroup</span>()<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(<span class="op">!</span><span class="kw">c</span>(Variant,Genotype,Gene))<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">distinct</span>()
+  }))</code></pre></div>
+<p>Now we want to identify whether samples which are comutant for genes of interest, are actually in the dominant clone.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DTAI_genes&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;DNMT3A&quot;</span>,<span class="st">&quot;TET2&quot;</span>,<span class="st">&quot;IDH2&quot;</span>,<span class="st">&quot;IDH1&quot;</span>,<span class="st">&quot;ASXL1&quot;</span>)
+
+dominant_clone_mutations &lt;-<span class="st"> </span>clone_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Clonality<span class="op">==</span><span class="st">&quot;Dominant&quot;</span>)
+
+sample_mutations<span class="op">$</span>Match&lt;-<span class="kw">ifelse</span>(<span class="kw">sapply</span>(dominant_clone_mutations<span class="op">$</span>Sample,<span class="cf">function</span>(sample){
+  <span class="kw">all</span>(dominant_clone_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>sample)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="kw">all_of</span>(DTAI_genes))<span class="op">==</span>
+<span class="st">      </span>sample_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>sample)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="kw">all_of</span>(DTAI_genes)))
+}),<span class="st">&quot;Match&quot;</span>,<span class="st">&quot;Absent&quot;</span>)
+
+
+test_set&lt;-<span class="kw">left_join</span>(sample_mutations,pheno,<span class="dt">by=</span><span class="st">&quot;Sample&quot;</span>)
+test_set<span class="op">$</span>Match[<span class="kw">is.na</span>(test_set<span class="op">$</span>Match)]&lt;-<span class="st">&quot;Absent&quot;</span>
+
+Myfunc &lt;-<span class="st"> </span><span class="cf">function</span>(row,feature) {
+  data &lt;-<span class="st"> </span>(row[feature]<span class="op">==</span><span class="st">&quot;Match&quot;</span>)
+}
+
+<span class="co"># Slight difference from BioRxiv paper due to a misclassification of one TET2 mutant CMML sample as AML.</span>
+AML&lt;-<span class="kw">upset</span>(test_set<span class="op">%&gt;%</span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;AML&quot;</span>,Dx)), 
+           <span class="dt">sets=</span>DTAI_genes,
+           <span class="dt">order.by =</span> <span class="kw">c</span>(<span class="st">&quot;degree&quot;</span>),
+           <span class="dt">main.bar.color =</span> <span class="st">&quot;grey60&quot;</span>,<span class="dt">decreasing=</span><span class="ot">FALSE</span>,
+           <span class="dt">mainbar.y.label =</span> <span class="st">&quot;Number of samples&quot;</span>,
+           <span class="dt">sets.x.label =</span> <span class="st">&quot;Number of </span><span class="ch">\n</span><span class="st"> mutant samples&quot;</span>,
+           <span class="dt">text.scale=</span><span class="fl">1.25</span>,
+           <span class="dt">shade.alpha =</span> <span class="fl">0.75</span>,
+           <span class="dt">show.numbers=</span><span class="ot">FALSE</span>,
+           <span class="dt">mb.ratio =</span> <span class="kw">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>),
+           <span class="dt">queries=</span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">query =</span> Myfunc, <span class="dt">params =</span> <span class="kw">list</span>(<span class="st">&quot;Match&quot;</span>), <span class="dt">color =</span> <span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>], <span class="dt">active =</span> <span class="ot">TRUE</span> )))
+
+AML</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>And now for CH only</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CH&lt;-<span class="kw">upset</span>(test_set<span class="op">%&gt;%</span><span class="kw">filter</span>(Dx<span class="op">==</span><span class="st">&quot;CH&quot;</span>), <span class="dt">sets=</span>DTAI_genes,<span class="dt">order.by =</span> <span class="kw">c</span>(<span class="st">&quot;degree&quot;</span>),
+           <span class="dt">main.bar.color =</span> <span class="st">&quot;grey60&quot;</span>,<span class="dt">decreasing=</span><span class="ot">FALSE</span>,
+           <span class="dt">mainbar.y.label =</span> <span class="st">&quot;Number of samples&quot;</span>,
+           <span class="dt">sets.x.label =</span> <span class="st">&quot;Number of </span><span class="ch">\n</span><span class="st"> mutant samples&quot;</span>,
+           <span class="dt">text.scale=</span><span class="fl">1.25</span>,
+           <span class="dt">shade.alpha =</span> <span class="fl">0.75</span>,
+           <span class="dt">show.numbers=</span><span class="ot">FALSE</span>,
+           <span class="dt">queries=</span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">query =</span> Myfunc, <span class="dt">params =</span> <span class="kw">list</span>(<span class="st">&quot;Match&quot;</span>), <span class="dt">color =</span> <span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>], <span class="dt">active =</span> <span class="ot">TRUE</span> )))
+
+CH</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-37-1.png" width="384" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># identify sample with at least 2 DTAI mutationss</span>
+multi_DTAI&lt;-test_set<span class="op">%&gt;%</span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;AML&quot;</span>,Dx))<span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">filter</span>((ASXL1<span class="op">+</span>DNMT3A<span class="op">+</span>TET2<span class="op">+</span>IDH1<span class="op">+</span>IDH2)<span class="op">&gt;=</span><span class="dv">2</span>)<span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">distinct</span>(Sample)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample)
+
+DTAI_dominant_clones&lt;-clone_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>multi_DTAI)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Clonality<span class="op">==</span><span class="st">&quot;Dominant&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(Clone,Clone_size,Sample,DNMT3A,TET2,ASXL1,IDH1,IDH2)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">c</span>(DNMT3A,TET2,ASXL1,IDH1,IDH2),
+                                           <span class="dt">names_to=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;Mutated&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Mutated<span class="op">==</span><span class="dv">1</span>)
+
+genes_in_each_dominant_clone&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">setNames</span>(<span class="kw">lapply</span>(multi_DTAI,<span class="cf">function</span>(x){
+    dominant_variants&lt;-<span class="st"> </span>DTAI_dominant_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span><span class="kw">pull</span>(Gene)
+    dominant_clone_size&lt;-<span class="st"> </span>DTAI_dominant_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span><span class="kw">pull</span>(Clone_size)
+  
+    <span class="cf">if</span>(<span class="kw">length</span>(dominant_variants)<span class="op">&gt;=</span><span class="dv">2</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">combn</span>(dominant_variants,<span class="dv">2</span>)),dominant_clone_size,<span class="st">&quot;Dominant&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(dominant_variants)<span class="op">==</span><span class="dv">1</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">c</span>(dominant_variants,dominant_variants)),dominant_clone_size,<span class="st">&quot;Subclone&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(dominant_variants)<span class="op">==</span><span class="dv">0</span>){
+      <span class="ot">NULL</span>
+  }
+}),multi_DTAI))<span class="op">%&gt;%</span><span class="kw">distinct</span>()
+
+DTAI_sub_clones&lt;-clone_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>multi_DTAI)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Clonality<span class="op">!=</span><span class="st">&quot;Dominant&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(Clone,Clone_size,Sample,DNMT3A,TET2,ASXL1,IDH1,IDH2)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">c</span>(DNMT3A,TET2,ASXL1,IDH1,IDH2),
+                                           <span class="dt">names_to=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;Mutated&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Mutated<span class="op">==</span><span class="dv">1</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">group_by</span>(Clone,Sample)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">add_tally</span>()<span class="op">%&gt;%</span><span class="kw">filter</span>(n<span class="op">&gt;</span><span class="dv">1</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">ungroup</span>()
+
+genes_in_each_subclone &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">setNames</span>(<span class="kw">lapply</span>(multi_DTAI,<span class="cf">function</span>(x){
+    subclone_variants &lt;-<span class="st"> </span>DTAI_sub_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span>
+<span class="st">                                  </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span><span class="kw">pull</span>(Gene)
+    subclone_size &lt;-<span class="st"> </span>DTAI_sub_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span>
+<span class="st">                                  </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span><span class="kw">pull</span>(Clone_size)
+  
+    <span class="cf">if</span>(<span class="kw">length</span>(subclone_variants)<span class="op">&gt;=</span><span class="dv">2</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">combn</span>(<span class="kw">rev</span>(subclone_variants),<span class="dv">2</span>)),subclone_size,<span class="st">&quot;Subclone&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(subclone_variants)<span class="op">==</span><span class="dv">1</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">c</span>(dominant_variants,dominant_variants)),subclone_size,<span class="st">&quot;Subclone&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(subclone_variants)<span class="op">==</span><span class="dv">0</span>){
+      <span class="ot">NULL</span>
+  }
+}),multi_DTAI))<span class="op">%&gt;%</span><span class="kw">distinct</span>()
+
+
+final_set&lt;-<span class="st"> </span><span class="kw">rbind</span>(genes_in_each_dominant_clone,genes_in_each_subclone)
+final_set_filtered &lt;-final_set<span class="op">%&gt;%</span><span class="kw">filter</span>(to<span class="op">!=</span>from)
+
+<span class="kw">library</span>(igraph)
+<span class="kw">set.seed</span>(<span class="dv">68864</span>)
+graph&lt;-<span class="kw">graph_from_data_frame</span>(final_set_filtered,<span class="dt">directed=</span>F)<span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">set_edge_attr</span>(<span class="st">&quot;weight&quot;</span>, <span class="dt">value =</span> <span class="kw">as.numeric</span>(final_set_filtered<span class="op">%&gt;%</span><span class="kw">pull</span>(size))<span class="op">*</span><span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">set_edge_attr</span>(<span class="st">&quot;color&quot;</span>, <span class="dt">value =</span> <span class="kw">ifelse</span>(final_set_filtered<span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                                                          </span><span class="kw">pull</span>(Clonality)<span class="op">==</span><span class="st">&quot;Dominant&quot;</span>,
+                                                          <span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],<span class="st">&quot;grey20&quot;</span>))
+
+mutant_counts&lt;-<span class="kw">table</span>(<span class="kw">c</span>(<span class="kw">as.character</span>(final_set<span class="op">$</span>to),<span class="kw">as.character</span>(final_set<span class="op">$</span>from)))[<span class="kw">names</span>(<span class="kw">V</span>(graph))]
+scaled_mutant_counts &lt;-mutant_counts<span class="op">/</span><span class="kw">sum</span>(mutant_counts)<span class="op">*</span><span class="dv">50</span>
+
+radian.rescale &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">start=</span><span class="dv">0</span>, <span class="dt">direction=</span><span class="dv">1</span>) {
+  c.rotate &lt;-<span class="st"> </span><span class="cf">function</span>(x) (x <span class="op">+</span><span class="st"> </span>start) <span class="op">%%</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi) <span class="op">*</span><span class="st"> </span>direction
+  <span class="kw">c.rotate</span>(scales<span class="op">::</span><span class="kw">rescale</span>(x, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi), <span class="kw">range</span>(x)))
+}
+
+lab.locs &lt;-<span class="st"> </span><span class="kw">radian.rescale</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">direction=</span><span class="op">-</span><span class="dv">1</span>, <span class="dt">start=</span><span class="dv">5</span>)
+lab.locs[<span class="dv">3</span>]&lt;-<span class="st"> </span><span class="op">-</span><span class="fl">2.5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.igraph</span>(igraph<span class="op">::</span><span class="kw">permute</span>(graph,<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>)),<span class="dt">edge.width =</span> <span class="kw">E</span>(graph)<span class="op">$</span>weight, <span class="dt">vertex.color=</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],
+            <span class="dt">vertex.frame.color=</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],
+            <span class="dt">vertex.size=</span>scaled_mutant_counts, <span class="dt">vertex.label.family=</span><span class="st">&quot;Helvetica&quot;</span>,
+            <span class="dt">vertex.label.color=</span><span class="st">&quot;black&quot;</span>,<span class="dt">vertex.label.degree=</span>lab.locs,<span class="dt">vertex.label.dist=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">7</span>,<span class="dv">3</span>),
+            <span class="dt">layout=</span>layout_in_circle)</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multi_signaling&lt;-test_set<span class="op">%&gt;%</span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;AML&quot;</span>,Dx))<span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">filter</span>((FLT3<span class="op">+</span>JAK2<span class="op">+</span>NRAS<span class="op">+</span>KRAS<span class="op">+</span>PTPN11)<span class="op">&gt;=</span><span class="dv">2</span>)<span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">distinct</span>(Sample)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample)
+
+signaling_dominant_clones&lt;-clone_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>multi_signaling)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Clonality<span class="op">==</span><span class="st">&quot;Dominant&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(Clone_size,Sample,FLT3,JAK2,NRAS,KRAS,PTPN11)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">c</span>(FLT3,JAK2,NRAS,KRAS,PTPN11),
+                                           <span class="dt">names_to=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;Mutated&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Mutated<span class="op">==</span><span class="dv">1</span>)
+
+genes_in_each_dominant_clone&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">setNames</span>(<span class="kw">lapply</span>(multi_signaling,<span class="cf">function</span>(x){
+    dominant_variants&lt;-<span class="st"> </span>signaling_dominant_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span><span class="kw">pull</span>(Gene)
+    dominant_clone_size&lt;-<span class="st"> </span>signaling_dominant_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span><span class="kw">pull</span>(Clone_size)
+  
+    <span class="cf">if</span>(<span class="kw">length</span>(dominant_variants)<span class="op">&gt;=</span><span class="dv">2</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">combn</span>(dominant_variants,<span class="dv">2</span>)),dominant_clone_size,<span class="st">&quot;Dominant&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(dominant_variants)<span class="op">==</span><span class="dv">1</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">c</span>(dominant_variants,dominant_variants)),dominant_clone_size,<span class="st">&quot;Subclone&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(dominant_variants)<span class="op">==</span><span class="dv">0</span>){
+      <span class="ot">NULL</span>
+  }
+}),multi_signaling))<span class="op">%&gt;%</span><span class="kw">distinct</span>()
+
+signaling_sub_clones&lt;-clone_mutations<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>multi_signaling)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Clonality<span class="op">!=</span><span class="st">&quot;Dominant&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">select</span>(Clone,Clone_size,Sample,FLT3,JAK2,NRAS,KRAS,PTPN11)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">c</span>(FLT3,JAK2,NRAS,KRAS,PTPN11),
+                                           <span class="dt">names_to=</span><span class="st">&quot;Gene&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;Mutated&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">filter</span>(Mutated<span class="op">==</span><span class="dv">1</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">group_by</span>(Clone,Sample)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">add_tally</span>()<span class="op">%&gt;%</span><span class="kw">filter</span>(n<span class="op">&gt;</span><span class="dv">1</span>)<span class="op">%&gt;%</span>
+<span class="st">                              </span><span class="kw">ungroup</span>()
+
+genes_in_each_subclone&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">setNames</span>(<span class="kw">lapply</span>(multi_signaling,<span class="cf">function</span>(x){
+    subclone_variants&lt;-<span class="st"> </span>signaling_sub_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span>
+<span class="st">                                  </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span><span class="kw">pull</span>(Gene)
+    subclone_size&lt;-<span class="st"> </span>signaling_sub_clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">==</span>x)<span class="op">%&gt;%</span>
+<span class="st">                                  </span><span class="kw">filter</span>(Clone_size<span class="op">==</span><span class="kw">max</span>(Clone_size))<span class="op">%&gt;%</span><span class="kw">pull</span>(Clone_size)
+  
+    <span class="cf">if</span>(<span class="kw">length</span>(subclone_variants)<span class="op">&gt;=</span><span class="dv">2</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">combn</span>(<span class="kw">rev</span>(subclone_variants),<span class="dv">2</span>)),subclone_size,<span class="st">&quot;Subclone&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(subclone_variants)<span class="op">==</span><span class="dv">1</span>){
+      <span class="kw">return</span>(<span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">c</span>(subclone_variants,subclone_variants)),subclone_size,<span class="st">&quot;Subclone&quot;</span>),<span class="kw">c</span>(<span class="st">&quot;to&quot;</span>,<span class="st">&quot;from&quot;</span>,<span class="st">&quot;size&quot;</span>,<span class="st">&quot;Clonality&quot;</span>)))} 
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">length</span>(subclone_variants)<span class="op">==</span><span class="dv">0</span>){
+      <span class="ot">NULL</span>
+  }
+}),multi_signaling))<span class="op">%&gt;%</span><span class="kw">distinct</span>()
+
+
+final_set&lt;-<span class="st"> </span><span class="kw">rbind</span>(genes_in_each_dominant_clone,genes_in_each_subclone)
+
+final_set_filtered &lt;-final_set<span class="op">%&gt;%</span><span class="kw">filter</span>(to<span class="op">!=</span>from)
+<span class="kw">library</span>(igraph)
+<span class="kw">set.seed</span>(<span class="dv">68864</span>)
+graph&lt;-<span class="kw">graph_from_data_frame</span>(final_set_filtered,<span class="dt">directed=</span>F)<span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">set_edge_attr</span>(<span class="st">&quot;weight&quot;</span>, <span class="dt">value =</span> <span class="kw">as.numeric</span>(final_set_filtered<span class="op">%&gt;%</span><span class="kw">pull</span>(size))<span class="op">*</span><span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">set_edge_attr</span>(<span class="st">&quot;color&quot;</span>, <span class="dt">value =</span> <span class="kw">ifelse</span>(final_set_filtered<span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                                                          </span><span class="kw">pull</span>(Clonality)<span class="op">==</span><span class="st">&quot;Dominant&quot;</span>,
+                                                          <span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],<span class="st">&quot;grey20&quot;</span>))
+
+mutant_counts&lt;-<span class="kw">table</span>(<span class="kw">c</span>(<span class="kw">as.character</span>(final_set<span class="op">$</span>to),<span class="kw">as.character</span>(final_set<span class="op">$</span>from)))[<span class="kw">names</span>(<span class="kw">V</span>(graph))]
+scaled_mutant_counts &lt;-mutant_counts<span class="op">/</span><span class="kw">sum</span>(mutant_counts)<span class="op">*</span><span class="dv">50</span>
+radian.rescale &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">start=</span><span class="dv">0</span>, <span class="dt">direction=</span><span class="dv">1</span>) {
+  c.rotate &lt;-<span class="st"> </span><span class="cf">function</span>(x) (x <span class="op">+</span><span class="st"> </span>start) <span class="op">%%</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi) <span class="op">*</span><span class="st"> </span>direction
+  <span class="kw">c.rotate</span>(scales<span class="op">::</span><span class="kw">rescale</span>(x, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi), <span class="kw">range</span>(x)))
+}
+
+lab.locs &lt;-<span class="st"> </span><span class="kw">radian.rescale</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">direction=</span><span class="op">-</span><span class="dv">1</span>, <span class="dt">start=</span><span class="dv">5</span>)
+lab.locs[<span class="dv">3</span>]&lt;-<span class="st"> </span><span class="op">-</span><span class="fl">2.5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.igraph</span>(graph,<span class="dt">edge.width =</span> <span class="kw">E</span>(graph)<span class="op">$</span>weight, <span class="dt">vertex.color=</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],
+            <span class="dt">vertex.frame.color=</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],
+            <span class="dt">vertex.size=</span>scaled_mutant_counts, <span class="dt">vertex.label.family=</span><span class="st">&quot;Helvetica&quot;</span>,
+            <span class="dt">vertex.label.color=</span><span class="st">&quot;black&quot;</span>,<span class="dt">vertex.label.degree=</span>lab.locs,<span class="dt">vertex.label.dist=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">7</span>,<span class="dv">3</span>),
+            <span class="dt">layout=</span>layout_in_circle)</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
+<span class="kw">library</span>(tibble)
+clone_mutations_added&lt;-clone_mutations<span class="op">%&gt;%</span><span class="kw">inner_join</span>(pheno)<span class="op">%&gt;%</span>
+<span class="st">          </span><span class="kw">rowwise</span>()<span class="op">%&gt;%</span>
+<span class="st">          </span><span class="kw">add_column</span>(<span class="dt">signal2=</span><span class="kw">ifelse</span>(<span class="kw">c</span>(.<span class="op">$</span>FLT3<span class="op">+</span>.<span class="op">$</span>JAK2<span class="op">+</span>.<span class="op">$</span>NRAS<span class="op">+</span>.<span class="op">$</span>KRAS<span class="op">+</span>.<span class="op">$</span>PTPN11)<span class="op">&gt;=</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>))<span class="op">%&gt;%</span>
+<span class="st">          </span><span class="kw">ungroup</span>()</code></pre></div>
+<pre><code>## Joining, by = &quot;Sample&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">patient_samples &lt;-<span class="st"> </span><span class="kw">list</span>(
+  <span class="st">&quot;DNMT3A IDH1&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Dx<span class="op">==</span><span class="st">&quot;AML&quot;</span>)<span class="op">%&gt;%</span><span class="kw">filter</span>(TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>IDH1<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>IDH2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample),
+  <span class="st">&quot;DNMT3A IDH2&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Dx<span class="op">==</span><span class="st">&quot;AML&quot;</span>)<span class="op">%&gt;%</span><span class="kw">filter</span>(TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>IDH1<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH2<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample),
+  <span class="st">&quot;DNMT3A_samples&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Dx<span class="op">==</span><span class="st">&quot;AML&quot;</span>)<span class="op">%&gt;%</span><span class="kw">filter</span>(TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>IDH1<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample),
+  <span class="st">&quot;IDH1_samples&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Dx<span class="op">==</span><span class="st">&quot;AML&quot;</span>)<span class="op">%&gt;%</span><span class="kw">filter</span>(TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH1<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>IDH2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample),
+  <span class="st">&quot;IDH2_samples&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Dx<span class="op">==</span><span class="st">&quot;AML&quot;</span>)<span class="op">%&gt;%</span><span class="kw">filter</span>(TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH1<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH2<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">pull</span>(Sample))
+
+
+comutant_status&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(patient_samples), <span class="cf">function</span>(gene_pair){
+  x &lt;-<span class="kw">unique</span>(patient_samples[[gene_pair]])
+  <span class="kw">data.frame</span>(<span class="st">&quot;Total&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x)<span class="op">%&gt;%</span><span class="kw">summarise</span>(<span class="dt">Count=</span><span class="kw">n</span>())<span class="op">%&gt;%</span><span class="kw">pull</span>(Count),
+             <span class="st">&quot;FLT3&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x<span class="op">&amp;</span>signal2<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">tally</span>(FLT3)<span class="op">%&gt;%</span><span class="kw">pull</span>(n),
+             <span class="st">&quot;PTPN11&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x<span class="op">&amp;</span>signal2<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">tally</span>(PTPN11)<span class="op">%&gt;%</span><span class="kw">pull</span>(n),
+             <span class="st">&quot;JAK2&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x<span class="op">&amp;</span>signal2<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">tally</span>(JAK2)<span class="op">%&gt;%</span><span class="kw">pull</span>(n),
+             <span class="st">&quot;KRAS&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x<span class="op">&amp;</span>signal2<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">tally</span>(KRAS)<span class="op">%&gt;%</span><span class="kw">pull</span>(n),
+             <span class="st">&quot;NRAS&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x<span class="op">&amp;</span>signal2<span class="op">==</span><span class="dv">0</span>)<span class="op">%&gt;%</span><span class="kw">tally</span>(NRAS)<span class="op">%&gt;%</span><span class="kw">pull</span>(n),
+             <span class="st">&quot;Multiple mutants&quot;</span>=clone_mutations_added<span class="op">%&gt;%</span><span class="kw">filter</span>(Sample<span class="op">%in%</span>x)<span class="op">%&gt;%</span><span class="kw">tally</span>(signal2)<span class="op">%&gt;%</span><span class="kw">pull</span>(n))
+}),<span class="kw">names</span>(patient_samples)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">comutant_status<span class="op">$</span>None &lt;-comutant_status[,<span class="st">&quot;Total&quot;</span>]<span class="op">-</span><span class="kw">rowSums</span>(comutant_status[,<span class="op">-</span><span class="dv">1</span>])
+comutant_status<span class="op">$</span>Group &lt;-<span class="st"> </span><span class="kw">rownames</span>(comutant_status)
+final&lt;-comutant_status[,<span class="op">-</span><span class="dv">1</span>]<span class="op">%&gt;%</span><span class="kw">melt</span>()</code></pre></div>
+<pre><code>## Using Group as id variables</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final<span class="op">$</span>Group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(final<span class="op">$</span>Group,<span class="dt">split=</span><span class="st">&quot;_&quot;</span>))[,<span class="dv">1</span>],<span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">c</span>(<span class="st">&quot;IDH1&quot;</span>,<span class="st">&quot;DNMT3A IDH1&quot;</span>,<span class="st">&quot;DNMT3A&quot;</span>,<span class="st">&quot;DNMT3A IDH2&quot;</span>,<span class="st">&quot;IDH2&quot;</span>)))
+final<span class="op">$</span>variable &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>,<span class="st">&quot; &quot;</span>,final<span class="op">$</span>variable)
+final<span class="op">$</span>variable &lt;-<span class="st"> </span><span class="kw">factor</span>(final<span class="op">$</span>variable,<span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">c</span>(<span class="st">&quot;JAK2&quot;</span>,<span class="st">&quot;PTPN11&quot;</span>,<span class="st">&quot;NRAS&quot;</span>,<span class="st">&quot;KRAS&quot;</span>,<span class="st">&quot;FLT3&quot;</span>,<span class="st">&quot;Multiple mutants&quot;</span>,<span class="st">&quot;None&quot;</span>)))
+
+color_set&lt;-<span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Set1&quot;</span>)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">9</span>)])
+
+gg_co_mutants&lt;-<span class="kw">ggplot</span>(final, <span class="kw">aes</span>(<span class="dt">x=</span>Group,<span class="dt">fill=</span>variable,<span class="dt">y=</span>value))<span class="op">+</span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">position=</span><span class="st">&quot;fill&quot;</span>)<span class="op">+</span>
+<span class="st">                </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">8</span>)<span class="op">+</span>
+<span class="st">                </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of clones&quot;</span>)<span class="op">+</span>
+<span class="st">                </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
+<span class="st">                </span><span class="kw">coord_flip</span>()<span class="op">+</span>
+<span class="st">               </span><span class="co"># theme(axis.text.x = element_text(angle=30,hjust=1))+</span>
+<span class="st">                </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
+<span class="st">                </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span>color_set,<span class="st">&quot;Co mutation&quot;</span>,<span class="dt">guide =</span> <span class="kw">guide_legend</span>(<span class="dt">reverse =</span> <span class="ot">TRUE</span>))
+
+gg_co_mutants</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">patients_of_interest &lt;-<span class="st"> </span><span class="kw">intersect</span>(multi_DTAI,multi_signaling)
+
+mutually_exclusive&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(patients_of_interest,<span class="cf">function</span>(y){
+  <span class="kw">print</span>(y)
+  x&lt;-(final_sample_summary[[y]]<span class="op">$</span>NGT)
+  x&lt;-x[,<span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;Clone&quot;</span>,<span class="kw">colnames</span>(x))]
+  
+  <span class="cf">if</span>(<span class="op">!</span><span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;DNMT3A&quot;</span>,<span class="kw">colnames</span>(x)))){
+    <span class="kw">return</span>(<span class="ot">NULL</span>)
+  } <span class="cf">else</span>{
+  x[<span class="kw">is.na</span>(x)] &lt;-<span class="dv">0</span>
+  x[x<span class="op">&gt;</span><span class="dv">0</span>] &lt;-<span class="dv">1</span>
+  epi&lt;-x[,<span class="kw">grepl</span>(<span class="st">&quot;DNMT3A&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">|</span><span class="kw">grepl</span>(<span class="st">&quot;IDH1&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">|</span><span class="kw">grepl</span>(<span class="st">&quot;IDH2&quot;</span>,<span class="kw">colnames</span>(x))]
+  signal&lt;-x[,<span class="kw">grepl</span>(<span class="st">&quot;PTPN11&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">|</span><span class="kw">grepl</span>(<span class="st">&quot;JAK2&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">|</span><span class="kw">grepl</span>(<span class="st">&quot;FLT3&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">|</span><span class="kw">grepl</span>(<span class="st">&quot;NRAS&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">|</span><span class="kw">grepl</span>(<span class="st">&quot;KRAS&quot;</span>,<span class="kw">colnames</span>(x))]
+  
+  <span class="cf">if</span>(<span class="kw">class</span>(epi)<span class="op">==</span><span class="st">&quot;numeric&quot;</span>){
+    <span class="kw">return</span>(<span class="ot">NULL</span>)
+  } <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">ncol</span>(epi)<span class="op">==</span><span class="dv">0</span>){
+    <span class="kw">return</span>(<span class="ot">NULL</span>)
+  } <span class="cf">else</span> {  
+  <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=y,
+              <span class="st">&quot;Epigenetic&quot;</span>=<span class="kw">sum</span>(<span class="kw">apply</span>(epi,<span class="dv">1</span>,<span class="cf">function</span>(z){<span class="kw">sum</span>(z<span class="op">==</span><span class="dv">1</span>)<span class="op">&gt;=</span><span class="dv">2</span>}))<span class="op">/</span><span class="kw">nrow</span>(epi),
+             <span class="st">&quot;Signaling&quot;</span>=<span class="kw">sum</span>(<span class="kw">apply</span>(signal,<span class="dv">1</span>,<span class="cf">function</span>(z){<span class="kw">sum</span>(z<span class="op">==</span><span class="dv">1</span>)<span class="op">&gt;=</span><span class="dv">2</span>}))<span class="op">/</span><span class="kw">nrow</span>(signal))
+  } }
+  
+}),patients_of_interest)</code></pre></div>
+<pre><code>## [1] &quot;MSK91&quot;
+## [1] &quot;MSK147&quot;
+## [1] &quot;MSK47&quot;
+## [1] &quot;MSK5&quot;
+## [1] &quot;MSK128&quot;
+## [1] &quot;MSK127&quot;
+## [1] &quot;MSK90&quot;
+## [1] &quot;MSK69&quot;
+## [1] &quot;MSK70&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_fraction_comutated_cells&lt;-<span class="kw">ggplot</span>(<span class="kw">melt</span>(<span class="kw">do.call</span>(rbind,mutually_exclusive)),<span class="kw">aes</span>(<span class="dt">x=</span>variable,<span class="dt">y=</span>value,<span class="dt">fill=</span>variable))<span class="op">+</span>
+<span class="st">                    </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
+<span class="st">                 </span><span class="co">#   geom_path()+</span>
+<span class="st">                   </span><span class="kw">geom_jitter</span>(<span class="dt">width=</span><span class="fl">0.1</span>)<span class="op">+</span>
+<span class="st">                    </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">8</span>)<span class="op">+</span>
+<span class="st">                    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;qual&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>,<span class="st">&quot;Mutation pairs&quot;</span>)<span class="op">+</span>
+<span class="st">                    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of co-mutated cells&quot;</span>)</code></pre></div>
+<pre><code>## Using Sample as id variables</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_fraction_comutated_cells</code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 
 </div>
 </div>
