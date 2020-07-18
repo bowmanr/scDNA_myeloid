@@ -1,4 +1,3 @@
-#install.packages("shiny")
 library(shiny)
 library(shinydashboard)
 library(magrittr)
@@ -9,13 +8,11 @@ library(RColorBrewer)
 library(cowplot)
 
 if(interactive())
-
 # Set working directory to shiny folder from git
-setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny")
+setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
 
 # SAMPLE CLONALITY DATA ====
-test<-read.csv("for_NB.csv")
-
+test<-read.csv("data/for_NB.csv")
 test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
 
 # Number of mutations
@@ -81,13 +78,14 @@ gg_dominant_clone_size<-ggplot(test,
   scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
 
 
+gg_number_of_mutations$mapping
 
 
 
 
 
 # CLONOGRAPH DATA ====
-final_sample_summary<-readRDS(file="final_sample_summary.rds")
+final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
 
 #sample <-input$clonoInput
 sample_list <-final_sample_summary
@@ -105,48 +103,49 @@ gg_clonograph <- function(sample) {
   
   
   gg_clonal_barplot<-ggplot(data=clonal_abundance, aes(x=Clone, y=Count,fill=Count)) + 
-  geom_col()+ 
-  ggtitle(sample)+
-  theme_classic(base_size=12)+
-  scale_y_continuous(expand=c(0.01,0))+
-  #ylim() + 
-  ylab("Cell Count")+
-  geom_errorbar(aes(ymin = LCI, ymax = UCI), width = 0.2)+
-  scale_fill_distiller(name = "Value", palette = "Reds", direction = 1) +
-  theme(axis.title.x = element_blank(), 
-        axis.text.x = element_blank(), 
-        axis.ticks.x = element_blank(),
-        axis.line.x =element_blank(),
-        legend.position = "none",
-        plot.title = element_text(hjust=0.5,size=16),
-        plot.margin=unit(c(0,0,0,0),"cm"))
-
+    geom_col()+ 
+    ggtitle(sample)+
+    theme_classic(base_size=12)+
+    scale_y_continuous(expand=c(0.01,0))+
+    #ylim() + 
+    ylab("Cell Count")+
+    geom_errorbar(aes(ymin = LCI, ymax = UCI), width = 0.2)+
+    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1) +
+    theme(axis.title.x = element_blank(), 
+          axis.text.x = element_blank(), 
+          axis.ticks.x = element_blank(),
+          axis.line.x =element_blank(),
+          legend.position = "none",
+          plot.title = element_text(hjust=0.5,size=16),
+          plot.margin=unit(c(0,0,0,0),"cm"))
+  
   gg_heatmap<-ggplot(data=clonal_architecture,
                      aes(x=Clone, y=Mutant, fill=Genotype))+
-  geom_tile() +
-  scale_fill_manual(values=c("WT"=brewer.pal(7,"Reds")[1],
-                             "Heterozygous"=brewer.pal(7,"Reds")[3],
-                             "Homozygous"=brewer.pal(7,"Reds")[6],
-                             "Unknown"="grey50"),name="Genotype")+
-  theme_classic(base_size=12) +
-  ylab("Mutation")+
-  scale_y_discrete(limits = rev(levels(clonal_architecture$Mutant)))+
-  theme(legend.position = "right", legend.direction = "vertical",
-        axis.text.x = element_blank(), 
-        axis.line=element_blank(),
-        axis.title.x=element_blank(),
-        axis.ticks.x = element_blank(),
-        plot.margin=unit(c(0,0,0,0),"cm"))
-
+    geom_tile() +
+    scale_fill_manual(values=c("WT"=brewer.pal(7,"Reds")[1],
+                               "Heterozygous"=brewer.pal(7,"Reds")[3],
+                               "Homozygous"=brewer.pal(7,"Reds")[6],
+                               "Unknown"="grey50"),name="Genotype")+
+    theme_classic(base_size=12) +
+    ylab("Mutation")+
+    scale_y_discrete(limits = rev(levels(clonal_architecture$Mutant)))+
+    theme(legend.position = "right", legend.direction = "vertical",
+          axis.text.x = element_blank(), 
+          axis.line=element_blank(),
+          axis.title.x=element_blank(),
+          axis.ticks.x = element_blank(),
+          plot.margin=unit(c(0,0,0,0),"cm"))
+  
   return(plot_grid(gg_clonal_barplot,gg_heatmap,ncol=1,align="v",axis="lr",rel_heights=c(1,0.75)))
 }
 
 
 gg_clonograph_multiplot<-function(sample){
-    graphs <- lapply(sample,gg_clonograph)
-    grobs <- lapply(graphs,as_grob)
-   return(plot_grid(plotlist = grobs,ncol=2,align="v",axis="lr"))
-  }
+  graphs <- lapply(sample,gg_clonograph)
+  grobs <- lapply(graphs,as_grob)
+  return(plot_grid(plotlist = grobs,ncol=2,align="v",axis="lr"))
+}
+
 
 
 # UI ====
@@ -220,7 +219,6 @@ ui <- dashboardPage(
 
       
     ) 
-  )
 
 
 
@@ -256,6 +254,7 @@ server <- function(input, output) {
   
 
 }
+
 
 shinyApp(ui, server)
 
