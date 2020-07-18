@@ -7,9 +7,9 @@ library(ggplot2)
 library(RColorBrewer)
 library(cowplot)
 
-if(interactive())
+#if(interactive())
 # Set working directory to shiny folder from git
-setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
+#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
 
 # SAMPLE CLONALITY DATA ====
 test<-read.csv("data/for_NB.csv")
@@ -67,8 +67,9 @@ gg_Number_of_mutations_in_Dclone<-ggplot(test%>%group_by(Final_group)%>%
                     aesthetics = "fill",guide=FALSE)
 
 # Dominant clone size
+gg_dominant_clone_size_function <- function(selected_group){
 gg_dominant_clone_size<-ggplot(test,
-                               aes(y=Dominant_clone_size,x=Final_group,fill=Final_group))+
+                               aes(y=Dominant_clone_size,x=get(selected_group),fill=get(selected_group)))+
   geom_boxplot(outlier.shape = NA)+  
   geom_jitter(width = 0.1,size=0.5)+
   theme_classic(base_size = 16)+
@@ -76,7 +77,8 @@ gg_dominant_clone_size<-ggplot(test,
   xlab("")+
   theme(axis.text.x = element_text(angle=30,hjust=1)) +
   scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
-
+return(gg_dominant_clone_size)
+}
 
 gg_number_of_mutations$mapping
 
@@ -196,6 +198,12 @@ ui <- dashboardPage(
                                "Figure 3A" = "threeA"
                                )),
               ),
+              fluidRow(
+                column(
+                  width = 4,
+                  selectInput("selected_group", "Grouping",c("Final_group","Dx","Group") ,selected="Final_group")
+                )
+              ),
               box(width=6,
                 plotOutput("sampleClonPlot"))
             )
@@ -237,7 +245,7 @@ server <- function(input, output) {
                                                              oneE = gg_number_of_clones, 
                                                              twoA = gg_shannon, 
                                                              twoB = gg_Number_of_mutations_in_Dclone,
-                                                             threeA = gg_dominant_clone_size
+                                                             threeA = gg_dominant_clone_size_function(input$selected_group)
                                                   ))
 
   output$clonalBarplot <- renderPlot(  if(plotCount()==1){
