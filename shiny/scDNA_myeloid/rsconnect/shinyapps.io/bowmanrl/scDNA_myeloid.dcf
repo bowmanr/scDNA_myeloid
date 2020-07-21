@@ -1,0 +1,10 @@
+name: scDNA_myeloid
+title: scDNA_myeloid
+username:
+account: bowmanrl
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2586343
+bundleId: 3406966
+url: https://bowmanrl.shinyapps.io/scDNA_myeloid/
+when: 1595084846.49771
