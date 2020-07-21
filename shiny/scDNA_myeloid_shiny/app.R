@@ -6,10 +6,6 @@ library(tidyr)
 library(ggplot2)
 library(RColorBrewer)
 library(cowplot)
-
-#this is a test
-#This is a test BB
-
 #if(interactive())
 # Set working directory to shiny folder from git
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
