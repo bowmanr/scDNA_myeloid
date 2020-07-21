@@ -8,6 +8,7 @@ library(RColorBrewer)
 library(cowplot)
 
 #this is a test
+#This is a test BB
 
 #if(interactive())
 # Set working directory to shiny folder from git
