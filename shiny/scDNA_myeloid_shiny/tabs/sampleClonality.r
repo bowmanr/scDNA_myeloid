@@ -17,7 +17,7 @@ tabPanel(title = "Sample Clonality",
            mainPanel(
              fluidRow(
                plotOutput("sampleClonPlot"),
-               downloadButton(outputId = "downloadSampleClonPlot", label = "Download your plot")
+               #downloadButton(outputId = "downloadSampleClonPlot", label = "Download your plot")
              )
            )
          )

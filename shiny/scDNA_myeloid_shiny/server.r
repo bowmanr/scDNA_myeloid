@@ -331,62 +331,63 @@ shinyServer(function(input,output,session) {
   )
   
   #downloads
-  output$downloadSampleClonPlot <- downloadHandler(
-                  filename =  function() {
-                    paste("iris", input$var3, sep=".")
-                  },
-                  # content is a function with argument file. content writes the plot to the device
-                  content = function(file) {
-                    if(input$var3 == "png")
-                      png(file) # open the png device
-                    else
-                      pdf(file) # open the pdf device
-                      switch(input$sc, oneC = gg_number_of_mutations, 
-                           oneE = gg_number_of_clones, 
-                           twoA = gg_shannon, 
-                           twoB = gg_Number_of_mutations_in_Dclone,
-                           threeA = gg_dominant_clone_size_function(input$selected_group))
-                      dev.off()  # turn the device off
-      
-                  } 
-  )
+  # output$downloadSampleClonPlot <- downloadHandler(
+  #                 filename =  function() {
+  #                   paste("iris", input$var3, sep=".")
+  #                 },
+  #                 # content is a function with argument file. content writes the plot to the device
+  #                 content = function(file) {
+  #                   if(input$var3 == "png")
+  #                     png(file) # open the png device
+  #                   else
+  #                     pdf(file) # open the pdf device
+  #                     switch(input$sc, oneC = gg_number_of_mutations, 
+  #                          oneE = gg_number_of_clones, 
+  #                          twoA = gg_shannon, 
+  #                          twoB = gg_Number_of_mutations_in_Dclone,
+  #                          threeA = gg_dominant_clone_size_function(input$selected_group))
+  #                     dev.off()  # turn the device off
+  #     
+  #                 } 
+  # )
+  # 
+  # output$downloadClonograph <- downloadHandler(
+  #                 filename =  function() {
+  #                   paste("iris", input$var3, sep=".")
+  #                 },
+  #                 # content is a function with argument file. content writes the plot to the device
+  #                 content = function(file) {
+  #                   if(input$var3 == "png")
+  #                     png(file) # open the png device
+  #                   else
+  #                     pdf(file) # open the pdf device
+  #                       if(plotCount()==1){
+  #                         gg_clonograph(input$clonoInput)
+  #                       }
+  #                       else if(plotCount()>1&plotCount()<7){
+  #                         gg_clonograph_multiplot(input$clonoInput)
+  #                       } 
+  #                   dev.off()  # turn the device off
+  #                   
+  #                 } 
+  # )
   
-  output$downloadClonograph <- downloadHandler(
-                  filename =  function() {
-                    paste("iris", input$var3, sep=".")
-                  },
-                  # content is a function with argument file. content writes the plot to the device
-                  content = function(file) {
-                    if(input$var3 == "png")
-                      png(file) # open the png device
-                    else
-                      pdf(file) # open the pdf device
-                        if(plotCount()==1){
-                          gg_clonograph(input$clonoInput)
-                        }
-                        else if(plotCount()>1&plotCount()<7){
-                          gg_clonograph_multiplot(input$clonoInput)
-                        } 
-                    dev.off()  # turn the device off
-                    
-                  } 
-  )
-  
-  output$downloadNetworkGraph <- downloadHandler(
-                  filename =  function() {
-                    paste("iris", input$var3, sep=".")
-                  },
-                  # content is a function with argument file. content writes the plot to the device
-                  content = function(file) {
-                    if(input$var3 == "png")
-                      png(file) # open the png device
-                    else
-                      pdf(file) # open the pdf device
-                      network_graph(input$networkInput,disease = "AML")
-                    dev.off()  # turn the device off
-                    
-                  } 
-  )
+
+  # output$downloadNetworkGraph <- downloadHandler(
+  #                 filename =  function() {
+  #                   paste("iris", input$var3, sep=".")
+  #                 },
+  #                 # content is a function with argument file. content writes the plot to the device
+  #                 content = function(file) {
+  #                   if(input$var3 == "png")
+  #                     png(file) # open the png device
+  #                   else
+  #                     pdf(file) # open the pdf device
+  #                     network_graph(input$networkInput,disease = "AML")
+  #                   dev.off()  # turn the device off
+  # 
+  #                 }
+  # )
   
   
 })

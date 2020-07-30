@@ -6,7 +6,7 @@ tabPanel(title = "Network Graph",
            mainPanel(
              fluidRow(
                plotOutput("networkPlot"),
-               downloadButton(outputId = "downloadNetworkGraph", label = "Download your plot")
+               #downloadButton(outputId = "downloadNetworkGraph", label = "Download your plot")
              )
            )
          )
