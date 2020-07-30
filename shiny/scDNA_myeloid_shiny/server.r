@@ -94,7 +94,6 @@ gg_number_of_mutations$mapping
 # CLONOGRAPH DATA ====
 final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
 
-#sample <-input$clonoInput
 sample_list <-final_sample_summary
 
 
