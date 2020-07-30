@@ -96,7 +96,6 @@ final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
 clone_mutations<-readRDS(file="data/clone_mutations.rds")
 sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
 
-#sample <-input$clonoInput
 sample_list <-final_sample_summary
 
 
