@@ -12,7 +12,7 @@ library(UpSetR)
 options(stringsAsFactors = FALSE)
 
 #Nayla's WD
-setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
+#setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
 #Bobby's WD
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
@@ -88,11 +88,13 @@ gg_dominant_clone_size_function <- function(selected_group){
   return(gg_dominant_clone_size)
 }
 
-gg_number_of_mutations$mapping
+#gg_number_of_mutations$mapping
 
 
 # CLONOGRAPH DATA ====
 final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
+clone_mutations<-readRDS(file="data/clone_mutations.rds")
+sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
 
 #sample <-input$clonoInput
 sample_list <-final_sample_summary
