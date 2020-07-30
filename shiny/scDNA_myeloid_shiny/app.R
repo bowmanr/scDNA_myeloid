@@ -11,8 +11,10 @@ library(igraph)
 #if(interactive())
 # Set working directory to shiny folder from git
 
-
-#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
+#Nayla's WD
+setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
+#Bobby's WD
+#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
 
 # SAMPLE CLONALITY DATA ====
 test<-read.csv("data/for_NB.csv")
