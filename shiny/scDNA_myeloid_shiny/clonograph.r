@@ -6,7 +6,8 @@ tabPanel(title = "Clonograph",
            ),
            mainPanel(
              fluidRow(
-               uiOutput("plot.ui")
+               uiOutput("plot.ui"),
+               downloadButton(outputId = "downloadClonograph", label = "Download your plot")
              )
            )
          )

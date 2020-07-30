@@ -8,13 +8,13 @@ library(RColorBrewer)
 library(pals)
 library(cowplot)
 library(igraph)
-#if(interactive())
-# Set working directory to shiny folder from git
 
+# Set working directory to shiny folder from git
 #Nayla's WD
 setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
 #Bobby's WD
-#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
+#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
+
 
 # SAMPLE CLONALITY DATA ====
 test<-read.csv("data/for_NB.csv")
@@ -92,7 +92,7 @@ return(gg_dominant_clone_size)
 
 gg_number_of_mutations$mapping
 
-
+# NETWORK GRAPH DATA ====
 network_graph<-function(genes_of_interest,disease,multi_mutant_only){
   # Subset data.frame above to only the dominant clones
   dominant_clone_mutations <- clone_mutations%>%filter(Clonality=="Dominant")
@@ -296,6 +296,8 @@ gg_clonograph_multiplot<-function(sample){
 
 
 
+
+
 # UI ====
 ui <- dashboardPage(
   
@@ -394,7 +396,7 @@ server <- function(input, output) {
   plotWidth  <- reactive({ifelse(plotCount()==1,500,1000)})      
   
   output$networkPlot <- renderPlot(network_graph(input$networkInput,disease = "AML")
-)
+  )
   
   output$sampleClonPlot <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations, 
                                                              oneE = gg_number_of_clones, 
@@ -420,6 +422,14 @@ server <- function(input, output) {
 
 
 shinyApp(ui, server)
+
+
+
+
+
+
+
+
 
 
 

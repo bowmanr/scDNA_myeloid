@@ -1,16 +1,14 @@
-tabPanel(title = "Clonograph", 
+tabPanel(title = "Network Graph", 
          sidebarLayout(
            sidebarPanel(
-             h2("customization options...")
-             
+             selectInput("networkInput", "Gene", colnames(clone_mutations)[6:33],multiple = TRUE,selected=c("DNMT3A","TET2","IDH1","IDH2","ASXL1"))
            ),
            mainPanel(
              fluidRow(
-               column(plotOutput(network2e)),
-               column(plotOutput(network2f))
+               plotOutput("networkPlot"),
+               downloadButton(outputId = "downloadNetworkGraph", label = "Download your plot")
              )
            )
          )
-         
          
 )
