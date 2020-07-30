@@ -5,15 +5,23 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(RColorBrewer)
+library(pals)
 library(cowplot)
-
+library(igraph)
 #if(interactive())
 # Set working directory to shiny folder from git
-#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid/")
+
+
+#setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
 # SAMPLE CLONALITY DATA ====
 test<-read.csv("data/for_NB.csv")
 test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
+
+
+sample_mutations<-readRDS(file="data/sample_mutations_with_pheno.rds")
+clone_mutations<-readRDS(file="data/clone_mutations.rds")
+
 
 # Number of mutations
 gg_number_of_mutations<-ggplot(test%>%group_by(Final_group)%>%
@@ -82,6 +90,142 @@ return(gg_dominant_clone_size)
 
 gg_number_of_mutations$mapping
 
+
+network_graph<-function(genes_of_interest,disease,multi_mutant_only){
+  # Subset data.frame above to only the dominant clones
+  dominant_clone_mutations <- clone_mutations%>%filter(Clonality=="Dominant")
+  
+  # For each sample, determine if the dominant clone
+  sample_mutations$Match<-ifelse(sapply(sample_mutations$Sample,function(sample) {
+    all(sample_mutations%>%
+          filter(Sample==sample)%>%
+          select(all_of(genes_of_interest))==
+          dominant_clone_mutations%>%
+          filter(Sample==sample)%>%
+          select(all_of(genes_of_interest)))
+  }) ,"Match","Absent")
+  
+  
+  # identify sample with at least 2 DTAI mutationss
+  multi_mutant<-sample_mutations%>%
+    filter(grepl(`disease`,Dx))%>%
+    mutate(mutations = rowSums(select(., all_of(genes_of_interest))))%>%
+    filter(mutations>=2)%>%
+    distinct(Sample)%>%pull(Sample)
+  
+  if(length(multi_mutant)<2){
+    return(print("No patients Identified"))
+  }
+  # Identify dominant clones 
+  dominant_clones_of_interest<-clone_mutations%>%filter(Sample%in%multi_mutant)%>%
+    filter(Clonality=="Dominant")%>%
+    select(Clone,Clone_size,Sample,all_of(genes_of_interest))%>%
+    pivot_longer(cols=all_of(genes_of_interest),
+                 names_to="Gene",values_to="Mutated")%>%
+    filter(Mutated==1)
+  
+  # Now we want to know which variants are in the dominant clone, and the size of that clone. 
+  # I'm sure there is a nice way to do this in dplyr, grouping on sample, but I couldn't figure it out
+  # so we will use lapply.
+  genes_in_each_dominant_clone<- do.call(rbind,setNames(lapply(multi_mutant,function(x){
+    # Extract the genes
+    dominant_variants<- dominant_clones_of_interest%>%filter(Sample==x)%>%pull(Gene)
+    
+    # Extract the clone size
+    dominant_clone_size<- dominant_clones_of_interest%>%filter(Sample==x)%>%pull(Clone_size)
+    
+    # if there are more than two DTAI variants in the dominant clone make a combinatorial edgelist
+    if(length(dominant_variants)>=2){
+      return(setNames(data.frame(t(combn(dominant_variants,2)),dominant_clone_size[1],"Dominant"),c("to","from","size","Clonality")))} 
+    # if there is only 1 mutant in the dominant clone, list it for now so we can count the mutation, 
+    # but we will eventually filter it out
+    else if(length(dominant_variants)==1){
+      return(setNames(data.frame(t(c(dominant_variants,dominant_variants)),dominant_clone_size,"Subclone"),c("to","from","size","Clonality")))} 
+    # if no DTAI mutants in the dominant clone, ignore.
+    else if(length(dominant_variants)==0){
+      NULL
+    }
+  }),multi_mutant))%>%distinct()
+  
+  # Now we will go for a similar process with subclones.
+  sub_clones_of_interest<-clone_mutations%>%filter(Sample%in%multi_mutant)%>%
+    filter(Clonality!="Dominant")%>%
+    select(Clone,Clone_size,Sample,all_of(genes_of_interest))%>%
+    pivot_longer(cols=all_of(genes_of_interest),
+                 names_to="Gene",values_to="Mutated")%>%
+    filter(Mutated==1)%>%
+    # This is how we specifically select multi mutant subclone
+    group_by(Clone,Sample)%>%
+    add_tally()%>%filter(n>1)%>%
+    ungroup()
+  
+  # Same process as above, but note that we decided to only plot the largest multi mutant clone.
+  # Try getting rid of this and seeing how it looks.
+  genes_in_each_subclone <- do.call(rbind,setNames(lapply(multi_mutant,function(x){
+    subclone_variants <- sub_clones_of_interest%>%filter(Sample==x)%>%
+      filter(Clone_size==max(Clone_size))%>%
+      pull(Gene)
+    subclone_size <- sub_clones_of_interest%>%filter(Sample==x)%>%
+      filter(Clone_size==max(Clone_size))%>%
+      pull(Clone_size)
+    
+    if(length(subclone_variants)>=2){
+      return(setNames(data.frame(t(combn(rev(subclone_variants),2)),subclone_size[1],"Subclone"),c("to","from","size","Clonality")))} 
+    else if(length(subclone_variants)==1){
+      return(setNames(data.frame(t(c(subclone_variants,subclone_variants)),subclone_size[1],"Subclone"),c("to","from","size","Clonality")))} 
+    else if(length(subclone_variants)==0){
+      NULL
+    }
+  }),multi_mutant))%>%distinct()
+  
+  # Now bind these two dataframe together
+  final_set<- rbind(genes_in_each_dominant_clone,genes_in_each_subclone)
+  
+  # And remove the edges that are self referencing. We preserve the input variable so we can represent
+  # the vertex size in relation to total mutation burden in this subset of patients.
+  final_set_filtered <-final_set%>%filter(to!=from)
+  
+  graph<-graph_from_data_frame(final_set_filtered,directed=F)%>%
+    set_edge_attr("weight", value = as.numeric(final_set_filtered%>%pull(size))*3) %>%
+    set_edge_attr("color", value = ifelse(final_set_filtered%>% 
+                                            pull(Clonality)=="Dominant",
+                                          alpha(brewer.pal(5,"Reds")[5],0.5),
+                                          alpha("grey20",0.5)))
+  
+  mutant_counts<-table(c(as.character(final_set$to),as.character(final_set$from)))[names(V(graph))]
+  scaled_mutant_counts <-mutant_counts/sum(mutant_counts)*50
+  
+  radian.rescale <- function(x, start=0, direction=1) {
+    c.rotate <- function(x) (x + start) %% (2 * pi) * direction
+    c.rotate(scales::rescale(x, c(0, 2 * pi), range(x)))
+  }
+  
+  lab.locs <- radian.rescale(x=1:length(genes_of_interest), direction=-1, start=length(genes_of_interest))
+  #lab.locs[1]<- 0
+  
+  plot.igraph(graph,
+              edge.width = E(graph)$weight,
+              vertex.color=kelly(n=1+length(genes_of_interest))[-1],#brewer.pal(5,"Reds")[5],
+              vertex.frame.color="black",
+              vertex.size=scaled_mutant_counts[names(V(graph))], 
+              vertex.label.family="Arial",
+              vertex.label.font=2,
+              vertex.label.color="black",
+              #   vertex.label.degree=lab.locs,
+              vertex.label.dist=rep(3,length(genes_of_interest)),
+              layout=layout_with_graphopt)
+  legend(x=1.5,y=1,legend=names(V(graph)),
+         col=kelly(n=1+length(names(V(graph))))[-1],
+         bty = "n", pch=20 , 
+         pt.cex = 2, 
+         cex =0.75, 
+         text.font=2,
+         text.col=kelly(n=1+length(names(V(graph))))[-1], 
+         horiz = FALSE,
+         ncol=2#, 
+         # inset = c(0.1, 0.1)
+  )
+}
 
 
 
@@ -166,7 +310,8 @@ ui <- dashboardPage(
       menuItem("Tutorial", icon = icon("file-code-o"), 
                href = "https://bowmanr.github.io/scDNA_myeloid/"),
       menuItem("3.1.4 Sample Clonality", tabName = "sampleclonality", icon = icon("arrow-right")), #icon = icon("arrow-right"), color="blue"),
-      menuItem("3.1.5 Clonograph", tabName = "clonograph", icon = icon("arrow-right")) #icon = icon("arrow-right"), color="blue")
+      menuItem("3.1.5 Clonograph", tabName = "clonograph", icon = icon("arrow-right")), #icon = icon("arrow-right"), color="blue")
+      menuItem("Network", tabName = "network", icon = icon("arrow-right")) #icon = icon("arrow-right"), color="blue")
       
     )
   ),
@@ -197,7 +342,7 @@ ui <- dashboardPage(
                                "Figure 2B" = "twoB",
                                "Figure 3A" = "threeA"
                                )),
-              ),
+              )),
               fluidRow(
                 column(
                   width = 4,
@@ -206,10 +351,8 @@ ui <- dashboardPage(
               ),
               box(width=6,
                 plotOutput("sampleClonPlot"))
-            )
-      ),
-      
-      tabItem(tabName = "clonograph",
+            ),
+      tabItem( tabName = "clonograph",
             fluidRow(
               column(
                 width = 4,
@@ -221,11 +364,19 @@ ui <- dashboardPage(
                 uiOutput("plot.ui")#,
             #  plotOutput("clonalBarplot")
               ))
-            )
+            ),
+      tabItem( tabName = "network",
+              fluidRow(
+                column(
+                  width = 4,
+                  selectInput("networkInput", "Gene", colnames(clone_mutations)[6:33],multiple = TRUE,selected=c("DNMT3A","TET2","IDH1","IDH2","ASXL1"))
+                )
+              ),
+              box(width=12,
+                  plotOutput("networkPlot"))
+              )
             )
       )
-
-      
     ) 
 
 
@@ -240,6 +391,8 @@ server <- function(input, output) {
   plotHeight <- reactive({ifelse(plotCount()==1,400,400 * round(plotCount()/2))})      
   plotWidth  <- reactive({ifelse(plotCount()==1,500,1000)})      
   
+  output$networkPlot <- renderPlot(network_graph(input$networkInput,disease = "AML")
+)
   
   output$sampleClonPlot <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations, 
                                                              oneE = gg_number_of_clones, 
