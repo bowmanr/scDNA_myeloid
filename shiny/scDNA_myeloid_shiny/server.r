@@ -16,12 +16,16 @@ setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
 #Bobby's WD
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
-
-
-
-# SAMPLE CLONALITY DATA ====
 test<-read.csv("data/for_NB.csv")
 test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
+final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
+clone_mutations<-readRDS(file="data/clone_mutations.rds")
+sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
+
+sample_list <-final_sample_summary
+
+
+
 
 # Number of mutations
 gg_number_of_mutations<- function(selected_group) {ggplot(test%>%group_by(.data[[selected_group]])%>%
@@ -95,12 +99,6 @@ gg_dominant_clone_size_function <- function(selected_group){
 #gg_number_of_mutations$mapping
 
 
-# CLONOGRAPH DATA ====
-final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
-clone_mutations<-readRDS(file="data/clone_mutations.rds")
-sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
-
-sample_list <-final_sample_summary
 
 
 # Generate clonal abundance barplot
@@ -275,27 +273,25 @@ network_graph<-function(genes_of_interest,disease,multi_mutant_only){
   #lab.locs[1]<- 0
   
   plot.igraph(graph,
-              edge.width = E(graph)$weight,
-              vertex.color=kelly(n=1+length(genes_of_interest))[-1],#brewer.pal(5,"Reds")[5],
+              edge.width = E(graph)$weight*2,
+              vertex.color=kelly(n=2+length(genes_of_interest))[-c(1:2)],#brewer.pal(5,"Reds")[5],
               vertex.frame.color="black",
-              vertex.size=scaled_mutant_counts[names(V(graph))], 
+              vertex.size=scaled_mutant_counts[names(V(graph))]*1.5, 
               vertex.label.family="Arial",
               vertex.label.font=2,
+              vertex.label.cex=2,
               vertex.label.color="black",
-              #   vertex.label.degree=lab.locs,
               vertex.label.dist=rep(3,length(genes_of_interest)),
               layout=layout_with_graphopt)
-  legend(x=1.5,y=1,legend=names(V(graph)),
-         col=kelly(n=1+length(names(V(graph))))[-1],
+  legend(x=-2,y=1.5,legend=names(V(graph)),
+         col=kelly(n=2+length(names(V(graph))))[-c(1:2)],
          bty = "n", pch=20 , 
-         pt.cex = 2, 
-         cex =0.75, 
-         text.font=2,
-         text.col=kelly(n=1+length(names(V(graph))))[-1], 
+         pt.cex = 5, 
+         cex =1.4, 
+         text.font=12,
+         text.col=kelly(n=2+length(names(V(graph))))[-c(1:2)], 
          horiz = FALSE,
-         ncol=2#, 
-         # inset = c(0.1, 0.1)
-  )
+         ncol=1)
 }
 
 
@@ -332,8 +328,20 @@ shinyServer(function(input,output,session) {
   
   
   
-  output$networkPlot <- renderPlot(network_graph(input$networkInput,disease = "AML")
-  )
+  output$networkPlot <- renderPlot(network_graph(input$networkInput,disease = "AML"))
+  
+  # ranges <- reactiveValues(x = c(-1,1), y = c(-1,1))
+  # observeEvent(input$plot1_dblclick, {
+  #   brush <- input$plot1_brush
+  #   if (!is.null(brush)) {
+  #     ranges$x <- c(brush$xmin, brush$xmax)
+  #     ranges$y <- c(brush$ymin, brush$ymax)
+  #     
+  #   } else {
+  #     ranges$x <- c(-5,5)
+  #     ranges$y <- c(-0.5,0.5)
+  #   }
+  # })
   
   #downloads
   # output$downloadSampleClonPlot <- downloadHandler(
