@@ -4,6 +4,14 @@
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
 library(shinythemes)
+# CLONOGRAPH DATA ====
+final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
+clone_mutations<-readRDS(file="data/clone_mutations.rds")
+sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
+
+sample_list <-final_sample_summary
+
+
 shinyUI( 	
   
   navbarPage(title = strong("AML Mutational Profiling"), windowTitle = "AML Mutational Profiling", 
