@@ -4,12 +4,20 @@
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
 library(shinythemes)
-# CLONOGRAPH DATA ====
-final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
+# RELEVANT DATA ====
+test<-read.csv("data/for_NB.csv")
+sample_list<-readRDS(file="data/final_sample_summary.rds")
 clone_mutations<-readRDS(file="data/clone_mutations.rds")
 sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
 
-sample_list <-final_sample_summary
+#Sample Clonality Customization
+test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
+test$Dx<- factor(test$Dx,levels=c("AML","CH","MPN","Other","sAML","tAML"))
+test$Group<- factor(test$Group, levels = c("DTAI", "DTAI-FLT3", "DTAI-FLT3-RAS", "Signaling"))
+list_final <- as.list(levels(test$Final_group))
+list_dx <- as.list(levels(test$Dx))
+list_group <- as.list(levels(test$Group))
+available_groups <- c(list_final, list_dx, list_group)
 
 
 shinyUI( 	

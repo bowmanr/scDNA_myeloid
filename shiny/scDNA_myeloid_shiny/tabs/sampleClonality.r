@@ -1,10 +1,9 @@
-
 tabPanel(title = "Sample Clonality", 
 
        sidebarLayout(
          sidebarPanel(
            #choose the graph
-           radioButtons("sc", "Sample Clonality Graphs:", 
+           radioButtons("sc", "Premade Graphs:", 
                         c("Figure 1C" = "oneC",
                           "Figure 1E" = "oneE",
                           "Figure 2A" = "twoA",
@@ -12,13 +11,15 @@ tabPanel(title = "Sample Clonality",
                           "Figure 3A" = "threeA"
                         )),
            #choose the x-axis
-           selectInput("selected_group", "Grouping",c("Final_group","Dx","Group") ,selected="Final_group")
+           h2("Customization Tools:"),
+           selectInput("selected_group", "Customization", available_groups,multiple = TRUE,selected=c("DTAI"))
            
          ),
          mainPanel(
-           fluidRow(
-             plotOutput("sampleClonPlot",width="50%")
-             #downloadButton(outputId = "downloadSampleClonPlot", label = "Download your plot")
+           tabsetPanel(type = "tabs", 
+                       tabPanel("Premade", plotOutput("sampleClonPlotP",width="50%")),
+                       tabPanel("Custom", plotOutput("sampleClonPlotC",width="50%"))
+             
            )
          )
        )

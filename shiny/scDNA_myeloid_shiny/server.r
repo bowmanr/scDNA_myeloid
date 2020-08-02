@@ -16,13 +16,23 @@ setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
 #Bobby's WD
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
+# LOAD IN DATA ====
 test<-read.csv("data/for_NB.csv")
-test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
-final_sample_summary<-readRDS(file="data/final_sample_summary.rds")
+sample_list<-readRDS(file="data/final_sample_summary.rds")
 clone_mutations<-readRDS(file="data/clone_mutations.rds")
 sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
 
-sample_list <-final_sample_summary
+
+#SAMPLE CLONALITY ====
+#CUSTOM
+#Groups: all entires from "Final_group", "Dx", and "Group" columns, only appearing once
+test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
+test$Dx<- factor(test$Dx,levels=c("AML","CH","MPN","Other","sAML","tAML"))
+test$Group<- factor(test$Group, levels = c("DTAI", "DTAI-FLT3", "DTAI-FLT3-RAS", "Signaling"))
+list_final <- as.list(levels(test$Final_group))
+list_dx <- as.list(levels(test$Dx))
+list_group <- as.list(levels(test$Group))
+available_groups <- c(list_final, list_dx, list_group)
 
 
 
@@ -100,7 +110,7 @@ gg_dominant_clone_size_function <- function(selected_group){
 
 
 
-
+#CLONOGRAPH ====
 # Generate clonal abundance barplot
 gg_clonograph <- function(sample) {
   # Extract out the sample of interest    
@@ -295,6 +305,8 @@ network_graph<-function(genes_of_interest,disease,multi_mutant_only){
 }
 
 
+
+
 #SERVER ====
 shinyServer(function(input,output,session) {
   
@@ -306,11 +318,18 @@ shinyServer(function(input,output,session) {
   plotWidth  <- reactive({ifelse(plotCount()==1,500,1000)})      
   
   
-  output$sampleClonPlot <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$selected_group), 
+  output$sampleClonPlotP <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$selected_group), 
                                              oneE = gg_number_of_clones(input$selected_group), 
                                              twoA = gg_shannon(input$selected_group), 
                                              twoB = gg_Number_of_mutations_in_Dclone(input$selected_group),
                                              threeA = gg_dominant_clone_size_function(input$selected_group)
+  ))
+  
+  output$sampleClonPlotC <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$selected_group), 
+                                              oneE = gg_number_of_clones(input$selected_group), 
+                                              twoA = gg_shannon(input$selected_group), 
+                                              twoB = gg_Number_of_mutations_in_Dclone(input$selected_group),
+                                              threeA = gg_dominant_clone_size_function(input$selected_group)
   ))
   
   output$clonalBarplot <- renderPlot(  if(plotCount()==1){
