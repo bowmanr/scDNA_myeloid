@@ -13,7 +13,7 @@ tabPanel(title = "Sample Clonality",
                         )),
            #choose the x-axis
            h3("Customization Tools:"),
-           selectInput("sampleClonGroups", "Customization", available_groups, multiple = TRUE,selected=c("DTAI"))
+           selectInput("sampleClonGroups", "Select Groups", available_groups, multiple = TRUE,selected=c("DTAI"))
            
          ),
          mainPanel(
