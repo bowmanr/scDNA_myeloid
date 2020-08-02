@@ -16,16 +16,13 @@ setwd("/Users/naylaboorady/Desktop/MSK/scDNA_myeloid/shiny/scDNA_myeloid_shiny")
 #Bobby's WD
 #setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/shiny/scDNA_myeloid_shiny/")
 
-# LOAD IN DATA ====
+# RELEVANT DATA ====
 test<-read.csv("data/for_NB.csv")
 sample_list<-readRDS(file="data/final_sample_summary.rds")
 clone_mutations<-readRDS(file="data/clone_mutations.rds")
 sample_mutations <-readRDS(file="data/sample_mutations_with_pheno.rds")
 
-
-#SAMPLE CLONALITY ====
-#CUSTOM
-#Groups: all entires from "Final_group", "Dx", and "Group" columns, only appearing once
+#Sample Clonality Customization
 test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
 test$Dx<- factor(test$Dx,levels=c("AML","CH","MPN","Other","sAML","tAML"))
 test$Group<- factor(test$Group, levels = c("DTAI", "DTAI-FLT3", "DTAI-FLT3-RAS", "Signaling"))
@@ -36,14 +33,14 @@ available_groups <- c(list_final, list_dx, list_group)
 
 
 
-
+#SAMPLE CLONALITY ====
 # Number of mutations
-gg_number_of_mutations<- function(selected_group) {ggplot(test%>%group_by(.data[[selected_group]])%>%
+gg_number_of_mutations<- function(selected_group) {ggplot(test%>%group_by(.data[[all_of(selected_group)]])%>%
                                  summarise(mean=mean(Number_of_mutations),
                                            sd = sd(Number_of_mutations),
                                            sem = sd(Number_of_mutations)/
                                              sqrt(length(Number_of_mutations))),
-                               aes(x=get(selected_group),y=mean,fill=get(selected_group)))+
+                               aes(x=get(all_of(selected_group)),y=mean,fill=get(all_of(selected_group))))+
   geom_bar(stat="identity",color="black")+
   geom_errorbar(aes(ymin = mean-sem, ymax = mean+sem),width=0.5,lwd=0.5)+
   theme_classic(base_size = 16)+
@@ -318,18 +315,18 @@ shinyServer(function(input,output,session) {
   plotWidth  <- reactive({ifelse(plotCount()==1,500,1000)})      
   
   
-  output$sampleClonPlotP <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$selected_group), 
-                                             oneE = gg_number_of_clones(input$selected_group), 
-                                             twoA = gg_shannon(input$selected_group), 
-                                             twoB = gg_Number_of_mutations_in_Dclone(input$selected_group),
-                                             threeA = gg_dominant_clone_size_function(input$selected_group)
+  output$sampleClonPlotP <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$sampleClonGroups), 
+                                             oneE = gg_number_of_clones(input$sampleClonGroups), 
+                                             twoA = gg_shannon(input$sampleClonGroups), 
+                                             twoB = gg_Number_of_mutations_in_Dclone(input$sampleClonGroups),
+                                             threeA = gg_dominant_clone_size_function(input$sampleClonGroups)
   ))
   
-  output$sampleClonPlotC <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$selected_group), 
-                                              oneE = gg_number_of_clones(input$selected_group), 
-                                              twoA = gg_shannon(input$selected_group), 
-                                              twoB = gg_Number_of_mutations_in_Dclone(input$selected_group),
-                                              threeA = gg_dominant_clone_size_function(input$selected_group)
+  output$sampleClonPlotC <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$sampleClonGroups), 
+                                              oneE = gg_number_of_clones(input$sampleClonGroups), 
+                                              twoA = gg_shannon(input$sampleClonGroups), 
+                                              twoB = gg_Number_of_mutations_in_Dclone(input$sampleClonGroups),
+                                              threeA = gg_dominant_clone_size_function(input$sampleClonGroups)
   ))
   
   output$clonalBarplot <- renderPlot(  if(plotCount()==1){
@@ -362,65 +359,7 @@ shinyServer(function(input,output,session) {
   #   }
   # })
   
-  #downloads
-  # output$downloadSampleClonPlot <- downloadHandler(
-  #                 filename =  function() {
-  #                   paste("iris", input$var3, sep=".")
-  #                 },
-  #                 # content is a function with argument file. content writes the plot to the device
-  #                 content = function(file) {
-  #                   if(input$var3 == "png")
-  #                     png(file) # open the png device
-  #                   else
-  #                     pdf(file) # open the pdf device
-  #                     switch(input$sc, oneC = gg_number_of_mutations, 
-  #                          oneE = gg_number_of_clones, 
-  #                          twoA = gg_shannon, 
-  #                          twoB = gg_Number_of_mutations_in_Dclone,
-  #                          threeA = gg_dominant_clone_size_function(input$selected_group))
-  #                     dev.off()  # turn the device off
-  #     
-  #                 } 
-  # )
-  # 
-  # output$downloadClonograph <- downloadHandler(
-  #                 filename =  function() {
-  #                   paste("iris", input$var3, sep=".")
-  #                 },
-  #                 # content is a function with argument file. content writes the plot to the device
-  #                 content = function(file) {
-  #                   if(input$var3 == "png")
-  #                     png(file) # open the png device
-  #                   else
-  #                     pdf(file) # open the pdf device
-  #                       if(plotCount()==1){
-  #                         gg_clonograph(input$clonoInput)
-  #                       }
-  #                       else if(plotCount()>1&plotCount()<7){
-  #                         gg_clonograph_multiplot(input$clonoInput)
-  #                       } 
-  #                   dev.off()  # turn the device off
-  #                   
-  #                 } 
-  # )
-  
-
-  # output$downloadNetworkGraph <- downloadHandler(
-  #                 filename =  function() {
-  #                   paste("iris", input$var3, sep=".")
-  #                 },
-  #                 # content is a function with argument file. content writes the plot to the device
-  #                 content = function(file) {
-  #                   if(input$var3 == "png")
-  #                     png(file) # open the png device
-  #                   else
-  #                     pdf(file) # open the pdf device
-  #                     network_graph(input$networkInput,disease = "AML")
-  #                   dev.off()  # turn the device off
-  # 
-  #                 }
-  # )
-  
+ 
   
 })
 

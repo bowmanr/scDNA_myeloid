@@ -3,7 +3,8 @@ tabPanel(title = "Sample Clonality",
        sidebarLayout(
          sidebarPanel(
            #choose the graph
-           radioButtons("sc", "Premade Graphs:", 
+           h3("Premade Graphs:"),
+           radioButtons("sc", "", 
                         c("Figure 1C" = "oneC",
                           "Figure 1E" = "oneE",
                           "Figure 2A" = "twoA",
@@ -11,8 +12,8 @@ tabPanel(title = "Sample Clonality",
                           "Figure 3A" = "threeA"
                         )),
            #choose the x-axis
-           h2("Customization Tools:"),
-           selectInput("selected_group", "Customization", available_groups,multiple = TRUE,selected=c("DTAI"))
+           h3("Customization Tools:"),
+           selectInput("sampleClonGroups", "Customization", available_groups, multiple = TRUE,selected=c("DTAI"))
            
          ),
          mainPanel(
