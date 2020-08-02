@@ -24,12 +24,12 @@ test<-read.csv("data/for_NB.csv")
 test$Final_group<- factor(test$Final_group,levels=c("CH","MPN","Signaling","DTAI","DTAI-RAS","DTAI-FLT3","DTAI-FLT3-RAS"))
 
 # Number of mutations
-gg_number_of_mutations<-ggplot(test%>%group_by(Final_group)%>%
+gg_number_of_mutations<- function(selected_group) {ggplot(test%>%group_by(.data[[selected_group]])%>%
                                  summarise(mean=mean(Number_of_mutations),
                                            sd = sd(Number_of_mutations),
                                            sem = sd(Number_of_mutations)/
                                              sqrt(length(Number_of_mutations))),
-                               aes(x=Final_group,y=mean,fill=Final_group))+
+                               aes(x=get(selected_group),y=mean,fill=get(selected_group)))+
   geom_bar(stat="identity",color="black")+
   geom_errorbar(aes(ymin = mean-sem, ymax = mean+sem),width=0.5,lwd=0.5)+
   theme_classic(base_size = 16)+
@@ -37,9 +37,10 @@ gg_number_of_mutations<-ggplot(test%>%group_by(Final_group)%>%
   scale_y_continuous(limits = c(0,9), expand = c(0, 0)) +
   theme(axis.text.x = element_text(angle=30,hjust=1)) +
   scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
-
+}
+  
 # Number of clones
-gg_number_of_clones<-ggplot(test,aes(y=Number_of_clones,x=Final_group,fill=Final_group))+
+gg_number_of_clones<- function(selected_group) {ggplot(test,aes(y=Number_of_clones,x=get(selected_group),fill=get(selected_group)))+
   geom_boxplot(outlier.shape = NA)+  
   geom_jitter(width = 0.1,size=0.5)+
   theme_classic(base_size = 16)+
@@ -47,9 +48,10 @@ gg_number_of_clones<-ggplot(test,aes(y=Number_of_clones,x=Final_group,fill=Final
   xlab("")+
   theme(axis.text.x = element_text(angle=30,hjust=1)) +
   scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
-
+}
+  
 # Shannon diversity index
-gg_shannon<-ggplot(test,aes(y=Shannon,x=Final_group,fill=Final_group))+
+gg_shannon<- function(selected_group) {ggplot(test,aes(y=Shannon,x=get(selected_group),fill=get(selected_group)))+
   geom_boxplot(outlier.shape = NA)+  
   geom_jitter(width = 0.1,size=0.5)+
   theme_classic(base_size = 16)+
@@ -57,14 +59,15 @@ gg_shannon<-ggplot(test,aes(y=Shannon,x=Final_group,fill=Final_group))+
   xlab("")+
   theme(axis.text.x = element_text(angle=30,hjust=1)) +
   scale_fill_brewer(type="seq",palette = "Reds",aesthetics = "fill",guide=FALSE)
-
+}
+  
 # Number of mutations in each cohort
-gg_Number_of_mutations_in_Dclone<-ggplot(test%>%group_by(Final_group)%>%
+gg_Number_of_mutations_in_Dclone<- function(selected_group) {ggplot(test%>%group_by(.data[[selected_group]])%>%
                                            summarise(mean=mean(Number_of_mutations_in_dominant_clone),
                                                      sd = sd(Number_of_mutations_in_dominant_clone),
                                                      sem = sd(Number_of_mutations_in_dominant_clone)/
                                                        sqrt(length(Number_of_mutations_in_dominant_clone))),
-                                         aes(x=Final_group,y=mean,fill=Final_group))+
+                                         aes(x=get(selected_group),y=mean,fill=get(selected_group)))+
   geom_bar(stat="identity",color="black")+
   geom_errorbar(aes(ymin = mean-sem, ymax = mean+sem),width=0.5,lwd=0.5)+
   theme_classic(base_size = 16)+
@@ -73,6 +76,7 @@ gg_Number_of_mutations_in_Dclone<-ggplot(test%>%group_by(Final_group)%>%
   theme(axis.text.x = element_text(angle=30,hjust=1)) +
   scale_fill_brewer(type="seq",palette = "Reds",
                     aesthetics = "fill",guide=FALSE)
+}
 
 # Dominant clone size
 gg_dominant_clone_size_function <- function(selected_group){
@@ -306,10 +310,10 @@ shinyServer(function(input,output,session) {
   plotWidth  <- reactive({ifelse(plotCount()==1,500,1000)})      
   
   
-  output$sampleClonPlot <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations, 
-                                             oneE = gg_number_of_clones, 
-                                             twoA = gg_shannon, 
-                                             twoB = gg_Number_of_mutations_in_Dclone,
+  output$sampleClonPlot <- renderPlot(switch(input$sc, oneC = gg_number_of_mutations(input$selected_group), 
+                                             oneE = gg_number_of_clones(input$selected_group), 
+                                             twoA = gg_shannon(input$selected_group), 
+                                             twoB = gg_Number_of_mutations_in_Dclone(input$selected_group),
                                              threeA = gg_dominant_clone_size_function(input$selected_group)
   ))
   
