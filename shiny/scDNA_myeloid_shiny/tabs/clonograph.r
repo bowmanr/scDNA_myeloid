@@ -1,11 +1,5 @@
 tabPanel(title = "Clonograph", 
          sidebarLayout(
-<<<<<<< Updated upstream
-           sidebarPanel(
-             selectInput("clonoInput", "Sample Names:", names(sample_list),multiple = TRUE,selected="MSK45")
-             
-           ),
-=======
             sidebarPanel(
               radioButtons("selection_Feature", "Plot Type",
                            c(Sample = "Sample",
@@ -25,7 +19,6 @@ tabPanel(title = "Clonograph",
                                      multiple = TRUE,selected="MSK45"),
                      )
                ),
->>>>>>> Stashed changes
            mainPanel(
              fluidRow(
                uiOutput("plot.ui"),
