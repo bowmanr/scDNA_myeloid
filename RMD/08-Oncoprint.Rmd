@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ### Oncoprint: Figure 1A
 Now we are going to make the oncoprint that is in Figure 1A.  Check out this [example](https://jokergoo.github.io/ComplexHeatmap-reference/book/oncoprint.html) from the ComplexHeatmap package for a better understanding of why things are formatted the way they are.
 ```{r fig.align="center",message=FALSE,warning=FALSE,fig.width=12,fig.height=6}
@@ -7,26 +12,35 @@ library(ComplexHeatmap) #used for making the oncoprint
 #Here we will identify whether a variant is an indel, Nonsense or Missense mutation
 #Next we group samples together and pivot the matrix into wide format
 fill_values <-setNames(as.list(rep(0,length(levels(final_mut_melt$Gene)))),levels(final_mut_melt$Gene))
+
+
+
 mut_mat_wide<-final_mut_melt%>%
                         mutate(Variant_Class=ifelse(grepl("fs\\*|INS_|ins|ext|del",.$Mutation),"Indel",
                                                   ifelse(grepl("\\*$",.$Mutation),"Nonsense","Missense")))%>%
-                        mutate_at(c("Gene","Variant_Class","Sample"),as.character())%>%
-                        group_by(Sample)%>%
+                      #  mutate_at(c("Gene","Variant_Class","Sample"),as.character())%>%
+                        group_by(Sample,Gene)%>%
+                        summarize("Variants"=list(Variant_Class))%>%
                         pivot_wider(id_cols=Sample, 
                                      names_from  = Gene, 
-                                     values_from = Variant_Class,
-                                     values_fn   = list(Variant_Class =list),
-                                     values_fill = list(Variant_Class = " ")) %>%
-                        ungroup(Sample)%>%data.frame()
+                                     values_from = Variants,
+                                   #  values_fn   = list(Variant_Class=list),
+                                     values_fill = list(Variant_Class="")) %>%
+                        ungroup(Sample,Gene)%>%
+                        data.frame()
 
 # At this point, each column is actually a list, and variants are represnted as a list within a list. 
 # So we want to unpack it a bit, and turn those variant lists in a ; separated vector
+
 mut_mat_wide_storage <- list()
 for(i in 2:ncol(mut_mat_wide)){ # start at 2 to ignore the first column of sample names
   mut_mat_wide_storage[[i]]<- do.call(rbind,lapply(mut_mat_wide[,i],function(x){
-    if(x==" "){
-      return(x)
-    } else{
+    #if(x==""){
+    #  return(x)
+  #  }  else  
+      if(is.null(x)){
+      return("")
+    } else {
     paste(x,sep=";",collapse=";")
       }
    }

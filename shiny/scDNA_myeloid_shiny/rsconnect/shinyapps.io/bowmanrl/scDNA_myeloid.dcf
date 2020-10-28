@@ -5,8 +5,8 @@ account: bowmanrl
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2586343
-bundleId: 3471927
+bundleId: 3471953
 url: https://bowmanrl.shinyapps.io/scDNA_myeloid/
-when: 1596516803.59212
+when: 1596517550.23316
 asMultiple: FALSE
 asStatic: FALSE
