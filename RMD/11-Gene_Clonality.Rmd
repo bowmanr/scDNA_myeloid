@@ -1,4 +1,4 @@
-##Figure 2: Clonality
+## Figure 2: Clonality
 We next wanted to determine if a given gene is likely to be found in the dominant clone or only ib subclones.  Of course, nearly all mutations found in the dominant clone were also found in subclones. We attempted to find mutations that were exclusively found in the dominant clone, but did not observe any. This is likely complicated by the fact that many subclones are not the most "genetically dense" clone as explored in Figure 3 of the manuscript.  We decided to address that with the markov models described elsewhere, and instead classified a mutation on whether it was present present or absent in the dominant clone.
 
 ```{r setup3, eval=TRUE, include=FALSE}

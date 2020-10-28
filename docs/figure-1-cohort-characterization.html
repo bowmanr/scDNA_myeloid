@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.1 Figure 1: Cohort characterization | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
   <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
-  <meta name="generator" content="bookdown 0.18.3 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.1 Figure 1: Cohort characterization | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-05-17" />
+<meta name="date" content="2020-10-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,45 +50,75 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -130,11 +160,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>4</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="5" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
 <li class="chapter" data-level="5.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>5.1</b> Import from Tapestri Insights</a></li>
 <li class="chapter" data-level="5.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>5.2</b> Functions</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -158,80 +188,80 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="figure-1-cohort-characterization" class="section level2">
 <h2><span class="header-section-number">3.1</span> Figure 1: Cohort characterization</h2>
 <p>Let’s start by loading in some packages that are recurrently used. Other packages that are only used in one chunk of code are listed appropriately below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(ggplot2)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="figure-1-cohort-characterization.html#cb12-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb12-2"><a href="figure-1-cohort-characterization.html#cb12-2"></a><span class="kw">library</span>(tidyr)</span>
+<span id="cb12-3"><a href="figure-1-cohort-characterization.html#cb12-3"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
 <p>Here we will focus on the cohort level analysis, and load in the NGT files <em>before</em> they were filtered for clonality.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA&quot;</span>)
-final_NGTs&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_NGTs.rds&quot;</span>)
-pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="figure-1-cohort-characterization.html#cb13-1"></a><span class="kw">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA&quot;</span>)</span>
+<span id="cb13-2"><a href="figure-1-cohort-characterization.html#cb13-2"></a>final_NGTs&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_NGTs.rds&quot;</span>)</span>
+<span id="cb13-3"><a href="figure-1-cohort-characterization.html#cb13-3"></a>pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</span></code></pre></div>
 <p>One filter we put in was to exclude samples &lt;100 cells.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">high_quality_samples&lt;-<span class="kw">names</span>(final_NGTs)[<span class="kw">sapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
-  <span class="kw">nrow</span>(final_NGTs[[x]])<span class="op">&gt;</span><span class="dv">100</span>
-})]</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="figure-1-cohort-characterization.html#cb14-1"></a>high_quality_samples&lt;-<span class="kw">names</span>(final_NGTs)[<span class="kw">sapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){</span>
+<span id="cb14-2"><a href="figure-1-cohort-characterization.html#cb14-2"></a>  <span class="kw">nrow</span>(final_NGTs[[x]])<span class="op">&gt;</span><span class="dv">100</span></span>
+<span id="cb14-3"><a href="figure-1-cohort-characterization.html#cb14-3"></a>})]</span></code></pre></div>
 <p>Next we want a catalogue of all mutations so we can determine how many patients were mutated for each gene and how many different mutations were seen in total for each gene.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_mut_melt&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){
-  <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=x,
-             <span class="st">&quot;Mutation&quot;</span>=<span class="kw">colnames</span>(final_NGTs[[x]]),
-             <span class="st">&quot;Gene&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(<span class="kw">colnames</span>(final_NGTs[[x]]),<span class="dt">split=</span><span class="st">&quot;[:_]&quot;</span>))[,<span class="dv">1</span>])
-      }))</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="figure-1-cohort-characterization.html#cb15-1"></a>final_mut_melt&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_NGTs),<span class="cf">function</span>(x){</span>
+<span id="cb15-2"><a href="figure-1-cohort-characterization.html#cb15-2"></a>  <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=x,</span>
+<span id="cb15-3"><a href="figure-1-cohort-characterization.html#cb15-3"></a>             <span class="st">&quot;Mutation&quot;</span>=<span class="kw">colnames</span>(final_NGTs[[x]]),</span>
+<span id="cb15-4"><a href="figure-1-cohort-characterization.html#cb15-4"></a>             <span class="st">&quot;Gene&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(<span class="kw">colnames</span>(final_NGTs[[x]]),<span class="dt">split=</span><span class="st">&quot;[:_]&quot;</span>))[,<span class="dv">1</span>])</span>
+<span id="cb15-5"><a href="figure-1-cohort-characterization.html#cb15-5"></a>      }))</span></code></pre></div>
 <p>Next pages will go into how we made each of the Figures.</p>
 <div id="cohort-characteristics-ef1a-d" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Cohort characteristics (EF1A-D)</h3>
 <p>Now we can start to make the plots that are in Extended Figure 1. Starting with the total number of mutations identified per gene</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Set the levels of the Gene column from most to least prevalent for plotting purposes
-final_mut_melt<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(final_mut_melt<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(final_mut_melt<span class="op">$</span>Gene), <span class="dt">decreasing=</span><span class="ot">TRUE</span>)))
-
-gg_mut_count&lt;-<span class="kw">ggplot</span>(final_mut_melt,<span class="kw">aes</span>(<span class="dt">x=</span>Gene))<span class="op">+</span>
-<span class="st">                        </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;count&quot;</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of mutations&quot;</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>, <span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),
-                              <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="figure-1-cohort-characterization.html#cb16-1"></a><span class="co">## Set the levels of the Gene column from most to least prevalent for plotting purposes</span></span>
+<span id="cb16-2"><a href="figure-1-cohort-characterization.html#cb16-2"></a>final_mut_melt<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(final_mut_melt<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(final_mut_melt<span class="op">$</span>Gene), <span class="dt">decreasing=</span><span class="ot">TRUE</span>)))</span>
+<span id="cb16-3"><a href="figure-1-cohort-characterization.html#cb16-3"></a></span>
+<span id="cb16-4"><a href="figure-1-cohort-characterization.html#cb16-4"></a>gg_mut_count&lt;-<span class="kw">ggplot</span>(final_mut_melt,<span class="kw">aes</span>(<span class="dt">x=</span>Gene))<span class="op">+</span></span>
+<span id="cb16-5"><a href="figure-1-cohort-characterization.html#cb16-5"></a><span class="st">                        </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;count&quot;</span>)<span class="op">+</span></span>
+<span id="cb16-6"><a href="figure-1-cohort-characterization.html#cb16-6"></a><span class="st">                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb16-7"><a href="figure-1-cohort-characterization.html#cb16-7"></a><span class="st">                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span></span>
+<span id="cb16-8"><a href="figure-1-cohort-characterization.html#cb16-8"></a><span class="st">                        </span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of mutations&quot;</span>)<span class="op">+</span></span>
+<span id="cb16-9"><a href="figure-1-cohort-characterization.html#cb16-9"></a><span class="st">                        </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>, <span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),</span>
+<span id="cb16-10"><a href="figure-1-cohort-characterization.html#cb16-10"></a>                              <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span></span>
+<span id="cb16-11"><a href="figure-1-cohort-characterization.html#cb16-11"></a><span class="st">                        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span></code></pre></div>
 <p>Total number of patients mutated for each gene</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## tally of how many mutations per patient
-melted_mut_mat&lt;-<span class="st"> </span>final_mut_melt<span class="op">%&gt;%</span><span class="kw">count</span>(Gene, Sample)
-
-## Set the levels of the Gene column from most to least prevalent for plotting purposes
-melted_mut_mat<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(melted_mut_mat<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(melted_mut_mat<span class="op">$</span>Gene),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)))
-
-gg_mut_patient&lt;-<span class="kw">ggplot</span>(melted_mut_mat,<span class="kw">aes</span>(<span class="dt">x=</span>Gene))<span class="op">+</span>
-<span class="st">                      </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;count&quot;</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span><span class="dv">10</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of patients with mutation&quot;</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>,<span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),
-                            <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="figure-1-cohort-characterization.html#cb17-1"></a><span class="co">## tally of how many mutations per patient</span></span>
+<span id="cb17-2"><a href="figure-1-cohort-characterization.html#cb17-2"></a>melted_mut_mat&lt;-<span class="st"> </span>final_mut_melt<span class="op">%&gt;%</span><span class="kw">count</span>(Gene, Sample)</span>
+<span id="cb17-3"><a href="figure-1-cohort-characterization.html#cb17-3"></a></span>
+<span id="cb17-4"><a href="figure-1-cohort-characterization.html#cb17-4"></a><span class="co">## Set the levels of the Gene column from most to least prevalent for plotting purposes</span></span>
+<span id="cb17-5"><a href="figure-1-cohort-characterization.html#cb17-5"></a>melted_mut_mat<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(melted_mut_mat<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(melted_mut_mat<span class="op">$</span>Gene),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)))</span>
+<span id="cb17-6"><a href="figure-1-cohort-characterization.html#cb17-6"></a></span>
+<span id="cb17-7"><a href="figure-1-cohort-characterization.html#cb17-7"></a>gg_mut_patient&lt;-<span class="kw">ggplot</span>(melted_mut_mat,<span class="kw">aes</span>(<span class="dt">x=</span>Gene))<span class="op">+</span></span>
+<span id="cb17-8"><a href="figure-1-cohort-characterization.html#cb17-8"></a><span class="st">                      </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;count&quot;</span>)<span class="op">+</span></span>
+<span id="cb17-9"><a href="figure-1-cohort-characterization.html#cb17-9"></a><span class="st">                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span><span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb17-10"><a href="figure-1-cohort-characterization.html#cb17-10"></a><span class="st">                      </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of patients with mutation&quot;</span>)<span class="op">+</span></span>
+<span id="cb17-11"><a href="figure-1-cohort-characterization.html#cb17-11"></a><span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>,<span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),</span>
+<span id="cb17-12"><a href="figure-1-cohort-characterization.html#cb17-12"></a>                            <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span></span>
+<span id="cb17-13"><a href="figure-1-cohort-characterization.html#cb17-13"></a><span class="st">                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span></code></pre></div>
 <p>Number of mutated genes per patient</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_mutated_genes_per_patient&lt;-final_mut_melt<span class="op">%&gt;%</span>
-<span class="st">                                          </span><span class="kw">distinct</span>(Sample,Gene)<span class="op">%&gt;%</span>
-<span class="st">                                          </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span>
-<span class="st">                                          </span>tally<span class="op">%&gt;%</span>
-<span class="st">                                          </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>n))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">xlab</span>(<span class="st">&quot;Number of genes&quot;</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">ggtitle</span>(<span class="st">&quot;Mutant genes per patient&quot;</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">8</span>)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="figure-1-cohort-characterization.html#cb18-1"></a>gg_mutated_genes_per_patient&lt;-final_mut_melt<span class="op">%&gt;%</span></span>
+<span id="cb18-2"><a href="figure-1-cohort-characterization.html#cb18-2"></a><span class="st">                                          </span><span class="kw">distinct</span>(Sample,Gene)<span class="op">%&gt;%</span></span>
+<span id="cb18-3"><a href="figure-1-cohort-characterization.html#cb18-3"></a><span class="st">                                          </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span></span>
+<span id="cb18-4"><a href="figure-1-cohort-characterization.html#cb18-4"></a><span class="st">                                          </span>tally<span class="op">%&gt;%</span></span>
+<span id="cb18-5"><a href="figure-1-cohort-characterization.html#cb18-5"></a><span class="st">                                          </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>n))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span></span>
+<span id="cb18-6"><a href="figure-1-cohort-characterization.html#cb18-6"></a><span class="st">                                          </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span></span>
+<span id="cb18-7"><a href="figure-1-cohort-characterization.html#cb18-7"></a><span class="st">                                          </span><span class="kw">xlab</span>(<span class="st">&quot;Number of genes&quot;</span>)<span class="op">+</span></span>
+<span id="cb18-8"><a href="figure-1-cohort-characterization.html#cb18-8"></a><span class="st">                                          </span><span class="kw">ggtitle</span>(<span class="st">&quot;Mutant genes per patient&quot;</span>)<span class="op">+</span></span>
+<span id="cb18-9"><a href="figure-1-cohort-characterization.html#cb18-9"></a><span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb18-10"><a href="figure-1-cohort-characterization.html#cb18-10"></a><span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span></span>
+<span id="cb18-11"><a href="figure-1-cohort-characterization.html#cb18-11"></a><span class="st">                                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span></span>
+<span id="cb18-12"><a href="figure-1-cohort-characterization.html#cb18-12"></a><span class="st">                                          </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">8</span>)</span></code></pre></div>
 <p>Total number of mutations per patient</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_mutations_per_patient&lt;-<span class="st"> </span>final_mut_melt<span class="op">%&gt;%</span>
-<span class="st">                                        </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span>
-<span class="st">                                        </span>tally<span class="op">%&gt;%</span>
-<span class="st">                                        </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>n))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span>
-<span class="st">                                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
-<span class="st">                                        </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Variants per patient&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Number of variants&quot;</span>)<span class="op">+</span><span class="st">                              </span>
-<span class="st">                                        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">                                        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">6</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cowplot)
-<span class="kw">plot_grid</span>(gg_mut_count,gg_mut_patient,
-          gg_mutated_genes_per_patient,gg_mutations_per_patient,
-          <span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,
-          <span class="dt">labels =</span> <span class="st">&quot;AUTO&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="figure-1-cohort-characterization.html#cb19-1"></a>gg_mutations_per_patient&lt;-<span class="st"> </span>final_mut_melt<span class="op">%&gt;%</span></span>
+<span id="cb19-2"><a href="figure-1-cohort-characterization.html#cb19-2"></a><span class="st">                                        </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span></span>
+<span id="cb19-3"><a href="figure-1-cohort-characterization.html#cb19-3"></a><span class="st">                                        </span>tally<span class="op">%&gt;%</span></span>
+<span id="cb19-4"><a href="figure-1-cohort-characterization.html#cb19-4"></a><span class="st">                                        </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>n))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span></span>
+<span id="cb19-5"><a href="figure-1-cohort-characterization.html#cb19-5"></a><span class="st">                                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb19-6"><a href="figure-1-cohort-characterization.html#cb19-6"></a><span class="st">                                        </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span></span>
+<span id="cb19-7"><a href="figure-1-cohort-characterization.html#cb19-7"></a><span class="st">                                        </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Variants per patient&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Number of variants&quot;</span>)<span class="op">+</span><span class="st">                              </span></span>
+<span id="cb19-8"><a href="figure-1-cohort-characterization.html#cb19-8"></a><span class="st">                                        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span></span>
+<span id="cb19-9"><a href="figure-1-cohort-characterization.html#cb19-9"></a><span class="st">                                        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="figure-1-cohort-characterization.html#cb20-1"></a><span class="kw">library</span>(cowplot)</span>
+<span id="cb20-2"><a href="figure-1-cohort-characterization.html#cb20-2"></a><span class="kw">plot_grid</span>(gg_mut_count,gg_mut_patient,</span>
+<span id="cb20-3"><a href="figure-1-cohort-characterization.html#cb20-3"></a>          gg_mutated_genes_per_patient,gg_mutations_per_patient,</span>
+<span id="cb20-4"><a href="figure-1-cohort-characterization.html#cb20-4"></a>          <span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,</span>
+<span id="cb20-5"><a href="figure-1-cohort-characterization.html#cb20-5"></a>          <span class="dt">labels =</span> <span class="st">&quot;AUTO&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
 <img src="scDNA_files/figure-html/unnamed-chunk-11-1.png" alt="Extended Figure 1A-D" width="864" />
 <p class="caption">
@@ -239,249 +269,258 @@ Figure 3.1: Extended Figure 1A-D
 </p>
 </div>
 <p>An extra plot worth noting is below, which plots the number of cells per sample, after we filterd out all of the “3” uniformative genotyped cells.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Cells per sample
-<span class="kw">data.frame</span>(<span class="st">&quot;Cells&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_NGTs,nrow)))<span class="op">%&gt;%</span>
-<span class="st">                              </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Cells))<span class="op">+</span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)<span class="op">+</span>
-<span class="st">                                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span>
-<span class="st">                                      </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span>
-<span class="st">                                      </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Informative Cells per Sample&quot;</span>)<span class="op">+</span>
-<span class="st">                                      </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">                                      </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">8</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="figure-1-cohort-characterization.html#cb21-1"></a><span class="co">### Cells per sample</span></span>
+<span id="cb21-2"><a href="figure-1-cohort-characterization.html#cb21-2"></a><span class="kw">data.frame</span>(<span class="st">&quot;Cells&quot;</span>=<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_NGTs,nrow)))<span class="op">%&gt;%</span></span>
+<span id="cb21-3"><a href="figure-1-cohort-characterization.html#cb21-3"></a><span class="st">                              </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Cells))<span class="op">+</span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)<span class="op">+</span></span>
+<span id="cb21-4"><a href="figure-1-cohort-characterization.html#cb21-4"></a><span class="st">                                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb21-5"><a href="figure-1-cohort-characterization.html#cb21-5"></a><span class="st">                                      </span><span class="kw">theme</span>(<span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>))<span class="op">+</span></span>
+<span id="cb21-6"><a href="figure-1-cohort-characterization.html#cb21-6"></a><span class="st">                                      </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Informative Cells per Sample&quot;</span>)<span class="op">+</span></span>
+<span id="cb21-7"><a href="figure-1-cohort-characterization.html#cb21-7"></a><span class="st">                                      </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span></span>
+<span id="cb21-8"><a href="figure-1-cohort-characterization.html#cb21-8"></a><span class="st">                                      </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">n.breaks=</span><span class="dv">8</span>)</span></code></pre></div>
 <p><img src="scDNA_files/figure-html/unnamed-chunk-12-1.png" width="384" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mutation-co-occurence" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Mutation Co-occurence</h3>
 <p>Next we want to make the co-occurence matrix on a sample level</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cooccur)
-
-### create matrix for oncoprint
-mut_mat &lt;-<span class="st"> </span><span class="kw">table</span>(melted_mut_mat<span class="op">$</span>Sample,melted_mut_mat<span class="op">$</span>Gene)
-
-### Prepare matrix for co occurence map
-cooccur_mat &lt;-<span class="st"> </span><span class="kw">cooccur</span>(<span class="dt">mat=</span><span class="kw">t</span>(mut_mat), <span class="dt">type=</span><span class="st">&quot;spp_site&quot;</span>,
-                       <span class="dt">only_effects =</span> <span class="ot">FALSE</span>,<span class="dt">eff_matrix=</span><span class="ot">TRUE</span>,
-                       <span class="dt">thresh=</span><span class="ot">FALSE</span>, <span class="dt">eff_standard=</span><span class="ot">FALSE</span>,<span class="dt">spp_names=</span><span class="ot">TRUE</span>)<span class="op">$</span>results
-
-## Denote which interactions are significantly inclusive or exclusive 
-<span class="co"># The &#39;add_row&#39; function generates a new line, but it gets removed later.</span>
-<span class="co"># This is helpful for setting the order of the gene labels below. </span>
-cooccur_data_mat &lt;-<span class="st"> </span>cooccur_mat<span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">mutate</span>(<span class="dt">score=</span><span class="kw">ifelse</span>(p_lt<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="op">-</span><span class="dv">1</span>,
-                                            <span class="kw">ifelse</span>(p_gt<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="dv">1</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">select</span>(sp1_name,sp2_name,score)<span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">add_row</span>(<span class="dt">sp2_name=</span><span class="kw">setdiff</span>(.<span class="op">$</span>sp1_name,.<span class="op">$</span>sp2_name),
-                                <span class="dt">sp1_name=</span><span class="kw">setdiff</span>(.<span class="op">$</span>sp2_name,.<span class="op">$</span>sp1_name),
-                                <span class="dt">score=</span><span class="dv">0</span>)
-
-<span class="co">#check out the final that we added so we can remove it later</span>
-<span class="kw">tail</span>(cooccur_data_mat) 
-
-<span class="co"># Order the genes in a coherent pattern for triangle strucutre of graph.</span>
-cooccur_data_mat<span class="op">$</span>sp1_name&lt;-<span class="kw">factor</span>(cooccur_data_mat<span class="op">$</span>sp1_name,
-                                  <span class="dt">levels=</span><span class="kw">unique</span>(cooccur_data_mat<span class="op">$</span>sp1_name))
-cooccur_data_mat<span class="op">$</span>sp2_name&lt;-<span class="kw">factor</span>(cooccur_data_mat<span class="op">$</span>sp2_name,
-                                  <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">levels</span>(cooccur_data_mat<span class="op">$</span>sp1_name)))
-  
-<span class="co"># Triangle heatmap to compare cohorts</span>
-grob_corrplot&lt;-<span class="kw">ggplot</span>(cooccur_data_mat<span class="op">%&gt;%</span><span class="kw">filter</span>(sp1_name<span class="op">!=</span><span class="st">&quot;BRAF&quot;</span>),<span class="kw">aes</span>(<span class="dt">x=</span>sp1_name,<span class="dt">y=</span>sp2_name))<span class="op">+</span>
-<span class="st">                      </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(score)), <span class="dt">color=</span><span class="st">&#39;grey90&#39;</span>) <span class="op">+</span>
-<span class="st">                      </span><span class="kw">scale_fill_manual</span>(<span class="dt">name=</span><span class="st">&quot;Correlation&quot;</span>,
-                                        <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;-1&quot;</span>=<span class="st">&quot;firebrick3&quot;</span>,
-                                                 <span class="st">&quot;0&quot;</span>=<span class="st">&quot;white&quot;</span>,
-                                                 <span class="st">&quot;1&quot;</span>=<span class="st">&quot;steelblue2&quot;</span>),
-                                        <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Mutually Exclusive&quot;</span>,
-                                                 <span class="st">&quot;Not Significant&quot;</span>,
-                                                 <span class="st">&quot;Mutually Inclusive&quot;</span>))<span class="op">+</span>
-<span class="st">                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">10</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text.x=</span><span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>,<span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),
-                            <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),
-                            <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>), 
-                            <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),
-                            <span class="dt">legend.direction =</span> <span class="st">&quot;vertical&quot;</span>)<span class="op">+</span>
-<span class="st">                      </span><span class="kw">theme</span>(<span class="dt">legend.key.size =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>,<span class="st">&quot;line&quot;</span>))
-
-grob_corrplot</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="figure-1-cohort-characterization.html#cb22-1"></a><span class="kw">library</span>(cooccur)</span>
+<span id="cb22-2"><a href="figure-1-cohort-characterization.html#cb22-2"></a></span>
+<span id="cb22-3"><a href="figure-1-cohort-characterization.html#cb22-3"></a><span class="co">### create matrix for oncoprint</span></span>
+<span id="cb22-4"><a href="figure-1-cohort-characterization.html#cb22-4"></a>mut_mat &lt;-<span class="st"> </span><span class="kw">table</span>(melted_mut_mat<span class="op">$</span>Sample,melted_mut_mat<span class="op">$</span>Gene)</span>
+<span id="cb22-5"><a href="figure-1-cohort-characterization.html#cb22-5"></a></span>
+<span id="cb22-6"><a href="figure-1-cohort-characterization.html#cb22-6"></a><span class="co">### Prepare matrix for co occurence map</span></span>
+<span id="cb22-7"><a href="figure-1-cohort-characterization.html#cb22-7"></a>cooccur_mat &lt;-<span class="st"> </span><span class="kw">cooccur</span>(<span class="dt">mat=</span><span class="kw">t</span>(mut_mat), <span class="dt">type=</span><span class="st">&quot;spp_site&quot;</span>,</span>
+<span id="cb22-8"><a href="figure-1-cohort-characterization.html#cb22-8"></a>                       <span class="dt">only_effects =</span> <span class="ot">FALSE</span>,<span class="dt">eff_matrix=</span><span class="ot">TRUE</span>,</span>
+<span id="cb22-9"><a href="figure-1-cohort-characterization.html#cb22-9"></a>                       <span class="dt">thresh=</span><span class="ot">FALSE</span>, <span class="dt">eff_standard=</span><span class="ot">FALSE</span>,<span class="dt">spp_names=</span><span class="ot">TRUE</span>)<span class="op">$</span>results</span>
+<span id="cb22-10"><a href="figure-1-cohort-characterization.html#cb22-10"></a></span>
+<span id="cb22-11"><a href="figure-1-cohort-characterization.html#cb22-11"></a><span class="co">## Denote which interactions are significantly inclusive or exclusive </span></span>
+<span id="cb22-12"><a href="figure-1-cohort-characterization.html#cb22-12"></a><span class="co"># The &#39;add_row&#39; function generates a new line, but it gets removed later.</span></span>
+<span id="cb22-13"><a href="figure-1-cohort-characterization.html#cb22-13"></a><span class="co"># This is helpful for setting the order of the gene labels below. </span></span>
+<span id="cb22-14"><a href="figure-1-cohort-characterization.html#cb22-14"></a>cooccur_data_mat &lt;-<span class="st"> </span>cooccur_mat<span class="op">%&gt;%</span></span>
+<span id="cb22-15"><a href="figure-1-cohort-characterization.html#cb22-15"></a><span class="st">                        </span><span class="kw">mutate</span>(<span class="dt">score=</span><span class="kw">ifelse</span>(p_lt<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb22-16"><a href="figure-1-cohort-characterization.html#cb22-16"></a>                                            <span class="kw">ifelse</span>(p_gt<span class="op">&lt;=</span><span class="fl">0.05</span>,<span class="dv">1</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb22-17"><a href="figure-1-cohort-characterization.html#cb22-17"></a><span class="st">                        </span><span class="kw">select</span>(sp1_name,sp2_name,score)<span class="op">%&gt;%</span></span>
+<span id="cb22-18"><a href="figure-1-cohort-characterization.html#cb22-18"></a><span class="st">                        </span><span class="kw">add_row</span>(<span class="dt">sp2_name=</span><span class="kw">setdiff</span>(.<span class="op">$</span>sp1_name,.<span class="op">$</span>sp2_name),</span>
+<span id="cb22-19"><a href="figure-1-cohort-characterization.html#cb22-19"></a>                                <span class="dt">sp1_name=</span><span class="kw">setdiff</span>(.<span class="op">$</span>sp2_name,.<span class="op">$</span>sp1_name),</span>
+<span id="cb22-20"><a href="figure-1-cohort-characterization.html#cb22-20"></a>                                <span class="dt">score=</span><span class="dv">0</span>)</span>
+<span id="cb22-21"><a href="figure-1-cohort-characterization.html#cb22-21"></a></span>
+<span id="cb22-22"><a href="figure-1-cohort-characterization.html#cb22-22"></a><span class="co">#check out the final that we added so we can remove it later</span></span>
+<span id="cb22-23"><a href="figure-1-cohort-characterization.html#cb22-23"></a><span class="kw">tail</span>(cooccur_data_mat) </span>
+<span id="cb22-24"><a href="figure-1-cohort-characterization.html#cb22-24"></a></span>
+<span id="cb22-25"><a href="figure-1-cohort-characterization.html#cb22-25"></a><span class="co"># Order the genes in a coherent pattern for triangle strucutre of graph.</span></span>
+<span id="cb22-26"><a href="figure-1-cohort-characterization.html#cb22-26"></a>cooccur_data_mat<span class="op">$</span>sp1_name&lt;-<span class="kw">factor</span>(cooccur_data_mat<span class="op">$</span>sp1_name,</span>
+<span id="cb22-27"><a href="figure-1-cohort-characterization.html#cb22-27"></a>                                  <span class="dt">levels=</span><span class="kw">unique</span>(cooccur_data_mat<span class="op">$</span>sp1_name))</span>
+<span id="cb22-28"><a href="figure-1-cohort-characterization.html#cb22-28"></a>cooccur_data_mat<span class="op">$</span>sp2_name&lt;-<span class="kw">factor</span>(cooccur_data_mat<span class="op">$</span>sp2_name,</span>
+<span id="cb22-29"><a href="figure-1-cohort-characterization.html#cb22-29"></a>                                  <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">levels</span>(cooccur_data_mat<span class="op">$</span>sp1_name)))</span>
+<span id="cb22-30"><a href="figure-1-cohort-characterization.html#cb22-30"></a>  </span>
+<span id="cb22-31"><a href="figure-1-cohort-characterization.html#cb22-31"></a><span class="co"># Triangle heatmap to compare cohorts</span></span>
+<span id="cb22-32"><a href="figure-1-cohort-characterization.html#cb22-32"></a>grob_corrplot&lt;-<span class="kw">ggplot</span>(cooccur_data_mat<span class="op">%&gt;%</span><span class="kw">filter</span>(sp1_name<span class="op">!=</span><span class="st">&quot;BRAF&quot;</span>),<span class="kw">aes</span>(<span class="dt">x=</span>sp1_name,<span class="dt">y=</span>sp2_name))<span class="op">+</span></span>
+<span id="cb22-33"><a href="figure-1-cohort-characterization.html#cb22-33"></a><span class="st">                      </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(score)), <span class="dt">color=</span><span class="st">&#39;grey90&#39;</span>) <span class="op">+</span></span>
+<span id="cb22-34"><a href="figure-1-cohort-characterization.html#cb22-34"></a><span class="st">                      </span><span class="kw">scale_fill_manual</span>(<span class="dt">name=</span><span class="st">&quot;Correlation&quot;</span>,</span>
+<span id="cb22-35"><a href="figure-1-cohort-characterization.html#cb22-35"></a>                                        <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;-1&quot;</span>=<span class="st">&quot;firebrick3&quot;</span>,</span>
+<span id="cb22-36"><a href="figure-1-cohort-characterization.html#cb22-36"></a>                                                 <span class="st">&quot;0&quot;</span>=<span class="st">&quot;white&quot;</span>,</span>
+<span id="cb22-37"><a href="figure-1-cohort-characterization.html#cb22-37"></a>                                                 <span class="st">&quot;1&quot;</span>=<span class="st">&quot;steelblue2&quot;</span>),</span>
+<span id="cb22-38"><a href="figure-1-cohort-characterization.html#cb22-38"></a>                                        <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Mutually Exclusive&quot;</span>,</span>
+<span id="cb22-39"><a href="figure-1-cohort-characterization.html#cb22-39"></a>                                                 <span class="st">&quot;Not Significant&quot;</span>,</span>
+<span id="cb22-40"><a href="figure-1-cohort-characterization.html#cb22-40"></a>                                                 <span class="st">&quot;Mutually Inclusive&quot;</span>))<span class="op">+</span></span>
+<span id="cb22-41"><a href="figure-1-cohort-characterization.html#cb22-41"></a><span class="st">                      </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb22-42"><a href="figure-1-cohort-characterization.html#cb22-42"></a><span class="st">                      </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-43"><a href="figure-1-cohort-characterization.html#cb22-43"></a><span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text.x=</span><span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">45</span>,<span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">vjust=</span><span class="dv">1</span>),</span>
+<span id="cb22-44"><a href="figure-1-cohort-characterization.html#cb22-44"></a>                            <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb22-45"><a href="figure-1-cohort-characterization.html#cb22-45"></a>                            <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>), </span>
+<span id="cb22-46"><a href="figure-1-cohort-characterization.html#cb22-46"></a>                            <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb22-47"><a href="figure-1-cohort-characterization.html#cb22-47"></a>                            <span class="dt">legend.direction =</span> <span class="st">&quot;vertical&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-48"><a href="figure-1-cohort-characterization.html#cb22-48"></a><span class="st">                      </span><span class="kw">theme</span>(<span class="dt">legend.key.size =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>,<span class="st">&quot;line&quot;</span>))</span>
+<span id="cb22-49"><a href="figure-1-cohort-characterization.html#cb22-49"></a></span>
+<span id="cb22-50"><a href="figure-1-cohort-characterization.html#cb22-50"></a>grob_corrplot</span></code></pre></div>
 <p><img src="scDNA_files/figure-html/unnamed-chunk-13-1.png" width="480" style="display: block; margin: auto;" /></p>
 
 </div>
 <div id="oncoprint-figure-1a" class="section level3">
 <h3><span class="header-section-number">3.1.3</span> Oncoprint: Figure 1A</h3>
 <p>Now we are going to make the oncoprint that is in Figure 1A. Check out this <a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/oncoprint.html">example</a> from the ComplexHeatmap package for a better understanding of why things are formatted the way they are.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pals) <span class="co"># great package with color palettes in R</span>
-<span class="kw">library</span>(ComplexHeatmap) <span class="co">#used for making the oncoprint</span>
-
-<span class="co">#Here we will identify whether a variant is an indel, Nonsense or Missense mutation</span>
-<span class="co">#Next we group samples together and pivot the matrix into wide format</span>
-fill_values &lt;-<span class="kw">setNames</span>(<span class="kw">as.list</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(<span class="kw">levels</span>(final_mut_melt<span class="op">$</span>Gene)))),<span class="kw">levels</span>(final_mut_melt<span class="op">$</span>Gene))
-mut_mat_wide&lt;-final_mut_melt<span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">mutate</span>(<span class="dt">Variant_Class=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;fs</span><span class="ch">\\</span><span class="st">*|INS_|ins|ext|del&quot;</span>,.<span class="op">$</span>Mutation),<span class="st">&quot;Indel&quot;</span>,
-                                                  <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">*$&quot;</span>,.<span class="op">$</span>Mutation),<span class="st">&quot;Nonsense&quot;</span>,<span class="st">&quot;Missense&quot;</span>)))<span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;Gene&quot;</span>,<span class="st">&quot;Variant_Class&quot;</span>,<span class="st">&quot;Sample&quot;</span>),<span class="kw">as.character</span>())<span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">group_by</span>(Sample)<span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">pivot_wider</span>(<span class="dt">id_cols=</span>Sample, 
-                                     <span class="dt">names_from  =</span> Gene, 
-                                     <span class="dt">values_from =</span> Variant_Class,
-                                     <span class="dt">values_fn   =</span> <span class="kw">list</span>(<span class="dt">Variant_Class =</span>list),
-                                     <span class="dt">values_fill =</span> <span class="kw">list</span>(<span class="dt">Variant_Class =</span> <span class="st">&quot; &quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">                        </span><span class="kw">ungroup</span>(Sample)<span class="op">%&gt;%</span><span class="kw">data.frame</span>()
-
-<span class="co"># At this point, each column is actually a list, and variants are represnted as a list within a list. </span>
-<span class="co"># So we want to unpack it a bit, and turn those variant lists in a ; separated vector</span>
-mut_mat_wide_storage &lt;-<span class="st"> </span><span class="kw">list</span>()
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(mut_mat_wide)){ <span class="co"># start at 2 to ignore the first column of sample names</span>
-  mut_mat_wide_storage[[i]]&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(mut_mat_wide[,i],<span class="cf">function</span>(x){
-    <span class="cf">if</span>(x<span class="op">==</span><span class="st">&quot; &quot;</span>){
-      <span class="kw">return</span>(x)
-    } <span class="cf">else</span>{
-    <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;;&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;;&quot;</span>)
-      }
-   }
-   ))
-}
-
-## The rest of this just turns this back into a matrix in the format suggested by ComplexHeatmap
-mut_mat_wide_storage[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">as.character</span>(mut_mat_wide[,<span class="st">&quot;Sample&quot;</span>])
-final_mat &lt;-<span class="st"> </span><span class="kw">do.call</span>(cbind,mut_mat_wide_storage)
-<span class="kw">colnames</span>(final_mat) &lt;-<span class="st"> </span><span class="kw">colnames</span>(mut_mat_wide)
-<span class="kw">rownames</span>(final_mat) &lt;-<span class="st"> </span>final_mat[,<span class="dv">1</span>]
-final_mat &lt;-<span class="st"> </span><span class="kw">t</span>(final_mat[,<span class="op">-</span><span class="dv">1</span>])
-
-
-<span class="co">#Now we set up the color schemes for the variants on each row</span>
-variant_type_colors =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span> =<span class="st"> &quot;darkorchid2&quot;</span>, <span class="st">&quot;Nonsense&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;Missense&quot;</span> =<span class="st"> &quot;darkgreen&quot;</span>)
-alter_functions =<span class="st"> </span><span class="kw">list</span>(
-  <span class="dt">background =</span> <span class="cf">function</span>(x, y, w, h) {
-    <span class="kw">grid.rect</span>(x, y, w, h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.25</span>, <span class="st">&quot;mm&quot;</span>), 
-              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> <span class="st">&quot;#CCCCCC&quot;</span>, <span class="dt">col =</span> <span class="ot">NA</span>))
-  },
-  <span class="dt">Indel =</span> <span class="cf">function</span>(x, y, w, h) {
-    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), 
-              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Indel&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))
-  },
-  <span class="dt">Nonsense =</span> <span class="cf">function</span>(x, y, w, h) {
-    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), 
-              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Nonsense&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))
-  },
-  <span class="dt">Missense =</span> <span class="cf">function</span>(x, y, w, h) {
-    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">*</span><span class="fl">0.33</span>, 
-              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Missense&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))
-  }
-)
-
-<span class="co"># Establish colors for each disease state and diagnosis</span>
-color_set &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Dx&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">okabe</span>(<span class="dt">n=</span><span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="st">&quot;Dx&quot;</span>])))),
-                                    <span class="kw">c</span>( <span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MDS&quot;</span>,<span class="st">&quot;MPN&quot;</span>, <span class="st">&quot;AML&quot;</span>, <span class="st">&quot;sAML&quot;</span> ,<span class="st">&quot;tAML&quot;</span>,<span class="st">&quot;Other&quot;</span>) ),
-                  <span class="st">&quot;Disease.Status&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">tol</span>(<span class="dt">n=</span>(<span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="st">&quot;Disease.Status&quot;</span>]))))),
-                                    <span class="kw">c</span>(<span class="st">&quot;Newly Diagnosed&quot;</span>,<span class="st">&quot;Relapse/Refractory&quot;</span>,<span class="st">&quot;Newly Transformed&quot;</span>,
-                                      <span class="st">&quot;Persistent&quot;</span>,<span class="st">&quot;Chronic Stage&quot;</span>, <span class="st">&quot;Other&quot;</span>)))                       
-                
-<span class="co"># Format the annotations at the top of the oncoprint                                    </span>
-top_annotation &lt;-<span class="st"> </span><span class="kw">HeatmapAnnotation</span>(<span class="dt">cbar =</span> <span class="kw">anno_oncoprint_barplot</span>(),
-                                    <span class="dt">df   =</span> pheno[,<span class="kw">c</span>(<span class="st">&quot;Dx&quot;</span>,<span class="st">&quot;Disease.Status&quot;</span>)],
-                                    <span class="dt">col  =</span> color_set,
-                                    <span class="dt">annotation_name_side =</span> <span class="st">&quot;left&quot;</span>)
-
-<span class="co"># Indicate what should be included in the legend                  </span>
-heatmap_legend_param &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title  =</span> <span class="st">&quot;Alternations&quot;</span>, 
-                             <span class="dt">at     =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>), 
-                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>))
-
-<span class="co"># Make the oncoprint</span>
-<span class="kw">oncoPrint</span>(final_mat,
-          <span class="dt">alter_fun            =</span> alter_functions, 
-          <span class="dt">col                  =</span> variant_type_colors, 
-          <span class="dt">top_annotation       =</span> top_annotation,
-          <span class="dt">heatmap_legend_param =</span> heatmap_legend_param)</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="figure-1-cohort-characterization.html#cb23-1"></a><span class="kw">library</span>(pals) <span class="co"># great package with color palettes in R</span></span>
+<span id="cb23-2"><a href="figure-1-cohort-characterization.html#cb23-2"></a><span class="kw">library</span>(ComplexHeatmap) <span class="co">#used for making the oncoprint</span></span>
+<span id="cb23-3"><a href="figure-1-cohort-characterization.html#cb23-3"></a></span>
+<span id="cb23-4"><a href="figure-1-cohort-characterization.html#cb23-4"></a><span class="co">#Here we will identify whether a variant is an indel, Nonsense or Missense mutation</span></span>
+<span id="cb23-5"><a href="figure-1-cohort-characterization.html#cb23-5"></a><span class="co">#Next we group samples together and pivot the matrix into wide format</span></span>
+<span id="cb23-6"><a href="figure-1-cohort-characterization.html#cb23-6"></a>fill_values &lt;-<span class="kw">setNames</span>(<span class="kw">as.list</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(<span class="kw">levels</span>(final_mut_melt<span class="op">$</span>Gene)))),<span class="kw">levels</span>(final_mut_melt<span class="op">$</span>Gene))</span>
+<span id="cb23-7"><a href="figure-1-cohort-characterization.html#cb23-7"></a></span>
+<span id="cb23-8"><a href="figure-1-cohort-characterization.html#cb23-8"></a></span>
+<span id="cb23-9"><a href="figure-1-cohort-characterization.html#cb23-9"></a></span>
+<span id="cb23-10"><a href="figure-1-cohort-characterization.html#cb23-10"></a>mut_mat_wide&lt;-final_mut_melt<span class="op">%&gt;%</span></span>
+<span id="cb23-11"><a href="figure-1-cohort-characterization.html#cb23-11"></a><span class="st">                        </span><span class="kw">mutate</span>(<span class="dt">Variant_Class=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;fs</span><span class="ch">\\</span><span class="st">*|INS_|ins|ext|del&quot;</span>,.<span class="op">$</span>Mutation),<span class="st">&quot;Indel&quot;</span>,</span>
+<span id="cb23-12"><a href="figure-1-cohort-characterization.html#cb23-12"></a>                                                  <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">*$&quot;</span>,.<span class="op">$</span>Mutation),<span class="st">&quot;Nonsense&quot;</span>,<span class="st">&quot;Missense&quot;</span>)))<span class="op">%&gt;%</span></span>
+<span id="cb23-13"><a href="figure-1-cohort-characterization.html#cb23-13"></a><span class="st">                      </span><span class="co">#  mutate_at(c(&quot;Gene&quot;,&quot;Variant_Class&quot;,&quot;Sample&quot;),as.character())%&gt;%</span></span>
+<span id="cb23-14"><a href="figure-1-cohort-characterization.html#cb23-14"></a><span class="st">                        </span><span class="kw">group_by</span>(Sample,Gene)<span class="op">%&gt;%</span></span>
+<span id="cb23-15"><a href="figure-1-cohort-characterization.html#cb23-15"></a><span class="st">                        </span><span class="kw">summarize</span>(<span class="st">&quot;Variants&quot;</span>=<span class="kw">list</span>(Variant_Class))<span class="op">%&gt;%</span></span>
+<span id="cb23-16"><a href="figure-1-cohort-characterization.html#cb23-16"></a><span class="st">                        </span><span class="kw">pivot_wider</span>(<span class="dt">id_cols=</span>Sample, </span>
+<span id="cb23-17"><a href="figure-1-cohort-characterization.html#cb23-17"></a>                                     <span class="dt">names_from  =</span> Gene, </span>
+<span id="cb23-18"><a href="figure-1-cohort-characterization.html#cb23-18"></a>                                     <span class="dt">values_from =</span> Variants,</span>
+<span id="cb23-19"><a href="figure-1-cohort-characterization.html#cb23-19"></a>                                   <span class="co">#  values_fn   = list(Variant_Class=list),</span></span>
+<span id="cb23-20"><a href="figure-1-cohort-characterization.html#cb23-20"></a>                                     <span class="dt">values_fill =</span> <span class="kw">list</span>(<span class="dt">Variant_Class=</span><span class="st">&quot;&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb23-21"><a href="figure-1-cohort-characterization.html#cb23-21"></a><span class="st">                        </span><span class="kw">ungroup</span>(Sample,Gene)<span class="op">%&gt;%</span></span>
+<span id="cb23-22"><a href="figure-1-cohort-characterization.html#cb23-22"></a><span class="st">                        </span><span class="kw">data.frame</span>()</span>
+<span id="cb23-23"><a href="figure-1-cohort-characterization.html#cb23-23"></a></span>
+<span id="cb23-24"><a href="figure-1-cohort-characterization.html#cb23-24"></a><span class="co"># At this point, each column is actually a list, and variants are represnted as a list within a list. </span></span>
+<span id="cb23-25"><a href="figure-1-cohort-characterization.html#cb23-25"></a><span class="co"># So we want to unpack it a bit, and turn those variant lists in a ; separated vector</span></span>
+<span id="cb23-26"><a href="figure-1-cohort-characterization.html#cb23-26"></a></span>
+<span id="cb23-27"><a href="figure-1-cohort-characterization.html#cb23-27"></a>mut_mat_wide_storage &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb23-28"><a href="figure-1-cohort-characterization.html#cb23-28"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(mut_mat_wide)){ <span class="co"># start at 2 to ignore the first column of sample names</span></span>
+<span id="cb23-29"><a href="figure-1-cohort-characterization.html#cb23-29"></a>  mut_mat_wide_storage[[i]]&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(mut_mat_wide[,i],<span class="cf">function</span>(x){</span>
+<span id="cb23-30"><a href="figure-1-cohort-characterization.html#cb23-30"></a>    <span class="co">#if(x==&quot;&quot;){</span></span>
+<span id="cb23-31"><a href="figure-1-cohort-characterization.html#cb23-31"></a>    <span class="co">#  return(x)</span></span>
+<span id="cb23-32"><a href="figure-1-cohort-characterization.html#cb23-32"></a>  <span class="co">#  }  else  </span></span>
+<span id="cb23-33"><a href="figure-1-cohort-characterization.html#cb23-33"></a>      <span class="cf">if</span>(<span class="kw">is.null</span>(x)){</span>
+<span id="cb23-34"><a href="figure-1-cohort-characterization.html#cb23-34"></a>      <span class="kw">return</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb23-35"><a href="figure-1-cohort-characterization.html#cb23-35"></a>    } <span class="cf">else</span> {</span>
+<span id="cb23-36"><a href="figure-1-cohort-characterization.html#cb23-36"></a>    <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;;&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;;&quot;</span>)</span>
+<span id="cb23-37"><a href="figure-1-cohort-characterization.html#cb23-37"></a>      }</span>
+<span id="cb23-38"><a href="figure-1-cohort-characterization.html#cb23-38"></a>   }</span>
+<span id="cb23-39"><a href="figure-1-cohort-characterization.html#cb23-39"></a>   ))</span>
+<span id="cb23-40"><a href="figure-1-cohort-characterization.html#cb23-40"></a>}</span>
+<span id="cb23-41"><a href="figure-1-cohort-characterization.html#cb23-41"></a></span>
+<span id="cb23-42"><a href="figure-1-cohort-characterization.html#cb23-42"></a><span class="co">## The rest of this just turns this back into a matrix in the format suggested by ComplexHeatmap</span></span>
+<span id="cb23-43"><a href="figure-1-cohort-characterization.html#cb23-43"></a>mut_mat_wide_storage[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">as.character</span>(mut_mat_wide[,<span class="st">&quot;Sample&quot;</span>])</span>
+<span id="cb23-44"><a href="figure-1-cohort-characterization.html#cb23-44"></a>final_mat &lt;-<span class="st"> </span><span class="kw">do.call</span>(cbind,mut_mat_wide_storage)</span>
+<span id="cb23-45"><a href="figure-1-cohort-characterization.html#cb23-45"></a><span class="kw">colnames</span>(final_mat) &lt;-<span class="st"> </span><span class="kw">colnames</span>(mut_mat_wide)</span>
+<span id="cb23-46"><a href="figure-1-cohort-characterization.html#cb23-46"></a><span class="kw">rownames</span>(final_mat) &lt;-<span class="st"> </span>final_mat[,<span class="dv">1</span>]</span>
+<span id="cb23-47"><a href="figure-1-cohort-characterization.html#cb23-47"></a>final_mat &lt;-<span class="st"> </span><span class="kw">t</span>(final_mat[,<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb23-48"><a href="figure-1-cohort-characterization.html#cb23-48"></a></span>
+<span id="cb23-49"><a href="figure-1-cohort-characterization.html#cb23-49"></a></span>
+<span id="cb23-50"><a href="figure-1-cohort-characterization.html#cb23-50"></a><span class="co">#Now we set up the color schemes for the variants on each row</span></span>
+<span id="cb23-51"><a href="figure-1-cohort-characterization.html#cb23-51"></a>variant_type_colors =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span> =<span class="st"> &quot;darkorchid2&quot;</span>, <span class="st">&quot;Nonsense&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;Missense&quot;</span> =<span class="st"> &quot;darkgreen&quot;</span>)</span>
+<span id="cb23-52"><a href="figure-1-cohort-characterization.html#cb23-52"></a>alter_functions =<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb23-53"><a href="figure-1-cohort-characterization.html#cb23-53"></a>  <span class="dt">background =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb23-54"><a href="figure-1-cohort-characterization.html#cb23-54"></a>    <span class="kw">grid.rect</span>(x, y, w, h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.25</span>, <span class="st">&quot;mm&quot;</span>), </span>
+<span id="cb23-55"><a href="figure-1-cohort-characterization.html#cb23-55"></a>              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> <span class="st">&quot;#CCCCCC&quot;</span>, <span class="dt">col =</span> <span class="ot">NA</span>))</span>
+<span id="cb23-56"><a href="figure-1-cohort-characterization.html#cb23-56"></a>  },</span>
+<span id="cb23-57"><a href="figure-1-cohort-characterization.html#cb23-57"></a>  <span class="dt">Indel =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb23-58"><a href="figure-1-cohort-characterization.html#cb23-58"></a>    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), </span>
+<span id="cb23-59"><a href="figure-1-cohort-characterization.html#cb23-59"></a>              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Indel&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))</span>
+<span id="cb23-60"><a href="figure-1-cohort-characterization.html#cb23-60"></a>  },</span>
+<span id="cb23-61"><a href="figure-1-cohort-characterization.html#cb23-61"></a>  <span class="dt">Nonsense =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb23-62"><a href="figure-1-cohort-characterization.html#cb23-62"></a>    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), </span>
+<span id="cb23-63"><a href="figure-1-cohort-characterization.html#cb23-63"></a>              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Nonsense&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))</span>
+<span id="cb23-64"><a href="figure-1-cohort-characterization.html#cb23-64"></a>  },</span>
+<span id="cb23-65"><a href="figure-1-cohort-characterization.html#cb23-65"></a>  <span class="dt">Missense =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb23-66"><a href="figure-1-cohort-characterization.html#cb23-66"></a>    <span class="kw">grid.rect</span>(x, y, w<span class="op">-</span><span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;mm&quot;</span>), h<span class="op">*</span><span class="fl">0.33</span>, </span>
+<span id="cb23-67"><a href="figure-1-cohort-characterization.html#cb23-67"></a>              <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fill =</span> variant_type_colors[<span class="st">&quot;Missense&quot;</span>], <span class="dt">col =</span> <span class="ot">NA</span>))</span>
+<span id="cb23-68"><a href="figure-1-cohort-characterization.html#cb23-68"></a>  }</span>
+<span id="cb23-69"><a href="figure-1-cohort-characterization.html#cb23-69"></a>)</span>
+<span id="cb23-70"><a href="figure-1-cohort-characterization.html#cb23-70"></a></span>
+<span id="cb23-71"><a href="figure-1-cohort-characterization.html#cb23-71"></a><span class="co"># Establish colors for each disease state and diagnosis</span></span>
+<span id="cb23-72"><a href="figure-1-cohort-characterization.html#cb23-72"></a>color_set &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Dx&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">okabe</span>(<span class="dt">n=</span><span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="st">&quot;Dx&quot;</span>])))),</span>
+<span id="cb23-73"><a href="figure-1-cohort-characterization.html#cb23-73"></a>                                    <span class="kw">c</span>( <span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MDS&quot;</span>,<span class="st">&quot;MPN&quot;</span>, <span class="st">&quot;AML&quot;</span>, <span class="st">&quot;sAML&quot;</span> ,<span class="st">&quot;tAML&quot;</span>,<span class="st">&quot;Other&quot;</span>) ),</span>
+<span id="cb23-74"><a href="figure-1-cohort-characterization.html#cb23-74"></a>                  <span class="st">&quot;Disease.Status&quot;</span> =<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">tol</span>(<span class="dt">n=</span>(<span class="kw">length</span>(<span class="kw">unique</span>(<span class="kw">as.character</span>(pheno[,<span class="st">&quot;Disease.Status&quot;</span>]))))),</span>
+<span id="cb23-75"><a href="figure-1-cohort-characterization.html#cb23-75"></a>                                    <span class="kw">c</span>(<span class="st">&quot;Newly Diagnosed&quot;</span>,<span class="st">&quot;Relapse/Refractory&quot;</span>,<span class="st">&quot;Newly Transformed&quot;</span>,</span>
+<span id="cb23-76"><a href="figure-1-cohort-characterization.html#cb23-76"></a>                                      <span class="st">&quot;Persistent&quot;</span>,<span class="st">&quot;Chronic Stage&quot;</span>, <span class="st">&quot;Other&quot;</span>)))                       </span>
+<span id="cb23-77"><a href="figure-1-cohort-characterization.html#cb23-77"></a>                </span>
+<span id="cb23-78"><a href="figure-1-cohort-characterization.html#cb23-78"></a><span class="co"># Format the annotations at the top of the oncoprint                                    </span></span>
+<span id="cb23-79"><a href="figure-1-cohort-characterization.html#cb23-79"></a>top_annotation &lt;-<span class="st"> </span><span class="kw">HeatmapAnnotation</span>(<span class="dt">cbar =</span> <span class="kw">anno_oncoprint_barplot</span>(),</span>
+<span id="cb23-80"><a href="figure-1-cohort-characterization.html#cb23-80"></a>                                    <span class="dt">df   =</span> pheno[,<span class="kw">c</span>(<span class="st">&quot;Dx&quot;</span>,<span class="st">&quot;Disease.Status&quot;</span>)],</span>
+<span id="cb23-81"><a href="figure-1-cohort-characterization.html#cb23-81"></a>                                    <span class="dt">col  =</span> color_set,</span>
+<span id="cb23-82"><a href="figure-1-cohort-characterization.html#cb23-82"></a>                                    <span class="dt">annotation_name_side =</span> <span class="st">&quot;left&quot;</span>)</span>
+<span id="cb23-83"><a href="figure-1-cohort-characterization.html#cb23-83"></a></span>
+<span id="cb23-84"><a href="figure-1-cohort-characterization.html#cb23-84"></a><span class="co"># Indicate what should be included in the legend                  </span></span>
+<span id="cb23-85"><a href="figure-1-cohort-characterization.html#cb23-85"></a>heatmap_legend_param &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title  =</span> <span class="st">&quot;Alternations&quot;</span>, </span>
+<span id="cb23-86"><a href="figure-1-cohort-characterization.html#cb23-86"></a>                             <span class="dt">at     =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>), </span>
+<span id="cb23-87"><a href="figure-1-cohort-characterization.html#cb23-87"></a>                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Indel&quot;</span>, <span class="st">&quot;Nonsense&quot;</span>, <span class="st">&quot;Missense&quot;</span>))</span>
+<span id="cb23-88"><a href="figure-1-cohort-characterization.html#cb23-88"></a></span>
+<span id="cb23-89"><a href="figure-1-cohort-characterization.html#cb23-89"></a><span class="co"># Make the oncoprint</span></span>
+<span id="cb23-90"><a href="figure-1-cohort-characterization.html#cb23-90"></a><span class="kw">oncoPrint</span>(final_mat,</span>
+<span id="cb23-91"><a href="figure-1-cohort-characterization.html#cb23-91"></a>          <span class="dt">alter_fun            =</span> alter_functions, </span>
+<span id="cb23-92"><a href="figure-1-cohort-characterization.html#cb23-92"></a>          <span class="dt">col                  =</span> variant_type_colors, </span>
+<span id="cb23-93"><a href="figure-1-cohort-characterization.html#cb23-93"></a>          <span class="dt">top_annotation       =</span> top_annotation,</span>
+<span id="cb23-94"><a href="figure-1-cohort-characterization.html#cb23-94"></a>          <span class="dt">heatmap_legend_param =</span> heatmap_legend_param)</span></code></pre></div>
 <p><img src="scDNA_files/figure-html/unnamed-chunk-14-1.png" width="1152" style="display: block; margin: auto;" /></p>
 
 </div>
 <div id="sample-clonality-figure-1ce-figure-2ab" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Sample clonality: Figure 1C,E Figure 2A,B</h3>
 <p>Now we focused on patient samples that were included in the clonality analysis. This the filtered set o f patients that had &gt;100 cells, more than 1 mutation, and more than 1 clone following bootstrapping and estalbishing 95% confidence inervals &gt; 10 cells.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_sample_summary&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)
-pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="figure-1-cohort-characterization.html#cb24-1"></a>final_sample_summary&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)</span>
+<span id="cb24-2"><a href="figure-1-cohort-characterization.html#cb24-2"></a>pheno&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</span></code></pre></div>
 <p>Next we are going to build a data frame indicating the mutation status of various patients with regard to epigenetic modifiers (<em>D</em>NMT3a,<em>T</em>ET2, <em>A</em>SXL1, <em>I</em>DH1/2, DTAI) and signalling genes (FLT3, vs JAK2 vs NRAS/KRAS)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr) <span class="co"># for %&lt;&gt;% </span>
-
-<span class="co">#Tabulate presence/absence of a mutation</span>
-mutants_in_each_sample&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(x){
-  y&lt;-<span class="kw">colnames</span>(final_sample_summary[[x]]<span class="op">$</span>NGT)
-  z &lt;-<span class="st"> </span><span class="kw">list</span>()
-  z<span class="op">$</span>Sample &lt;-<span class="st"> </span>x
-  z<span class="op">$</span>DNMT3A &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;DNMT3A&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>TET2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;TET2&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>ASXL1 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;ASXL1&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>IDH &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;IDH&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>FLT3 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;FLT3&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>KIT &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;KIT&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>) <span class="co"># n=1 sample, we put it in the &quot;signalling category&quot;</span>
-  z<span class="op">$</span>RAS &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;RAS&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>JAK2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;JAK2&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  z<span class="op">$</span>PTPN11 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;PTPN11&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)
-  <span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">do.call</span>(rbind,z)))
-}))
-
-<span class="co"># Bin into groups based on mutations and disease type</span>
-mutants_in_each_sample<span class="op">%&lt;&gt;%</span><span class="kw">mutate</span>(<span class="dt">Group=</span><span class="kw">case_when</span>(
-                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>(RAS<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">0</span>)<span class="op">~</span><span class="st">&#39;DTAI&#39;</span>,
-                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>((RAS<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">0</span>)<span class="op">|</span>
-<span class="st">                                                                   </span>(PTPN11<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">0</span>))<span class="op">~</span><span class="st">&#39;DTAI-RAS&#39;</span>,
-                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>(RAS<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">1</span>)<span class="op">~</span><span class="st">&#39;DTAI-FLT3&#39;</span>,
-                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>((RAS<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">1</span>)<span class="op">|</span>
-<span class="st">                                                               </span>(PTPN11<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">1</span>))<span class="op">~</span><span class="st">&#39;DTAI-FLT3-RAS&#39;</span>,
-                          (TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">&amp;</span>(RAS<span class="op">==</span><span class="dv">1</span><span class="op">|</span>FLT3<span class="op">==</span><span class="dv">1</span><span class="op">|</span>JAK2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>KIT<span class="op">==</span><span class="dv">1</span>)<span class="op">~</span><span class="st">&#39;Signaling&#39;</span>))<span class="op">%&gt;%</span>
-<span class="st">                          </span><span class="kw">left_join</span>(pheno,<span class="dt">by=</span><span class="st">&quot;Sample&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">                          </span><span class="kw">mutate</span>(<span class="dt">Final_group=</span><span class="kw">case_when</span>(
-                                          <span class="kw">grepl</span>(<span class="st">&quot;AML|Other&quot;</span>,Dx)<span class="op">~</span>Group,
-                                          <span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;AML|Other&quot;</span>,Dx)<span class="op">~</span>Dx
-                                        ))
-
-<span class="co"># Order the groups to match how we have them in the paper</span>
-mutants_in_each_sample<span class="op">$</span>Final_group &lt;-<span class="st"> </span><span class="kw">factor</span>(mutants_in_each_sample<span class="op">$</span>Final_group,
-                                              <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MPN&quot;</span>,<span class="st">&quot;Signaling&quot;</span>,<span class="st">&quot;DTAI&quot;</span>,
-                                                       <span class="st">&quot;DTAI-RAS&quot;</span>,<span class="st">&quot;DTAI-FLT3&quot;</span>,<span class="st">&quot;DTAI-FLT3-RAS&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="figure-1-cohort-characterization.html#cb25-1"></a><span class="kw">library</span>(magrittr) <span class="co"># for %&lt;&gt;% </span></span>
+<span id="cb25-2"><a href="figure-1-cohort-characterization.html#cb25-2"></a></span>
+<span id="cb25-3"><a href="figure-1-cohort-characterization.html#cb25-3"></a><span class="co">#Tabulate presence/absence of a mutation</span></span>
+<span id="cb25-4"><a href="figure-1-cohort-characterization.html#cb25-4"></a>mutants_in_each_sample&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(x){</span>
+<span id="cb25-5"><a href="figure-1-cohort-characterization.html#cb25-5"></a>  y&lt;-<span class="kw">colnames</span>(final_sample_summary[[x]]<span class="op">$</span>NGT)</span>
+<span id="cb25-6"><a href="figure-1-cohort-characterization.html#cb25-6"></a>  z &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb25-7"><a href="figure-1-cohort-characterization.html#cb25-7"></a>  z<span class="op">$</span>Sample &lt;-<span class="st"> </span>x</span>
+<span id="cb25-8"><a href="figure-1-cohort-characterization.html#cb25-8"></a>  z<span class="op">$</span>DNMT3A &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;DNMT3A&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-9"><a href="figure-1-cohort-characterization.html#cb25-9"></a>  z<span class="op">$</span>TET2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;TET2&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-10"><a href="figure-1-cohort-characterization.html#cb25-10"></a>  z<span class="op">$</span>ASXL1 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;ASXL1&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-11"><a href="figure-1-cohort-characterization.html#cb25-11"></a>  z<span class="op">$</span>IDH &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;IDH&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-12"><a href="figure-1-cohort-characterization.html#cb25-12"></a>  z<span class="op">$</span>FLT3 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;FLT3&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-13"><a href="figure-1-cohort-characterization.html#cb25-13"></a>  z<span class="op">$</span>KIT &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;KIT&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>) <span class="co"># n=1 sample, we put it in the &quot;signalling category&quot;</span></span>
+<span id="cb25-14"><a href="figure-1-cohort-characterization.html#cb25-14"></a>  z<span class="op">$</span>RAS &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;RAS&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-15"><a href="figure-1-cohort-characterization.html#cb25-15"></a>  z<span class="op">$</span>JAK2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;JAK2&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-16"><a href="figure-1-cohort-characterization.html#cb25-16"></a>  z<span class="op">$</span>PTPN11 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;PTPN11&quot;</span>,y)),<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb25-17"><a href="figure-1-cohort-characterization.html#cb25-17"></a>  <span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">do.call</span>(rbind,z)))</span>
+<span id="cb25-18"><a href="figure-1-cohort-characterization.html#cb25-18"></a>}))</span>
+<span id="cb25-19"><a href="figure-1-cohort-characterization.html#cb25-19"></a></span>
+<span id="cb25-20"><a href="figure-1-cohort-characterization.html#cb25-20"></a><span class="co"># Bin into groups based on mutations and disease type</span></span>
+<span id="cb25-21"><a href="figure-1-cohort-characterization.html#cb25-21"></a>mutants_in_each_sample<span class="op">%&lt;&gt;%</span><span class="kw">mutate</span>(<span class="dt">Group=</span><span class="kw">case_when</span>(</span>
+<span id="cb25-22"><a href="figure-1-cohort-characterization.html#cb25-22"></a>                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>(RAS<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">0</span>)<span class="op">~</span><span class="st">&#39;DTAI&#39;</span>,</span>
+<span id="cb25-23"><a href="figure-1-cohort-characterization.html#cb25-23"></a>                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>((RAS<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">0</span>)<span class="op">|</span></span>
+<span id="cb25-24"><a href="figure-1-cohort-characterization.html#cb25-24"></a><span class="st">                                                                   </span>(PTPN11<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">0</span>))<span class="op">~</span><span class="st">&#39;DTAI-RAS&#39;</span>,</span>
+<span id="cb25-25"><a href="figure-1-cohort-characterization.html#cb25-25"></a>                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>(RAS<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">1</span>)<span class="op">~</span><span class="st">&#39;DTAI-FLT3&#39;</span>,</span>
+<span id="cb25-26"><a href="figure-1-cohort-characterization.html#cb25-26"></a>                          (TET2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>DNMT3A<span class="op">==</span><span class="dv">1</span><span class="op">|</span>IDH<span class="op">==</span><span class="dv">1</span><span class="op">|</span>ASXL1<span class="op">==</span><span class="dv">1</span>)<span class="op">&amp;</span>((RAS<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">1</span>)<span class="op">|</span></span>
+<span id="cb25-27"><a href="figure-1-cohort-characterization.html#cb25-27"></a><span class="st">                                                               </span>(PTPN11<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>FLT3<span class="op">==</span><span class="dv">1</span>))<span class="op">~</span><span class="st">&#39;DTAI-FLT3-RAS&#39;</span>,</span>
+<span id="cb25-28"><a href="figure-1-cohort-characterization.html#cb25-28"></a>                          (TET2<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>DNMT3A<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>IDH<span class="op">==</span><span class="dv">0</span><span class="op">&amp;</span>ASXL1<span class="op">==</span><span class="dv">0</span>)<span class="op">&amp;</span>(RAS<span class="op">==</span><span class="dv">1</span><span class="op">|</span>FLT3<span class="op">==</span><span class="dv">1</span><span class="op">|</span>JAK2<span class="op">==</span><span class="dv">1</span><span class="op">|</span>KIT<span class="op">==</span><span class="dv">1</span>)<span class="op">~</span><span class="st">&#39;Signaling&#39;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb25-29"><a href="figure-1-cohort-characterization.html#cb25-29"></a><span class="st">                          </span><span class="kw">left_join</span>(pheno,<span class="dt">by=</span><span class="st">&quot;Sample&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb25-30"><a href="figure-1-cohort-characterization.html#cb25-30"></a><span class="st">                          </span><span class="kw">mutate</span>(<span class="dt">Final_group=</span><span class="kw">case_when</span>(</span>
+<span id="cb25-31"><a href="figure-1-cohort-characterization.html#cb25-31"></a>                                          <span class="kw">grepl</span>(<span class="st">&quot;AML|Other&quot;</span>,Dx)<span class="op">~</span>Group,</span>
+<span id="cb25-32"><a href="figure-1-cohort-characterization.html#cb25-32"></a>                                          <span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;AML|Other&quot;</span>,Dx)<span class="op">~</span>Dx</span>
+<span id="cb25-33"><a href="figure-1-cohort-characterization.html#cb25-33"></a>                                        ))</span>
+<span id="cb25-34"><a href="figure-1-cohort-characterization.html#cb25-34"></a></span>
+<span id="cb25-35"><a href="figure-1-cohort-characterization.html#cb25-35"></a><span class="co"># Order the groups to match how we have them in the paper</span></span>
+<span id="cb25-36"><a href="figure-1-cohort-characterization.html#cb25-36"></a>mutants_in_each_sample<span class="op">$</span>Final_group &lt;-<span class="st"> </span><span class="kw">factor</span>(mutants_in_each_sample<span class="op">$</span>Final_group,</span>
+<span id="cb25-37"><a href="figure-1-cohort-characterization.html#cb25-37"></a>                                              <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;CH&quot;</span>,<span class="st">&quot;MPN&quot;</span>,<span class="st">&quot;Signaling&quot;</span>,<span class="st">&quot;DTAI&quot;</span>,</span>
+<span id="cb25-38"><a href="figure-1-cohort-characterization.html#cb25-38"></a>                                                       <span class="st">&quot;DTAI-RAS&quot;</span>,<span class="st">&quot;DTAI-FLT3&quot;</span>,<span class="st">&quot;DTAI-FLT3-RAS&quot;</span>))</span></code></pre></div>
 <p>Next we want to calculate a few metrics for each patient sample.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan) 
-clonal_level_info&lt;-<span class="kw">data.frame</span>(<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(y){
-  x &lt;-<span class="st"> </span>final_sample_summary[[y]]<span class="op">$</span>Clones
-  <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=y,
-             <span class="st">&quot;Shannon&quot;</span>=vegan<span class="op">::</span><span class="kw">diversity</span>(x[,<span class="dv">1</span>],<span class="dt">index=</span><span class="st">&quot;shannon&quot;</span>),
-             <span class="st">&quot;Number_of_clones&quot;</span>=<span class="kw">length</span>(x[,<span class="dv">1</span>]),
-             <span class="st">&quot;Number_of_mutations&quot;</span>=<span class="kw">ncol</span>(final_sample_summary[[y]]<span class="op">$</span>NGT),
-             <span class="st">&quot;Number_of_mutations_in_dominant_clone&quot;</span>=<span class="kw">sum</span>(<span class="kw">as.numeric</span>(<span class="kw">do.call</span>(rbind,
-                                           <span class="kw">strsplit</span>(<span class="kw">as.character</span>(x[<span class="kw">nrow</span>(x),<span class="dv">2</span>]),<span class="dt">split=</span><span class="st">&quot;_&quot;</span>)))),
-             <span class="st">&quot;Dominant_clone_size&quot;</span>=<span class="kw">max</span>(x[,<span class="dv">1</span>]<span class="op">/</span><span class="kw">sum</span>(x[,<span class="dv">1</span>]))) <span class="co">#,</span>
-           })))</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="figure-1-cohort-characterization.html#cb26-1"></a><span class="kw">library</span>(vegan) </span>
+<span id="cb26-2"><a href="figure-1-cohort-characterization.html#cb26-2"></a>clonal_level_info&lt;-<span class="kw">data.frame</span>(<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(<span class="kw">names</span>(final_sample_summary),<span class="cf">function</span>(y){</span>
+<span id="cb26-3"><a href="figure-1-cohort-characterization.html#cb26-3"></a>  x &lt;-<span class="st"> </span>final_sample_summary[[y]]<span class="op">$</span>Clones</span>
+<span id="cb26-4"><a href="figure-1-cohort-characterization.html#cb26-4"></a>  <span class="kw">data.frame</span>(<span class="st">&quot;Sample&quot;</span>=y,</span>
+<span id="cb26-5"><a href="figure-1-cohort-characterization.html#cb26-5"></a>             <span class="st">&quot;Shannon&quot;</span>=vegan<span class="op">::</span><span class="kw">diversity</span>(x[,<span class="dv">1</span>],<span class="dt">index=</span><span class="st">&quot;shannon&quot;</span>),</span>
+<span id="cb26-6"><a href="figure-1-cohort-characterization.html#cb26-6"></a>             <span class="st">&quot;Number_of_clones&quot;</span>=<span class="kw">length</span>(x[,<span class="dv">1</span>]),</span>
+<span id="cb26-7"><a href="figure-1-cohort-characterization.html#cb26-7"></a>             <span class="st">&quot;Number_of_mutations&quot;</span>=<span class="kw">ncol</span>(final_sample_summary[[y]]<span class="op">$</span>NGT),</span>
+<span id="cb26-8"><a href="figure-1-cohort-characterization.html#cb26-8"></a>             <span class="st">&quot;Number_of_mutations_in_dominant_clone&quot;</span>=<span class="kw">sum</span>(<span class="kw">as.numeric</span>(<span class="kw">do.call</span>(rbind,</span>
+<span id="cb26-9"><a href="figure-1-cohort-characterization.html#cb26-9"></a>                                           <span class="kw">strsplit</span>(<span class="kw">as.character</span>(x[<span class="kw">nrow</span>(x),<span class="dv">2</span>]),<span class="dt">split=</span><span class="st">&quot;_&quot;</span>)))),</span>
+<span id="cb26-10"><a href="figure-1-cohort-characterization.html#cb26-10"></a>             <span class="st">&quot;Dominant_clone_size&quot;</span>=<span class="kw">max</span>(x[,<span class="dv">1</span>]<span class="op">/</span><span class="kw">sum</span>(x[,<span class="dv">1</span>]))) <span class="co">#,</span></span>
+<span id="cb26-11"><a href="figure-1-cohort-characterization.html#cb26-11"></a>           })))</span></code></pre></div>
 <p>Now we’ll merge the data frames together and plot some of the data found in Figure 1 and Figure 2</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Combine the data frame</span>
-test&lt;-mutants_in_each_sample<span class="op">%&gt;%</span><span class="kw">inner_join</span>(clonal_level_info)
-
-<span class="co"># Number of mutations</span>
-gg_number_of_mutations&lt;-<span class="kw">ggplot</span>(test<span class="op">%&gt;%</span><span class="kw">group_by</span>(Final_group)<span class="op">%&gt;%</span>
-<span class="st">                                  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(Number_of_mutations),
-                                            <span class="dt">sd =</span> <span class="kw">sd</span>(Number_of_mutations),
-                                            <span class="dt">sem =</span> <span class="kw">sd</span>(Number_of_mutations)<span class="op">/</span>
-<span class="st">                                                      </span><span class="kw">sqrt</span>(<span class="kw">length</span>(Number_of_mutations))),
-                                    <span class="kw">aes</span>(<span class="dt">x=</span>Final_group,<span class="dt">y=</span>mean,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
-<span class="st">                                    </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span>
-<span class="st">                                    </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean<span class="op">-</span>sem, <span class="dt">ymax =</span> mean<span class="op">+</span>sem),<span class="dt">width=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                                    </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                                    </span><span class="kw">ylab</span>(<span class="st">&quot;Number of mutations&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                                    </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">9</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span>
-<span class="st">                                    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">                                    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
-
-<span class="co"># Number of clones</span>
-gg_number_of_clones&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes</span>(<span class="dt">y=</span>Number_of_clones,<span class="dt">x=</span>Final_group,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
-<span class="st">                                  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span>
-<span class="st">                                  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                                  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                                  </span><span class="kw">ylab</span>(<span class="st">&quot;Number of clones&quot;</span>)<span class="op">+</span>
-<span class="st">                                  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                                  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">                                  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
-
-<span class="kw">plot_grid</span>(gg_number_of_mutations,gg_number_of_clones,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;C&quot;</span>,<span class="st">&quot;E&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="figure-1-cohort-characterization.html#cb27-1"></a><span class="co"># Combine the data frame</span></span>
+<span id="cb27-2"><a href="figure-1-cohort-characterization.html#cb27-2"></a>test&lt;-mutants_in_each_sample<span class="op">%&gt;%</span><span class="kw">inner_join</span>(clonal_level_info)</span>
+<span id="cb27-3"><a href="figure-1-cohort-characterization.html#cb27-3"></a></span>
+<span id="cb27-4"><a href="figure-1-cohort-characterization.html#cb27-4"></a><span class="co"># Number of mutations</span></span>
+<span id="cb27-5"><a href="figure-1-cohort-characterization.html#cb27-5"></a>gg_number_of_mutations&lt;-<span class="kw">ggplot</span>(test<span class="op">%&gt;%</span><span class="kw">group_by</span>(Final_group)<span class="op">%&gt;%</span></span>
+<span id="cb27-6"><a href="figure-1-cohort-characterization.html#cb27-6"></a><span class="st">                                  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(Number_of_mutations),</span>
+<span id="cb27-7"><a href="figure-1-cohort-characterization.html#cb27-7"></a>                                            <span class="dt">sd =</span> <span class="kw">sd</span>(Number_of_mutations),</span>
+<span id="cb27-8"><a href="figure-1-cohort-characterization.html#cb27-8"></a>                                            <span class="dt">sem =</span> <span class="kw">sd</span>(Number_of_mutations)<span class="op">/</span></span>
+<span id="cb27-9"><a href="figure-1-cohort-characterization.html#cb27-9"></a><span class="st">                                                      </span><span class="kw">sqrt</span>(<span class="kw">length</span>(Number_of_mutations))),</span>
+<span id="cb27-10"><a href="figure-1-cohort-characterization.html#cb27-10"></a>                                    <span class="kw">aes</span>(<span class="dt">x=</span>Final_group,<span class="dt">y=</span>mean,<span class="dt">fill=</span>Final_group))<span class="op">+</span></span>
+<span id="cb27-11"><a href="figure-1-cohort-characterization.html#cb27-11"></a><span class="st">                                    </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span></span>
+<span id="cb27-12"><a href="figure-1-cohort-characterization.html#cb27-12"></a><span class="st">                                    </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean<span class="op">-</span>sem, <span class="dt">ymax =</span> mean<span class="op">+</span>sem),<span class="dt">width=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb27-13"><a href="figure-1-cohort-characterization.html#cb27-13"></a><span class="st">                                    </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span></span>
+<span id="cb27-14"><a href="figure-1-cohort-characterization.html#cb27-14"></a><span class="st">                                    </span><span class="kw">ylab</span>(<span class="st">&quot;Number of mutations&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
+<span id="cb27-15"><a href="figure-1-cohort-characterization.html#cb27-15"></a><span class="st">                                    </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">9</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
+<span id="cb27-16"><a href="figure-1-cohort-characterization.html#cb27-16"></a><span class="st">                                    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb27-17"><a href="figure-1-cohort-characterization.html#cb27-17"></a><span class="st">                                    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)</span>
+<span id="cb27-18"><a href="figure-1-cohort-characterization.html#cb27-18"></a></span>
+<span id="cb27-19"><a href="figure-1-cohort-characterization.html#cb27-19"></a><span class="co"># Number of clones</span></span>
+<span id="cb27-20"><a href="figure-1-cohort-characterization.html#cb27-20"></a>gg_number_of_clones&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes</span>(<span class="dt">y=</span>Number_of_clones,<span class="dt">x=</span>Final_group,<span class="dt">fill=</span>Final_group))<span class="op">+</span></span>
+<span id="cb27-21"><a href="figure-1-cohort-characterization.html#cb27-21"></a><span class="st">                                  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span></span>
+<span id="cb27-22"><a href="figure-1-cohort-characterization.html#cb27-22"></a><span class="st">                                  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb27-23"><a href="figure-1-cohort-characterization.html#cb27-23"></a><span class="st">                                  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span></span>
+<span id="cb27-24"><a href="figure-1-cohort-characterization.html#cb27-24"></a><span class="st">                                  </span><span class="kw">ylab</span>(<span class="st">&quot;Number of clones&quot;</span>)<span class="op">+</span></span>
+<span id="cb27-25"><a href="figure-1-cohort-characterization.html#cb27-25"></a><span class="st">                                  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
+<span id="cb27-26"><a href="figure-1-cohort-characterization.html#cb27-26"></a><span class="st">                                  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb27-27"><a href="figure-1-cohort-characterization.html#cb27-27"></a><span class="st">                                  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)</span>
+<span id="cb27-28"><a href="figure-1-cohort-characterization.html#cb27-28"></a></span>
+<span id="cb27-29"><a href="figure-1-cohort-characterization.html#cb27-29"></a><span class="kw">plot_grid</span>(gg_number_of_mutations,gg_number_of_clones,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;C&quot;</span>,<span class="st">&quot;E&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
 <img src="scDNA_files/figure-html/unnamed-chunk-18-1.png" alt="Miles et al: Figure 1C,E" width="700.8" />
 <p class="caption">
@@ -489,14 +528,14 @@ Figure 3.2: Miles et al: Figure 1C,E
 </p>
 </div>
 <p>Compute statistics for the different group comparisons. We used a Benjamini &amp; Hochberg FDR for multiple test correction with a significance cutoff of 0.1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2) <span class="co">#for melt, I need to come up with a better way to do this, if anyone has ideas let me know!</span>
-pvalues_Number_of_clones&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Number_of_clones,<span class="dt">g=</span>.<span class="op">$</span>Final_group,
-                                                     <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span>
-<span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)
-
-pvalues_Number_of_mutations&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Number_of_mutations,<span class="dt">g=</span>.<span class="op">$</span>Final_group,
-                                                     <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span>
-<span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="figure-1-cohort-characterization.html#cb28-1"></a><span class="kw">library</span>(reshape2) <span class="co">#for melt, I need to come up with a better way to do this, if anyone has ideas let me know!</span></span>
+<span id="cb28-2"><a href="figure-1-cohort-characterization.html#cb28-2"></a>pvalues_Number_of_clones&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Number_of_clones,<span class="dt">g=</span>.<span class="op">$</span>Final_group,</span>
+<span id="cb28-3"><a href="figure-1-cohort-characterization.html#cb28-3"></a>                                                     <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span></span>
+<span id="cb28-4"><a href="figure-1-cohort-characterization.html#cb28-4"></a><span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</span>
+<span id="cb28-5"><a href="figure-1-cohort-characterization.html#cb28-5"></a></span>
+<span id="cb28-6"><a href="figure-1-cohort-characterization.html#cb28-6"></a>pvalues_Number_of_mutations&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Number_of_mutations,<span class="dt">g=</span>.<span class="op">$</span>Final_group,</span>
+<span id="cb28-7"><a href="figure-1-cohort-characterization.html#cb28-7"></a>                                                     <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span></span>
+<span id="cb28-8"><a href="figure-1-cohort-characterization.html#cb28-8"></a><span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
 <span id="tab:unnamed-chunk-20">Table 3.1: </span>Number of Clones
@@ -802,48 +841,48 @@ DTAI-RAS
 </tbody>
 </table>
 <p>Now for Figure 2:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Shannon diversity index</span>
-gg_shannon&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes</span>(<span class="dt">y=</span>Shannon,<span class="dt">x=</span>Final_group,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
-<span class="st">                        </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span>
-<span class="st">                        </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">ylab</span>(<span class="st">&quot;Shannon diveristy index&quot;</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                        </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">                        </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
-
-<span class="co"># Number of mutations in each cohort</span>
-gg_Number_of_mutations_in_Dclone&lt;-<span class="kw">ggplot</span>(test<span class="op">%&gt;%</span><span class="kw">group_by</span>(Final_group)<span class="op">%&gt;%</span>
-<span class="st">                                       </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(Number_of_mutations_in_dominant_clone),
-                                                 <span class="dt">sd =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone),
-                                                 <span class="dt">sem =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone)<span class="op">/</span>
-<span class="st">                                                       </span><span class="kw">sqrt</span>(<span class="kw">length</span>(Number_of_mutations_in_dominant_clone))),
-                                       <span class="kw">aes</span>(<span class="dt">x=</span>Final_group,<span class="dt">y=</span>mean,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean<span class="op">-</span>sem, <span class="dt">ymax =</span> mean<span class="op">+</span>sem),<span class="dt">width=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">ylab</span>(<span class="st">&quot;Number of mutations </span><span class="ch">\n</span><span class="st"> in dominant clone&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span>
-<span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">                                          </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,
-                                                            <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
-
-<span class="kw">plot_grid</span>(gg_shannon,gg_Number_of_mutations_in_Dclone,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="figure-1-cohort-characterization.html#cb29-1"></a><span class="co"># Shannon diversity index</span></span>
+<span id="cb29-2"><a href="figure-1-cohort-characterization.html#cb29-2"></a>gg_shannon&lt;-<span class="kw">ggplot</span>(test,<span class="kw">aes</span>(<span class="dt">y=</span>Shannon,<span class="dt">x=</span>Final_group,<span class="dt">fill=</span>Final_group))<span class="op">+</span></span>
+<span id="cb29-3"><a href="figure-1-cohort-characterization.html#cb29-3"></a><span class="st">                        </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span></span>
+<span id="cb29-4"><a href="figure-1-cohort-characterization.html#cb29-4"></a><span class="st">                        </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb29-5"><a href="figure-1-cohort-characterization.html#cb29-5"></a><span class="st">                        </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span></span>
+<span id="cb29-6"><a href="figure-1-cohort-characterization.html#cb29-6"></a><span class="st">                        </span><span class="kw">ylab</span>(<span class="st">&quot;Shannon diveristy index&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-7"><a href="figure-1-cohort-characterization.html#cb29-7"></a><span class="st">                        </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-8"><a href="figure-1-cohort-characterization.html#cb29-8"></a><span class="st">                        </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb29-9"><a href="figure-1-cohort-characterization.html#cb29-9"></a><span class="st">                        </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)</span>
+<span id="cb29-10"><a href="figure-1-cohort-characterization.html#cb29-10"></a></span>
+<span id="cb29-11"><a href="figure-1-cohort-characterization.html#cb29-11"></a><span class="co"># Number of mutations in each cohort</span></span>
+<span id="cb29-12"><a href="figure-1-cohort-characterization.html#cb29-12"></a>gg_Number_of_mutations_in_Dclone&lt;-<span class="kw">ggplot</span>(test<span class="op">%&gt;%</span><span class="kw">group_by</span>(Final_group)<span class="op">%&gt;%</span></span>
+<span id="cb29-13"><a href="figure-1-cohort-characterization.html#cb29-13"></a><span class="st">                                       </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(Number_of_mutations_in_dominant_clone),</span>
+<span id="cb29-14"><a href="figure-1-cohort-characterization.html#cb29-14"></a>                                                 <span class="dt">sd =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone),</span>
+<span id="cb29-15"><a href="figure-1-cohort-characterization.html#cb29-15"></a>                                                 <span class="dt">sem =</span> <span class="kw">sd</span>(Number_of_mutations_in_dominant_clone)<span class="op">/</span></span>
+<span id="cb29-16"><a href="figure-1-cohort-characterization.html#cb29-16"></a><span class="st">                                                       </span><span class="kw">sqrt</span>(<span class="kw">length</span>(Number_of_mutations_in_dominant_clone))),</span>
+<span id="cb29-17"><a href="figure-1-cohort-characterization.html#cb29-17"></a>                                       <span class="kw">aes</span>(<span class="dt">x=</span>Final_group,<span class="dt">y=</span>mean,<span class="dt">fill=</span>Final_group))<span class="op">+</span></span>
+<span id="cb29-18"><a href="figure-1-cohort-characterization.html#cb29-18"></a><span class="st">                                          </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-19"><a href="figure-1-cohort-characterization.html#cb29-19"></a><span class="st">                                          </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean<span class="op">-</span>sem, <span class="dt">ymax =</span> mean<span class="op">+</span>sem),<span class="dt">width=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb29-20"><a href="figure-1-cohort-characterization.html#cb29-20"></a><span class="st">                                          </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span></span>
+<span id="cb29-21"><a href="figure-1-cohort-characterization.html#cb29-21"></a><span class="st">                                          </span><span class="kw">ylab</span>(<span class="st">&quot;Number of mutations </span><span class="ch">\n</span><span class="st"> in dominant clone&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-22"><a href="figure-1-cohort-characterization.html#cb29-22"></a><span class="st">                                          </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
+<span id="cb29-23"><a href="figure-1-cohort-characterization.html#cb29-23"></a><span class="st">                                          </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb29-24"><a href="figure-1-cohort-characterization.html#cb29-24"></a><span class="st">                                          </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,</span>
+<span id="cb29-25"><a href="figure-1-cohort-characterization.html#cb29-25"></a>                                                            <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)</span>
+<span id="cb29-26"><a href="figure-1-cohort-characterization.html#cb29-26"></a></span>
+<span id="cb29-27"><a href="figure-1-cohort-characterization.html#cb29-27"></a><span class="kw">plot_grid</span>(gg_shannon,gg_Number_of_mutations_in_Dclone,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;ltrb&quot;</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-21"></span>
 <img src="scDNA_files/figure-html/unnamed-chunk-21-1.png" alt="Miles et al: Figure 2A-B" width="700.8" />
 <p class="caption">
 Figure 3.3: Miles et al: Figure 2A-B
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvalues_Shannon&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Shannon,<span class="dt">g=</span>.<span class="op">$</span>Final_group,
-                                                        <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span>
-<span class="st">                                              </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)
-
-pvalues_Number_of_mutations_in_dominant_clone&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(
-                                                        .<span class="op">$</span>Number_of_mutations_in_dominant_clone,
-                                                        <span class="dt">g=</span>.<span class="op">$</span>Final_group,
-                                                        <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span>
-<span class="st">                                              </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="figure-1-cohort-characterization.html#cb30-1"></a>pvalues_Shannon&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Shannon,<span class="dt">g=</span>.<span class="op">$</span>Final_group,</span>
+<span id="cb30-2"><a href="figure-1-cohort-characterization.html#cb30-2"></a>                                                        <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span></span>
+<span id="cb30-3"><a href="figure-1-cohort-characterization.html#cb30-3"></a><span class="st">                                              </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</span>
+<span id="cb30-4"><a href="figure-1-cohort-characterization.html#cb30-4"></a></span>
+<span id="cb30-5"><a href="figure-1-cohort-characterization.html#cb30-5"></a>pvalues_Number_of_mutations_in_dominant_clone&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(</span>
+<span id="cb30-6"><a href="figure-1-cohort-characterization.html#cb30-6"></a>                                                        .<span class="op">$</span>Number_of_mutations_in_dominant_clone,</span>
+<span id="cb30-7"><a href="figure-1-cohort-characterization.html#cb30-7"></a>                                                        <span class="dt">g=</span>.<span class="op">$</span>Final_group,</span>
+<span id="cb30-8"><a href="figure-1-cohort-characterization.html#cb30-8"></a>                                                        <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span></span>
+<span id="cb30-9"><a href="figure-1-cohort-characterization.html#cb30-9"></a><span class="st">                                              </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
 <span id="tab:unnamed-chunk-22">Table 3.2: </span>Shannon diversity index
@@ -1160,53 +1199,53 @@ DTAI-RAS
 </tbody>
 </table>
 <p>A few interesting points in Extended Figure 3</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Dominant clone size</span>
-gg_dominant_clone_size&lt;-<span class="kw">ggplot</span>(test,
-                            <span class="kw">aes</span>(<span class="dt">y=</span>Dominant_clone_size,<span class="dt">x=</span>Final_group,<span class="dt">fill=</span>Final_group))<span class="op">+</span>
-<span class="st">                            </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span>
-<span class="st">                            </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                            </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of sample </span><span class="ch">\n</span><span class="st"> in dominant clone&quot;</span>)<span class="op">+</span>
-<span class="st">                            </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span>
-<span class="st">                            </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">                            </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
-
-
-<span class="co"># determine the number of mutants alleles in each clone</span>
-clone_size_by_genetic_density&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_sample_summary,<span class="cf">function</span>(x){
-                                    possible_clones_subset &lt;-x<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Clone<span class="op">%in%</span><span class="st"> </span>x<span class="op">$</span>Clones[,<span class="st">&quot;Clone&quot;</span>] )
-                                    clones&lt;-possible_clones_subset[,<span class="st">&quot;Clone&quot;</span>]
-                                    dedup&lt;-x<span class="op">$</span>NGT[<span class="op">!</span><span class="kw">duplicated</span>(x<span class="op">$</span>NGT)<span class="op">&amp;</span>x<span class="op">$</span>NGT[,<span class="st">&quot;Clone&quot;</span>]<span class="op">%in%</span>clones,]
-                                    set_mat&lt;-<span class="kw">full_join</span>(possible_clones_subset[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],dedup)
-                                    counts &lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]
-                                    weights&lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]<span class="op">/</span><span class="kw">sum</span>(set_mat[,<span class="st">&quot;Count&quot;</span>])
-                                    genetic_complexity &lt;-<span class="st"> </span><span class="kw">rowSums</span>(set_mat[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)])
-                                    <span class="kw">return</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Clone_size&quot;</span>=weights,
-                                                      <span class="st">&quot;Genetic_density&quot;</span>=genetic_complexity))
-}))
-
-
-gg_clone_size_by_genetic_density&lt;-<span class="kw">ggplot</span>(clone_size_by_genetic_density,
-                                              <span class="kw">aes</span>(<span class="dt">y=</span>Clone_size,<span class="dt">x=</span><span class="kw">factor</span>(Genetic_density),
-                                                  <span class="dt">fill=</span><span class="kw">factor</span>(Genetic_density)))<span class="op">+</span>
-<span class="st">                                              </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="st">                                              </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span>
-<span class="st">                                              </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span>
-<span class="st">                                              </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of sample in clone&quot;</span>)<span class="op">+</span>
-<span class="st">                                              </span><span class="kw">xlab</span>(<span class="st">&quot;Number of mutant alleles&quot;</span>)<span class="op">+</span>
-<span class="st">                                              </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,
-                                                                <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)
-
-<span class="kw">plot_grid</span>(gg_dominant_clone_size,gg_clone_size_by_genetic_density,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;tb&quot;</span>,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="figure-1-cohort-characterization.html#cb31-1"></a><span class="co"># Dominant clone size</span></span>
+<span id="cb31-2"><a href="figure-1-cohort-characterization.html#cb31-2"></a>gg_dominant_clone_size&lt;-<span class="kw">ggplot</span>(test,</span>
+<span id="cb31-3"><a href="figure-1-cohort-characterization.html#cb31-3"></a>                            <span class="kw">aes</span>(<span class="dt">y=</span>Dominant_clone_size,<span class="dt">x=</span>Final_group,<span class="dt">fill=</span>Final_group))<span class="op">+</span></span>
+<span id="cb31-4"><a href="figure-1-cohort-characterization.html#cb31-4"></a><span class="st">                            </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span></span>
+<span id="cb31-5"><a href="figure-1-cohort-characterization.html#cb31-5"></a><span class="st">                            </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb31-6"><a href="figure-1-cohort-characterization.html#cb31-6"></a><span class="st">                            </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span></span>
+<span id="cb31-7"><a href="figure-1-cohort-characterization.html#cb31-7"></a><span class="st">                            </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of sample </span><span class="ch">\n</span><span class="st"> in dominant clone&quot;</span>)<span class="op">+</span></span>
+<span id="cb31-8"><a href="figure-1-cohort-characterization.html#cb31-8"></a><span class="st">                            </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
+<span id="cb31-9"><a href="figure-1-cohort-characterization.html#cb31-9"></a><span class="st">                            </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb31-10"><a href="figure-1-cohort-characterization.html#cb31-10"></a><span class="st">                            </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>,<span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)</span>
+<span id="cb31-11"><a href="figure-1-cohort-characterization.html#cb31-11"></a></span>
+<span id="cb31-12"><a href="figure-1-cohort-characterization.html#cb31-12"></a></span>
+<span id="cb31-13"><a href="figure-1-cohort-characterization.html#cb31-13"></a><span class="co"># determine the number of mutants alleles in each clone</span></span>
+<span id="cb31-14"><a href="figure-1-cohort-characterization.html#cb31-14"></a>clone_size_by_genetic_density&lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_sample_summary,<span class="cf">function</span>(x){</span>
+<span id="cb31-15"><a href="figure-1-cohort-characterization.html#cb31-15"></a>                                    possible_clones_subset &lt;-x<span class="op">$</span>Clones<span class="op">%&gt;%</span><span class="kw">filter</span>(Clone<span class="op">%in%</span><span class="st"> </span>x<span class="op">$</span>Clones[,<span class="st">&quot;Clone&quot;</span>] )</span>
+<span id="cb31-16"><a href="figure-1-cohort-characterization.html#cb31-16"></a>                                    clones&lt;-possible_clones_subset[,<span class="st">&quot;Clone&quot;</span>]</span>
+<span id="cb31-17"><a href="figure-1-cohort-characterization.html#cb31-17"></a>                                    dedup&lt;-x<span class="op">$</span>NGT[<span class="op">!</span><span class="kw">duplicated</span>(x<span class="op">$</span>NGT)<span class="op">&amp;</span>x<span class="op">$</span>NGT[,<span class="st">&quot;Clone&quot;</span>]<span class="op">%in%</span>clones,]</span>
+<span id="cb31-18"><a href="figure-1-cohort-characterization.html#cb31-18"></a>                                    set_mat&lt;-<span class="kw">full_join</span>(possible_clones_subset[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],dedup)</span>
+<span id="cb31-19"><a href="figure-1-cohort-characterization.html#cb31-19"></a>                                    counts &lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]</span>
+<span id="cb31-20"><a href="figure-1-cohort-characterization.html#cb31-20"></a>                                    weights&lt;-set_mat[,<span class="st">&quot;Count&quot;</span>]<span class="op">/</span><span class="kw">sum</span>(set_mat[,<span class="st">&quot;Count&quot;</span>])</span>
+<span id="cb31-21"><a href="figure-1-cohort-characterization.html#cb31-21"></a>                                    genetic_complexity &lt;-<span class="st"> </span><span class="kw">rowSums</span>(set_mat[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)])</span>
+<span id="cb31-22"><a href="figure-1-cohort-characterization.html#cb31-22"></a>                                    <span class="kw">return</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Clone_size&quot;</span>=weights,</span>
+<span id="cb31-23"><a href="figure-1-cohort-characterization.html#cb31-23"></a>                                                      <span class="st">&quot;Genetic_density&quot;</span>=genetic_complexity))</span>
+<span id="cb31-24"><a href="figure-1-cohort-characterization.html#cb31-24"></a>}))</span>
+<span id="cb31-25"><a href="figure-1-cohort-characterization.html#cb31-25"></a></span>
+<span id="cb31-26"><a href="figure-1-cohort-characterization.html#cb31-26"></a></span>
+<span id="cb31-27"><a href="figure-1-cohort-characterization.html#cb31-27"></a>gg_clone_size_by_genetic_density&lt;-<span class="kw">ggplot</span>(clone_size_by_genetic_density,</span>
+<span id="cb31-28"><a href="figure-1-cohort-characterization.html#cb31-28"></a>                                              <span class="kw">aes</span>(<span class="dt">y=</span>Clone_size,<span class="dt">x=</span><span class="kw">factor</span>(Genetic_density),</span>
+<span id="cb31-29"><a href="figure-1-cohort-characterization.html#cb31-29"></a>                                                  <span class="dt">fill=</span><span class="kw">factor</span>(Genetic_density)))<span class="op">+</span></span>
+<span id="cb31-30"><a href="figure-1-cohort-characterization.html#cb31-30"></a><span class="st">                                              </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>,<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb31-31"><a href="figure-1-cohort-characterization.html#cb31-31"></a><span class="st">                                              </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)<span class="op">+</span><span class="st">  </span></span>
+<span id="cb31-32"><a href="figure-1-cohort-characterization.html#cb31-32"></a><span class="st">                                              </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">8</span>)<span class="op">+</span></span>
+<span id="cb31-33"><a href="figure-1-cohort-characterization.html#cb31-33"></a><span class="st">                                              </span><span class="kw">ylab</span>(<span class="st">&quot;Fraction of sample in clone&quot;</span>)<span class="op">+</span></span>
+<span id="cb31-34"><a href="figure-1-cohort-characterization.html#cb31-34"></a><span class="st">                                              </span><span class="kw">xlab</span>(<span class="st">&quot;Number of mutant alleles&quot;</span>)<span class="op">+</span></span>
+<span id="cb31-35"><a href="figure-1-cohort-characterization.html#cb31-35"></a><span class="st">                                              </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
+<span id="cb31-36"><a href="figure-1-cohort-characterization.html#cb31-36"></a>                                                                <span class="dt">aesthetics =</span> <span class="st">&quot;fill&quot;</span>,<span class="dt">guide=</span><span class="ot">FALSE</span>)</span>
+<span id="cb31-37"><a href="figure-1-cohort-characterization.html#cb31-37"></a></span>
+<span id="cb31-38"><a href="figure-1-cohort-characterization.html#cb31-38"></a><span class="kw">plot_grid</span>(gg_dominant_clone_size,gg_clone_size_by_genetic_density,<span class="dt">align=</span><span class="st">&quot;hv&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;tb&quot;</span>,<span class="dt">ncol=</span><span class="dv">2</span>,<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
 <img src="scDNA_files/figure-html/unnamed-chunk-23-1.png" alt="Miles et al: Extended Figure 3A-B" width="700.8" />
 <p class="caption">
 Figure 3.4: Miles et al: Extended Figure 3A-B
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvalues_Dominant_clone_size&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Dominant_clone_size,<span class="dt">g=</span>.<span class="op">$</span>Final_group,
-                                                     <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span>
-<span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="figure-1-cohort-characterization.html#cb32-1"></a>pvalues_Dominant_clone_size&lt;-test<span class="op">%&gt;%</span>{<span class="kw">melt</span>(<span class="kw">pairwise.t.test</span>(.<span class="op">$</span>Dominant_clone_size,<span class="dt">g=</span>.<span class="op">$</span>Final_group,</span>
+<span id="cb32-2"><a href="figure-1-cohort-characterization.html#cb32-2"></a>                                                     <span class="dt">data=</span>.,<span class="dt">p.adjust.method=</span><span class="st">&quot;fdr&quot;</span>)<span class="op">$</span>p.value)}<span class="op">%&gt;%</span></span>
+<span id="cb32-3"><a href="figure-1-cohort-characterization.html#cb32-3"></a><span class="st">                                     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(value))<span class="op">%&gt;%</span><span class="kw">filter</span>(value<span class="op">&lt;</span><span class="fl">0.1</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-25">Table 3.3: </span>Dominant clone size
@@ -1298,60 +1337,60 @@ DTAI
 <div id="clonograph-figure-1d" class="section level3">
 <h3><span class="header-section-number">3.1.5</span> Clonograph: Figure 1D</h3>
 <p>This is probably our favorite way of looking at the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RColorBrewer)
-final_sample_summary&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)
-
-sample &lt;-<span class="st">&quot;MSK45&quot;</span>
-sample_list &lt;-final_sample_summary
-
-<span class="co"># Extract out the sample of interest    </span>
-clonal_abundance &lt;-sample_list[[sample]]<span class="op">$</span>Clones 
-clonal_architecture &lt;-sample_list[[sample]]<span class="op">$</span>Architecture 
-
-<span class="co"># Ensure the order of the clone abundance and clone architecture are the same.</span>
-clonal_architecture<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">factor</span>(clonal_architecture<span class="op">$</span>Clone, <span class="dt">levels=</span><span class="kw">rev</span>(clonal_abundance<span class="op">$</span>Clone))
-clonal_abundance<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">factor</span>(clonal_abundance<span class="op">$</span>Clone, <span class="dt">levels=</span><span class="kw">levels</span>(clonal_architecture<span class="op">$</span>Clone))
-
-<span class="co"># Generate clonal abundance barplot</span>
-gg_clonal_barplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>clonal_abundance, <span class="kw">aes</span>(<span class="dt">x=</span>Clone, <span class="dt">y=</span>Count,<span class="dt">fill=</span>Count)) <span class="op">+</span><span class="st"> </span>
-<span class="st">                              </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
-<span class="st">                              </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">7</span>)<span class="op">+</span>
-<span class="st">                              </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">                              </span><span class="co">#ylim() + </span>
-<span class="st">                              </span><span class="kw">ylab</span>(<span class="st">&quot;Cell Count&quot;</span>)<span class="op">+</span>
-<span class="st">                              </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> LCI, <span class="dt">ymax =</span> UCI), <span class="dt">width =</span> <span class="fl">0.2</span>)<span class="op">+</span>
-<span class="st">                              </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;Value&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">                              </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), 
-                                    <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>(), 
-                                    <span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(),
-                                    <span class="dt">axis.line.x =</span><span class="kw">element_blank</span>(),
-                                    <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,
-                                    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>))
-
-<span class="co"># Generate mutation heatmap</span>
-gg_heatmap &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>clonal_architecture,
-                     <span class="kw">aes</span>(<span class="dt">x=</span>Clone, <span class="dt">y=</span>Mutant, <span class="dt">fill=</span>Genotype))<span class="op">+</span>
-<span class="st">                     </span><span class="kw">geom_tile</span>() <span class="op">+</span>
-<span class="st">                     </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;WT&quot;</span>=<span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">1</span>],
-                                                <span class="st">&quot;Heterozygous&quot;</span>=<span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">3</span>],
-                                                <span class="st">&quot;Homozygous&quot;</span>=<span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">6</span>],
-                                                <span class="st">&quot;Unknown&quot;</span>=<span class="st">&quot;grey50&quot;</span>),<span class="dt">name=</span><span class="st">&quot;Genotype&quot;</span>)<span class="op">+</span>
-<span class="st">                    </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">7</span>) <span class="op">+</span>
-<span class="st">                    </span><span class="kw">ylab</span>(<span class="st">&quot;Mutation&quot;</span>)<span class="op">+</span>
-<span class="st">                    </span><span class="kw">scale_y_discrete</span>(<span class="dt">limits =</span> <span class="kw">rev</span>(<span class="kw">levels</span>(clonal_architecture<span class="op">$</span>Mutant)))<span class="op">+</span>
-<span class="st">                          </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;vertical&quot;</span>,
-                          <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>(), 
-                          <span class="dt">axis.line=</span><span class="kw">element_blank</span>(),
-                          <span class="dt">axis.title.x=</span><span class="kw">element_blank</span>(),
-                          <span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(),
-                          <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>))
-
-<span class="co"># Put it all together</span>
-<span class="kw">plot_grid</span>(gg_clonal_barplot,gg_heatmap,<span class="dt">ncol=</span><span class="dv">1</span>,<span class="dt">align=</span><span class="st">&quot;v&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;lr&quot;</span>,<span class="dt">rel_heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.75</span>))</code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="figure-1-cohort-characterization.html#cb33-1"></a><span class="kw">library</span>(RColorBrewer)</span>
+<span id="cb33-2"><a href="figure-1-cohort-characterization.html#cb33-2"></a>final_sample_summary&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)</span>
+<span id="cb33-3"><a href="figure-1-cohort-characterization.html#cb33-3"></a></span>
+<span id="cb33-4"><a href="figure-1-cohort-characterization.html#cb33-4"></a>sample &lt;-<span class="st">&quot;MSK45&quot;</span></span>
+<span id="cb33-5"><a href="figure-1-cohort-characterization.html#cb33-5"></a>sample_list &lt;-final_sample_summary</span>
+<span id="cb33-6"><a href="figure-1-cohort-characterization.html#cb33-6"></a></span>
+<span id="cb33-7"><a href="figure-1-cohort-characterization.html#cb33-7"></a><span class="co"># Extract out the sample of interest    </span></span>
+<span id="cb33-8"><a href="figure-1-cohort-characterization.html#cb33-8"></a>clonal_abundance &lt;-sample_list[[sample]]<span class="op">$</span>Clones </span>
+<span id="cb33-9"><a href="figure-1-cohort-characterization.html#cb33-9"></a>clonal_architecture &lt;-sample_list[[sample]]<span class="op">$</span>Architecture </span>
+<span id="cb33-10"><a href="figure-1-cohort-characterization.html#cb33-10"></a></span>
+<span id="cb33-11"><a href="figure-1-cohort-characterization.html#cb33-11"></a><span class="co"># Ensure the order of the clone abundance and clone architecture are the same.</span></span>
+<span id="cb33-12"><a href="figure-1-cohort-characterization.html#cb33-12"></a>clonal_architecture<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">factor</span>(clonal_architecture<span class="op">$</span>Clone, <span class="dt">levels=</span><span class="kw">rev</span>(clonal_abundance<span class="op">$</span>Clone))</span>
+<span id="cb33-13"><a href="figure-1-cohort-characterization.html#cb33-13"></a>clonal_abundance<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">factor</span>(clonal_abundance<span class="op">$</span>Clone, <span class="dt">levels=</span><span class="kw">levels</span>(clonal_architecture<span class="op">$</span>Clone))</span>
+<span id="cb33-14"><a href="figure-1-cohort-characterization.html#cb33-14"></a></span>
+<span id="cb33-15"><a href="figure-1-cohort-characterization.html#cb33-15"></a><span class="co"># Generate clonal abundance barplot</span></span>
+<span id="cb33-16"><a href="figure-1-cohort-characterization.html#cb33-16"></a>gg_clonal_barplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>clonal_abundance, <span class="kw">aes</span>(<span class="dt">x=</span>Clone, <span class="dt">y=</span>Count,<span class="dt">fill=</span>Count)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-17"><a href="figure-1-cohort-characterization.html#cb33-17"></a><span class="st">                              </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-18"><a href="figure-1-cohort-characterization.html#cb33-18"></a><span class="st">                              </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">7</span>)<span class="op">+</span></span>
+<span id="cb33-19"><a href="figure-1-cohort-characterization.html#cb33-19"></a><span class="st">                              </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="dv">0</span>))<span class="op">+</span></span>
+<span id="cb33-20"><a href="figure-1-cohort-characterization.html#cb33-20"></a><span class="st">                              </span><span class="co">#ylim() + </span></span>
+<span id="cb33-21"><a href="figure-1-cohort-characterization.html#cb33-21"></a><span class="st">                              </span><span class="kw">ylab</span>(<span class="st">&quot;Cell Count&quot;</span>)<span class="op">+</span></span>
+<span id="cb33-22"><a href="figure-1-cohort-characterization.html#cb33-22"></a><span class="st">                              </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> LCI, <span class="dt">ymax =</span> UCI), <span class="dt">width =</span> <span class="fl">0.2</span>)<span class="op">+</span></span>
+<span id="cb33-23"><a href="figure-1-cohort-characterization.html#cb33-23"></a><span class="st">                              </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;Value&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb33-24"><a href="figure-1-cohort-characterization.html#cb33-24"></a><span class="st">                              </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb33-25"><a href="figure-1-cohort-characterization.html#cb33-25"></a>                                    <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb33-26"><a href="figure-1-cohort-characterization.html#cb33-26"></a>                                    <span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb33-27"><a href="figure-1-cohort-characterization.html#cb33-27"></a>                                    <span class="dt">axis.line.x =</span><span class="kw">element_blank</span>(),</span>
+<span id="cb33-28"><a href="figure-1-cohort-characterization.html#cb33-28"></a>                                    <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb33-29"><a href="figure-1-cohort-characterization.html#cb33-29"></a>                                    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>))</span>
+<span id="cb33-30"><a href="figure-1-cohort-characterization.html#cb33-30"></a></span>
+<span id="cb33-31"><a href="figure-1-cohort-characterization.html#cb33-31"></a><span class="co"># Generate mutation heatmap</span></span>
+<span id="cb33-32"><a href="figure-1-cohort-characterization.html#cb33-32"></a>gg_heatmap &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>clonal_architecture,</span>
+<span id="cb33-33"><a href="figure-1-cohort-characterization.html#cb33-33"></a>                     <span class="kw">aes</span>(<span class="dt">x=</span>Clone, <span class="dt">y=</span>Mutant, <span class="dt">fill=</span>Genotype))<span class="op">+</span></span>
+<span id="cb33-34"><a href="figure-1-cohort-characterization.html#cb33-34"></a><span class="st">                     </span><span class="kw">geom_tile</span>() <span class="op">+</span></span>
+<span id="cb33-35"><a href="figure-1-cohort-characterization.html#cb33-35"></a><span class="st">                     </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;WT&quot;</span>=<span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">1</span>],</span>
+<span id="cb33-36"><a href="figure-1-cohort-characterization.html#cb33-36"></a>                                                <span class="st">&quot;Heterozygous&quot;</span>=<span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">3</span>],</span>
+<span id="cb33-37"><a href="figure-1-cohort-characterization.html#cb33-37"></a>                                                <span class="st">&quot;Homozygous&quot;</span>=<span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">6</span>],</span>
+<span id="cb33-38"><a href="figure-1-cohort-characterization.html#cb33-38"></a>                                                <span class="st">&quot;Unknown&quot;</span>=<span class="st">&quot;grey50&quot;</span>),<span class="dt">name=</span><span class="st">&quot;Genotype&quot;</span>)<span class="op">+</span></span>
+<span id="cb33-39"><a href="figure-1-cohort-characterization.html#cb33-39"></a><span class="st">                    </span><span class="kw">theme_classic</span>(<span class="dt">base_size=</span><span class="dv">7</span>) <span class="op">+</span></span>
+<span id="cb33-40"><a href="figure-1-cohort-characterization.html#cb33-40"></a><span class="st">                    </span><span class="kw">ylab</span>(<span class="st">&quot;Mutation&quot;</span>)<span class="op">+</span></span>
+<span id="cb33-41"><a href="figure-1-cohort-characterization.html#cb33-41"></a><span class="st">                    </span><span class="kw">scale_y_discrete</span>(<span class="dt">limits =</span> <span class="kw">rev</span>(<span class="kw">levels</span>(clonal_architecture<span class="op">$</span>Mutant)))<span class="op">+</span></span>
+<span id="cb33-42"><a href="figure-1-cohort-characterization.html#cb33-42"></a><span class="st">                          </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;vertical&quot;</span>,</span>
+<span id="cb33-43"><a href="figure-1-cohort-characterization.html#cb33-43"></a>                          <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb33-44"><a href="figure-1-cohort-characterization.html#cb33-44"></a>                          <span class="dt">axis.line=</span><span class="kw">element_blank</span>(),</span>
+<span id="cb33-45"><a href="figure-1-cohort-characterization.html#cb33-45"></a>                          <span class="dt">axis.title.x=</span><span class="kw">element_blank</span>(),</span>
+<span id="cb33-46"><a href="figure-1-cohort-characterization.html#cb33-46"></a>                          <span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb33-47"><a href="figure-1-cohort-characterization.html#cb33-47"></a>                          <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>))</span>
+<span id="cb33-48"><a href="figure-1-cohort-characterization.html#cb33-48"></a></span>
+<span id="cb33-49"><a href="figure-1-cohort-characterization.html#cb33-49"></a><span class="co"># Put it all together</span></span>
+<span id="cb33-50"><a href="figure-1-cohort-characterization.html#cb33-50"></a><span class="kw">plot_grid</span>(gg_clonal_barplot,gg_heatmap,<span class="dt">ncol=</span><span class="dv">1</span>,<span class="dt">align=</span><span class="st">&quot;v&quot;</span>,<span class="dt">axis=</span><span class="st">&quot;lr&quot;</span>,<span class="dt">rel_heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.75</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-26"></span>
 <img src="scDNA_files/figure-html/unnamed-chunk-26-1.png" alt="Miles et al. Figure 1D" width="576" />
 <p class="caption">
-Figure 3.5: Miles et al. Figure 1D
+Figure 3.5: Miles et al. Figure 1D
 </p>
 </div>
 
