@@ -9,6 +9,10 @@ The final manuscript can be found [here](https://www.nature.com/articles/s41586-
 A full tutorial on this project is available [here](https://bowmanr.github.io/scDNA_myeloid/). This work is in progress and is being updated continuously.  If there is something in the paper that you are curious about that is not presented here, I'd be happy to chat.  The more we work with this data, we anticipate that the data processing techniques and appraoches will update over time. So this tutorial will serve both as an explanation of how we performed analysis in the above linked paper, as well as a place for updated data analysis approaches.
 
 ## Updates
+
+### 05-10-2021
+Added details on how to import loom and H5 files without the tapetri package. Got the trajectory summarization scripts up.
+
 ### 10-27-2020
 Finalized README and minor aesthetics.
 

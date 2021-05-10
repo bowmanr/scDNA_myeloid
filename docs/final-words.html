@@ -4,35 +4,36 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Final Words | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
-  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>Chapter 5 Final Words | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Final Words | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:title" content="Chapter 5 Final Words | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Final Words | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta name="twitter:title" content="Chapter 5 Final Words | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   
-  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-10-28" />
+<meta name="date" content="2021-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="figure-2-clonality.html"/>
+<link rel="prev" href="plotting-the-data.html"/>
 <link rel="next" href="Appendix.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,25 +51,25 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -88,7 +89,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -121,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -138,31 +140,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
-<li class="chapter" data-level="2.2" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>2.2</b> Tapestri Package</a></li>
-<li class="chapter" data-level="2.3" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.3</b> Post processing</a></li>
-<li class="chapter" data-level="2.4" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.4</b> Assessing clonal abundance</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a><ul>
-<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a><ul>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
 <li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
 <li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
 <li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
 <li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a><ul>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
 <li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
 <li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
 <li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>4</b> Final Words</a></li>
-<li class="chapter" data-level="5" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
-<li class="chapter" data-level="5.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>5.1</b> Import from Tapestri Insights</a></li>
-<li class="chapter" data-level="5.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>5.2</b> Functions</a></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -185,8 +200,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="final-words" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Final Words</h1>
+<div id="final-words" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Final Words</h1>
 <p>So much more to come… Thanks for your patience.</p>
 
 </div>
@@ -195,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="figure-2-clonality.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plotting-the-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="Appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -219,6 +234,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

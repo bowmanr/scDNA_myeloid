@@ -40,3 +40,7 @@ introductory-text-and-philisophy-of-approach
 functions-for-reward-matrix-and-querying-initating-mutations
 executing-the-analysis
 plotting-the-data
+final-words
+Appendix
+AppendixA
+functions

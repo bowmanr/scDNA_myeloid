@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.1 Import from Tapestri Insights | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
-  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>6.1 Import from Tapestri Insights | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.1 Import from Tapestri Insights | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:title" content="6.1 Import from Tapestri Insights | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.1 Import from Tapestri Insights | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta name="twitter:title" content="6.1 Import from Tapestri Insights | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   
-  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-10-28" />
+<meta name="date" content="2021-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="Appendix.html"/>
 <link rel="next" href="functions.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,25 +51,25 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -88,7 +89,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -121,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -138,31 +140,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
-<li class="chapter" data-level="2.2" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>2.2</b> Tapestri Package</a></li>
-<li class="chapter" data-level="2.3" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.3</b> Post processing</a></li>
-<li class="chapter" data-level="2.4" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.4</b> Assessing clonal abundance</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a><ul>
-<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a><ul>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
 <li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
 <li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
 <li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
 <li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a><ul>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
 <li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
 <li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
 <li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>4</b> Final Words</a></li>
-<li class="chapter" data-level="5" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
-<li class="chapter" data-level="5.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>5.1</b> Import from Tapestri Insights</a></li>
-<li class="chapter" data-level="5.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>5.2</b> Functions</a></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="6" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>6</b> Appendix</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>6.1</b> Import from Tapestri Insights</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6.2</b> Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -185,8 +200,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="AppendixA" class="section level2">
-<h2><span class="header-section-number">5.1</span> Import from Tapestri Insights</h2>
+<div id="AppendixA" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Import from Tapestri Insights</h2>
 <p><em>Here is how we used to do it and what I wrote last time:</em>
 Our first step is to extract the data from output from Tapestri Insights. To do so, I’ve written a few functions that will be helpful to do this on a long list of samples. As this project grew it becamse clear that this work was better suited for a package. Before that though, looking forward we’ll plan to analyze data using the tapestri R package and integrate formatting from standard single cell rna-seq data in R. For now, we’ll just source a series of functions that can be found in the appendix. I’ll build in explanations as best I can over time.</p>
 <p>Below I’ve copied directly the README.txt file output from Tapestri Insights, as it most accurately describes the output from each of the files.</p>
@@ -202,105 +217,105 @@ The following files are included:<br />
 <p><strong>In the weeds a little here to explain a detour</strong><br />
 It is worth mentioning here on why we chose to proceed in the following fashion, and why we didn’t do all the parsing in R directly from the loom file. When we first started running these samples, there were some incompatibilities with the loom v3 files produced from Bluebee, and the available packages in R that were only working with loom v2. This has now of course been corrected. We considered using python, but the reality was my proficiency in R was significantly greater than python and this was not a tennable solutuon. Going through Tapestri Insights also had two added benefits: 1) efficient SNV to protein identification, and 2) data access for others in the lab who were not quickly pouring into the data in R. Future projects in our lab are likely to bypass Tapestri Insights, and bring loom files straight into R as you’ll see in the DNA+Protein section. Furthermore, as this project progressed, new versions of Tapestri Insights became available, and this led to minor modifications in column names and file names. All of this was parsed in R, and the version of Tapestri Insight did not change the analysis, we just did not rerun &gt;100 samples through Tapestri Insights to make sure it was all formatted directly. This is all to explain why you will see some patchwork code in some of the extraction functions upcoming in the next section.</p>
 </blockquote>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="AppendixA.html#cb55-1"></a>all_samples &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/MissionBio_Tapestri/Insights_Output/ASH_Cohort&quot;</span>)</span>
-<span id="cb55-2"><a href="AppendixA.html#cb55-2"></a>blacklist &lt;-<span class="st"> </span><span class="kw">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/Blacklist2.xlsx&quot;</span>)</span>
-<span id="cb55-3"><a href="AppendixA.html#cb55-3"></a>whitelist &lt;-<span class="st"> </span><span class="kw">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/Whitelist.xlsx&quot;</span>)</span>
-<span id="cb55-4"><a href="AppendixA.html#cb55-4"></a>pheno &lt;-<span class="st"> </span><span class="kw">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/pheno_MBio.xlsx&quot;</span>)</span>
-<span id="cb55-5"><a href="AppendixA.html#cb55-5"></a>sample_set&lt;-<span class="st"> </span><span class="kw">intersect</span>(<span class="kw">as.character</span>(all_samples),<span class="kw">as.character</span>(pheno<span class="op">$</span>Sample.ID)) </span>
-<span id="cb55-6"><a href="AppendixA.html#cb55-6"></a></span>
-<span id="cb55-7"><a href="AppendixA.html#cb55-7"></a><span class="kw">setwd</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/MissionBio_Tapestri/Insights_Output/ASH_Cohort&quot;</span>)</span>
-<span id="cb55-8"><a href="AppendixA.html#cb55-8"></a>sample_SNPS&lt;-<span class="kw">lapply</span>(<span class="kw">as.list</span>(sample_set),<span class="cf">function</span>(x){</span>
-<span id="cb55-9"><a href="AppendixA.html#cb55-9"></a>  y&lt;-<span class="kw">extract_SNP_info</span>(x)</span>
-<span id="cb55-10"><a href="AppendixA.html#cb55-10"></a>  z &lt;-<span class="st"> </span>y[<span class="op">!</span>(<span class="kw">rownames</span>(y)<span class="op">%in%</span>blacklist[,<span class="st">&quot;Blacklisted.coordinate&quot;</span>]<span class="op">|</span>y[,<span class="st">&quot;protein&quot;</span>]<span class="op">%in%</span>blacklist[,<span class="st">&quot;Protein.Change&quot;</span>]),]</span>
-<span id="cb55-11"><a href="AppendixA.html#cb55-11"></a>  z[,<span class="st">&quot;SNP_variant&quot;</span>] &lt;-<span class="st"> </span><span class="kw">rownames</span>(z)</span>
-<span id="cb55-12"><a href="AppendixA.html#cb55-12"></a>  z[,<span class="st">&quot;Sample&quot;</span>] &lt;-<span class="st"> </span>x</span>
-<span id="cb55-13"><a href="AppendixA.html#cb55-13"></a>  <span class="kw">return</span>(z)</span>
-<span id="cb55-14"><a href="AppendixA.html#cb55-14"></a>})</span>
-<span id="cb55-15"><a href="AppendixA.html#cb55-15"></a></span>
-<span id="cb55-16"><a href="AppendixA.html#cb55-16"></a><span class="kw">names</span>(sample_SNPS) &lt;-<span class="st"> </span>sample_set</span>
-<span id="cb55-17"><a href="AppendixA.html#cb55-17"></a><span class="kw">saveRDS</span>(sample_SNPS,<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_SNPS.rds&quot;</span>)</span>
-<span id="cb55-18"><a href="AppendixA.html#cb55-18"></a></span>
-<span id="cb55-19"><a href="AppendixA.html#cb55-19"></a>sample_NGTs&lt;-<span class="kw">lapply</span>(<span class="kw">as.list</span>(<span class="kw">names</span>(sample_SNPS)),<span class="cf">function</span>(x){</span>
-<span id="cb55-20"><a href="AppendixA.html#cb55-20"></a>  <span class="kw">extract_NGT_files</span>(x,sample_SNPS[[x]]<span class="op">$</span>SNP_variant)</span>
-<span id="cb55-21"><a href="AppendixA.html#cb55-21"></a>})</span>
-<span id="cb55-22"><a href="AppendixA.html#cb55-22"></a><span class="kw">names</span>(sample_NGTs) &lt;-<span class="st"> </span><span class="kw">names</span>(sample_SNPS)</span>
-<span id="cb55-23"><a href="AppendixA.html#cb55-23"></a></span>
-<span id="cb55-24"><a href="AppendixA.html#cb55-24"></a>named_sample_NGTs&lt;-<span class="kw">lapply</span>(sample_NGTs,<span class="cf">function</span>(x){</span>
-<span id="cb55-25"><a href="AppendixA.html#cb55-25"></a>  <span class="kw">rownames</span>(x) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Cell&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x),<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>)</span>
-<span id="cb55-26"><a href="AppendixA.html#cb55-26"></a>  <span class="kw">return</span>(x)</span>
-<span id="cb55-27"><a href="AppendixA.html#cb55-27"></a>})</span>
-<span id="cb55-28"><a href="AppendixA.html#cb55-28"></a><span class="kw">saveRDS</span>(named_sample_NGTs,<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_NGTs.rds&quot;</span>)</span>
-<span id="cb55-29"><a href="AppendixA.html#cb55-29"></a></span>
-<span id="cb55-30"><a href="AppendixA.html#cb55-30"></a></span>
-<span id="cb55-31"><a href="AppendixA.html#cb55-31"></a>pheno &lt;-<span class="st"> </span><span class="kw">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/pheno_MBio.xlsx&quot;</span>)</span>
-<span id="cb55-32"><a href="AppendixA.html#cb55-32"></a></span>
-<span id="cb55-33"><a href="AppendixA.html#cb55-33"></a><span class="co"># Now we filter out any synonymous mutations as well</span></span>
-<span id="cb55-34"><a href="AppendixA.html#cb55-34"></a>sample_SNPS_filter&lt;-<span class="kw">lapply</span>(sample_SNPS,<span class="cf">function</span>(x){ x<span class="op">%&gt;%</span><span class="kw">filter</span>(<span class="op">!</span>(<span class="kw">grepl</span>(<span class="st">&quot;[=&gt;]&quot;</span>,protein)))<span class="op">%&gt;%</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;ASXL1:p.[DNGPIL]81&quot;</span>,protein))<span class="op">%&gt;%</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;FLT3_INS_chr13:28602226:&quot;</span>,protein)) }) </span>
-<span id="cb55-35"><a href="AppendixA.html#cb55-35"></a>colnames_to_grab &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Variant&quot;</span>,<span class="st">&quot;protein&quot;</span>,<span class="st">&quot;Gene&quot;</span>,<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;allele_freq_loom&quot;</span>,<span class="st">&quot;allele_freq&quot;</span>,<span class="st">&quot;SNP_variant&quot;</span>,<span class="st">&quot;Sample&quot;</span>)</span>
-<span id="cb55-36"><a href="AppendixA.html#cb55-36"></a>sample_SNPS_filter_cols&lt;-<span class="kw">lapply</span>(sample_SNPS_filter,<span class="cf">function</span>(x){x[,<span class="kw">colnames</span>(x)<span class="op">%in%</span>colnames_to_grab]}) </span>
-<span id="cb55-37"><a href="AppendixA.html#cb55-37"></a></span>
-<span id="cb55-38"><a href="AppendixA.html#cb55-38"></a>sample_NGTs_filter&lt;-<span class="kw">lapply</span>(<span class="kw">names</span>(sample_SNPS),<span class="cf">function</span>(x){<span class="kw">setNames</span>(<span class="kw">data.frame</span>(sample_NGTs[[x]][,sample_SNPS_filter[[x]][,<span class="st">&quot;SNP_variant&quot;</span>]]),sample_SNPS_filter[[x]][,<span class="st">&quot;SNP_variant&quot;</span>])}); <span class="kw">names</span>(sample_NGTs_filter) &lt;-<span class="st"> </span><span class="kw">names</span>(sample_SNPS)</span>
-<span id="cb55-39"><a href="AppendixA.html#cb55-39"></a>final_variants_of_interest&lt;-<span class="kw">lapply</span>(sample_NGTs_filter,<span class="cf">function</span>(x){<span class="kw">colnames</span>(x)[<span class="kw">colSums</span>(x)<span class="op">&gt;</span><span class="dv">0</span>]})</span>
-<span id="cb55-40"><a href="AppendixA.html#cb55-40"></a><span class="kw">names</span>(final_variants_of_interest) &lt;-<span class="kw">names</span>(sample_SNPS)</span>
-<span id="cb55-41"><a href="AppendixA.html#cb55-41"></a></span>
-<span id="cb55-42"><a href="AppendixA.html#cb55-42"></a>test_NGT &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(final_variants_of_interest),<span class="cf">function</span>(x){<span class="kw">setNames</span>(<span class="kw">data.frame</span>(sample_NGTs_filter[[x]][,final_variants_of_interest[[x]]]),final_variants_of_interest[[x]] )}),<span class="kw">names</span>(sample_SNPS))</span>
-<span id="cb55-43"><a href="AppendixA.html#cb55-43"></a></span>
-<span id="cb55-44"><a href="AppendixA.html#cb55-44"></a>final_NGT&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(test_NGT),<span class="cf">function</span>(x){</span>
-<span id="cb55-45"><a href="AppendixA.html#cb55-45"></a>  <span class="cf">if</span>(<span class="kw">ncol</span>(test_NGT[[x]])<span class="op">&gt;</span><span class="dv">1</span>){</span>
-<span id="cb55-46"><a href="AppendixA.html#cb55-46"></a>    j&lt;-test_NGT[[x]][,<span class="kw">apply</span>(test_NGT[[x]],<span class="dv">2</span>,<span class="cf">function</span>(z){<span class="kw">sum</span>(z<span class="op">%in%</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="op">&gt;=</span><span class="dv">2</span>})]</span>
-<span id="cb55-47"><a href="AppendixA.html#cb55-47"></a>    z&lt;-j[<span class="op">!</span><span class="kw">apply</span>(j,<span class="dv">1</span>,<span class="cf">function</span>(y){<span class="kw">any</span>(y<span class="op">==</span><span class="dv">3</span>)}),]</span>
-<span id="cb55-48"><a href="AppendixA.html#cb55-48"></a>    q&lt;-z[,<span class="kw">apply</span>(z,<span class="dv">2</span>,<span class="cf">function</span>(h){<span class="kw">sum</span>(h<span class="op">%in%</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="op">&gt;=</span><span class="dv">2</span>})]</span>
-<span id="cb55-49"><a href="AppendixA.html#cb55-49"></a>  } <span class="cf">else</span>{</span>
-<span id="cb55-50"><a href="AppendixA.html#cb55-50"></a>    j&lt;-<span class="kw">data.frame</span>(test_NGT[[x]][test_NGT[[x]]<span class="op">==</span><span class="dv">1</span><span class="op">|</span>test_NGT[[x]]<span class="op">==</span><span class="dv">2</span>])</span>
-<span id="cb55-51"><a href="AppendixA.html#cb55-51"></a>    q&lt;-<span class="kw">data.frame</span>(j[<span class="op">!</span>j<span class="op">==</span><span class="dv">3</span>])      </span>
-<span id="cb55-52"><a href="AppendixA.html#cb55-52"></a>  }</span>
-<span id="cb55-53"><a href="AppendixA.html#cb55-53"></a>  <span class="kw">return</span>(q)</span>
-<span id="cb55-54"><a href="AppendixA.html#cb55-54"></a>}),<span class="kw">names</span>(test_NGT))</span>
-<span id="cb55-55"><a href="AppendixA.html#cb55-55"></a></span>
-<span id="cb55-56"><a href="AppendixA.html#cb55-56"></a>final_variants_of_interest &lt;-<span class="st"> </span><span class="kw">lapply</span>(final_NGT,colnames)</span>
-<span id="cb55-57"><a href="AppendixA.html#cb55-57"></a></span>
-<span id="cb55-58"><a href="AppendixA.html#cb55-58"></a>final_SNP &lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(final_variants_of_interest),<span class="cf">function</span>(x){</span>
-<span id="cb55-59"><a href="AppendixA.html#cb55-59"></a>  sample_SNPS_filter_cols[[x]]<span class="op">%&gt;%</span><span class="kw">filter</span>(SNP_variant<span class="op">%in%</span>final_variants_of_interest[[x]])}),<span class="kw">names</span>(sample_SNPS))</span>
-<span id="cb55-60"><a href="AppendixA.html#cb55-60"></a></span>
-<span id="cb55-61"><a href="AppendixA.html#cb55-61"></a>final_SNP_mat&lt;-<span class="kw">do.call</span>(bind_rows,final_SNP)</span>
-<span id="cb55-62"><a href="AppendixA.html#cb55-62"></a>final_SNP_mat<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">ifelse</span>(final_SNP_mat<span class="op">$</span>Gene<span class="op">==</span><span class="st">&quot;&quot;</span>,<span class="st">&quot;FLT3&quot;</span>,final_SNP_mat<span class="op">$</span>Gene)</span>
-<span id="cb55-63"><a href="AppendixA.html#cb55-63"></a>final_SNP_mat<span class="op">$</span>gene &lt;-<span class="st"> </span><span class="kw">ifelse</span>(final_SNP_mat<span class="op">$</span>gene<span class="op">==</span><span class="st">&quot;&quot;</span>,<span class="st">&quot;FLT3&quot;</span>,final_SNP_mat<span class="op">$</span>gene)</span>
-<span id="cb55-64"><a href="AppendixA.html#cb55-64"></a>final_SNP_mat<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(final_SNP_mat<span class="op">$</span>Gene),final_SNP_mat<span class="op">$</span>gene,final_SNP_mat<span class="op">$</span>Gene) </span>
-<span id="cb55-65"><a href="AppendixA.html#cb55-65"></a><span class="kw">colnames</span>(final_SNP_mat)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;Sample.ID&quot;</span></span>
-<span id="cb55-66"><a href="AppendixA.html#cb55-66"></a></span>
-<span id="cb55-67"><a href="AppendixA.html#cb55-67"></a>pheno_mut_melted&lt;-<span class="kw">inner_join</span>(pheno,final_SNP_mat[,<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>])</span>
-<span id="cb55-68"><a href="AppendixA.html#cb55-68"></a>pheno_mut_melted<span class="op">$</span>Gene&lt;-<span class="st"> </span><span class="kw">factor</span>(pheno_mut_melted<span class="op">$</span>Gene,<span class="dt">levels=</span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">table</span>(pheno_mut_melted<span class="op">$</span>Gene), <span class="dt">decreasing=</span><span class="ot">TRUE</span>)))</span>
-<span id="cb55-69"><a href="AppendixA.html#cb55-69"></a></span>
-<span id="cb55-70"><a href="AppendixA.html#cb55-70"></a><span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">names</span>(final_NGT))){</span>
-<span id="cb55-71"><a href="AppendixA.html#cb55-71"></a>  <span class="kw">colnames</span>(final_NGT[x][[<span class="dv">1</span>]])&lt;-pheno_mut_melted[pheno_mut_melted<span class="op">$</span>SNP_variant<span class="op">%in%</span><span class="kw">colnames</span>(final_NGT[[x]])<span class="op">&amp;</span></span>
-<span id="cb55-72"><a href="AppendixA.html#cb55-72"></a><span class="st">                                                  </span>pheno_mut_melted<span class="op">$</span>Sample.ID<span class="op">==</span><span class="kw">names</span>(final_NGT)[x],<span class="st">&quot;protein&quot;</span>]</span>
-<span id="cb55-73"><a href="AppendixA.html#cb55-73"></a>  <span class="kw">rownames</span>(final_NGT[x][[<span class="dv">1</span>]])&lt;-<span class="kw">paste</span>(<span class="st">&quot;Cell&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(final_NGT[x][[<span class="dv">1</span>]])[[<span class="dv">1</span>]],<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>)</span>
-<span id="cb55-74"><a href="AppendixA.html#cb55-74"></a>}</span>
-<span id="cb55-75"><a href="AppendixA.html#cb55-75"></a></span>
-<span id="cb55-76"><a href="AppendixA.html#cb55-76"></a></span>
-<span id="cb55-77"><a href="AppendixA.html#cb55-77"></a><span class="co">#These lines were used to regenerated a new blacklist</span></span>
-<span id="cb55-78"><a href="AppendixA.html#cb55-78"></a>protein_variant_counts&lt;-<span class="kw">data.frame</span>(<span class="kw">sort</span>(<span class="kw">table</span>(pheno_mut_melted[,<span class="st">&quot;protein&quot;</span>]),<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</span>
-<span id="cb55-79"><a href="AppendixA.html#cb55-79"></a>SNP_variant_counts&lt;-<span class="kw">data.frame</span>(<span class="kw">sort</span>(<span class="kw">table</span>(pheno_mut_melted[,<span class="st">&quot;SNP_variant&quot;</span>]),<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</span>
-<span id="cb55-80"><a href="AppendixA.html#cb55-80"></a>Muts_per_patientx&lt;-<span class="kw">data.frame</span>(<span class="kw">sort</span>(<span class="kw">table</span>(pheno_mut_melted[,<span class="st">&quot;Sample.ID&quot;</span>]),<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</span>
-<span id="cb55-81"><a href="AppendixA.html#cb55-81"></a></span>
-<span id="cb55-82"><a href="AppendixA.html#cb55-82"></a>processing_NGT &lt;-<span class="st"> </span>final_NGT</span>
-<span id="cb55-83"><a href="AppendixA.html#cb55-83"></a><span class="kw">names</span>(processing_NGT) &lt;-<span class="st"> </span><span class="kw">names</span>(final_NGT)</span>
-<span id="cb55-84"><a href="AppendixA.html#cb55-84"></a></span>
-<span id="cb55-85"><a href="AppendixA.html#cb55-85"></a>cell_number_per_sample_cutoff&lt;-<span class="dv">40</span></span>
-<span id="cb55-86"><a href="AppendixA.html#cb55-86"></a>final_sample_set&lt;-<span class="kw">names</span>(<span class="kw">which</span>(<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(processing_NGT,dim))[,<span class="dv">1</span>]<span class="op">&gt;</span>cell_number_per_sample_cutoff))</span>
-<span id="cb55-87"><a href="AppendixA.html#cb55-87"></a></span>
-<span id="cb55-88"><a href="AppendixA.html#cb55-88"></a>samples_of_interest&lt;-<span class="kw">setdiff</span>(<span class="kw">names</span>(processing_NGT),final_sample_set)</span>
-<span id="cb55-89"><a href="AppendixA.html#cb55-89"></a><span class="kw">lapply</span>(processing_NGT[samples_of_interest],nrow)</span>
-<span id="cb55-90"><a href="AppendixA.html#cb55-90"></a><span class="kw">lapply</span>(sample_NGTs[samples_of_interest],nrow)</span>
-<span id="cb55-91"><a href="AppendixA.html#cb55-91"></a></span>
-<span id="cb55-92"><a href="AppendixA.html#cb55-92"></a>cells_of_interest&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(processing_NGT[final_sample_set],<span class="cf">function</span>(x){</span>
-<span id="cb55-93"><a href="AppendixA.html#cb55-93"></a>  <span class="kw">rownames</span>(x)</span>
-<span id="cb55-94"><a href="AppendixA.html#cb55-94"></a>}),final_sample_set)</span>
-<span id="cb55-95"><a href="AppendixA.html#cb55-95"></a></span>
-<span id="cb55-96"><a href="AppendixA.html#cb55-96"></a><span class="kw">saveRDS</span>(processing_NGT[final_sample_set],<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/final_NGTs.rds&quot;</span>)</span>
-<span id="cb55-97"><a href="AppendixA.html#cb55-97"></a><span class="kw">saveRDS</span>(pheno_mut_melted,<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/pheno_mut_melted.rds&quot;</span>)</span>
-<span id="cb55-98"><a href="AppendixA.html#cb55-98"></a><span class="kw">saveRDS</span>(final_sample_set,<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/final_sample_set.rds&quot;</span>)</span>
-<span id="cb55-99"><a href="AppendixA.html#cb55-99"></a><span class="kw">saveRDS</span>(cells_of_interest,<span class="dt">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/cells_of_interest.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="AppendixA.html#cb92-1" aria-hidden="true" tabindex="-1"></a>all_samples <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/MissionBio_Tapestri/Insights_Output/ASH_Cohort&quot;</span>)</span>
+<span id="cb92-2"><a href="AppendixA.html#cb92-2" aria-hidden="true" tabindex="-1"></a>blacklist <span class="ot">&lt;-</span> <span class="fu">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/Blacklist2.xlsx&quot;</span>)</span>
+<span id="cb92-3"><a href="AppendixA.html#cb92-3" aria-hidden="true" tabindex="-1"></a>whitelist <span class="ot">&lt;-</span> <span class="fu">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/Whitelist.xlsx&quot;</span>)</span>
+<span id="cb92-4"><a href="AppendixA.html#cb92-4" aria-hidden="true" tabindex="-1"></a>pheno <span class="ot">&lt;-</span> <span class="fu">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/pheno_MBio.xlsx&quot;</span>)</span>
+<span id="cb92-5"><a href="AppendixA.html#cb92-5" aria-hidden="true" tabindex="-1"></a>sample_set<span class="ot">&lt;-</span> <span class="fu">intersect</span>(<span class="fu">as.character</span>(all_samples),<span class="fu">as.character</span>(pheno<span class="sc">$</span>Sample.ID)) </span>
+<span id="cb92-6"><a href="AppendixA.html#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="AppendixA.html#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/MissionBio_Tapestri/Insights_Output/ASH_Cohort&quot;</span>)</span>
+<span id="cb92-8"><a href="AppendixA.html#cb92-8" aria-hidden="true" tabindex="-1"></a>sample_SNPS<span class="ot">&lt;-</span><span class="fu">lapply</span>(<span class="fu">as.list</span>(sample_set),<span class="cf">function</span>(x){</span>
+<span id="cb92-9"><a href="AppendixA.html#cb92-9" aria-hidden="true" tabindex="-1"></a>  y<span class="ot">&lt;-</span><span class="fu">extract_SNP_info</span>(x)</span>
+<span id="cb92-10"><a href="AppendixA.html#cb92-10" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> y[<span class="sc">!</span>(<span class="fu">rownames</span>(y)<span class="sc">%in%</span>blacklist[,<span class="st">&quot;Blacklisted.coordinate&quot;</span>]<span class="sc">|</span>y[,<span class="st">&quot;protein&quot;</span>]<span class="sc">%in%</span>blacklist[,<span class="st">&quot;Protein.Change&quot;</span>]),]</span>
+<span id="cb92-11"><a href="AppendixA.html#cb92-11" aria-hidden="true" tabindex="-1"></a>  z[,<span class="st">&quot;SNP_variant&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">rownames</span>(z)</span>
+<span id="cb92-12"><a href="AppendixA.html#cb92-12" aria-hidden="true" tabindex="-1"></a>  z[,<span class="st">&quot;Sample&quot;</span>] <span class="ot">&lt;-</span> x</span>
+<span id="cb92-13"><a href="AppendixA.html#cb92-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
+<span id="cb92-14"><a href="AppendixA.html#cb92-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb92-15"><a href="AppendixA.html#cb92-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-16"><a href="AppendixA.html#cb92-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sample_SNPS) <span class="ot">&lt;-</span> sample_set</span>
+<span id="cb92-17"><a href="AppendixA.html#cb92-17" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(sample_SNPS,<span class="at">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_SNPS.rds&quot;</span>)</span>
+<span id="cb92-18"><a href="AppendixA.html#cb92-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-19"><a href="AppendixA.html#cb92-19" aria-hidden="true" tabindex="-1"></a>sample_NGTs<span class="ot">&lt;-</span><span class="fu">lapply</span>(<span class="fu">as.list</span>(<span class="fu">names</span>(sample_SNPS)),<span class="cf">function</span>(x){</span>
+<span id="cb92-20"><a href="AppendixA.html#cb92-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_NGT_files</span>(x,sample_SNPS[[x]]<span class="sc">$</span>SNP_variant)</span>
+<span id="cb92-21"><a href="AppendixA.html#cb92-21" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb92-22"><a href="AppendixA.html#cb92-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sample_NGTs) <span class="ot">&lt;-</span> <span class="fu">names</span>(sample_SNPS)</span>
+<span id="cb92-23"><a href="AppendixA.html#cb92-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-24"><a href="AppendixA.html#cb92-24" aria-hidden="true" tabindex="-1"></a>named_sample_NGTs<span class="ot">&lt;-</span><span class="fu">lapply</span>(sample_NGTs,<span class="cf">function</span>(x){</span>
+<span id="cb92-25"><a href="AppendixA.html#cb92-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(x) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;Cell&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x),<span class="at">sep=</span><span class="st">&quot;_&quot;</span>)</span>
+<span id="cb92-26"><a href="AppendixA.html#cb92-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb92-27"><a href="AppendixA.html#cb92-27" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb92-28"><a href="AppendixA.html#cb92-28" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(named_sample_NGTs,<span class="at">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/sample_NGTs.rds&quot;</span>)</span>
+<span id="cb92-29"><a href="AppendixA.html#cb92-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-30"><a href="AppendixA.html#cb92-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-31"><a href="AppendixA.html#cb92-31" aria-hidden="true" tabindex="-1"></a>pheno <span class="ot">&lt;-</span> <span class="fu">read.xls</span>(<span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/From_LAM/pheno_MBio.xlsx&quot;</span>)</span>
+<span id="cb92-32"><a href="AppendixA.html#cb92-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-33"><a href="AppendixA.html#cb92-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we filter out any synonymous mutations as well</span></span>
+<span id="cb92-34"><a href="AppendixA.html#cb92-34" aria-hidden="true" tabindex="-1"></a>sample_SNPS_filter<span class="ot">&lt;-</span><span class="fu">lapply</span>(sample_SNPS,<span class="cf">function</span>(x){ x<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span>(<span class="fu">grepl</span>(<span class="st">&quot;[=&gt;]&quot;</span>,protein)))<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;ASXL1:p.[DNGPIL]81&quot;</span>,protein))<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;FLT3_INS_chr13:28602226:&quot;</span>,protein)) }) </span>
+<span id="cb92-35"><a href="AppendixA.html#cb92-35" aria-hidden="true" tabindex="-1"></a>colnames_to_grab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variant&quot;</span>,<span class="st">&quot;protein&quot;</span>,<span class="st">&quot;Gene&quot;</span>,<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;allele_freq_loom&quot;</span>,<span class="st">&quot;allele_freq&quot;</span>,<span class="st">&quot;SNP_variant&quot;</span>,<span class="st">&quot;Sample&quot;</span>)</span>
+<span id="cb92-36"><a href="AppendixA.html#cb92-36" aria-hidden="true" tabindex="-1"></a>sample_SNPS_filter_cols<span class="ot">&lt;-</span><span class="fu">lapply</span>(sample_SNPS_filter,<span class="cf">function</span>(x){x[,<span class="fu">colnames</span>(x)<span class="sc">%in%</span>colnames_to_grab]}) </span>
+<span id="cb92-37"><a href="AppendixA.html#cb92-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-38"><a href="AppendixA.html#cb92-38" aria-hidden="true" tabindex="-1"></a>sample_NGTs_filter<span class="ot">&lt;-</span><span class="fu">lapply</span>(<span class="fu">names</span>(sample_SNPS),<span class="cf">function</span>(x){<span class="fu">setNames</span>(<span class="fu">data.frame</span>(sample_NGTs[[x]][,sample_SNPS_filter[[x]][,<span class="st">&quot;SNP_variant&quot;</span>]]),sample_SNPS_filter[[x]][,<span class="st">&quot;SNP_variant&quot;</span>])}); <span class="fu">names</span>(sample_NGTs_filter) <span class="ot">&lt;-</span> <span class="fu">names</span>(sample_SNPS)</span>
+<span id="cb92-39"><a href="AppendixA.html#cb92-39" aria-hidden="true" tabindex="-1"></a>final_variants_of_interest<span class="ot">&lt;-</span><span class="fu">lapply</span>(sample_NGTs_filter,<span class="cf">function</span>(x){<span class="fu">colnames</span>(x)[<span class="fu">colSums</span>(x)<span class="sc">&gt;</span><span class="dv">0</span>]})</span>
+<span id="cb92-40"><a href="AppendixA.html#cb92-40" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(final_variants_of_interest) <span class="ot">&lt;-</span><span class="fu">names</span>(sample_SNPS)</span>
+<span id="cb92-41"><a href="AppendixA.html#cb92-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-42"><a href="AppendixA.html#cb92-42" aria-hidden="true" tabindex="-1"></a>test_NGT <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(final_variants_of_interest),<span class="cf">function</span>(x){<span class="fu">setNames</span>(<span class="fu">data.frame</span>(sample_NGTs_filter[[x]][,final_variants_of_interest[[x]]]),final_variants_of_interest[[x]] )}),<span class="fu">names</span>(sample_SNPS))</span>
+<span id="cb92-43"><a href="AppendixA.html#cb92-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-44"><a href="AppendixA.html#cb92-44" aria-hidden="true" tabindex="-1"></a>final_NGT<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(test_NGT),<span class="cf">function</span>(x){</span>
+<span id="cb92-45"><a href="AppendixA.html#cb92-45" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">ncol</span>(test_NGT[[x]])<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb92-46"><a href="AppendixA.html#cb92-46" aria-hidden="true" tabindex="-1"></a>    j<span class="ot">&lt;-</span>test_NGT[[x]][,<span class="fu">apply</span>(test_NGT[[x]],<span class="dv">2</span>,<span class="cf">function</span>(z){<span class="fu">sum</span>(z<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">&gt;=</span><span class="dv">2</span>})]</span>
+<span id="cb92-47"><a href="AppendixA.html#cb92-47" aria-hidden="true" tabindex="-1"></a>    z<span class="ot">&lt;-</span>j[<span class="sc">!</span><span class="fu">apply</span>(j,<span class="dv">1</span>,<span class="cf">function</span>(y){<span class="fu">any</span>(y<span class="sc">==</span><span class="dv">3</span>)}),]</span>
+<span id="cb92-48"><a href="AppendixA.html#cb92-48" aria-hidden="true" tabindex="-1"></a>    q<span class="ot">&lt;-</span>z[,<span class="fu">apply</span>(z,<span class="dv">2</span>,<span class="cf">function</span>(h){<span class="fu">sum</span>(h<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">&gt;=</span><span class="dv">2</span>})]</span>
+<span id="cb92-49"><a href="AppendixA.html#cb92-49" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
+<span id="cb92-50"><a href="AppendixA.html#cb92-50" aria-hidden="true" tabindex="-1"></a>    j<span class="ot">&lt;-</span><span class="fu">data.frame</span>(test_NGT[[x]][test_NGT[[x]]<span class="sc">==</span><span class="dv">1</span><span class="sc">|</span>test_NGT[[x]]<span class="sc">==</span><span class="dv">2</span>])</span>
+<span id="cb92-51"><a href="AppendixA.html#cb92-51" aria-hidden="true" tabindex="-1"></a>    q<span class="ot">&lt;-</span><span class="fu">data.frame</span>(j[<span class="sc">!</span>j<span class="sc">==</span><span class="dv">3</span>])      </span>
+<span id="cb92-52"><a href="AppendixA.html#cb92-52" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb92-53"><a href="AppendixA.html#cb92-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(q)</span>
+<span id="cb92-54"><a href="AppendixA.html#cb92-54" aria-hidden="true" tabindex="-1"></a>}),<span class="fu">names</span>(test_NGT))</span>
+<span id="cb92-55"><a href="AppendixA.html#cb92-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-56"><a href="AppendixA.html#cb92-56" aria-hidden="true" tabindex="-1"></a>final_variants_of_interest <span class="ot">&lt;-</span> <span class="fu">lapply</span>(final_NGT,colnames)</span>
+<span id="cb92-57"><a href="AppendixA.html#cb92-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-58"><a href="AppendixA.html#cb92-58" aria-hidden="true" tabindex="-1"></a>final_SNP <span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(final_variants_of_interest),<span class="cf">function</span>(x){</span>
+<span id="cb92-59"><a href="AppendixA.html#cb92-59" aria-hidden="true" tabindex="-1"></a>  sample_SNPS_filter_cols[[x]]<span class="sc">%&gt;%</span><span class="fu">filter</span>(SNP_variant<span class="sc">%in%</span>final_variants_of_interest[[x]])}),<span class="fu">names</span>(sample_SNPS))</span>
+<span id="cb92-60"><a href="AppendixA.html#cb92-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-61"><a href="AppendixA.html#cb92-61" aria-hidden="true" tabindex="-1"></a>final_SNP_mat<span class="ot">&lt;-</span><span class="fu">do.call</span>(bind_rows,final_SNP)</span>
+<span id="cb92-62"><a href="AppendixA.html#cb92-62" aria-hidden="true" tabindex="-1"></a>final_SNP_mat<span class="sc">$</span>Gene <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(final_SNP_mat<span class="sc">$</span>Gene<span class="sc">==</span><span class="st">&quot;&quot;</span>,<span class="st">&quot;FLT3&quot;</span>,final_SNP_mat<span class="sc">$</span>Gene)</span>
+<span id="cb92-63"><a href="AppendixA.html#cb92-63" aria-hidden="true" tabindex="-1"></a>final_SNP_mat<span class="sc">$</span>gene <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(final_SNP_mat<span class="sc">$</span>gene<span class="sc">==</span><span class="st">&quot;&quot;</span>,<span class="st">&quot;FLT3&quot;</span>,final_SNP_mat<span class="sc">$</span>gene)</span>
+<span id="cb92-64"><a href="AppendixA.html#cb92-64" aria-hidden="true" tabindex="-1"></a>final_SNP_mat<span class="sc">$</span>Gene <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(final_SNP_mat<span class="sc">$</span>Gene),final_SNP_mat<span class="sc">$</span>gene,final_SNP_mat<span class="sc">$</span>Gene) </span>
+<span id="cb92-65"><a href="AppendixA.html#cb92-65" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(final_SNP_mat)[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Sample.ID&quot;</span></span>
+<span id="cb92-66"><a href="AppendixA.html#cb92-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-67"><a href="AppendixA.html#cb92-67" aria-hidden="true" tabindex="-1"></a>pheno_mut_melted<span class="ot">&lt;-</span><span class="fu">inner_join</span>(pheno,final_SNP_mat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb92-68"><a href="AppendixA.html#cb92-68" aria-hidden="true" tabindex="-1"></a>pheno_mut_melted<span class="sc">$</span>Gene<span class="ot">&lt;-</span> <span class="fu">factor</span>(pheno_mut_melted<span class="sc">$</span>Gene,<span class="at">levels=</span><span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">table</span>(pheno_mut_melted<span class="sc">$</span>Gene), <span class="at">decreasing=</span><span class="cn">TRUE</span>)))</span>
+<span id="cb92-69"><a href="AppendixA.html#cb92-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-70"><a href="AppendixA.html#cb92-70" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">names</span>(final_NGT))){</span>
+<span id="cb92-71"><a href="AppendixA.html#cb92-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(final_NGT[x][[<span class="dv">1</span>]])<span class="ot">&lt;-</span>pheno_mut_melted[pheno_mut_melted<span class="sc">$</span>SNP_variant<span class="sc">%in%</span><span class="fu">colnames</span>(final_NGT[[x]])<span class="sc">&amp;</span></span>
+<span id="cb92-72"><a href="AppendixA.html#cb92-72" aria-hidden="true" tabindex="-1"></a>                                                  pheno_mut_melted<span class="sc">$</span>Sample.ID<span class="sc">==</span><span class="fu">names</span>(final_NGT)[x],<span class="st">&quot;protein&quot;</span>]</span>
+<span id="cb92-73"><a href="AppendixA.html#cb92-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(final_NGT[x][[<span class="dv">1</span>]])<span class="ot">&lt;-</span><span class="fu">paste</span>(<span class="st">&quot;Cell&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(final_NGT[x][[<span class="dv">1</span>]])[[<span class="dv">1</span>]],<span class="at">sep=</span><span class="st">&quot;_&quot;</span>)</span>
+<span id="cb92-74"><a href="AppendixA.html#cb92-74" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb92-75"><a href="AppendixA.html#cb92-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-76"><a href="AppendixA.html#cb92-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-77"><a href="AppendixA.html#cb92-77" aria-hidden="true" tabindex="-1"></a><span class="co">#These lines were used to regenerated a new blacklist</span></span>
+<span id="cb92-78"><a href="AppendixA.html#cb92-78" aria-hidden="true" tabindex="-1"></a>protein_variant_counts<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">table</span>(pheno_mut_melted[,<span class="st">&quot;protein&quot;</span>]),<span class="at">decreasing=</span><span class="cn">TRUE</span>))</span>
+<span id="cb92-79"><a href="AppendixA.html#cb92-79" aria-hidden="true" tabindex="-1"></a>SNP_variant_counts<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">table</span>(pheno_mut_melted[,<span class="st">&quot;SNP_variant&quot;</span>]),<span class="at">decreasing=</span><span class="cn">TRUE</span>))</span>
+<span id="cb92-80"><a href="AppendixA.html#cb92-80" aria-hidden="true" tabindex="-1"></a>Muts_per_patientx<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">table</span>(pheno_mut_melted[,<span class="st">&quot;Sample.ID&quot;</span>]),<span class="at">decreasing=</span><span class="cn">TRUE</span>))</span>
+<span id="cb92-81"><a href="AppendixA.html#cb92-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-82"><a href="AppendixA.html#cb92-82" aria-hidden="true" tabindex="-1"></a>processing_NGT <span class="ot">&lt;-</span> final_NGT</span>
+<span id="cb92-83"><a href="AppendixA.html#cb92-83" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(processing_NGT) <span class="ot">&lt;-</span> <span class="fu">names</span>(final_NGT)</span>
+<span id="cb92-84"><a href="AppendixA.html#cb92-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-85"><a href="AppendixA.html#cb92-85" aria-hidden="true" tabindex="-1"></a>cell_number_per_sample_cutoff<span class="ot">&lt;-</span><span class="dv">40</span></span>
+<span id="cb92-86"><a href="AppendixA.html#cb92-86" aria-hidden="true" tabindex="-1"></a>final_sample_set<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">which</span>(<span class="fu">do.call</span>(rbind,<span class="fu">lapply</span>(processing_NGT,dim))[,<span class="dv">1</span>]<span class="sc">&gt;</span>cell_number_per_sample_cutoff))</span>
+<span id="cb92-87"><a href="AppendixA.html#cb92-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-88"><a href="AppendixA.html#cb92-88" aria-hidden="true" tabindex="-1"></a>samples_of_interest<span class="ot">&lt;-</span><span class="fu">setdiff</span>(<span class="fu">names</span>(processing_NGT),final_sample_set)</span>
+<span id="cb92-89"><a href="AppendixA.html#cb92-89" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(processing_NGT[samples_of_interest],nrow)</span>
+<span id="cb92-90"><a href="AppendixA.html#cb92-90" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(sample_NGTs[samples_of_interest],nrow)</span>
+<span id="cb92-91"><a href="AppendixA.html#cb92-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-92"><a href="AppendixA.html#cb92-92" aria-hidden="true" tabindex="-1"></a>cells_of_interest<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(processing_NGT[final_sample_set],<span class="cf">function</span>(x){</span>
+<span id="cb92-93"><a href="AppendixA.html#cb92-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(x)</span>
+<span id="cb92-94"><a href="AppendixA.html#cb92-94" aria-hidden="true" tabindex="-1"></a>}),final_sample_set)</span>
+<span id="cb92-95"><a href="AppendixA.html#cb92-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-96"><a href="AppendixA.html#cb92-96" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(processing_NGT[final_sample_set],<span class="at">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/final_NGTs.rds&quot;</span>)</span>
+<span id="cb92-97"><a href="AppendixA.html#cb92-97" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(pheno_mut_melted,<span class="at">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/pheno_mut_melted.rds&quot;</span>)</span>
+<span id="cb92-98"><a href="AppendixA.html#cb92-98" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(final_sample_set,<span class="at">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/final_sample_set.rds&quot;</span>)</span>
+<span id="cb92-99"><a href="AppendixA.html#cb92-99" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(cells_of_interest,<span class="at">file=</span><span class="st">&quot;/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/cells_of_interest.rds&quot;</span>)</span></code></pre></div>
 </div>
             </section>
 
@@ -331,6 +346,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
