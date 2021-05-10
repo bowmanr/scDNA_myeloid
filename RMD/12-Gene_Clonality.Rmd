@@ -22,25 +22,28 @@ pheno<-readRDS(file="./data/pheno.rds")
 
 clone_size_by_gene<- do.call(rbind,lapply(names(final_sample_summary),function(x){
   # select the clones
-  clones<-final_sample_summary[[x]]$Clones%>%select(Clone)
+  clones<-final_sample_summary[[x]]$Clones%>%
+                            dplyr::select(Clone)
   
   # Compute the relative clone size
   Clone_size<-final_sample_summary[[x]]$Clones%>%transmute(Clone_size=Count/sum(Count))%>%pull(Clone_size)
   names(Clone_size) <- clones[,"Clone"]
   
   # Extract the mutations
-  mutations <- colnames(final_sample_summary[[x]]$NGT%>%select(!Clone))
+  mutations <- colnames(final_sample_summary[[x]]$NGT%>%
+                          dplyr::select(!Clone))
   
   # Identify the dominant clone, which is the last one in this data frame
   dominant_clone <- clones[nrow(clones),]
   
   # Compute the bulk VAF for each mutation
-  VAFs <- final_sample_summary[[x]]$NGT%>%select(`mutations`)%>%
+  VAFs <- final_sample_summary[[x]]$NGT%>%
+                              dplyr::select(`mutations`)%>%
                               summarise_all(funs(mean(.)/2))
 
   # Separate the clone into a deduplicated NGT matrix
   mut_mat<-final_sample_summary[[x]]$Clones%>%
-                              select(Clone)%>%
+                              dplyr::select(Clone)%>%
                               separate(col=Clone,into=mutations,sep="_")
   
   # Create a composite data frame and turn it into long form
@@ -261,10 +264,11 @@ clonality_VAF_pvalues<-data.frame(data_to_plot)%>%
                                 filter(as.character(Clonality)%in%c("Dominant","Subclone")&
                                          Gene!="IDH2")%>%
                                 group_by(Gene)%>%
-                                select(VAF,Clonality)%>%
+                                dplyr::select(VAF,Clonality)%>%
                                 do(tidy(t.test(VAF ~ Clonality, data = .)))%>%
-                                select(Gene,Dominant_VAF=estimate2,Subclone_VAF=estimate1,
-                                       p.value)%>%
+                                dplyr::select(Gene,Dominant_VAF=estimate2,
+                                              Subclone_VAF=estimate1,
+                                              p.value)%>%
                                 mutate_if(is.numeric, funs(as.character(signif(., 3))))
 ```
 

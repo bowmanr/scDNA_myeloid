@@ -4,35 +4,36 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.3 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
-  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>2.4 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.3 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:title" content="2.4 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.3 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta name="twitter:title" content="2.4 Post processing | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   
-  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-10-28" />
+<meta name="date" content="2021-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tapestri-library.html"/>
+<link rel="prev" href="tapestri-package.html"/>
 <link rel="next" href="assessing-clonal-abundance.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,25 +51,25 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -88,7 +89,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -121,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -138,33 +140,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
-<li class="chapter" data-level="2.2" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>2.2</b> Tapestri Package</a></li>
-<li class="chapter" data-level="2.3" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.3</b> Post processing</a></li>
-<li class="chapter" data-level="2.4" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.4</b> Assessing clonal abundance</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a><ul>
-<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a><ul>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
 <li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
 <li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
 <li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
 <li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a><ul>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
 <li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
 <li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
 <li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>4</b> Final Words</a></li>
-<li class="chapter" data-level="5" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
-<li class="chapter" data-level="5.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>5.1</b> Import from Tapestri Insights</a></li>
-<li class="chapter" data-level="5.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>5.2</b> Functions</a></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -185,69 +193,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="post-processing" class="section level2">
-<h2><span class="header-section-number">2.3</span> Post processing</h2>
+<div id="post-processing" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Post processing</h2>
 <p>Next we’ll read the files back in and put them into a list. After that I will walk through some steps we used to process the data a little further. Here we made a decision in the project to focus only on protein encoding SNVs, of course there is likely rich data in the splice mutations and that is for further followup. Importantly, we also made the decision to focus only on cells with complete genotype information, and exclude cells that had missing genotypes for a cell of interest. A complimentary manuscript by Koichi Takahashi’s group at MD Anderson analyzed their dataset, and I encourage whoever is reading this to take a look at their bioRxiv preprint. I’ll update this reference once they paper is published.</p>
-<p>Our streps for post processing are below:
+<p>Our steps for post processing are below:
 + Filter variants through a blacklist removing recurrent variants that we think are likely sequencing errors
 + Annotating SNVS for protein encoding functions, and removing synonymous and splice variants
 + Remove variants that are mutated in &lt;2 cells
 + Remove remaining cells with any unknown genotypes
 + Remove variants that are mutated in &lt;2 cells again now that we have removed cells that were low quality</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="post-processing.html#cb5-1"></a>processed_SNV_files &lt;-<span class="kw">grep</span>(<span class="st">&quot;MSK&quot;</span>,<span class="kw">list.files</span>(<span class="st">&quot;./analysis/&quot;</span>,<span class="dt">full.names =</span> <span class="ot">TRUE</span>),<span class="dt">value=</span><span class="ot">TRUE</span>)</span>
-<span id="cb5-2"><a href="post-processing.html#cb5-2"></a><span class="kw">names</span>(processed_SNV_files)&lt;-<span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(<span class="kw">grep</span>(<span class="st">&quot;MSK&quot;</span>,<span class="kw">list.files</span>(<span class="st">&quot;./analysis/&quot;</span>),<span class="dt">value=</span><span class="ot">TRUE</span>),<span class="dt">split=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>))[,<span class="dv">1</span>]</span>
-<span id="cb5-3"><a href="post-processing.html#cb5-3"></a></span>
-<span id="cb5-4"><a href="post-processing.html#cb5-4"></a>SNV&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(processed_SNV_files),<span class="cf">function</span>(x){</span>
-<span id="cb5-5"><a href="post-processing.html#cb5-5"></a>  y&lt;-<span class="kw">readRDS</span>(processed_SNV_files[x])</span>
-<span id="cb5-6"><a href="post-processing.html#cb5-6"></a>  <span class="kw">data.frame</span>(<span class="st">&quot;Cell&quot;</span>=<span class="kw">rownames</span>(y), <span class="co"># moving the cell name into data.frame prevents some errors later</span></span>
-<span id="cb5-7"><a href="post-processing.html#cb5-7"></a>             y<span class="op">$</span>data) <span class="co"># extracts the genotype matrix from the analyte object</span></span>
-<span id="cb5-8"><a href="post-processing.html#cb5-8"></a>}), <span class="kw">names</span>(processed_SNV_files))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="post-processing.html#cb28-1" aria-hidden="true" tabindex="-1"></a>processed_SNV_files <span class="ot">&lt;-</span><span class="fu">grep</span>(<span class="st">&quot;MSK&quot;</span>,<span class="fu">list.files</span>(<span class="st">&quot;./analysis/&quot;</span>,<span class="at">full.names =</span> <span class="cn">TRUE</span>),<span class="at">value=</span><span class="cn">TRUE</span>)</span>
+<span id="cb28-2"><a href="post-processing.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(processed_SNV_files)<span class="ot">&lt;-</span><span class="fu">do.call</span>(rbind,<span class="fu">strsplit</span>(<span class="fu">grep</span>(<span class="st">&quot;MSK&quot;</span>,<span class="fu">list.files</span>(<span class="st">&quot;./analysis/&quot;</span>),<span class="at">value=</span><span class="cn">TRUE</span>),<span class="at">split=</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>))[,<span class="dv">1</span>]</span>
+<span id="cb28-3"><a href="post-processing.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="post-processing.html#cb28-4" aria-hidden="true" tabindex="-1"></a>SNV<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(processed_SNV_files),<span class="cf">function</span>(x){</span>
+<span id="cb28-5"><a href="post-processing.html#cb28-5" aria-hidden="true" tabindex="-1"></a>  y<span class="ot">&lt;-</span><span class="fu">readRDS</span>(processed_SNV_files[x])</span>
+<span id="cb28-6"><a href="post-processing.html#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="st">&quot;Cell&quot;</span><span class="ot">=</span><span class="fu">rownames</span>(y), <span class="co"># moving the cell name into data.frame prevents some errors later</span></span>
+<span id="cb28-7"><a href="post-processing.html#cb28-7" aria-hidden="true" tabindex="-1"></a>             y<span class="sc">$</span>data) <span class="co"># extracts the genotype matrix from the analyte object</span></span>
+<span id="cb28-8"><a href="post-processing.html#cb28-8" aria-hidden="true" tabindex="-1"></a>}), <span class="fu">names</span>(processed_SNV_files))</span></code></pre></div>
 <p>So one important note is that the variant annotation we used in the manuscript was done with Tapesstri Insights. Which was quite convenient as it put out a 1:1 mapping of SNV to amino acid changes, presumably by having a list of preferred TXIDs for each gene. So I’ve outlined what I think is a decent approach to this here. <em>Importantly, this approach removes variants that are not protein encoding, and thus removes splice variants</em></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="post-processing.html#cb6-1"></a>txdb &lt;-<span class="st"> </span>TxDb.Hsapiens.UCSC.hg19.knownGene</span>
-<span id="cb6-2"><a href="post-processing.html#cb6-2"></a>blacklist &lt;-<span class="kw">read.delim</span>(<span class="st">&quot;./blacklist.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
-<span id="cb6-3"><a href="post-processing.html#cb6-3"></a></span>
-<span id="cb6-4"><a href="post-processing.html#cb6-4"></a>variants &lt;-<span class="st"> </span><span class="kw">lapply</span>(SNV,<span class="cf">function</span>(x){</span>
-<span id="cb6-5"><a href="post-processing.html#cb6-5"></a>  experimental_variants &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[ <span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;Cell&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">&amp;</span><span class="st"> </span><span class="co">#remove the Cell column</span></span>
-<span id="cb6-6"><a href="post-processing.html#cb6-6"></a><span class="st">                                        </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;^chr&quot;</span>,<span class="kw">colnames</span>(x))<span class="op">&amp;</span><span class="st"> </span><span class="co">#remove control loci</span></span>
-<span id="cb6-7"><a href="post-processing.html#cb6-7"></a><span class="st">                                        </span><span class="op">!</span><span class="kw">colnames</span>(x)<span class="op">%in%</span>blacklist[,<span class="dv">1</span>]] <span class="co">#remove blacklsited SNVs</span></span>
-<span id="cb6-8"><a href="post-processing.html#cb6-8"></a>  variants_matrix&lt;-<span class="kw">data.frame</span>(experimental_variants,</span>
-<span id="cb6-9"><a href="post-processing.html#cb6-9"></a>                                <span class="kw">do.call</span>(rbind,<span class="kw">strsplit</span>(experimental_variants,<span class="dt">split=</span><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>)))</span>
-<span id="cb6-10"><a href="post-processing.html#cb6-10"></a>  <span class="kw">colnames</span>(variants_matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SNV&quot;</span>,<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;chr&quot;</span>,<span class="st">&quot;start&quot;</span>,<span class="st">&quot;ref&quot;</span>,<span class="st">&quot;alt&quot;</span>)</span>
-<span id="cb6-11"><a href="post-processing.html#cb6-11"></a>  variants_matrix<span class="op">$</span>ref&lt;-<span class="kw">as</span>(variants_matrix<span class="op">$</span>ref, <span class="st">&quot;DNAStringSet&quot;</span>)</span>
-<span id="cb6-12"><a href="post-processing.html#cb6-12"></a>  variants_matrix<span class="op">$</span>alt&lt;-<span class="kw">as</span>(variants_matrix<span class="op">$</span>alt, <span class="st">&quot;DNAStringSet&quot;</span>)</span>
-<span id="cb6-13"><a href="post-processing.html#cb6-13"></a>  variant_gRange&lt;-<span class="kw">makeGRangesFromDataFrame</span>(variants_matrix,</span>
-<span id="cb6-14"><a href="post-processing.html#cb6-14"></a>                                           <span class="dt">seqnames.field =</span> <span class="st">&quot;chr&quot;</span>,</span>
-<span id="cb6-15"><a href="post-processing.html#cb6-15"></a>                                           <span class="dt">start.field=</span><span class="st">&quot;start&quot;</span>,</span>
-<span id="cb6-16"><a href="post-processing.html#cb6-16"></a>                                           <span class="dt">end.field=</span><span class="st">&quot;start&quot;</span>,</span>
-<span id="cb6-17"><a href="post-processing.html#cb6-17"></a>                                           <span class="dt">keep.extra.columns=</span><span class="ot">TRUE</span>)</span>
-<span id="cb6-18"><a href="post-processing.html#cb6-18"></a>  out&lt;-<span class="st">  </span><span class="kw">predictCoding</span>(variant_gRange, txdb, <span class="dt">seqSource=</span>Hsapiens,<span class="dt">varAllele=</span>variant_gRange<span class="op">$</span>alt)</span>
-<span id="cb6-19"><a href="post-processing.html#cb6-19"></a>  out2&lt;-out<span class="op">%&gt;%</span><span class="kw">filter</span>(CONSEQUENCE<span class="op">==</span><span class="st">&quot;nonsynonymous&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb6-20"><a href="post-processing.html#cb6-20"></a><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">AA=</span><span class="kw">paste0</span>(gene,<span class="st">&quot;.&quot;</span>,REFAA,PROTEINLOC,VARAA))<span class="op">%&gt;%</span></span>
-<span id="cb6-21"><a href="post-processing.html#cb6-21"></a><span class="st">              </span><span class="kw">select</span>(SNV,AA)</span>
-<span id="cb6-22"><a href="post-processing.html#cb6-22"></a>  <span class="kw">return</span>(<span class="kw">data.frame</span>(out2)<span class="op">%&gt;%</span><span class="kw">distinct</span>(SNV,AA))</span>
-<span id="cb6-23"><a href="post-processing.html#cb6-23"></a>  })</span>
-<span id="cb6-24"><a href="post-processing.html#cb6-24"></a></span>
-<span id="cb6-25"><a href="post-processing.html#cb6-25"></a><span class="co"># Select the correct variants, this is an example. </span></span>
-<span id="cb6-26"><a href="post-processing.html#cb6-26"></a><span class="co"># Probably better off coming up with a list of TXIDs or CDSIDs you want for each gene.</span></span>
-<span id="cb6-27"><a href="post-processing.html#cb6-27"></a>variants[[<span class="st">&quot;MSK15&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK15&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>,<span class="st">&quot;DNMT3A.R446Q&quot;</span>))</span>
-<span id="cb6-28"><a href="post-processing.html#cb6-28"></a>variants[[<span class="st">&quot;MSK18&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK18&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>))</span>
-<span id="cb6-29"><a href="post-processing.html#cb6-29"></a>variants[[<span class="st">&quot;MSK71&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK71&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;DNMT3A.Y685C&quot;</span>))</span>
-<span id="cb6-30"><a href="post-processing.html#cb6-30"></a>variants[[<span class="st">&quot;MSK91&quot;</span>]]&lt;-variants[[<span class="st">&quot;MSK91&quot;</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>AA<span class="op">%in%</span><span class="kw">c</span>(<span class="st">&quot;IDH2.R88Q&quot;</span>,<span class="st">&quot;IDH2.R10Q&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="post-processing.html#cb29-1" aria-hidden="true" tabindex="-1"></a>txdb <span class="ot">&lt;-</span> TxDb.Hsapiens.UCSC.hg19.knownGene</span>
+<span id="cb29-2"><a href="post-processing.html#cb29-2" aria-hidden="true" tabindex="-1"></a>banned <span class="ot">&lt;-</span><span class="fu">read.delim</span>(<span class="st">&quot;./data/banned_list.csv&quot;</span>,<span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb29-3"><a href="post-processing.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="post-processing.html#cb29-4" aria-hidden="true" tabindex="-1"></a>variants <span class="ot">&lt;-</span> <span class="fu">lapply</span>(SNV,<span class="cf">function</span>(x){</span>
+<span id="cb29-5"><a href="post-processing.html#cb29-5" aria-hidden="true" tabindex="-1"></a>  experimental_variants <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)[ <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;Cell&quot;</span>,<span class="fu">colnames</span>(x))<span class="sc">&amp;</span> <span class="co">#remove the Cell column</span></span>
+<span id="cb29-6"><a href="post-processing.html#cb29-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^chr&quot;</span>,<span class="fu">colnames</span>(x))<span class="sc">&amp;</span> <span class="co">#remove control loci</span></span>
+<span id="cb29-7"><a href="post-processing.html#cb29-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="sc">!</span><span class="fu">colnames</span>(x)<span class="sc">%in%</span>banned[,<span class="dv">1</span>]] <span class="co">#remove banned SNVs</span></span>
+<span id="cb29-8"><a href="post-processing.html#cb29-8" aria-hidden="true" tabindex="-1"></a>  variants_matrix<span class="ot">&lt;-</span><span class="fu">data.frame</span>(experimental_variants,</span>
+<span id="cb29-9"><a href="post-processing.html#cb29-9" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">do.call</span>(rbind,<span class="fu">strsplit</span>(experimental_variants,<span class="at">split=</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)))</span>
+<span id="cb29-10"><a href="post-processing.html#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(variants_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SNV&quot;</span>,<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;chr&quot;</span>,<span class="st">&quot;start&quot;</span>,<span class="st">&quot;ref&quot;</span>,<span class="st">&quot;alt&quot;</span>)</span>
+<span id="cb29-11"><a href="post-processing.html#cb29-11" aria-hidden="true" tabindex="-1"></a>  variants_matrix<span class="sc">$</span>ref<span class="ot">&lt;-</span><span class="fu">as</span>(variants_matrix<span class="sc">$</span>ref, <span class="st">&quot;DNAStringSet&quot;</span>)</span>
+<span id="cb29-12"><a href="post-processing.html#cb29-12" aria-hidden="true" tabindex="-1"></a>  variants_matrix<span class="sc">$</span>alt<span class="ot">&lt;-</span><span class="fu">as</span>(variants_matrix<span class="sc">$</span>alt, <span class="st">&quot;DNAStringSet&quot;</span>)</span>
+<span id="cb29-13"><a href="post-processing.html#cb29-13" aria-hidden="true" tabindex="-1"></a>  variant_gRange<span class="ot">&lt;-</span><span class="fu">makeGRangesFromDataFrame</span>(variants_matrix,</span>
+<span id="cb29-14"><a href="post-processing.html#cb29-14" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">seqnames.field =</span> <span class="st">&quot;chr&quot;</span>,</span>
+<span id="cb29-15"><a href="post-processing.html#cb29-15" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">start.field=</span><span class="st">&quot;start&quot;</span>,</span>
+<span id="cb29-16"><a href="post-processing.html#cb29-16" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">end.field=</span><span class="st">&quot;start&quot;</span>,</span>
+<span id="cb29-17"><a href="post-processing.html#cb29-17" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">keep.extra.columns=</span><span class="cn">TRUE</span>)</span>
+<span id="cb29-18"><a href="post-processing.html#cb29-18" aria-hidden="true" tabindex="-1"></a>  out<span class="ot">&lt;-</span>  <span class="fu">predictCoding</span>(variant_gRange, txdb, <span class="at">seqSource=</span>Hsapiens,<span class="at">varAllele=</span>variant_gRange<span class="sc">$</span>alt)</span>
+<span id="cb29-19"><a href="post-processing.html#cb29-19" aria-hidden="true" tabindex="-1"></a>  out2<span class="ot">&lt;-</span>out<span class="sc">%&gt;%</span><span class="fu">filter</span>(CONSEQUENCE<span class="sc">==</span><span class="st">&quot;nonsynonymous&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb29-20"><a href="post-processing.html#cb29-20" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">AA=</span><span class="fu">paste0</span>(gene,<span class="st">&quot;.&quot;</span>,REFAA,PROTEINLOC,VARAA))<span class="sc">%&gt;%</span></span>
+<span id="cb29-21"><a href="post-processing.html#cb29-21" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(SNV,AA)</span>
+<span id="cb29-22"><a href="post-processing.html#cb29-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">data.frame</span>(out2)<span class="sc">%&gt;%</span><span class="fu">distinct</span>(SNV,AA))</span>
+<span id="cb29-23"><a href="post-processing.html#cb29-23" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb29-24"><a href="post-processing.html#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="post-processing.html#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the correct variants, this is an example. </span></span>
+<span id="cb29-26"><a href="post-processing.html#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Probably better off coming up with a list of TXIDs or CDSIDs you want for each gene.</span></span>
+<span id="cb29-27"><a href="post-processing.html#cb29-27" aria-hidden="true" tabindex="-1"></a>variants[[<span class="st">&quot;MSK15&quot;</span>]]<span class="ot">&lt;-</span>variants[[<span class="st">&quot;MSK15&quot;</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>AA<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>,<span class="st">&quot;DNMT3A.R446Q&quot;</span>))</span>
+<span id="cb29-28"><a href="post-processing.html#cb29-28" aria-hidden="true" tabindex="-1"></a>variants[[<span class="st">&quot;MSK18&quot;</span>]]<span class="ot">&lt;-</span>variants[[<span class="st">&quot;MSK18&quot;</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>AA<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">&quot;DNMT3A.R693C&quot;</span>))</span>
+<span id="cb29-29"><a href="post-processing.html#cb29-29" aria-hidden="true" tabindex="-1"></a>variants[[<span class="st">&quot;MSK71&quot;</span>]]<span class="ot">&lt;-</span>variants[[<span class="st">&quot;MSK71&quot;</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>AA<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">&quot;DNMT3A.Y685C&quot;</span>))</span>
+<span id="cb29-30"><a href="post-processing.html#cb29-30" aria-hidden="true" tabindex="-1"></a>variants[[<span class="st">&quot;MSK91&quot;</span>]]<span class="ot">&lt;-</span>variants[[<span class="st">&quot;MSK91&quot;</span>]] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>AA<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">&quot;IDH2.R88Q&quot;</span>,<span class="st">&quot;IDH2.R10Q&quot;</span>))</span></code></pre></div>
 <p>Now we’ll take this list of variants and subset the genotype matrices and proceed through the following steps:
 + Remove variants that are mutated in &lt;2 cells
 + Remove remaining cells with any unknown genotypes
 + Remove variants that are mutated in &lt;2 cells again now that we have removed cells that were low quality</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="post-processing.html#cb7-1"></a>filtered_NGT&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(SNV),<span class="cf">function</span>(sample){</span>
-<span id="cb7-2"><a href="post-processing.html#cb7-2"></a>  <span class="kw">setNames</span>(<span class="kw">data.frame</span>(SNV[[sample]][,<span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>,<span class="kw">as.character</span>(variants[[sample]]<span class="op">$</span>SNV))]),</span>
-<span id="cb7-3"><a href="post-processing.html#cb7-3"></a>           <span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>,variants[[sample]]<span class="op">$</span>AA))</span>
-<span id="cb7-4"><a href="post-processing.html#cb7-4"></a>}),<span class="kw">names</span>(SNV))</span>
-<span id="cb7-5"><a href="post-processing.html#cb7-5"></a></span>
-<span id="cb7-6"><a href="post-processing.html#cb7-6"></a>final_NGTs&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(filtered_NGT),<span class="cf">function</span>(x){</span>
-<span id="cb7-7"><a href="post-processing.html#cb7-7"></a>    filtered_NGT[[x]] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-8"><a href="post-processing.html#cb7-8"></a><span class="st">                    </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(.) <span class="op">||</span><span class="st"> </span><span class="kw">sum</span>(.<span class="op">%in%</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="op">&gt;=</span><span class="dv">2</span>) <span class="op">%&gt;%</span></span>
-<span id="cb7-9"><a href="post-processing.html#cb7-9"></a><span class="st">                    </span><span class="kw">filter_all</span>(<span class="kw">all_vars</span>(.<span class="op">!=</span><span class="dv">3</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb7-10"><a href="post-processing.html#cb7-10"></a><span class="st">                    </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(.) <span class="op">||</span><span class="st"> </span><span class="kw">sum</span>(.<span class="op">%in%</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="op">&gt;=</span><span class="dv">2</span>) </span>
-<span id="cb7-11"><a href="post-processing.html#cb7-11"></a>}),<span class="kw">names</span>(filtered_NGT))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="post-processing.html#cb30-1" aria-hidden="true" tabindex="-1"></a>filtered_NGT<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(SNV),<span class="cf">function</span>(sample){</span>
+<span id="cb30-2"><a href="post-processing.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">data.frame</span>(SNV[[sample]][,<span class="fu">c</span>(<span class="st">&quot;Cell&quot;</span>,<span class="fu">as.character</span>(variants[[sample]]<span class="sc">$</span>SNV))]),</span>
+<span id="cb30-3"><a href="post-processing.html#cb30-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">c</span>(<span class="st">&quot;Cell&quot;</span>,variants[[sample]]<span class="sc">$</span>AA))</span>
+<span id="cb30-4"><a href="post-processing.html#cb30-4" aria-hidden="true" tabindex="-1"></a>}),<span class="fu">names</span>(SNV))</span>
+<span id="cb30-5"><a href="post-processing.html#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="post-processing.html#cb30-6" aria-hidden="true" tabindex="-1"></a>final_NGTs<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(filtered_NGT),<span class="cf">function</span>(x){</span>
+<span id="cb30-7"><a href="post-processing.html#cb30-7" aria-hidden="true" tabindex="-1"></a>    filtered_NGT[[x]] <span class="sc">%&gt;%</span> </span>
+<span id="cb30-8"><a href="post-processing.html#cb30-8" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">select_if</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.) <span class="sc">||</span> <span class="fu">sum</span>(.<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">&gt;=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="post-processing.html#cb30-9" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter_all</span>(<span class="fu">all_vars</span>(.<span class="sc">!=</span><span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="post-processing.html#cb30-10" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">select_if</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.) <span class="sc">||</span> <span class="fu">sum</span>(.<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">&gt;=</span><span class="dv">2</span>) </span>
+<span id="cb30-11"><a href="post-processing.html#cb30-11" aria-hidden="true" tabindex="-1"></a>}),<span class="fu">names</span>(filtered_NGT))</span></code></pre></div>
 
 </div>
             </section>
@@ -255,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="tapestri-library.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tapestri-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="assessing-clonal-abundance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -279,6 +287,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

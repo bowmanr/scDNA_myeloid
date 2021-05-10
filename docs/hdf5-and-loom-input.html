@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.2 HDF5 and Loom input | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.2 HDF5 and Loom input | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.2 HDF5 and Loom input | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2021-05-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-extraction-and-setup.html"/>
+<link rel="next" href="tapestri-package.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
+<li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
+<li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
+<li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
+<li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hdf5-and-loom-input" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> HDF5 and Loom input</h2>
+<p>This is a very quick example of how data can be loaded into R using loom and h5 files without the tapestri package. For the H5 files from tapestri pipeline v2, I found the rhdf5 package rather intuitive, even though the loomR package is largely based on hdf5r. It is unlikely that the code below is the most efficient way to load and extract these files, so part of this might not be helpful if you are already familiar with the hdf5 format. What may be helpful is the logic and order of events we take for filtering variants and cells of interet.</p>
+<p>See sample data on github and <a href="https://drive.google.com/open?id=17Zw6Ixu93UM7M5Vyl_aOJ7aX2iYIb8If">google drive</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="hdf5-and-loom-input.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rhdf5)</span>
+<span id="cb1-2"><a href="hdf5-and-loom-input.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="hdf5-and-loom-input.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="hdf5-and-loom-input.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA/scDNA_myeloid/&quot;</span>)</span>
+<span id="cb1-5"><a href="hdf5-and-loom-input.html#cb1-5" aria-hidden="true" tabindex="-1"></a>file<span class="ot">&lt;-</span>(<span class="st">&quot;./data/Sample17020.dna_protein.h5&quot;</span>)</span></code></pre></div>
+<p>First the extraction of protein data, which is very straightforward. This can be later subset on which cells are preserved after genotype filtering. See latter sections for normalization.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hdf5-and-loom-input.html#cb2-1" aria-hidden="true" tabindex="-1"></a>protein_mat<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/protein_read_counts/layers/read_counts&quot;</span>)</span>
+<span id="cb2-2"><a href="hdf5-and-loom-input.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(protein_mat) <span class="ot">&lt;-</span> <span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/protein_read_counts/ca/id&quot;</span>)</span>
+<span id="cb2-3"><a href="hdf5-and-loom-input.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(protein_mat)<span class="ot">&lt;-</span>  <span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/protein_read_counts/ra/barcode&quot;</span>)</span>
+<span id="cb2-4"><a href="hdf5-and-loom-input.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="hdf5-and-loom-input.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">rownames</span>(protein_mat))</span></code></pre></div>
+<pre><code>##  [1] &quot;CD10&quot;             &quot;CD117&quot;            &quot;CD11b&quot;            &quot;CD11c&quot;           
+##  [5] &quot;CD123&quot;            &quot;CD13&quot;             &quot;CD138&quot;            &quot;CD14&quot;            
+##  [9] &quot;CD141&quot;            &quot;CD16&quot;             &quot;CD163&quot;            &quot;CD19&quot;            
+## [13] &quot;CD1c&quot;             &quot;CD2&quot;              &quot;CD22&quot;             &quot;CD25&quot;            
+## [17] &quot;CD3&quot;              &quot;CD30&quot;             &quot;CD303&quot;            &quot;CD304&quot;           
+## [21] &quot;CD33&quot;             &quot;CD34&quot;             &quot;CD38&quot;             &quot;CD4&quot;             
+## [25] &quot;CD44&quot;             &quot;CD45&quot;             &quot;CD45RA&quot;           &quot;CD45RO&quot;          
+## [29] &quot;CD49d&quot;            &quot;CD5&quot;              &quot;CD56&quot;             &quot;CD62L&quot;           
+## [33] &quot;CD62P&quot;            &quot;CD64&quot;             &quot;CD69&quot;             &quot;CD7&quot;             
+## [37] &quot;CD71&quot;             &quot;CD8&quot;              &quot;CD83&quot;             &quot;CD90&quot;            
+## [41] &quot;Fc&amp;#949;RI&amp;#945;&quot; &quot;HLA-DR&quot;           &quot;IgG1&quot;             &quot;IgG2a&quot;           
+## [45] &quot;IgG2b&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hdf5-and-loom-input.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>((protein_mat)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>##       AACAACCTAACGAATCGC AACAACCTACCTCTGCAT AACAACCTAGGTGATAGG
+## CD10                 145                168                 45
+## CD117                 54                179                 50
+## CD11b                 68                578                 94
+## CD11c                 23                308                  5
+## CD123                120                241                 40
+##       AACAACCTAGTCACAGAG AACAACTGGCAGATCATT
+## CD10                  31                320
+## CD117                 46               1017
+## CD11b                 53                422
+## CD11c                  6                145
+## CD123                 48                602</code></pre>
+<p>Now we will move to extracting variant data. For the sake of processing time, we will first impose a cutoff that a given variant must be present in at least 1% of cells. This is a cutoff we used in our manuscript. This is a subjective cutoff, and will likely be a varying feature for many studies.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="hdf5-and-loom-input.html#cb6-1" aria-hidden="true" tabindex="-1"></a>VAF_cutoff <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb6-2"><a href="hdf5-and-loom-input.html#cb6-2" aria-hidden="true" tabindex="-1"></a>NGT<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/layers/NGT&quot;</span>)</span>
+<span id="cb6-3"><a href="hdf5-and-loom-input.html#cb6-3" aria-hidden="true" tabindex="-1"></a>NGT[NGT<span class="sc">==</span><span class="dv">3</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb6-4"><a href="hdf5-and-loom-input.html#cb6-4" aria-hidden="true" tabindex="-1"></a>VAF_select<span class="ot">&lt;-</span><span class="fu">which</span>((<span class="fu">rowSums</span>(NGT,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span>(<span class="fu">ncol</span>(NGT)<span class="sc">*</span><span class="dv">2</span>))<span class="sc">&gt;</span>VAF_cutoff)</span>
+<span id="cb6-5"><a href="hdf5-and-loom-input.html#cb6-5" aria-hidden="true" tabindex="-1"></a>AF<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/layers/AF&quot;</span>,<span class="at">index=</span><span class="fu">list</span>(VAF_select,<span class="cn">NULL</span>))</span>
+<span id="cb6-6"><a href="hdf5-and-loom-input.html#cb6-6" aria-hidden="true" tabindex="-1"></a>DP<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/layers/DP&quot;</span>,<span class="at">index=</span><span class="fu">list</span>(VAF_select,<span class="cn">NULL</span>))</span>
+<span id="cb6-7"><a href="hdf5-and-loom-input.html#cb6-7" aria-hidden="true" tabindex="-1"></a>GQ<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/layers/GQ&quot;</span>,<span class="at">index=</span><span class="fu">list</span>(VAF_select,<span class="cn">NULL</span>))</span>
+<span id="cb6-8"><a href="hdf5-and-loom-input.html#cb6-8" aria-hidden="true" tabindex="-1"></a>NGTlim<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/layers/NGT&quot;</span>,<span class="at">index=</span><span class="fu">list</span>(VAF_select,<span class="cn">NULL</span>))</span>
+<span id="cb6-9"><a href="hdf5-and-loom-input.html#cb6-9" aria-hidden="true" tabindex="-1"></a>NGTlim[NGTlim<span class="sc">==</span><span class="dv">3</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb6-10"><a href="hdf5-and-loom-input.html#cb6-10" aria-hidden="true" tabindex="-1"></a>variants<span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/ca/id&quot;</span>,<span class="at">index=</span><span class="fu">list</span>(VAF_select))</span>
+<span id="cb6-11"><a href="hdf5-and-loom-input.html#cb6-11" aria-hidden="true" tabindex="-1"></a>cell_barcodes <span class="ot">&lt;-</span><span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/ra/barcode&quot;</span>)</span>
+<span id="cb6-12"><a href="hdf5-and-loom-input.html#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(NGTlim) <span class="ot">&lt;-</span>cell_barcodes</span>
+<span id="cb6-13"><a href="hdf5-and-loom-input.html#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(NGTlim) <span class="ot">&lt;-</span> variants</span>
+<span id="cb6-14"><a href="hdf5-and-loom-input.html#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="hdf5-and-loom-input.html#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">rownames</span>(NGTlim)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;chr1:43815097:T/C&quot;  &quot;chr1:115256538:G/A&quot; &quot;chr1:115256539:T/C&quot;
+## [4] &quot;chr1:115256539:T/G&quot; &quot;chr1:115256540:A/G&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="hdf5-and-loom-input.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(NGTlim[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>##                    AACAACCTAACGAATCGC AACAACCTACCTCTGCAT AACAACCTAGGTGATAGG
+## chr1:43815097:T/C                   1                 NA                  0
+## chr1:115256538:G/A                  0                  0                  0
+## chr1:115256539:T/C                 NA                 NA                 NA
+## chr1:115256539:T/G                 NA                 NA                 NA
+## chr1:115256540:A/G                  0                  0                  0
+##                    AACAACCTAGTCACAGAG AACAACTGGCAGATCATT
+## chr1:43815097:T/C                   0                  1
+## chr1:115256538:G/A                  0                  1
+## chr1:115256539:T/C                  0                  1
+## chr1:115256539:T/G                  0                  0
+## chr1:115256540:A/G                  0                  0</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="hdf5-and-loom-input.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(NGTlim)</span></code></pre></div>
+<pre><code>## [1]  105 6315</code></pre>
+<p>Now alternatively with loom files from tapestri pipeline v1, where you will also want the VCF header file to extract cell barcodes. This is not strictly necessary for DNA only analysis, but critical for integration with protein. I imagine most users will be working with v2 data, but I leave it here for you incase you need it, or are replicating data from our initial manuscript. It is worth noting that the matrices from the loom files are transposed compared to the H5, hence the t() to orient them for consistent downstream processing.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="hdf5-and-loom-input.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(loomR)</span>
+<span id="cb12-2"><a href="hdf5-and-loom-input.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA/scDNA_myeloid/&quot;</span>)</span>
+<span id="cb12-3"><a href="hdf5-and-loom-input.html#cb12-3" aria-hidden="true" tabindex="-1"></a>lfile <span class="ot">&lt;-</span> <span class="fu">connect</span>(<span class="at">filename =</span> <span class="st">&quot;./data/MSK91_IGO_09868_L_7_S7_R_191122041131.cells.loom&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;r&quot;</span>)</span>
+<span id="cb12-4"><a href="hdf5-and-loom-input.html#cb12-4" aria-hidden="true" tabindex="-1"></a>NGT<span class="ot">&lt;-</span><span class="fu">t</span>(lfile<span class="sc">$</span>matrix[,])</span>
+<span id="cb12-5"><a href="hdf5-and-loom-input.html#cb12-5" aria-hidden="true" tabindex="-1"></a>NGT[NGT<span class="sc">==</span><span class="dv">3</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb12-6"><a href="hdf5-and-loom-input.html#cb12-6" aria-hidden="true" tabindex="-1"></a>VAF_select<span class="ot">&lt;-</span><span class="fu">which</span>((<span class="fu">rowSums</span>(NGT,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span>(<span class="fu">ncol</span>(NGT)<span class="sc">*</span><span class="dv">2</span>))<span class="sc">&gt;</span>VAF_cutoff)</span>
+<span id="cb12-7"><a href="hdf5-and-loom-input.html#cb12-7" aria-hidden="true" tabindex="-1"></a>VAF_cutoff <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb12-8"><a href="hdf5-and-loom-input.html#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="hdf5-and-loom-input.html#cb12-9" aria-hidden="true" tabindex="-1"></a>DP <span class="ot">&lt;-</span> <span class="fu">t</span>(lfile<span class="sc">$</span>layers<span class="sc">$</span>DP[,VAF_select])</span>
+<span id="cb12-10"><a href="hdf5-and-loom-input.html#cb12-10" aria-hidden="true" tabindex="-1"></a>GQ <span class="ot">&lt;-</span> <span class="fu">t</span>(lfile<span class="sc">$</span>layers<span class="sc">$</span>GQ[,VAF_select])</span>
+<span id="cb12-11"><a href="hdf5-and-loom-input.html#cb12-11" aria-hidden="true" tabindex="-1"></a>AF <span class="ot">&lt;-</span> <span class="fu">t</span>(lfile<span class="sc">$</span>layers<span class="sc">$</span>AD[,VAF_select])<span class="sc">/</span>DP <span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb12-12"><a href="hdf5-and-loom-input.html#cb12-12" aria-hidden="true" tabindex="-1"></a>NGTlim<span class="ot">&lt;-</span><span class="fu">t</span>(lfile<span class="sc">$</span>matrix[,VAF_select])</span>
+<span id="cb12-13"><a href="hdf5-and-loom-input.html#cb12-13" aria-hidden="true" tabindex="-1"></a>NGTlim[NGTlim<span class="sc">==</span><span class="dv">3</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb12-14"><a href="hdf5-and-loom-input.html#cb12-14" aria-hidden="true" tabindex="-1"></a>variants<span class="ot">&lt;-</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>id[VAF_select]</span>
+<span id="cb12-15"><a href="hdf5-and-loom-input.html#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="hdf5-and-loom-input.html#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#for loom files from Tapestri v1</span></span>
+<span id="cb12-17"><a href="hdf5-and-loom-input.html#cb12-17" aria-hidden="true" tabindex="-1"></a>cell_barcodes <span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">read.delim</span>(<span class="st">&quot;./data/MSK91.vcf_header.txt&quot;</span>,<span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>))</span>
+<span id="cb12-18"><a href="hdf5-and-loom-input.html#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(NGTlim) <span class="ot">&lt;-</span>cell_barcodes</span>
+<span id="cb12-19"><a href="hdf5-and-loom-input.html#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(NGTlim) <span class="ot">&lt;-</span> variants</span></code></pre></div>
+<p>The v2 pipeline also outputs loom files, but given the easy packaging of protein and DNA data in the single H5 file, I can’t find a good reason to use the loom. Nevertheless, small differences in formatting are observed.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="hdf5-and-loom-input.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for loom files from Tapestri v2 you do not need the VCF header file.</span></span>
+<span id="cb13-2"><a href="hdf5-and-loom-input.html#cb13-2" aria-hidden="true" tabindex="-1"></a>cell_barcodes <span class="ot">&lt;-</span>lfile<span class="sc">$</span>col.attrs<span class="sc">$</span>barcode[] </span></code></pre></div>
+<p>Now let’s filter the data using the default cutoffs from Tapestri Insights and what we used in our manuscript.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="hdf5-and-loom-input.html#cb14-1" aria-hidden="true" tabindex="-1"></a>DP_cut<span class="ot">=</span><span class="dv">10</span> <span class="co">#read depth</span></span>
+<span id="cb14-2"><a href="hdf5-and-loom-input.html#cb14-2" aria-hidden="true" tabindex="-1"></a>AF_cut<span class="ot">=</span><span class="dv">20</span> <span class="co">#allele frequency cutoff</span></span>
+<span id="cb14-3"><a href="hdf5-and-loom-input.html#cb14-3" aria-hidden="true" tabindex="-1"></a>GQ_cut<span class="ot">=</span><span class="dv">30</span> <span class="co">#geotype quality cutoff</span></span>
+<span id="cb14-4"><a href="hdf5-and-loom-input.html#cb14-4" aria-hidden="true" tabindex="-1"></a>variant_presence_cutoff<span class="ot">=</span><span class="dv">50</span> <span class="co">#variant must be genotyped in greater than 50% of cells</span></span>
+<span id="cb14-5"><a href="hdf5-and-loom-input.html#cb14-5" aria-hidden="true" tabindex="-1"></a>cell_genotype_cutoff<span class="ot">=</span><span class="dv">50</span> <span class="co"># cell must possess genotype information for at least 50% of the variants of interest</span></span>
+<span id="cb14-6"><a href="hdf5-and-loom-input.html#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="hdf5-and-loom-input.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#bind together long form AF, DP, GQ and NGT data</span></span>
+<span id="cb14-8"><a href="hdf5-and-loom-input.html#cb14-8" aria-hidden="true" tabindex="-1"></a>filtered_long<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">setNames</span>(</span>
+<span id="cb14-9"><a href="hdf5-and-loom-input.html#cb14-9" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># produce long form allele frequency data</span></span>
+<span id="cb14-10"><a href="hdf5-and-loom-input.html#cb14-10" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">data.frame</span>(AF,</span>
+<span id="cb14-11"><a href="hdf5-and-loom-input.html#cb14-11" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">&quot;variants&quot;</span><span class="ot">=</span>variants),</span>
+<span id="cb14-12"><a href="hdf5-and-loom-input.html#cb14-12" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">c</span>(<span class="fu">all_of</span>(cell_barcodes),<span class="st">&quot;variants&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="hdf5-and-loom-input.html#cb14-13" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">!</span><span class="fu">c</span>(variants),</span>
+<span id="cb14-14"><a href="hdf5-and-loom-input.html#cb14-14" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">names_to=</span><span class="st">&quot;Cell&quot;</span>,</span>
+<span id="cb14-15"><a href="hdf5-and-loom-input.html#cb14-15" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">values_to=</span><span class="st">&quot;AF&quot;</span>),</span>
+<span id="cb14-16"><a href="hdf5-and-loom-input.html#cb14-16" aria-hidden="true" tabindex="-1"></a>                          <span class="co">#produce long form allele depth data</span></span>
+<span id="cb14-17"><a href="hdf5-and-loom-input.html#cb14-17" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">data.frame</span>(DP)<span class="sc">%&gt;%</span></span>
+<span id="cb14-18"><a href="hdf5-and-loom-input.html#cb14-18" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">everything</span>(),</span>
+<span id="cb14-19"><a href="hdf5-and-loom-input.html#cb14-19" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">names_to=</span><span class="st">&quot;Cell&quot;</span>,</span>
+<span id="cb14-20"><a href="hdf5-and-loom-input.html#cb14-20" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">values_to=</span><span class="st">&quot;DP&quot;</span>)<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(DP),</span>
+<span id="cb14-21"><a href="hdf5-and-loom-input.html#cb14-21" aria-hidden="true" tabindex="-1"></a>                          <span class="co">#produce long form genotype quality data</span></span>
+<span id="cb14-22"><a href="hdf5-and-loom-input.html#cb14-22" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">data.frame</span>(GQ)<span class="sc">%&gt;%</span></span>
+<span id="cb14-23"><a href="hdf5-and-loom-input.html#cb14-23" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">everything</span>(),</span>
+<span id="cb14-24"><a href="hdf5-and-loom-input.html#cb14-24" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">names_to=</span><span class="st">&quot;Cell&quot;</span>,</span>
+<span id="cb14-25"><a href="hdf5-and-loom-input.html#cb14-25" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">values_to=</span><span class="st">&quot;GQ&quot;</span>)<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(GQ),</span>
+<span id="cb14-26"><a href="hdf5-and-loom-input.html#cb14-26" aria-hidden="true" tabindex="-1"></a>                          <span class="co">#produce long form genotype call data</span></span>
+<span id="cb14-27"><a href="hdf5-and-loom-input.html#cb14-27" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">data.frame</span>(NGTlim)<span class="sc">%&gt;%</span></span>
+<span id="cb14-28"><a href="hdf5-and-loom-input.html#cb14-28" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">everything</span>(), <span class="at">names_to=</span><span class="st">&quot;Cell&quot;</span>,</span>
+<span id="cb14-29"><a href="hdf5-and-loom-input.html#cb14-29" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">values_to=</span><span class="st">&quot;NGT&quot;</span>)<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(NGT)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-30"><a href="hdf5-and-loom-input.html#cb14-30" aria-hidden="true" tabindex="-1"></a>                     <span class="co">#filter DP and GQ</span></span>
+<span id="cb14-31"><a href="hdf5-and-loom-input.html#cb14-31" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">filter</span>(DP<span class="sc">&gt;</span>DP_cut<span class="sc">&amp;</span></span>
+<span id="cb14-32"><a href="hdf5-and-loom-input.html#cb14-32" aria-hidden="true" tabindex="-1"></a>                              GQ<span class="sc">&gt;</span>GQ_cut)<span class="sc">%&gt;%</span></span>
+<span id="cb14-33"><a href="hdf5-and-loom-input.html#cb14-33" aria-hidden="true" tabindex="-1"></a>                    <span class="co">#filter AF for each genotype call</span></span>
+<span id="cb14-34"><a href="hdf5-and-loom-input.html#cb14-34" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">mutate</span>(<span class="at">pass=</span><span class="fu">case_when</span>(</span>
+<span id="cb14-35"><a href="hdf5-and-loom-input.html#cb14-35" aria-hidden="true" tabindex="-1"></a>                                  NGT<span class="sc">==</span><span class="dv">1</span><span class="sc">&amp;</span>(AF<span class="sc">&gt;</span>AF_cut)<span class="sc">&amp;</span>(AF<span class="sc">&lt;</span>(<span class="dv">100</span><span class="sc">-</span>AF_cut)) <span class="sc">~</span> <span class="st">&quot;include&quot;</span>,</span>
+<span id="cb14-36"><a href="hdf5-and-loom-input.html#cb14-36" aria-hidden="true" tabindex="-1"></a>                                  NGT<span class="sc">==</span><span class="dv">1</span><span class="sc">&amp;</span>((AF<span class="sc">&lt;=</span>AF_cut)<span class="sc">|</span>(AF<span class="sc">&gt;=</span>(<span class="dv">100</span><span class="sc">-</span>AF_cut))) <span class="sc">~</span> <span class="st">&quot;exclude&quot;</span>,</span>
+<span id="cb14-37"><a href="hdf5-and-loom-input.html#cb14-37" aria-hidden="true" tabindex="-1"></a>                                  NGT<span class="sc">==</span><span class="dv">2</span><span class="sc">&amp;</span>AF<span class="sc">&gt;=</span>(<span class="dv">100</span><span class="sc">-</span>AF_cut) <span class="sc">~</span> <span class="st">&quot;include&quot;</span>,</span>
+<span id="cb14-38"><a href="hdf5-and-loom-input.html#cb14-38" aria-hidden="true" tabindex="-1"></a>                                  NGT<span class="sc">==</span><span class="dv">2</span><span class="sc">&amp;</span>AF<span class="sc">&lt;</span>(<span class="dv">100</span><span class="sc">-</span>AF_cut) <span class="sc">~</span> <span class="st">&quot;exclude&quot;</span>,</span>
+<span id="cb14-39"><a href="hdf5-and-loom-input.html#cb14-39" aria-hidden="true" tabindex="-1"></a>                                  NGT<span class="sc">==</span><span class="dv">0</span><span class="sc">&amp;</span>AF<span class="sc">&lt;=</span>AF_cut <span class="sc">~</span> <span class="st">&quot;include&quot;</span>,</span>
+<span id="cb14-40"><a href="hdf5-and-loom-input.html#cb14-40" aria-hidden="true" tabindex="-1"></a>                                  NGT<span class="sc">==</span><span class="dv">0</span><span class="sc">&amp;</span>AF<span class="sc">&gt;</span>AF_cut <span class="sc">~</span> <span class="st">&quot;exclude&quot;</span>,</span>
+<span id="cb14-41"><a href="hdf5-and-loom-input.html#cb14-41" aria-hidden="true" tabindex="-1"></a>                                  <span class="cn">TRUE</span> <span class="sc">~</span><span class="st">&quot;other&quot;</span></span>
+<span id="cb14-42"><a href="hdf5-and-loom-input.html#cb14-42" aria-hidden="true" tabindex="-1"></a>                               ))<span class="sc">%&gt;%</span></span>
+<span id="cb14-43"><a href="hdf5-and-loom-input.html#cb14-43" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(pass<span class="sc">==</span><span class="st">&quot;include&quot;</span>)</span>
+<span id="cb14-44"><a href="hdf5-and-loom-input.html#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="hdf5-and-loom-input.html#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="co"># here we check to make sure a variant is not NA (genotype 3) in &gt;50% of cells</span></span>
+<span id="cb14-46"><a href="hdf5-and-loom-input.html#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="co"># we can also filter out variants that are likely SNPs and only show up as WT, het or homozygous  This assumes SNPs would never undergo allele dropout, which is pretty unlikely, so this filter is not realistic. I leave it here incase it is helpful to someone. </span></span>
+<span id="cb14-47"><a href="hdf5-and-loom-input.html#cb14-47" aria-hidden="true" tabindex="-1"></a>final_variants <span class="ot">&lt;-</span>filtered_long<span class="sc">%&gt;%</span></span>
+<span id="cb14-48"><a href="hdf5-and-loom-input.html#cb14-48" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">group_by</span>(variants)<span class="sc">%&gt;%</span></span>
+<span id="cb14-49"><a href="hdf5-and-loom-input.html#cb14-49" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">diversity=</span><span class="fu">sum</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)<span class="sc">%in%</span>NGT),</span>
+<span id="cb14-50"><a href="hdf5-and-loom-input.html#cb14-50" aria-hidden="true" tabindex="-1"></a>                              <span class="at">gt.mv=</span>(<span class="fu">length</span>(NGT)<span class="sc">/</span><span class="fu">length</span>(<span class="fu">all_of</span>(cell_barcodes)))<span class="sc">*</span><span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-51"><a href="hdf5-and-loom-input.html#cb14-51" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="co">#diversity&gt;1&amp;</span></span>
+<span id="cb14-52"><a href="hdf5-and-loom-input.html#cb14-52" aria-hidden="true" tabindex="-1"></a>                           gt.mv<span class="sc">&gt;</span>variant_presence_cutoff)<span class="sc">%&gt;%</span></span>
+<span id="cb14-53"><a href="hdf5-and-loom-input.html#cb14-53" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">pull</span>(variants)</span>
+<span id="cb14-54"><a href="hdf5-and-loom-input.html#cb14-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-55"><a href="hdf5-and-loom-input.html#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="co"># here we filter for cells that now contain genotype information for atleast 50% of our curated set of variants.</span></span>
+<span id="cb14-56"><a href="hdf5-and-loom-input.html#cb14-56" aria-hidden="true" tabindex="-1"></a>final_cells<span class="ot">&lt;-</span>  filtered_long<span class="sc">%&gt;%</span></span>
+<span id="cb14-57"><a href="hdf5-and-loom-input.html#cb14-57" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(variants<span class="sc">%in%</span>final_variants)<span class="sc">%&gt;%</span></span>
+<span id="cb14-58"><a href="hdf5-and-loom-input.html#cb14-58" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(Cell)<span class="sc">%&gt;%</span></span>
+<span id="cb14-59"><a href="hdf5-and-loom-input.html#cb14-59" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">summarize</span>(<span class="at">gt.mc=</span>(<span class="fu">length</span>(NGT)<span class="sc">/</span><span class="fu">length</span>(<span class="fu">all_of</span>(final_variants)))<span class="sc">*</span><span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-60"><a href="hdf5-and-loom-input.html#cb14-60" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(gt.mc<span class="sc">&gt;=</span>cell_genotype_cutoff)<span class="sc">%&gt;%</span></span>
+<span id="cb14-61"><a href="hdf5-and-loom-input.html#cb14-61" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">pull</span>(Cell)</span>
+<span id="cb14-62"><a href="hdf5-and-loom-input.html#cb14-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-63"><a href="hdf5-and-loom-input.html#cb14-63" aria-hidden="true" tabindex="-1"></a><span class="co"># lastly we reconsstruct a new NGT matrix of cell-genotype pairs that passsed the above filters.</span></span>
+<span id="cb14-64"><a href="hdf5-and-loom-input.html#cb14-64" aria-hidden="true" tabindex="-1"></a>final_NGT<span class="ot">&lt;-</span> filtered_long<span class="sc">%&gt;%</span></span>
+<span id="cb14-65"><a href="hdf5-and-loom-input.html#cb14-65" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(Cell<span class="sc">%in%</span>final_cells<span class="sc">&amp;</span>variants<span class="sc">%in%</span>final_variants)<span class="sc">%&gt;%</span></span>
+<span id="cb14-66"><a href="hdf5-and-loom-input.html#cb14-66" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span>Cell,<span class="at">names_from=</span>variants,<span class="at">values_from=</span>NGT)</span></code></pre></div>
+<p>Below is some code on how we can annotate the variants. I manually curated a transcript ID table for our genes of interest so that when the protein changes were reported they were consistent with the common hotspot mutations in which we are interested. The lines below introduce the required packages and how to create a limted TxDB object. would suggest just running this once and saving an rds object. It’s a little time intensive.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="hdf5-and-loom-input.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VariantAnnotation)</span>
+<span id="cb15-2"><a href="hdf5-and-loom-input.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GenomicRanges)</span>
+<span id="cb15-3"><a href="hdf5-and-loom-input.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb15-4"><a href="hdf5-and-loom-input.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(RMariaDB)</span>
+<span id="cb15-5"><a href="hdf5-and-loom-input.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyranges)</span>
+<span id="cb15-6"><a href="hdf5-and-loom-input.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BSgenome.Hsapiens.UCSC.hg19)</span>
+<span id="cb15-7"><a href="hdf5-and-loom-input.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TxDb.Hsapiens.UCSC.hg19.knownGene)</span>
+<span id="cb15-8"><a href="hdf5-and-loom-input.html#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="hdf5-and-loom-input.html#cb15-9" aria-hidden="true" tabindex="-1"></a>annotation_key <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;./data/annotation_key.csv&quot;</span>)</span>
+<span id="cb15-10"><a href="hdf5-and-loom-input.html#cb15-10" aria-hidden="true" tabindex="-1"></a>hg19refseq_txdb <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromUCSC</span>(<span class="at">genome=</span><span class="st">&quot;hg19&quot;</span>,</span>
+<span id="cb15-11"><a href="hdf5-and-loom-input.html#cb15-11" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">transcript_ids=</span>annotation_key<span class="sc">$</span>ccds_id,</span>
+<span id="cb15-12"><a href="hdf5-and-loom-input.html#cb15-12" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">tablename=</span><span class="st">&quot;ccdsGene&quot;</span>)</span>
+<span id="cb15-13"><a href="hdf5-and-loom-input.html#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="hdf5-and-loom-input.html#cb15-14" aria-hidden="true" tabindex="-1"></a>annotation_key<span class="sc">%&lt;&gt;%</span><span class="fu">inner_join</span>(<span class="fu">select</span>(hg19refseq_txdb,</span>
+<span id="cb15-15"><a href="hdf5-and-loom-input.html#cb15-15" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">keys=</span>annotation_key<span class="sc">$</span>ccds_id,</span>
+<span id="cb15-16"><a href="hdf5-and-loom-input.html#cb15-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">columns=</span><span class="fu">c</span>(<span class="st">&quot;TXID&quot;</span>,<span class="st">&quot;TXNAME&quot;</span>),</span>
+<span id="cb15-17"><a href="hdf5-and-loom-input.html#cb15-17" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">keytype =</span> <span class="st">&quot;TXNAME&quot;</span>),</span>
+<span id="cb15-18"><a href="hdf5-and-loom-input.html#cb15-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;ccds_id&quot;</span><span class="ot">=</span><span class="st">&quot;TXNAME&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb15-19"><a href="hdf5-and-loom-input.html#cb15-19" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">TXID=</span><span class="fu">as.character</span>(TXID))</span></code></pre></div>
+<p>For H5 files from v2 pipeline.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="hdf5-and-loom-input.html#cb16-1" aria-hidden="true" tabindex="-1"></a>banned <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;./data/banned_list.csv&quot;</span>)</span>
+<span id="cb16-2"><a href="hdf5-and-loom-input.html#cb16-2" aria-hidden="true" tabindex="-1"></a>SNV_mat<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">do.call</span>(cbind,</span>
+<span id="cb16-3"><a href="hdf5-and-loom-input.html#cb16-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">h5read</span>(<span class="at">file=</span>file,<span class="at">name=</span><span class="st">&quot;/assays/dna_variants/ca/&quot;</span>,</span>
+<span id="cb16-4"><a href="hdf5-and-loom-input.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">index=</span><span class="fu">list</span>(VAF_select)))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="hdf5-and-loom-input.html#cb16-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(id<span class="sc">%in%</span>final_variants<span class="sc">&amp;</span></span>
+<span id="cb16-6"><a href="hdf5-and-loom-input.html#cb16-6" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">!</span>id<span class="sc">%in%</span>banned[,<span class="dv">1</span>])<span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="hdf5-and-loom-input.html#cb16-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">ALT=</span><span class="fu">ifelse</span>(ALT<span class="sc">==</span><span class="st">&quot;*&quot;</span>,<span class="st">&quot;N&quot;</span>,ALT))<span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="hdf5-and-loom-input.html#cb16-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CHROM=</span><span class="fu">paste0</span>(<span class="st">&quot;chr&quot;</span>,CHROM))</span></code></pre></div>
+<p>For loom files from v1 pipeline</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="hdf5-and-loom-input.html#cb17-1" aria-hidden="true" tabindex="-1"></a>lfile <span class="ot">&lt;-</span> <span class="fu">connect</span>(<span class="at">filename =</span> <span class="st">&quot;./data/MSK91_IGO_09868_L_7_S7_R_191122041131.cells.loom&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;r&quot;</span>)</span>
+<span id="cb17-2"><a href="hdf5-and-loom-input.html#cb17-2" aria-hidden="true" tabindex="-1"></a>SNV_mat<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">do.call</span>(cbind,</span>
+<span id="cb17-3"><a href="hdf5-and-loom-input.html#cb17-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">list</span>(<span class="st">&quot;ALT&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>ALT[],</span>
+<span id="cb17-4"><a href="hdf5-and-loom-input.html#cb17-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;CHROM&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>CHROM[],</span>
+<span id="cb17-5"><a href="hdf5-and-loom-input.html#cb17-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;POS&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>POS[],</span>
+<span id="cb17-6"><a href="hdf5-and-loom-input.html#cb17-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;QUAL&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>QUAL[],</span>
+<span id="cb17-7"><a href="hdf5-and-loom-input.html#cb17-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;REF&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>REF[],</span>
+<span id="cb17-8"><a href="hdf5-and-loom-input.html#cb17-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;amplicon&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>amplicon[],</span>
+<span id="cb17-9"><a href="hdf5-and-loom-input.html#cb17-9" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;id&quot;</span><span class="ot">=</span>lfile<span class="sc">$</span>row.attrs<span class="sc">$</span>id[]))) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="hdf5-and-loom-input.html#cb17-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(id<span class="sc">%in%</span>final_variants<span class="sc">&amp;</span></span>
+<span id="cb17-11"><a href="hdf5-and-loom-input.html#cb17-11" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">!</span>id<span class="sc">%in%</span>banned[,<span class="dv">1</span>])<span class="sc">%&gt;%</span></span>
+<span id="cb17-12"><a href="hdf5-and-loom-input.html#cb17-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">ALT=</span><span class="fu">ifelse</span>(ALT<span class="sc">==</span><span class="st">&quot;*&quot;</span>,<span class="st">&quot;N&quot;</span>,ALT))<span class="sc">%&gt;%</span></span>
+<span id="cb17-13"><a href="hdf5-and-loom-input.html#cb17-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CHROM=</span><span class="fu">paste0</span>(<span class="st">&quot;chr&quot;</span>,CHROM))</span></code></pre></div>
+<p>Now we will map the variants of interest to genes, and if they land in a coding exon, predict the amino acid change. For INDELs this gets messy, still trying to figure out how too name them nicely (and open to feedback!). The printed results below are for the H5 input described above.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="hdf5-and-loom-input.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#necessary for meaningful GRangess</span></span>
+<span id="cb18-2"><a href="hdf5-and-loom-input.html#cb18-2" aria-hidden="true" tabindex="-1"></a>SNV_mat<span class="sc">$</span>REF<span class="ot">&lt;-</span><span class="fu">as</span>(SNV_mat<span class="sc">$</span>REF, <span class="st">&quot;DNAStringSet&quot;</span>)</span>
+<span id="cb18-3"><a href="hdf5-and-loom-input.html#cb18-3" aria-hidden="true" tabindex="-1"></a>SNV_mat<span class="sc">$</span>ALT<span class="ot">&lt;-</span><span class="fu">as</span>(SNV_mat<span class="sc">$</span>ALT, <span class="st">&quot;DNAStringSet&quot;</span>)</span>
+<span id="cb18-4"><a href="hdf5-and-loom-input.html#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="hdf5-and-loom-input.html#cb18-5" aria-hidden="true" tabindex="-1"></a>variant_gRange<span class="ot">&lt;-</span><span class="fu">makeGRangesFromDataFrame</span>(SNV_mat,</span>
+<span id="cb18-6"><a href="hdf5-and-loom-input.html#cb18-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">seqnames.field =</span> <span class="st">&quot;CHROM&quot;</span>,</span>
+<span id="cb18-7"><a href="hdf5-and-loom-input.html#cb18-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">start.field=</span><span class="st">&quot;POS&quot;</span>,</span>
+<span id="cb18-8"><a href="hdf5-and-loom-input.html#cb18-8" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">end.field=</span><span class="st">&quot;POS&quot;</span>,</span>
+<span id="cb18-9"><a href="hdf5-and-loom-input.html#cb18-9" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">keep.extra.columns=</span><span class="cn">TRUE</span>)</span>
+<span id="cb18-10"><a href="hdf5-and-loom-input.html#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#necessary for downstream joining of</span></span>
+<span id="cb18-11"><a href="hdf5-and-loom-input.html#cb18-11" aria-hidden="true" tabindex="-1"></a>variant_gRange<span class="sc">$</span>QUERYID<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(variant_gRange)</span>
+<span id="cb18-12"><a href="hdf5-and-loom-input.html#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="hdf5-and-loom-input.html#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#identify and isolate non coding variants</span></span>
+<span id="cb18-14"><a href="hdf5-and-loom-input.html#cb18-14" aria-hidden="true" tabindex="-1"></a>non_coding_variants <span class="ot">&lt;-</span> <span class="fu">locateVariants</span>(variant_gRange, </span>
+<span id="cb18-15"><a href="hdf5-and-loom-input.html#cb18-15" aria-hidden="true" tabindex="-1"></a>                                      hg19refseq_txdb,</span>
+<span id="cb18-16"><a href="hdf5-and-loom-input.html#cb18-16" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">AllVariants</span>())<span class="sc">%&gt;%</span></span>
+<span id="cb18-17"><a href="hdf5-and-loom-input.html#cb18-17" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">data.frame</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb18-18"><a href="hdf5-and-loom-input.html#cb18-18" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">filter</span>(<span class="fu">as.character</span>(LOCATION)<span class="sc">!=</span><span class="st">&quot;coding&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="hdf5-and-loom-input.html#cb18-19" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">inner_join</span>(variant_gRange,<span class="at">by=</span><span class="st">&quot;QUERYID&quot;</span>,<span class="at">copy=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning in valid.GenomicRanges.seqinfo(x, suggest.trim = TRUE): GRanges object contains 5 out-of-bound ranges located on sequences 17,
+##   24, 26, and 30. Note that ranges located on a sequence whose length is
+##   unknown (NA) or on a circular sequence are not considered out-of-bound
+##   (use seqlengths() and isCircular() to get the lengths and circularity
+##   flags of the underlying sequences). You can use trim() to trim these
+##   ranges. See ?`trim,GenomicRanges-method` for more information.</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="hdf5-and-loom-input.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#identify and isolate  coding variants</span></span>
+<span id="cb20-2"><a href="hdf5-and-loom-input.html#cb20-2" aria-hidden="true" tabindex="-1"></a>coding_variants  <span class="ot">&lt;-</span>  <span class="fu">predictCoding</span>(variant_gRange, </span>
+<span id="cb20-3"><a href="hdf5-and-loom-input.html#cb20-3" aria-hidden="true" tabindex="-1"></a>                                   hg19refseq_txdb, </span>
+<span id="cb20-4"><a href="hdf5-and-loom-input.html#cb20-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">seqSource=</span>Hsapiens,</span>
+<span id="cb20-5"><a href="hdf5-and-loom-input.html#cb20-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">varAllele=</span>variant_gRange<span class="sc">$</span>ALT)<span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="hdf5-and-loom-input.html#cb20-6" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>## Warning in valid.GenomicRanges.seqinfo(x, suggest.trim = TRUE): GRanges object contains 5 out-of-bound ranges located on sequences 17,
+##   24, 26, and 30. Note that ranges located on a sequence whose length is
+##   unknown (NA) or on a circular sequence are not considered out-of-bound
+##   (use seqlengths() and isCircular() to get the lengths and circularity
+##   flags of the underlying sequences). You can use trim() to trim these
+##   ranges. See ?`trim,GenomicRanges-method` for more information.</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="hdf5-and-loom-input.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Bind it all together into one big table.          </span></span>
+<span id="cb22-2"><a href="hdf5-and-loom-input.html#cb22-2" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(non_coding_variants,coding_variants) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="hdf5-and-loom-input.html#cb22-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">inner_join</span>(annotation_key)<span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="hdf5-and-loom-input.html#cb22-4" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">mutate</span>(<span class="at">AA=</span><span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(REFAA),</span>
+<span id="cb22-5"><a href="hdf5-and-loom-input.html#cb22-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">paste0</span>(gene_name,<span class="st">&quot;.&quot;</span>,REFAA,PROTEINLOC,VARAA),</span>
+<span id="cb22-6"><a href="hdf5-and-loom-input.html#cb22-6" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">paste0</span>(gene_name,<span class="st">&quot;.intronic&quot;</span>)))<span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="hdf5-and-loom-input.html#cb22-7" aria-hidden="true" tabindex="-1"></a>                        dplyr<span class="sc">::</span><span class="fu">select</span>(id,AA)</span>
+<span id="cb22-8"><a href="hdf5-and-loom-input.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="hdf5-and-loom-input.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#append Bulk VAF for reference in future cutoffs and allele selection</span></span>
+<span id="cb22-10"><a href="hdf5-and-loom-input.html#cb22-10" aria-hidden="true" tabindex="-1"></a>final_mutation_info<span class="ot">&lt;-</span><span class="fu">data.frame</span>(out,</span>
+<span id="cb22-11"><a href="hdf5-and-loom-input.html#cb22-11" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bulk_VAF&quot;</span><span class="ot">=</span><span class="fu">colSums</span>(final_NGT[,out<span class="sc">$</span>id], <span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span></span>
+<span id="cb22-12"><a href="hdf5-and-loom-input.html#cb22-12" aria-hidden="true" tabindex="-1"></a>                                              (<span class="fu">nrow</span>(final_NGT)<span class="sc">*</span><span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>) </span>
+<span id="cb22-13"><a href="hdf5-and-loom-input.html#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="hdf5-and-loom-input.html#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(final_mutation_info))</span></code></pre></div>
+<pre><code>##                    id              AA   Bulk_VAF
+## 1   chr2:25463121:C/T DNMT3A.intronic  0.1979414
+## 2   chr2:25463483:G/A DNMT3A.intronic 45.1702296
+## 3   chr2:25464334:A/C DNMT3A.intronic  1.3855899
+## 4  chr2:198266943:C/T  SF3B1.intronic 97.9018211
+## 5 chr2:209113048:G/GA   IDH1.intronic  5.0910530
+## 6  chr3:128202879:C/T  GATA2.intronic  0.1821061</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-extraction-and-setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tapestri-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+## HDF5 and Loom input 
+
+This is a very quick example of how data can be loaded into R using loom and h5 files without the tapestri package.  For the H5 files from tapestri pipeline v2, I found the rhdf5 package rather intuitive, even though the loomR package is largely based on hdf5r. It is unlikely that the code below is the most efficient way to load and extract these files, so part of this might not be helpful if you are already familiar with the hdf5 format.  What may be helpful is the logic and order of events we take for filtering variants and cells of interet.
+
+See sample data on github and [google drive](https://drive.google.com/open?id=17Zw6Ixu93UM7M5Vyl_aOJ7aX2iYIb8If)
+
+```{r,message=FALSE}
+library(rhdf5)
+library(dplyr)
+library(tidyr)
+setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/")
+file<-("./data/Sample17020.dna_protein.h5")
+```
+
+First the extraction of protein data, which is very straightforward.  This can be later subset on which cells are preserved after genotype filtering. See latter sections for normalization.
+
+```{r,cache=FALSE,message=FALSE}
+protein_mat<-h5read(file=file,name="/assays/protein_read_counts/layers/read_counts")
+rownames(protein_mat) <- h5read(file=file,name="/assays/protein_read_counts/ca/id")
+colnames(protein_mat)<-  h5read(file=file,name="/assays/protein_read_counts/ra/barcode")
+
+print(rownames(protein_mat))
+print((protein_mat)[1:5,1:5])
+```
+
+Now we will move to extracting variant data.  For the sake of processing time, we will first impose a cutoff that a given variant must be present in at least 1% of cells.  This is a cutoff we used in our manuscript.  This is a subjective cutoff, and will likely be a varying feature for many studies.
+```{r,cache=FALSE,message=FALSE}
+VAF_cutoff <- 0.01
+NGT<-h5read(file=file,name="/assays/dna_variants/layers/NGT")
+NGT[NGT==3]<-NA
+VAF_select<-which((rowSums(NGT,na.rm=TRUE)/(ncol(NGT)*2))>VAF_cutoff)
+AF<-h5read(file=file,name="/assays/dna_variants/layers/AF",index=list(VAF_select,NULL))
+DP<-h5read(file=file,name="/assays/dna_variants/layers/DP",index=list(VAF_select,NULL))
+GQ<-h5read(file=file,name="/assays/dna_variants/layers/GQ",index=list(VAF_select,NULL))
+NGTlim<-h5read(file=file,name="/assays/dna_variants/layers/NGT",index=list(VAF_select,NULL))
+NGTlim[NGTlim==3]<-NA
+variants<-h5read(file=file,name="/assays/dna_variants/ca/id",index=list(VAF_select))
+cell_barcodes <-h5read(file=file,name="/assays/dna_variants/ra/barcode")
+colnames(NGTlim) <-cell_barcodes
+rownames(NGTlim) <- variants
+
+print(rownames(NGTlim)[1:5])
+print(NGTlim[1:5,1:5])
+dim(NGTlim)
+```
+
+Now alternatively with loom files from tapestri pipeline v1, where you will also want the VCF header file to extract cell barcodes. This is not strictly necessary for DNA only analysis, but critical for integration with protein.  I imagine most users will be working with v2 data, but I leave it here for you incase you need it, or are replicating data from our initial manuscript.  It is worth noting that the matrices from the loom files are transposed compared to the H5, hence the t() to orient them for consistent downstream processing.
+```{r,cache=FALSE,message=FALSE,eval=FALSE}
+library(loomR)
+setwd("/Users/bowmanr/Projects/scDNA/scDNA_myeloid/")
+lfile <- connect(filename = "./data/MSK91_IGO_09868_L_7_S7_R_191122041131.cells.loom", mode = "r")
+NGT<-t(lfile$matrix[,])
+NGT[NGT==3]<-NA
+VAF_select<-which((rowSums(NGT,na.rm=TRUE)/(ncol(NGT)*2))>VAF_cutoff)
+VAF_cutoff <- 0.01
+
+DP <- t(lfile$layers$DP[,VAF_select])
+GQ <- t(lfile$layers$GQ[,VAF_select])
+AF <- t(lfile$layers$AD[,VAF_select])/DP *100
+NGTlim<-t(lfile$matrix[,VAF_select])
+NGTlim[NGTlim==3]<-NA
+variants<-lfile$row.attrs$id[VAF_select]
+
+#for loom files from Tapestri v1
+cell_barcodes <-names(read.delim("./data/MSK91.vcf_header.txt",sep="\t"))
+colnames(NGTlim) <-cell_barcodes
+rownames(NGTlim) <- variants
+```
+
+The v2 pipeline also outputs loom files, but given the easy packaging of protein and DNA data in the single H5 file, I can't find a good reason to use the loom.  Nevertheless, small differences in formatting are observed. 
+```{r,eval=FALSE}
+#for loom files from Tapestri v2 you do not need the VCF header file.
+cell_barcodes <-lfile$col.attrs$barcode[] 
+```
+
+
+Now let's filter the data using the default cutoffs from Tapestri Insights and what we used in our manuscript.
+```{r}
+DP_cut=10 #read depth
+AF_cut=20 #allele frequency cutoff
+GQ_cut=30 #geotype quality cutoff
+variant_presence_cutoff=50 #variant must be genotyped in greater than 50% of cells
+cell_genotype_cutoff=50 # cell must possess genotype information for at least 50% of the variants of interest
+
+#bind together long form AF, DP, GQ and NGT data
+filtered_long<-data.frame(setNames(
+                          # produce long form allele frequency data
+                          data.frame(AF,
+                                     "variants"=variants),
+                                 c(all_of(cell_barcodes),"variants")) %>%
+                          pivot_longer(cols=!c(variants),
+                                             names_to="Cell",
+                                             values_to="AF"),
+                          #produce long form allele depth data
+                          data.frame(DP)%>%
+                                pivot_longer(cols=everything(),
+                                             names_to="Cell",
+                                             values_to="DP")%>%dplyr::select(DP),
+                          #produce long form genotype quality data
+                          data.frame(GQ)%>%
+                              pivot_longer(cols=everything(),
+                                           names_to="Cell",
+                                           values_to="GQ")%>%dplyr::select(GQ),
+                          #produce long form genotype call data
+                          data.frame(NGTlim)%>%
+                                pivot_longer(cols=everything(), names_to="Cell",
+                                             values_to="NGT")%>%dplyr::select(NGT)) %>%
+                     #filter DP and GQ
+                       filter(DP>DP_cut&
+                              GQ>GQ_cut)%>%
+                    #filter AF for each genotype call
+                       mutate(pass=case_when(
+                                  NGT==1&(AF>AF_cut)&(AF<(100-AF_cut)) ~ "include",
+                                  NGT==1&((AF<=AF_cut)|(AF>=(100-AF_cut))) ~ "exclude",
+                                  NGT==2&AF>=(100-AF_cut) ~ "include",
+                                  NGT==2&AF<(100-AF_cut) ~ "exclude",
+                                  NGT==0&AF<=AF_cut ~ "include",
+                                  NGT==0&AF>AF_cut ~ "exclude",
+                                  TRUE ~"other"
+                               ))%>%
+                     filter(pass=="include")
+
+# here we check to make sure a variant is not NA (genotype 3) in >50% of cells
+# we can also filter out variants that are likely SNPs and only show up as WT, het or homozygous  This assumes SNPs would never undergo allele dropout, which is pretty unlikely, so this filter is not realistic. I leave it here incase it is helpful to someone. 
+final_variants <-filtered_long%>%
+                    group_by(variants)%>%
+                    summarize(diversity=sum(c(0,1,2)%in%NGT),
+                              gt.mv=(length(NGT)/length(all_of(cell_barcodes)))*100)%>%
+                    filter(#diversity>1&
+                           gt.mv>variant_presence_cutoff)%>%
+                    pull(variants)
+
+# here we filter for cells that now contain genotype information for atleast 50% of our curated set of variants.
+final_cells<-  filtered_long%>%
+                  filter(variants%in%final_variants)%>%
+                  group_by(Cell)%>%
+                  summarize(gt.mc=(length(NGT)/length(all_of(final_variants)))*100)%>%
+                  filter(gt.mc>=cell_genotype_cutoff)%>%
+                  pull(Cell)
+
+# lastly we reconsstruct a new NGT matrix of cell-genotype pairs that passsed the above filters.
+final_NGT<- filtered_long%>%
+                    filter(Cell%in%final_cells&variants%in%final_variants)%>%
+                    pivot_wider(id_cols=Cell,names_from=variants,values_from=NGT)
+
+
+```
+
+Below is some code on how we can annotate the variants.  I manually curated a transcript ID table for our genes of interest so that when the protein changes were reported they were consistent with the common hotspot mutations in which we are interested. The lines below introduce the required packages and how to create a limted TxDB object.  would suggest just running this once and saving an rds object. It's a little time intensive.
+```{r,cache=FALSE,message=FALSE}
+library(VariantAnnotation)
+library(GenomicRanges)
+library(magrittr)
+require(RMariaDB)
+library(plyranges)
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+annotation_key <-read.csv("./data/annotation_key.csv")
+hg19refseq_txdb <- makeTxDbFromUCSC(genome="hg19",
+                                    transcript_ids=annotation_key$ccds_id,
+                                    tablename="ccdsGene")
+
+annotation_key%<>%inner_join(select(hg19refseq_txdb,
+                                    keys=annotation_key$ccds_id,
+                                    columns=c("TXID","TXNAME"),
+                                    keytype = "TXNAME"),
+                    by=c("ccds_id"="TXNAME"))%>%
+                    mutate(TXID=as.character(TXID))
+```
+
+For H5 files from v2 pipeline.
+```{r}
+banned <-read.csv("./data/banned_list.csv")
+SNV_mat<-data.frame(do.call(cbind,
+                            h5read(file=file,name="/assays/dna_variants/ca/",
+                                         index=list(VAF_select)))) %>%
+          filter(id%in%final_variants&
+                 !id%in%banned[,1])%>%
+          mutate(ALT=ifelse(ALT=="*","N",ALT))%>%
+          mutate(CHROM=paste0("chr",CHROM))
+```
+
+For loom files from v1 pipeline
+```{r,eval=FALSE}
+lfile <- connect(filename = "./data/MSK91_IGO_09868_L_7_S7_R_191122041131.cells.loom", mode = "r")
+SNV_mat<-data.frame(do.call(cbind,
+                            list("ALT"=lfile$row.attrs$ALT[],
+                                 "CHROM"=lfile$row.attrs$CHROM[],
+                                 "POS"=lfile$row.attrs$POS[],
+                                 "QUAL"=lfile$row.attrs$QUAL[],
+                                 "REF"=lfile$row.attrs$REF[],
+                                 "amplicon"=lfile$row.attrs$amplicon[],
+                                 "id"=lfile$row.attrs$id[]))) %>%
+          filter(id%in%final_variants&
+                 !id%in%banned[,1])%>%
+          mutate(ALT=ifelse(ALT=="*","N",ALT))%>%
+          mutate(CHROM=paste0("chr",CHROM))
+```
+
+Now we will map the variants of interest to genes, and if they land in a coding exon, predict the amino acid change.  For INDELs this gets messy, still trying to figure out how too name them nicely (and open to feedback!). The printed results below are for the H5 input described above.
+```{r,message=FALSE}
+#necessary for meaningful GRangess
+SNV_mat$REF<-as(SNV_mat$REF, "DNAStringSet")
+SNV_mat$ALT<-as(SNV_mat$ALT, "DNAStringSet")
+
+variant_gRange<-makeGRangesFromDataFrame(SNV_mat,
+                                         seqnames.field = "CHROM",
+                                         start.field="POS",
+                                         end.field="POS",
+                                         keep.extra.columns=TRUE)
+#necessary for downstream joining of
+variant_gRange$QUERYID<-1:length(variant_gRange)
+
+#identify and isolate non coding variants
+non_coding_variants <- locateVariants(variant_gRange, 
+                                      hg19refseq_txdb,
+                                      AllVariants())%>%
+                                data.frame()%>%
+                                filter(as.character(LOCATION)!="coding")%>%
+                                inner_join(variant_gRange,by="QUERYID",copy=TRUE)
+
+#identify and isolate  coding variants
+coding_variants  <-  predictCoding(variant_gRange, 
+                                   hg19refseq_txdb, 
+                                   seqSource=Hsapiens,
+                                   varAllele=variant_gRange$ALT)%>%
+                          data.frame()
+#Bind it all together into one big table.          
+out <- bind_rows(non_coding_variants,coding_variants) %>%
+                        inner_join(annotation_key)%>%
+                        mutate(AA=ifelse(!is.na(REFAA),
+                                      paste0(gene_name,".",REFAA,PROTEINLOC,VARAA),
+                                      paste0(gene_name,".intronic")))%>%
+                        dplyr::select(id,AA)
+
+#append Bulk VAF for reference in future cutoffs and allele selection
+final_mutation_info<-data.frame(out,
+                                "Bulk_VAF"=colSums(final_NGT[,out$id], na.rm=TRUE)/
+                                              (nrow(final_NGT)*2)*100) 
+
+print(head(final_mutation_info))
+```
+

@@ -1,4 +1,0 @@
-# Manuscript analysis
-These files are going to look a little bit different than the ones we just made as far as protein nomenclature and the order of the columns in the NGT file. But this is the analysis that was used in the paper, and very little else should differ.
-
-These files are on GitHub [here](https://github.com/bowmanr/scDNA_myeloid/tree/master/data)

@@ -26,7 +26,7 @@ mut_mat_wide<-final_mut_melt%>%
                                      values_from = Variants,
                                    #  values_fn   = list(Variant_Class=list),
                                      values_fill = list(Variant_Class="")) %>%
-                        ungroup(Sample,Gene)%>%
+                        #ungroup(Sample,Gene)%>%
                         data.frame()
 
 # At this point, each column is actually a list, and variants are represnted as a list within a list. 

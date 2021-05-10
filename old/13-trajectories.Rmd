@@ -10,6 +10,8 @@ opts_knit$set(root.dir = '/Users/bowmanr/Projects/scDNA')
 ```{r load in data}
 library(dplyr)
 library(tidyr)
+library(reshape2)
+library(ReinforcementLearning)
 setwd("/Users/bowmanr/Projects/scDNA")
 final_sample_summary<-readRDS(file="./data/final_sample_summary.rds")
 pheno<-readRDS(file="./data/pheno.rds")
@@ -32,7 +34,7 @@ create_reward_matrix<-function(Known_mat,weights){
   
   num_type <- 2
   num_mutations <- nrow(Known_mat); 
-  mutant_names  <- rownames(Known_mat)
+  mutant_names  <- Known_mat$Genes
   num_clones    <- ncol(Known_mat)
   num_states    <- num_type^num_mutations
   
@@ -91,7 +93,7 @@ create_reward_matrix_retrain<-function(Known_mat,weights){
   
   num_type <- 2
   num_mutations <- nrow(Known_mat); 
-  mutant_names  <- rownames(Known_mat)
+  mutant_names  <- Known_mat$Genes
   num_clones    <- ncol(Known_mat)
   num_states    <- num_type^num_mutations
   
@@ -149,7 +151,7 @@ create_reward_matrix_retrain<-function(Known_mat,weights){
 
 ```{r}
 graph_results<-list()
-graph_results  <- lapply(DTAI_AML_samples[1:5], function(i){
+graph_results  <- lapply(DTAI_AML_samples[1:2], function(i){
   print(i)
   mutations <-setdiff(colnames(final_sample_summary[[i]]$NGT),"Clone")
   Known_mat <-final_sample_summary[[i]]$Clones%>%
@@ -170,7 +172,7 @@ graph_results  <- lapply(DTAI_AML_samples[1:5], function(i){
   graph_results[[i]]<-create_reward_matrix_retrain(Known_mat,weights)
 })
 
-names(graph_results) <-DTAI_AML_samples[1:5]
+names(graph_results) <-DTAI_AML_samples[1:2]
 ```
 
 ```{r}
@@ -184,7 +186,7 @@ graph_results<-readRDS(file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/
 final_results<-list()
 for(i in 1:length(graph_results)){
   print(names(graph_results)[i])
-  final_results[[i]]<-query_initiating_mutations(graph_results[[i]])
+  final_results[[i]]<-query_initiating_mutations_new(graph_results[[i]])
 }
 names(final_results) <- names(graph_results)
 saveRDS(final_results,file="/Volumes/LevineLab/Levine Lab/Bobby/Collaborations/MissionBio/Analysis/2020/January/MDP_trajectory_for_each_gene.rds")

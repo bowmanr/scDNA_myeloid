@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.2 Functions for reward matrix and querying initating mutations | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.2 Functions for reward matrix and querying initating mutations | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.2 Functions for reward matrix and querying initating mutations | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2021-05-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introductory-text-and-philisophy-of-approach.html"/>
+<link rel="next" href="executing-the-analysis.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
+<li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
+<li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
+<li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
+<li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="functions-for-reward-matrix-and-querying-initating-mutations" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Functions for reward matrix and querying initating mutations</h2>
+<p>Function to create reward matrix</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-1" aria-hidden="true" tabindex="-1"></a>create_reward_matrix<span class="ot">&lt;-</span><span class="cf">function</span>(Known_mat,weights){</span>
+<span id="cb82-2"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-3"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-3" aria-hidden="true" tabindex="-1"></a>  num_type <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb82-4"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  num_mutations <span class="ot">&lt;-</span> <span class="fu">nrow</span>(Known_mat); </span>
+<span id="cb82-5"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-5" aria-hidden="true" tabindex="-1"></a>  mutant_names  <span class="ot">&lt;-</span> Known_mat<span class="sc">$</span>Genes</span>
+<span id="cb82-6"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-6" aria-hidden="true" tabindex="-1"></a>  num_clones    <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Known_mat)</span>
+<span id="cb82-7"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-7" aria-hidden="true" tabindex="-1"></a>  num_states    <span class="ot">&lt;-</span> num_type<span class="sc">^</span>num_mutations</span>
+<span id="cb82-8"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-9"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-9" aria-hidden="true" tabindex="-1"></a>  possible_mut_list<span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">apply</span>(<span class="fu">as.matrix</span>(Known_mat),<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="fu">max</span>(<span class="fu">unique</span>(<span class="fu">as.numeric</span>(x[<span class="sc">-</span><span class="dv">1</span>])))) }),<span class="at">recursive =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb82-10"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb82-11"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-11" aria-hidden="true" tabindex="-1"></a>  states<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">expand.grid</span>(possible_mut_list))</span>
+<span id="cb82-12"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-12" aria-hidden="true" tabindex="-1"></a>  state_interactions<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">expand.grid</span>(<span class="fu">apply</span>(states[,<span class="dv">1</span><span class="sc">:</span>num_mutations],<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="fu">paste</span>(x,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>,<span class="at">sep=</span><span class="st">&quot;_&quot;</span>)}),</span>
+<span id="cb82-13"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-13" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">apply</span>(states[,<span class="dv">1</span><span class="sc">:</span>num_mutations],<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="fu">paste</span>(x,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>,<span class="at">sep=</span><span class="st">&quot;_&quot;</span>)})))</span>
+<span id="cb82-14"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-15"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-15" aria-hidden="true" tabindex="-1"></a>  state_interactions<span class="sc">$</span>possible<span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="fu">apply</span>(state_interactions,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb82-16"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-16" aria-hidden="true" tabindex="-1"></a>    A<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">1</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb82-17"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-17" aria-hidden="true" tabindex="-1"></a>    B<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">2</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb82-18"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">abs</span>(A<span class="sc">-</span>B))<span class="sc">&lt;=</span><span class="dv">1</span></span>
+<span id="cb82-19"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-19" aria-hidden="true" tabindex="-1"></a>  }),<span class="dv">0</span>,<span class="cn">NA</span>)</span>
+<span id="cb82-20"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-21"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-21" aria-hidden="true" tabindex="-1"></a>  state_interactions<span class="sc">$</span>action<span class="ot">&lt;-</span><span class="fu">apply</span>(state_interactions,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb82-22"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-22" aria-hidden="true" tabindex="-1"></a>    A<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">1</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb82-23"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-23" aria-hidden="true" tabindex="-1"></a>    B<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">2</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb82-24"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(x[<span class="st">&quot;possible&quot;</span>])){</span>
+<span id="cb82-25"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-25" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">sum</span>(<span class="fu">abs</span>(B<span class="sc">-</span>A))<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb82-26"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">&quot;stay&quot;</span>)</span>
+<span id="cb82-27"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-27" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span>{</span>
+<span id="cb82-28"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(mutant_names[<span class="fu">which</span>((B<span class="sc">-</span>A)<span class="sc">==</span><span class="dv">1</span>)])</span>
+<span id="cb82-29"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-29" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb82-30"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb82-31"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-31" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb82-32"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-33"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-33" aria-hidden="true" tabindex="-1"></a>  dat<span class="ot">&lt;-</span><span class="fu">setNames</span>(state_interactions<span class="sc">%&gt;%</span><span class="fu">filter</span>(action<span class="sc">%in%</span><span class="fu">c</span>(mutant_names,<span class="st">&quot;stay&quot;</span>)),</span>
+<span id="cb82-34"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-34" aria-hidden="true" tabindex="-1"></a>                <span class="fu">c</span>(<span class="st">&quot;State&quot;</span>,<span class="st">&quot;NextState&quot;</span>,<span class="st">&quot;Reward&quot;</span>,<span class="st">&quot;Action&quot;</span>))[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</span>
+<span id="cb82-35"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-36"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-36" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>Reward <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb82-37"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(x<span class="sc">$</span>NextState<span class="sc">%in%</span><span class="fu">names</span>(weights),weights[x<span class="sc">$</span>NextState],x<span class="sc">$</span>Reward)</span>
+<span id="cb82-38"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-38" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb82-39"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-39" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>Reward <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb82-40"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(x<span class="sc">$</span>Action<span class="sc">%in%</span><span class="st">&quot;stay&quot;</span>,<span class="dv">0</span>,x<span class="sc">$</span>Reward)</span>
+<span id="cb82-41"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-41" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb82-42"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-42" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>State <span class="ot">&lt;-</span> <span class="fu">as.character</span>(dat<span class="sc">$</span>State)</span>
+<span id="cb82-43"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-43" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>NextState <span class="ot">&lt;-</span> <span class="fu">as.character</span>(dat<span class="sc">$</span>NextState)</span>
+<span id="cb82-44"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-44" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>Action <span class="ot">&lt;-</span> <span class="fu">as.character</span>(dat<span class="sc">$</span>Action)</span>
+<span id="cb82-45"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-46"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-46" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">gamma =</span> <span class="fl">0.9</span>)</span>
+<span id="cb82-47"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-47" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ReinforcementLearning</span>(<span class="at">data =</span> dat, <span class="at">s =</span> <span class="st">&quot;State&quot;</span>, <span class="at">a =</span> <span class="st">&quot;Action&quot;</span>, <span class="at">r =</span> <span class="st">&quot;Reward&quot;</span>,  <span class="at">s_new =</span> <span class="st">&quot;NextState&quot;</span>,  <span class="at">iter =</span>  <span class="dv">1</span>,<span class="at">control=</span>control)</span>
+<span id="cb82-48"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-48" aria-hidden="true" tabindex="-1"></a>  x<span class="ot">&lt;-</span> model<span class="sc">$</span>Q</span>
+<span id="cb82-49"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(x) <span class="ot">&lt;-</span> <span class="fu">substring</span>(<span class="fu">rownames</span>(x),<span class="dv">1</span>)</span>
+<span id="cb82-50"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-50" aria-hidden="true" tabindex="-1"></a>  Q_mat <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">melt</span>(x),<span class="fu">c</span>(<span class="st">&quot;State&quot;</span>,<span class="st">&quot;Action&quot;</span>,<span class="st">&quot;Q&quot;</span>))</span>
+<span id="cb82-51"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-51" aria-hidden="true" tabindex="-1"></a>  set<span class="ot">&lt;-</span><span class="fu">inner_join</span>(dat,Q_mat,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;State&quot;</span>,<span class="st">&quot;Action&quot;</span>))</span>
+<span id="cb82-52"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-52" aria-hidden="true" tabindex="-1"></a>  set<span class="sc">$</span>Valid <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb82-53"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(set)</span>
+<span id="cb82-54"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb82-54" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Function for retraining with reinforcement learning</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-1" aria-hidden="true" tabindex="-1"></a>create_reward_matrix_retrain<span class="ot">&lt;-</span><span class="cf">function</span>(Known_mat,weights){</span>
+<span id="cb83-2"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-3"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  num_type <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb83-4"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-4" aria-hidden="true" tabindex="-1"></a>  num_mutations <span class="ot">&lt;-</span> <span class="fu">nrow</span>(Known_mat); </span>
+<span id="cb83-5"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-5" aria-hidden="true" tabindex="-1"></a>  mutant_names  <span class="ot">&lt;-</span> Known_mat<span class="sc">$</span>Genes</span>
+<span id="cb83-6"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-6" aria-hidden="true" tabindex="-1"></a>  num_clones    <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Known_mat)</span>
+<span id="cb83-7"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-7" aria-hidden="true" tabindex="-1"></a>  num_states    <span class="ot">&lt;-</span> num_type<span class="sc">^</span>num_mutations</span>
+<span id="cb83-8"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-9"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-9" aria-hidden="true" tabindex="-1"></a>  possible_mut_list<span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">apply</span>(<span class="fu">as.matrix</span>(Known_mat),<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="fu">max</span>(<span class="fu">unique</span>(<span class="fu">as.numeric</span>(x[<span class="sc">-</span><span class="dv">1</span>])))) }),<span class="at">recursive =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb83-10"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb83-11"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-11" aria-hidden="true" tabindex="-1"></a>  states<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">expand.grid</span>(possible_mut_list))</span>
+<span id="cb83-12"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-12" aria-hidden="true" tabindex="-1"></a>  state_interactions<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">expand.grid</span>(<span class="fu">apply</span>(states[,<span class="dv">1</span><span class="sc">:</span>num_mutations],<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="fu">paste</span>(x,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>,<span class="at">sep=</span><span class="st">&quot;_&quot;</span>)}),</span>
+<span id="cb83-13"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-13" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">apply</span>(states[,<span class="dv">1</span><span class="sc">:</span>num_mutations],<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="fu">paste</span>(x,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>,<span class="at">sep=</span><span class="st">&quot;_&quot;</span>)})))</span>
+<span id="cb83-14"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-15"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-15" aria-hidden="true" tabindex="-1"></a>  state_interactions<span class="sc">$</span>possible<span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="fu">apply</span>(state_interactions,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb83-16"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-16" aria-hidden="true" tabindex="-1"></a>    A<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">1</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb83-17"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-17" aria-hidden="true" tabindex="-1"></a>    B<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">2</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb83-18"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">abs</span>(A<span class="sc">-</span>B))<span class="sc">&lt;=</span><span class="dv">1</span></span>
+<span id="cb83-19"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-19" aria-hidden="true" tabindex="-1"></a>  }),<span class="dv">0</span>,<span class="cn">NA</span>)</span>
+<span id="cb83-20"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-21"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-21" aria-hidden="true" tabindex="-1"></a>  state_interactions<span class="sc">$</span>action<span class="ot">&lt;-</span><span class="fu">apply</span>(state_interactions,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb83-22"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-22" aria-hidden="true" tabindex="-1"></a>    A<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">1</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb83-23"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-23" aria-hidden="true" tabindex="-1"></a>    B<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">do.call</span>(cbind,<span class="fu">strsplit</span>(<span class="fu">as.character</span>(x[<span class="dv">2</span>]),<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb83-24"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(x[<span class="st">&quot;possible&quot;</span>])){</span>
+<span id="cb83-25"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-25" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">sum</span>(<span class="fu">abs</span>(B<span class="sc">-</span>A))<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb83-26"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">&quot;stay&quot;</span>)</span>
+<span id="cb83-27"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-27" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span>{</span>
+<span id="cb83-28"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(mutant_names[<span class="fu">which</span>((B<span class="sc">-</span>A)<span class="sc">==</span><span class="dv">1</span>)])</span>
+<span id="cb83-29"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-29" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb83-30"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb83-31"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-31" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb83-32"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-33"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-33" aria-hidden="true" tabindex="-1"></a>  dat<span class="ot">&lt;-</span><span class="fu">setNames</span>(state_interactions<span class="sc">%&gt;%</span><span class="fu">filter</span>(action<span class="sc">%in%</span><span class="fu">c</span>(mutant_names,<span class="st">&quot;stay&quot;</span>)),</span>
+<span id="cb83-34"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-34" aria-hidden="true" tabindex="-1"></a>                <span class="fu">c</span>(<span class="st">&quot;State&quot;</span>,<span class="st">&quot;NextState&quot;</span>,<span class="st">&quot;Reward&quot;</span>,<span class="st">&quot;Action&quot;</span>))[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</span>
+<span id="cb83-35"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-36"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-36" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>Reward <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb83-37"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(x<span class="sc">$</span>NextState<span class="sc">%in%</span><span class="fu">names</span>(weights),weights[x<span class="sc">$</span>NextState],x<span class="sc">$</span>Reward)</span>
+<span id="cb83-38"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-38" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb83-39"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-39" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>Reward <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>,<span class="cf">function</span>(x){</span>
+<span id="cb83-40"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(x<span class="sc">$</span>Action<span class="sc">%in%</span><span class="st">&quot;stay&quot;</span>,<span class="dv">0</span>,x<span class="sc">$</span>Reward)</span>
+<span id="cb83-41"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-41" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb83-42"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-42" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>State <span class="ot">&lt;-</span> <span class="fu">as.character</span>(dat<span class="sc">$</span>State)</span>
+<span id="cb83-43"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-43" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>NextState <span class="ot">&lt;-</span> <span class="fu">as.character</span>(dat<span class="sc">$</span>NextState)</span>
+<span id="cb83-44"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-44" aria-hidden="true" tabindex="-1"></a>  dat<span class="sc">$</span>Action <span class="ot">&lt;-</span> <span class="fu">as.character</span>(dat<span class="sc">$</span>Action)</span>
+<span id="cb83-45"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-46"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-46" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">gamma =</span> <span class="fl">0.9</span>)</span>
+<span id="cb83-47"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-47" aria-hidden="true" tabindex="-1"></a>  model1 <span class="ot">&lt;-</span> <span class="fu">ReinforcementLearning</span>(<span class="at">data =</span> dat, <span class="at">s =</span> <span class="st">&quot;State&quot;</span>, <span class="at">a =</span> <span class="st">&quot;Action&quot;</span>, <span class="at">r =</span> <span class="st">&quot;Reward&quot;</span>,  <span class="at">s_new =</span> <span class="st">&quot;NextState&quot;</span>,  <span class="at">iter =</span>  <span class="dv">1</span>,<span class="at">control=</span>control)</span>
+<span id="cb83-48"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-48" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ReinforcementLearning</span>(<span class="at">data =</span> dat, <span class="at">s =</span> <span class="st">&quot;State&quot;</span>, <span class="at">a =</span> <span class="st">&quot;Action&quot;</span>, <span class="at">r =</span> <span class="st">&quot;Reward&quot;</span>,  <span class="at">s_new =</span> <span class="st">&quot;NextState&quot;</span>,  <span class="at">iter =</span>  <span class="dv">1000</span>,<span class="at">control=</span><span class="fu">list</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">gamma =</span> <span class="fl">0.9</span>,<span class="at">epsilon=</span><span class="fl">0.4</span>),<span class="at">model=</span>model1)</span>
+<span id="cb83-49"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-50"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-51"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-51" aria-hidden="true" tabindex="-1"></a>  x<span class="ot">&lt;-</span> model<span class="sc">$</span>Q</span>
+<span id="cb83-52"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(x) <span class="ot">&lt;-</span> <span class="fu">substring</span>(<span class="fu">rownames</span>(x),<span class="dv">1</span>)</span>
+<span id="cb83-53"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-53" aria-hidden="true" tabindex="-1"></a>  Q_mat <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">melt</span>(x),<span class="fu">c</span>(<span class="st">&quot;State&quot;</span>,<span class="st">&quot;Action&quot;</span>,<span class="st">&quot;Q&quot;</span>))</span>
+<span id="cb83-54"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-54" aria-hidden="true" tabindex="-1"></a>  set<span class="ot">&lt;-</span><span class="fu">inner_join</span>(dat,Q_mat,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;State&quot;</span>,<span class="st">&quot;Action&quot;</span>))</span>
+<span id="cb83-55"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-55" aria-hidden="true" tabindex="-1"></a>  set<span class="sc">$</span>Valid <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb83-56"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(set)</span>
+<span id="cb83-57"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb83-57" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Query initiating mutations function</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-1" aria-hidden="true" tabindex="-1"></a>query_initiating_mutations<span class="ot">&lt;-</span><span class="cf">function</span>(graph_results_test){</span>
+<span id="cb84-2"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  graph_results_test<span class="ot">&lt;-</span> graph_results[[sample]]</span>
+<span id="cb84-3"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-3" aria-hidden="true" tabindex="-1"></a>  start_index<span class="ot">&lt;-</span><span class="fu">paste</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">length</span>(<span class="fu">strsplit</span>(graph_results_test<span class="sc">$</span>State[<span class="dv">1</span>],<span class="at">split=</span><span class="st">&quot;_&quot;</span>)[[<span class="dv">1</span>]])),<span class="at">sep=</span><span class="st">&quot;_&quot;</span>,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>)</span>
+<span id="cb84-4"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-4" aria-hidden="true" tabindex="-1"></a>  possible_starting_actions<span class="ot">&lt;-</span>graph_results_test<span class="sc">%&gt;%</span><span class="fu">filter</span>(State<span class="sc">==</span>start_index<span class="sc">&amp;</span>Action<span class="sc">!=</span><span class="st">&quot;stay&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Action)</span>
+<span id="cb84-5"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-5" aria-hidden="true" tabindex="-1"></a>  final_results<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb84-6"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-6" aria-hidden="true" tabindex="-1"></a>  initating_action_count<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb84-7"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(initating_action <span class="cf">in</span> possible_starting_actions){</span>
+<span id="cb84-8"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># print(initating_action)</span></span>
+<span id="cb84-9"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-9" aria-hidden="true" tabindex="-1"></a>    set <span class="ot">&lt;-</span> graph_results_test</span>
+<span id="cb84-10"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-10" aria-hidden="true" tabindex="-1"></a>    initating_action_count<span class="ot">&lt;-</span>initating_action_count<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb84-11"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-11" aria-hidden="true" tabindex="-1"></a>    storage_results<span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb84-12"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-12" aria-hidden="true" tabindex="-1"></a>    branches<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb84-13"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-13" aria-hidden="true" tabindex="-1"></a>    state_to_kill <span class="ot">&lt;-</span> set<span class="sc">%&gt;%</span><span class="fu">filter</span>(State<span class="sc">==</span>start_index<span class="sc">&amp;</span>Action<span class="sc">==</span>initating_action)<span class="sc">%&gt;%</span><span class="fu">pull</span>(NextState)</span>
+<span id="cb84-14"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-14" aria-hidden="true" tabindex="-1"></a>    start_killed <span class="ot">&lt;-</span> <span class="fu">sum</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(State<span class="sc">==</span>state_to_kill)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Valid))</span>
+<span id="cb84-15"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span>(start_killed<span class="sc">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb84-16"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-16" aria-hidden="true" tabindex="-1"></a>      <span class="co">#print(branches)</span></span>
+<span id="cb84-17"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-17" aria-hidden="true" tabindex="-1"></a>      <span class="co"># print(start_killed)</span></span>
+<span id="cb84-18"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-18" aria-hidden="true" tabindex="-1"></a>      branches <span class="ot">&lt;-</span> branches <span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb84-19"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-19" aria-hidden="true" tabindex="-1"></a>      number_of_mutations<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb84-20"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-20" aria-hidden="true" tabindex="-1"></a>      state_log<span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb84-21"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-21" aria-hidden="true" tabindex="-1"></a>      optimal_reward<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb84-22"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-22" aria-hidden="true" tabindex="-1"></a>      action_log<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb84-23"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-23" aria-hidden="true" tabindex="-1"></a>      current_state<span class="ot">&lt;-</span> start_index</span>
+<span id="cb84-24"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-24" aria-hidden="true" tabindex="-1"></a>      indicator<span class="ot">&lt;-</span><span class="cn">TRUE</span></span>
+<span id="cb84-25"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-25" aria-hidden="true" tabindex="-1"></a>      nextState<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb84-26"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-26" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span>(current_state<span class="sc">!=</span>nextState)  {</span>
+<span id="cb84-27"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(number_of_mutations)</span></span>
+<span id="cb84-28"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-28" aria-hidden="true" tabindex="-1"></a>        number_of_mutations <span class="ot">&lt;-</span> number_of_mutations<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb84-29"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(number_of_mutations<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb84-30"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-30" aria-hidden="true" tabindex="-1"></a>          state_log[[number_of_mutations]] <span class="ot">&lt;-</span> start_index</span>
+<span id="cb84-31"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-31" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb84-32"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-32" aria-hidden="true" tabindex="-1"></a>        current_state  <span class="ot">&lt;-</span> state_log[[number_of_mutations]]</span>
+<span id="cb84-33"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-33" aria-hidden="true" tabindex="-1"></a>        nextState_indicator<span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb84-34"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-34" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb84-35"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span>(nextState_indicator<span class="sc">==</span><span class="cn">FALSE</span>){</span>
+<span id="cb84-36"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-36" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb84-37"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-37" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span>(number_of_mutations<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb84-38"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-38" aria-hidden="true" tabindex="-1"></a>            max_potential_action_index<span class="ot">&lt;-</span>  set<span class="sc">%&gt;%</span></span>
+<span id="cb84-39"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-39" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(State<span class="sc">==</span>current_state<span class="sc">&amp;</span>Action<span class="sc">==</span>initating_action)</span>
+<span id="cb84-40"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-40" aria-hidden="true" tabindex="-1"></a>          } <span class="cf">else</span> {</span>
+<span id="cb84-41"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-41" aria-hidden="true" tabindex="-1"></a>            max_potential_action_index <span class="ot">&lt;-</span> set<span class="sc">%&gt;%</span></span>
+<span id="cb84-42"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-42" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(State<span class="sc">==</span>current_state<span class="sc">&amp;</span>Valid<span class="sc">==</span><span class="cn">TRUE</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb84-43"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-43" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(Q<span class="sc">==</span><span class="fu">max</span>(Q))<span class="sc">%&gt;%</span><span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">1</span>)</span>
+<span id="cb84-44"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-44" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb84-45"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-45" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span>(<span class="fu">nrow</span>(max_potential_action_index)<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb84-46"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb84-47"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-47" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb84-48"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-48" aria-hidden="true" tabindex="-1"></a>          max_potential_action <span class="ot">&lt;-</span> max_potential_action_index<span class="sc">%&gt;%</span><span class="fu">pull</span>(NextState)</span>
+<span id="cb84-49"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-49" aria-hidden="true" tabindex="-1"></a>          next_valid_action <span class="ot">&lt;-</span> <span class="fu">any</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(State<span class="sc">==</span>max_potential_action<span class="sc">&amp;</span>Action<span class="sc">!=</span><span class="st">&quot;stay&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Valid))  </span>
+<span id="cb84-50"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-50" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span>(next_valid_action<span class="sc">==</span><span class="cn">TRUE</span>){</span>
+<span id="cb84-51"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-51" aria-hidden="true" tabindex="-1"></a>            nextState <span class="ot">&lt;-</span>max_potential_action</span>
+<span id="cb84-52"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-52" aria-hidden="true" tabindex="-1"></a>            current_action <span class="ot">&lt;-</span>  max_potential_action_index<span class="sc">%&gt;%</span><span class="fu">pull</span>(Action)</span>
+<span id="cb84-53"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-53" aria-hidden="true" tabindex="-1"></a>            nextState_indicator<span class="sc">==</span><span class="cn">TRUE</span></span>
+<span id="cb84-54"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb84-55"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-55" aria-hidden="true" tabindex="-1"></a>          } <span class="cf">else</span>{</span>
+<span id="cb84-56"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-56" aria-hidden="true" tabindex="-1"></a>            set[set<span class="sc">$</span>State<span class="sc">%in%</span>max_potential_action_index[<span class="st">&quot;State&quot;</span>]<span class="sc">&amp;</span></span>
+<span id="cb84-57"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-57" aria-hidden="true" tabindex="-1"></a>                  set<span class="sc">$</span>Action<span class="sc">%in%</span>max_potential_action_index[<span class="st">&quot;Action&quot;</span>],<span class="st">&quot;Valid&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">FALSE</span>  </span>
+<span id="cb84-58"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-58" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb84-59"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-59" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb84-60"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">nrow</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(State<span class="sc">==</span>current_state<span class="sc">&amp;</span>Action<span class="sc">==</span>current_action))<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb84-61"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-61" aria-hidden="true" tabindex="-1"></a>          optimal_reward[[number_of_mutations]] <span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb84-62"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-62" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb84-63"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-63" aria-hidden="true" tabindex="-1"></a>          optimal_reward[[number_of_mutations]] <span class="ot">&lt;-</span> set<span class="sc">%&gt;%</span></span>
+<span id="cb84-64"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-64" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(State<span class="sc">==</span>current_state<span class="sc">&amp;</span>Action<span class="sc">==</span>current_action)<span class="sc">%&gt;%</span></span>
+<span id="cb84-65"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-65" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pull</span>(Reward) </span>
+<span id="cb84-66"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-66" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb84-67"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-67" aria-hidden="true" tabindex="-1"></a>        state_log[[number_of_mutations<span class="sc">+</span><span class="dv">1</span>]]<span class="ot">&lt;-</span> nextState</span>
+<span id="cb84-68"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-68" aria-hidden="true" tabindex="-1"></a>        action_log[[number_of_mutations]] <span class="ot">&lt;-</span> current_action </span>
+<span id="cb84-69"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(current_action<span class="sc">==</span>nextState){</span>
+<span id="cb84-70"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-70" aria-hidden="true" tabindex="-1"></a>          indicator<span class="sc">==</span><span class="cn">FALSE</span></span>
+<span id="cb84-71"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-71" aria-hidden="true" tabindex="-1"></a>          state_log[[number_of_mutations<span class="sc">+</span><span class="dv">1</span>]]<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
+<span id="cb84-72"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-72" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="cb84-73"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-73" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb84-74"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-74" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb84-75"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-75" aria-hidden="true" tabindex="-1"></a>      optimal_reward[[number_of_mutations<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb84-76"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-76" aria-hidden="true" tabindex="-1"></a>      action_log[[number_of_mutations<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb84-77"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-77" aria-hidden="true" tabindex="-1"></a>      storage_results[[branches]] <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="st">&quot;states&quot;</span><span class="ot">=</span><span class="fu">do.call</span>(rbind,state_log),<span class="co">#[1:(length(state_log)-1)]),</span></span>
+<span id="cb84-78"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-78" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">&quot;actions&quot;</span><span class="ot">=</span><span class="fu">do.call</span>(rbind,action_log),</span>
+<span id="cb84-79"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-79" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">&quot;reward&quot;</span><span class="ot">=</span><span class="fu">do.call</span>(rbind,optimal_reward),</span>
+<span id="cb84-80"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-80" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">&quot;nextState&quot;</span><span class="ot">=</span><span class="fu">do.call</span>(rbind,<span class="fu">c</span>(state_log[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(state_log)],<span class="cn">NA</span>)) )</span>
+<span id="cb84-81"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-81" aria-hidden="true" tabindex="-1"></a>      storage_results[[branches]] <span class="ot">&lt;-</span> storage_results[[branches]]<span class="sc">%&gt;%</span></span>
+<span id="cb84-82"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-82" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(states<span class="sc">!=</span>nextState)</span>
+<span id="cb84-83"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-83" aria-hidden="true" tabindex="-1"></a>      storage_results[[branches]]<span class="sc">$</span>cumulative_reward <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(storage_results[[branches]]<span class="sc">$</span>reward)</span>
+<span id="cb84-84"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-84" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb84-85"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-85" aria-hidden="true" tabindex="-1"></a>      <span class="co">#storage_results[[branches]] &lt;-storage_results[[branches]][1:which.max(storage_results[[branches]]$cumulative_reward), ]</span></span>
+<span id="cb84-86"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-86" aria-hidden="true" tabindex="-1"></a>      set[set<span class="sc">$</span>State<span class="sc">%in%</span>current_state<span class="sc">&amp;</span>set<span class="sc">$</span>Action<span class="sc">%in%</span>current_action,<span class="st">&quot;Valid&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb84-87"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-87" aria-hidden="true" tabindex="-1"></a>      start_killed <span class="ot">&lt;-</span> <span class="fu">sum</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(State<span class="sc">==</span>state_to_kill)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Valid))</span>
+<span id="cb84-88"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-88" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb84-89"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-89" aria-hidden="true" tabindex="-1"></a>    final_results[[initating_action_count]]<span class="ot">&lt;-</span>storage_results[<span class="sc">!</span><span class="fu">duplicated</span>(storage_results)]</span>
+<span id="cb84-90"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-90" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb84-91"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(final_results)<span class="ot">&lt;-</span>possible_starting_actions</span>
+<span id="cb84-92"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(final_results)</span>
+<span id="cb84-93"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb84-93" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Trajectory summarization</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-1" aria-hidden="true" tabindex="-1"></a>trajectory_summariztion <span class="ot">&lt;-</span> <span class="cf">function</span>(sample,<span class="at">optimal_mutants_only=</span><span class="cn">FALSE</span>){</span>
+<span id="cb85-2"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">#Extract out sample of interest</span></span>
+<span id="cb85-3"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-3" aria-hidden="true" tabindex="-1"></a>        all_results <span class="ot">&lt;-</span>final_results[[sample]]</span>
+<span id="cb85-4"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">#apply over each potential initating mutation and identify the stepwise trajectory that accumulates the most reward        </span></span>
+<span id="cb85-6"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-6" aria-hidden="true" tabindex="-1"></a>        all_results_filtered<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(all_results),<span class="cf">function</span>(initiating_mutation){</span>
+<span id="cb85-7"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-7" aria-hidden="true" tabindex="-1"></a>                                <span class="co">#print(initiating_mutation)</span></span>
+<span id="cb85-8"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-8" aria-hidden="true" tabindex="-1"></a>                                storage_results<span class="ot">&lt;-</span>all_results[[initiating_mutation]]</span>
+<span id="cb85-9"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-9" aria-hidden="true" tabindex="-1"></a>                                storage_results[<span class="fu">lapply</span>(storage_results,<span class="cf">function</span>(x){<span class="fu">sum</span>(x<span class="sc">$</span>reward,<span class="at">na.rm =</span> <span class="cn">TRUE</span>)})<span class="sc">==</span><span class="dv">0</span>]<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
+<span id="cb85-10"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="cf">if</span>(<span class="fu">length</span>(storage_results)<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb85-11"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-11" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb85-12"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-12" aria-hidden="true" tabindex="-1"></a>                                  }</span>
+<span id="cb85-13"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-13" aria-hidden="true" tabindex="-1"></a>                                storage_results<span class="ot">&lt;-</span><span class="fu">lapply</span>(storage_results,<span class="cf">function</span>(x){x[<span class="dv">1</span><span class="sc">:</span><span class="fu">which.max</span>(x<span class="sc">$</span>cumulative_reward),]})</span>
+<span id="cb85-14"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-14" aria-hidden="true" tabindex="-1"></a>                               </span>
+<span id="cb85-15"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-15" aria-hidden="true" tabindex="-1"></a>                                <span class="cf">if</span>(<span class="fu">length</span>(storage_results)<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb85-16"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-16" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">print</span>(<span class="st">&quot;error&quot;</span>)</span>
+<span id="cb85-17"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb85-18"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-18" aria-hidden="true" tabindex="-1"></a>                                  <span class="cf">break</span></span>
+<span id="cb85-19"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-19" aria-hidden="true" tabindex="-1"></a>                                } <span class="cf">else</span> {</span>
+<span id="cb85-20"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-20" aria-hidden="true" tabindex="-1"></a>                                 </span>
+<span id="cb85-21"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-21" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># Extract columnss of interest</span></span>
+<span id="cb85-22"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-22" aria-hidden="true" tabindex="-1"></a>                                final<span class="ot">&lt;-</span><span class="fu">do.call</span>(rbind,storage_results)[,<span class="fu">c</span>(<span class="st">&quot;states&quot;</span>,<span class="st">&quot;nextState&quot;</span>,<span class="st">&quot;reward&quot;</span>,<span class="st">&quot;actions&quot;</span>)]</span>
+<span id="cb85-23"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-23" aria-hidden="true" tabindex="-1"></a>                                </span>
+<span id="cb85-24"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-24" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># Remove decisions that do not result in a state change, or terminal nodes that do not exist</span></span>
+<span id="cb85-25"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-25" aria-hidden="true" tabindex="-1"></a>                                nodes_to_remove <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
+<span id="cb85-26"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-26" aria-hidden="true" tabindex="-1"></a>                                                      <span class="fu">setdiff</span>(final<span class="sc">$</span>nextState,</span>
+<span id="cb85-27"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-27" aria-hidden="true" tabindex="-1"></a>                                                                   final<span class="sc">$</span>states),</span>
+<span id="cb85-28"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-28" aria-hidden="true" tabindex="-1"></a>                                                          final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone)</span>
+<span id="cb85-29"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-29" aria-hidden="true" tabindex="-1"></a>                               final <span class="ot">&lt;-</span> final<span class="sc">%&gt;%</span></span>
+<span id="cb85-30"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-30" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">filter</span>(<span class="sc">!</span>nextState<span class="sc">%in%</span>nodes_to_remove)<span class="sc">%&gt;%</span></span>
+<span id="cb85-31"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-31" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">distinct</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb85-32"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-32" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">mutate</span>(<span class="st">&quot;initiating_mutation&quot;</span><span class="ot">=</span>initiating_mutation)<span class="sc">%&gt;%</span></span>
+<span id="cb85-33"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-33" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">unite</span>(<span class="at">col=</span><span class="st">&quot;edge&quot;</span>,states,nextState,<span class="at">sep=</span><span class="st">&quot;-&gt;&quot;</span>,<span class="at">remove=</span><span class="cn">FALSE</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb85-34"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-34" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">relocate</span>(edge,<span class="at">.after =</span> <span class="fu">last_col</span>())</span>
+<span id="cb85-35"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-35" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">return</span>(final) </span>
+<span id="cb85-36"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-36" aria-hidden="true" tabindex="-1"></a>                               }</span>
+<span id="cb85-37"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-37" aria-hidden="true" tabindex="-1"></a>                              }),<span class="fu">names</span>(all_results))</span>
+<span id="cb85-38"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-38" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb85-39"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-39" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">length</span>(all_results_filtered)<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb85-40"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb85-41"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-41" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">all</span>(<span class="fu">lapply</span>(all_results_filtered,is.null))){</span>
+<span id="cb85-42"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb85-43"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-43" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb85-44"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-45"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-45" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb85-46"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-46" aria-hidden="true" tabindex="-1"></a>      optimal<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">which.max</span>(<span class="fu">do.call</span>(c,<span class="fu">lapply</span>(all_results_filtered,<span class="cf">function</span>(x){</span>
+<span id="cb85-47"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-47" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">sum</span>(x<span class="sc">$</span>reward)</span>
+<span id="cb85-48"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-48" aria-hidden="true" tabindex="-1"></a>                                        }))))</span>
+<span id="cb85-49"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-49" aria-hidden="true" tabindex="-1"></a>      all_mutants <span class="ot">&lt;-</span><span class="fu">unique</span>(<span class="fu">names</span>(all_results_filtered))</span>
+<span id="cb85-50"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-50" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb85-51"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-51" aria-hidden="true" tabindex="-1"></a>      mutation_output <span class="ot">&lt;-</span><span class="cf">if</span>(optimal_mutants_only){</span>
+<span id="cb85-52"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-52" aria-hidden="true" tabindex="-1"></a>            (optimal)</span>
+<span id="cb85-53"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-53" aria-hidden="true" tabindex="-1"></a>          } <span class="cf">else</span>{</span>
+<span id="cb85-54"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-54" aria-hidden="true" tabindex="-1"></a>            (all_mutants)</span>
+<span id="cb85-55"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-55" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb85-56"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-57"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-57" aria-hidden="true" tabindex="-1"></a>      final<span class="ot">&lt;-</span><span class="fu">do.call</span>(rbind,all_results_filtered)<span class="sc">%&gt;%</span></span>
+<span id="cb85-58"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-58" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">filter</span>(initiating_mutation<span class="sc">%in%</span>mutation_output)<span class="sc">%&gt;%</span></span>
+<span id="cb85-59"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-59" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mutate</span>(<span class="at">observed=</span><span class="fu">ifelse</span>(states<span class="sc">%in%</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone<span class="sc">&amp;</span></span>
+<span id="cb85-60"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-60" aria-hidden="true" tabindex="-1"></a>                                                         nextState<span class="sc">%in%</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone,</span>
+<span id="cb85-61"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-61" aria-hidden="true" tabindex="-1"></a>                                                                       <span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>))</span>
+<span id="cb85-62"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(final)</span>
+<span id="cb85-63"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-63" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb85-64"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb85-65"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-66"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-66" aria-hidden="true" tabindex="-1"></a>plot_optimal_graph_for_trajectory_new<span class="ot">&lt;-</span><span class="cf">function</span>(sample,optimal_mutants_only){</span>
+<span id="cb85-67"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb85-68"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-68" aria-hidden="true" tabindex="-1"></a>      final <span class="ot">&lt;-</span> <span class="fu">trajectory_summariztion</span>(sample,<span class="at">optimal_mutants_only=</span><span class="cn">TRUE</span>)</span>
+<span id="cb85-69"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-69" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb85-70"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-70" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(final<span class="sc">==</span><span class="st">&quot;error&quot;</span><span class="sc">|</span><span class="fu">is.null</span>(final)){</span>
+<span id="cb85-71"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-71" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">&quot;error&quot;</span>)</span>
+<span id="cb85-72"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-72" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span>{</span>
+<span id="cb85-73"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-73" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb85-74"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-74" aria-hidden="true" tabindex="-1"></a>      graph<span class="ot">&lt;-</span><span class="fu">graph_from_data_frame</span>(final,<span class="at">directed=</span>T)</span>
+<span id="cb85-75"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-75" aria-hidden="true" tabindex="-1"></a>      weights<span class="ot">&lt;-</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Count<span class="sc">/</span><span class="fu">sum</span>(final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Count)</span>
+<span id="cb85-76"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-76" aria-hidden="true" tabindex="-1"></a>      <span class="fu">names</span>(weights) <span class="ot">&lt;-</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone</span>
+<span id="cb85-77"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-77" aria-hidden="true" tabindex="-1"></a>      weight_subset<span class="ot">&lt;-</span>weights[<span class="fu">names</span>(weights)<span class="sc">%in%</span><span class="fu">names</span>(<span class="fu">V</span>(graph))]</span>
+<span id="cb85-78"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-78" aria-hidden="true" tabindex="-1"></a>      nodes_to_add_names<span class="ot">&lt;-</span><span class="fu">setdiff</span>(<span class="fu">names</span>(<span class="fu">V</span>(graph)),<span class="fu">names</span>(weights))</span>
+<span id="cb85-79"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-79" aria-hidden="true" tabindex="-1"></a>      nodes_to_add <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">0.1</span>,<span class="fu">length</span>(nodes_to_add_names))</span>
+<span id="cb85-80"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-80" aria-hidden="true" tabindex="-1"></a>      <span class="fu">names</span>(nodes_to_add)<span class="ot">&lt;-</span>nodes_to_add_names</span>
+<span id="cb85-81"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-81" aria-hidden="true" tabindex="-1"></a>      weight_final <span class="ot">&lt;-</span> <span class="fu">c</span>(weight_subset,nodes_to_add)[<span class="fu">names</span>(<span class="fu">V</span>(graph))]</span>
+<span id="cb85-82"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-83"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-83" aria-hidden="true" tabindex="-1"></a>      clone_colors <span class="ot">&lt;-</span><span class="fu">ifelse</span>(<span class="fu">names</span>(<span class="fu">V</span>(graph))<span class="sc">%in%</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone,<span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],<span class="st">&quot;grey80&quot;</span>)</span>
+<span id="cb85-84"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-84" aria-hidden="true" tabindex="-1"></a>      observe_edges <span class="ot">&lt;-</span> final<span class="sc">%&gt;%</span><span class="fu">filter</span>(observed<span class="sc">==</span><span class="st">&quot;Yes&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(edge)</span>
+<span id="cb85-85"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-85" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(graph,<span class="at">layout=</span>layout_as_tree,</span>
+<span id="cb85-86"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-86" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vertex.color=</span><span class="fu">ifelse</span>(<span class="fu">names</span>(<span class="fu">V</span>(graph))<span class="sc">%in%</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone,<span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],<span class="st">&quot;grey80&quot;</span>),</span>
+<span id="cb85-87"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-87" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vertex.frame.color=</span><span class="fu">ifelse</span>(<span class="fu">names</span>(<span class="fu">V</span>(graph))<span class="sc">%in%</span>final_sample_summary[[sample]]<span class="sc">$</span>Clones<span class="sc">$</span>Clone ,<span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>],<span class="st">&quot;grey80&quot;</span>),</span>
+<span id="cb85-88"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-88" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vertex.size=</span><span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>weight_final<span class="sc">*</span><span class="dv">500</span>),</span>
+<span id="cb85-89"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-89" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vertex.label=</span><span class="cn">NA</span>,</span>
+<span id="cb85-90"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-90" aria-hidden="true" tabindex="-1"></a>                  <span class="at">edge.color=</span><span class="fu">ifelse</span>(<span class="fu">edge_attr</span>(graph)<span class="sc">$</span>edge <span class="sc">%in%</span>observe_edges,<span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Blues&quot;</span>)[<span class="dv">5</span>],<span class="st">&quot;grey80&quot;</span>))<span class="co">#, </span></span>
+<span id="cb85-91"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-92"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-92" aria-hidden="true" tabindex="-1"></a>       }</span>
+<span id="cb85-93"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html#cb85-93" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introductory-text-and-philisophy-of-approach.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="executing-the-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

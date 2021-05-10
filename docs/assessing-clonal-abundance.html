@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.4 Assessing clonal abundance | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
-  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>2.5 Assessing clonal abundance | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.4 Assessing clonal abundance | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:title" content="2.5 Assessing clonal abundance | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.4 Assessing clonal abundance | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta name="twitter:title" content="2.5 Assessing clonal abundance | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
   
-  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al." />
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
   
 
 <meta name="author" content="Robert Bowman" />
 
 
-<meta name="date" content="2020-10-28" />
+<meta name="date" content="2021-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="post-processing.html"/>
 <link rel="next" href="manuscript-analysis.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,25 +51,25 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -88,7 +89,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -121,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -138,33 +140,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
-<li class="chapter" data-level="2.2" data-path="tapestri-library.html"><a href="tapestri-library.html"><i class="fa fa-check"></i><b>2.2</b> Tapestri Package</a></li>
-<li class="chapter" data-level="2.3" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.3</b> Post processing</a></li>
-<li class="chapter" data-level="2.4" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.4</b> Assessing clonal abundance</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a><ul>
-<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a><ul>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
 <li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
 <li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
 <li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
 <li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a><ul>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
 <li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
 <li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
 <li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>4</b> Final Words</a></li>
-<li class="chapter" data-level="5" data-path="Appendix.html"><a href="Appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
-<li class="chapter" data-level="5.1" data-path="AppendixA.html"><a href="AppendixA.html"><i class="fa fa-check"></i><b>5.1</b> Import from Tapestri Insights</a></li>
-<li class="chapter" data-level="5.2" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>5.2</b> Functions</a></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -185,120 +193,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="assessing-clonal-abundance" class="section level2">
-<h2><span class="header-section-number">2.4</span> Assessing clonal abundance</h2>
+<div id="assessing-clonal-abundance" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Assessing clonal abundance</h2>
 <p>This will be the last code example that proceeds with our limited sample set. After this, the tutorial will procede with the data used in the manuscript. This analysis will focus only on samples that have greater than one mutation.</p>
 <p>The general workflow is as follows
 * Select samples that have at least 2 mutaions
 * Clone assigment
 * Tally clonal abundance
 * Establish a clonal abundance confidence itnerval</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="assessing-clonal-abundance.html#cb8-1"></a><span class="co"># Select samples with at least 2 mutations </span></span>
-<span id="cb8-2"><a href="assessing-clonal-abundance.html#cb8-2"></a>clonal_sample_set &lt;-<span class="st"> </span><span class="kw">names</span>(final_NGTs)[<span class="kw">do.call</span>(rbind,<span class="kw">lapply</span>(final_NGTs,dim))[,<span class="dv">2</span>]<span class="op">&gt;</span><span class="dv">2</span>]</span>
-<span id="cb8-3"><a href="assessing-clonal-abundance.html#cb8-3"></a></span>
-<span id="cb8-4"><a href="assessing-clonal-abundance.html#cb8-4"></a><span class="co"># Order columns based on computed_VAF, and assign a clone to each cell</span></span>
-<span id="cb8-5"><a href="assessing-clonal-abundance.html#cb8-5"></a>NGT_to_clone&lt;-<span class="kw">lapply</span>(final_NGTs[clonal_sample_set],<span class="cf">function</span>(y){</span>
-<span id="cb8-6"><a href="assessing-clonal-abundance.html#cb8-6"></a>  bulk_VAF_order &lt;-<span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">colSums</span>(y[,<span class="op">-</span><span class="dv">1</span>]),<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</span>
-<span id="cb8-7"><a href="assessing-clonal-abundance.html#cb8-7"></a>  y[,<span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>,bulk_VAF_order)] <span class="op">%&gt;%</span><span class="kw">unite</span>(<span class="st">&quot;Clone&quot;</span>,<span class="kw">all_of</span>(<span class="st">`</span><span class="dt">bulk_VAF_order</span><span class="st">`</span>),<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb8-8"><a href="assessing-clonal-abundance.html#cb8-8"></a> })</span>
-<span id="cb8-9"><a href="assessing-clonal-abundance.html#cb8-9"></a></span>
-<span id="cb8-10"><a href="assessing-clonal-abundance.html#cb8-10"></a><span class="co"># Tally clones</span></span>
-<span id="cb8-11"><a href="assessing-clonal-abundance.html#cb8-11"></a>clonal_abundance&lt;-<span class="st"> </span><span class="kw">lapply</span>(NGT_to_clone,<span class="cf">function</span>(x){</span>
-<span id="cb8-12"><a href="assessing-clonal-abundance.html#cb8-12"></a>  x<span class="op">%&gt;%</span><span class="kw">count</span>(Clone,<span class="dt">name=</span><span class="st">&quot;Count&quot;</span>)<span class="op">%&gt;%</span><span class="kw">arrange</span>(Count)</span>
-<span id="cb8-13"><a href="assessing-clonal-abundance.html#cb8-13"></a> })</span>
-<span id="cb8-14"><a href="assessing-clonal-abundance.html#cb8-14"></a></span>
-<span id="cb8-15"><a href="assessing-clonal-abundance.html#cb8-15"></a><span class="co"># Setup a resampling function to generate multiple clonal abundance tallies</span></span>
-<span id="cb8-16"><a href="assessing-clonal-abundance.html#cb8-16"></a>resample_fun&lt;-<span class="cf">function</span>(data){</span>
-<span id="cb8-17"><a href="assessing-clonal-abundance.html#cb8-17"></a>  x &lt;-<span class="st"> </span>data[<span class="kw">sample</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(data),<span class="dt">replace=</span><span class="ot">TRUE</span>),]</span>
-<span id="cb8-18"><a href="assessing-clonal-abundance.html#cb8-18"></a>  <span class="kw">return</span>(<span class="kw">as.matrix</span>(x<span class="op">%&gt;%</span><span class="kw">count</span>(Clone,<span class="dt">name=</span><span class="st">&quot;Count&quot;</span>)<span class="op">%&gt;%</span><span class="kw">arrange</span>(Count)))</span>
-<span id="cb8-19"><a href="assessing-clonal-abundance.html#cb8-19"></a>}</span>
-<span id="cb8-20"><a href="assessing-clonal-abundance.html#cb8-20"></a></span>
-<span id="cb8-21"><a href="assessing-clonal-abundance.html#cb8-21"></a>replicates &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># we did 10,000. Keeping it low here for run time.</span></span>
-<span id="cb8-22"><a href="assessing-clonal-abundance.html#cb8-22"></a>clone_cutoff &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># minimum number of cells in order to retain a clone</span></span>
-<span id="cb8-23"><a href="assessing-clonal-abundance.html#cb8-23"></a>clonal_abundance_boot_CI &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">names</span>(NGT_to_clone),<span class="cf">function</span>(sample_to_test){</span>
-<span id="cb8-24"><a href="assessing-clonal-abundance.html#cb8-24"></a>    test&lt;-<span class="kw">replicate</span>(<span class="dt">n=</span>replicates,<span class="kw">resample_fun</span>(NGT_to_clone[[sample_to_test]]),<span class="dt">simplify =</span> <span class="st">&quot;array&quot;</span>)</span>
-<span id="cb8-25"><a href="assessing-clonal-abundance.html#cb8-25"></a>    <span class="cf">if</span>(<span class="kw">class</span>(test)<span class="op">==</span><span class="st">&quot;list&quot;</span>){</span>
-<span id="cb8-26"><a href="assessing-clonal-abundance.html#cb8-26"></a>      y &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(test,data.frame),<span class="dv">1</span><span class="op">:</span>replicates) <span class="op">%&gt;%</span></span>
-<span id="cb8-27"><a href="assessing-clonal-abundance.html#cb8-27"></a><span class="st">           </span><span class="kw">imap</span>(<span class="dt">.x =</span> ., <span class="op">~</span><span class="st"> </span><span class="kw">set_names</span>(.x, <span class="kw">c</span>(<span class="st">&quot;Clone&quot;</span>, .y))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-28"><a href="assessing-clonal-abundance.html#cb8-28"></a><span class="st">           </span>purrr<span class="op">::</span><span class="kw">reduce</span>(full_join, <span class="dt">by =</span> <span class="st">&quot;Clone&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb8-29"><a href="assessing-clonal-abundance.html#cb8-29"></a><span class="st">           </span><span class="kw">mutate_if</span>(<span class="kw">names</span>(.)<span class="op">!=</span><span class="st">&quot;Clone&quot;</span>,as.numeric)<span class="op">%&gt;%</span></span>
-<span id="cb8-30"><a href="assessing-clonal-abundance.html#cb8-30"></a><span class="st">           </span><span class="kw">mutate_each</span>(<span class="kw">funs</span>(<span class="kw">replace</span>(., <span class="kw">is.na</span>(.), <span class="dv">0</span>)))</span>
-<span id="cb8-31"><a href="assessing-clonal-abundance.html#cb8-31"></a>      }</span>
-<span id="cb8-32"><a href="assessing-clonal-abundance.html#cb8-32"></a>    <span class="cf">if</span>(<span class="kw">class</span>(test)<span class="op">==</span><span class="st">&quot;array&quot;</span>){</span>
-<span id="cb8-33"><a href="assessing-clonal-abundance.html#cb8-33"></a>      y &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">apply</span>(test,<span class="dv">3</span>,data.frame),<span class="dv">1</span><span class="op">:</span>replicates) <span class="op">%&gt;%</span></span>
-<span id="cb8-34"><a href="assessing-clonal-abundance.html#cb8-34"></a><span class="st">           </span><span class="kw">imap</span>(<span class="dt">.x =</span> ., <span class="op">~</span><span class="st"> </span><span class="kw">set_names</span>(.x, <span class="kw">c</span>(<span class="st">&quot;Clone&quot;</span>, .y))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-35"><a href="assessing-clonal-abundance.html#cb8-35"></a><span class="st">           </span>purrr<span class="op">::</span><span class="kw">reduce</span>(full_join, <span class="dt">by =</span> <span class="st">&quot;Clone&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb8-36"><a href="assessing-clonal-abundance.html#cb8-36"></a><span class="st">           </span><span class="kw">mutate_if</span>(<span class="kw">names</span>(.)<span class="op">!=</span><span class="st">&quot;Clone&quot;</span>,as.numeric)<span class="op">%&gt;%</span></span>
-<span id="cb8-37"><a href="assessing-clonal-abundance.html#cb8-37"></a><span class="st">           </span><span class="kw">mutate_each</span>(<span class="kw">funs</span>(<span class="kw">replace</span>(., <span class="kw">is.na</span>(.), <span class="dv">0</span>)))</span>
-<span id="cb8-38"><a href="assessing-clonal-abundance.html#cb8-38"></a>      }</span>
-<span id="cb8-39"><a href="assessing-clonal-abundance.html#cb8-39"></a>    z &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">t</span>(<span class="kw">apply</span>(y<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">-</span>Clone),<span class="dv">1</span>,<span class="cf">function</span>(p){</span>
-<span id="cb8-40"><a href="assessing-clonal-abundance.html#cb8-40"></a>            <span class="kw">quantile</span>(p,<span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span>
-<span id="cb8-41"><a href="assessing-clonal-abundance.html#cb8-41"></a>         })),<span class="st">&quot;Clone&quot;</span>=y<span class="op">$</span>Clone)</span>
-<span id="cb8-42"><a href="assessing-clonal-abundance.html#cb8-42"></a>    set &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">data.frame</span>(<span class="kw">inner_join</span>(<span class="kw">data.frame</span>(clonal_abundance[[sample_to_test]]),z,<span class="dt">by=</span><span class="st">&quot;Clone&quot;</span>)),</span>
-<span id="cb8-43"><a href="assessing-clonal-abundance.html#cb8-43"></a>                  <span class="kw">c</span>(<span class="st">&quot;Clone&quot;</span>,<span class="st">&quot;Count&quot;</span>,<span class="st">&quot;LCI&quot;</span>,<span class="st">&quot;UCI&quot;</span>))<span class="op">%&gt;%</span><span class="kw">filter</span>(LCI<span class="op">&gt;=</span>clone_cutoff)</span>
-<span id="cb8-44"><a href="assessing-clonal-abundance.html#cb8-44"></a>})</span>
-<span id="cb8-45"><a href="assessing-clonal-abundance.html#cb8-45"></a><span class="kw">names</span>(clonal_abundance_boot_CI) &lt;-<span class="kw">names</span>(clonal_abundance)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="assessing-clonal-abundance.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select samples with at least 2 mutations </span></span>
+<span id="cb31-2"><a href="assessing-clonal-abundance.html#cb31-2" aria-hidden="true" tabindex="-1"></a>clonal_sample_set <span class="ot">&lt;-</span> <span class="fu">names</span>(final_NGTs)[<span class="fu">do.call</span>(rbind,<span class="fu">lapply</span>(final_NGTs,dim))[,<span class="dv">2</span>]<span class="sc">&gt;</span><span class="dv">2</span>]</span>
+<span id="cb31-3"><a href="assessing-clonal-abundance.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="assessing-clonal-abundance.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Order columns based on computed_VAF, and assign a clone to each cell</span></span>
+<span id="cb31-5"><a href="assessing-clonal-abundance.html#cb31-5" aria-hidden="true" tabindex="-1"></a>NGT_to_clone<span class="ot">&lt;-</span><span class="fu">lapply</span>(final_NGTs[clonal_sample_set],<span class="cf">function</span>(y){</span>
+<span id="cb31-6"><a href="assessing-clonal-abundance.html#cb31-6" aria-hidden="true" tabindex="-1"></a>  bulk_VAF_order <span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(y[,<span class="sc">-</span><span class="dv">1</span>]),<span class="at">decreasing=</span><span class="cn">TRUE</span>))</span>
+<span id="cb31-7"><a href="assessing-clonal-abundance.html#cb31-7" aria-hidden="true" tabindex="-1"></a>  y[,<span class="fu">c</span>(<span class="st">&quot;Cell&quot;</span>,bulk_VAF_order)] <span class="sc">%&gt;%</span><span class="fu">unite</span>(<span class="st">&quot;Clone&quot;</span>,<span class="fu">all_of</span>(<span class="st">`</span><span class="at">bulk_VAF_order</span><span class="st">`</span>),<span class="at">sep=</span><span class="st">&quot;_&quot;</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb31-8"><a href="assessing-clonal-abundance.html#cb31-8" aria-hidden="true" tabindex="-1"></a> })</span>
+<span id="cb31-9"><a href="assessing-clonal-abundance.html#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="assessing-clonal-abundance.html#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Tally clones</span></span>
+<span id="cb31-11"><a href="assessing-clonal-abundance.html#cb31-11" aria-hidden="true" tabindex="-1"></a>clonal_abundance<span class="ot">&lt;-</span> <span class="fu">lapply</span>(NGT_to_clone,<span class="cf">function</span>(x){</span>
+<span id="cb31-12"><a href="assessing-clonal-abundance.html#cb31-12" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">%&gt;%</span><span class="fu">count</span>(Clone,<span class="at">name=</span><span class="st">&quot;Count&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">arrange</span>(Count)</span>
+<span id="cb31-13"><a href="assessing-clonal-abundance.html#cb31-13" aria-hidden="true" tabindex="-1"></a> })</span>
+<span id="cb31-14"><a href="assessing-clonal-abundance.html#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="assessing-clonal-abundance.html#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup a resampling function to generate multiple clonal abundance tallies</span></span>
+<span id="cb31-16"><a href="assessing-clonal-abundance.html#cb31-16" aria-hidden="true" tabindex="-1"></a>resample_fun<span class="ot">&lt;-</span><span class="cf">function</span>(data){</span>
+<span id="cb31-17"><a href="assessing-clonal-abundance.html#cb31-17" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> data[<span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data),<span class="at">replace=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb31-18"><a href="assessing-clonal-abundance.html#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">as.matrix</span>(x<span class="sc">%&gt;%</span><span class="fu">count</span>(Clone,<span class="at">name=</span><span class="st">&quot;Count&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">arrange</span>(Count)))</span>
+<span id="cb31-19"><a href="assessing-clonal-abundance.html#cb31-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-20"><a href="assessing-clonal-abundance.html#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="assessing-clonal-abundance.html#cb31-21" aria-hidden="true" tabindex="-1"></a>replicates <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># we did 10,000. Keeping it low here for run time.</span></span>
+<span id="cb31-22"><a href="assessing-clonal-abundance.html#cb31-22" aria-hidden="true" tabindex="-1"></a>clone_cutoff <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># minimum number of cells in order to retain a clone</span></span>
+<span id="cb31-23"><a href="assessing-clonal-abundance.html#cb31-23" aria-hidden="true" tabindex="-1"></a>clonal_abundance_boot_CI <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">names</span>(NGT_to_clone),<span class="cf">function</span>(sample_to_test){</span>
+<span id="cb31-24"><a href="assessing-clonal-abundance.html#cb31-24" aria-hidden="true" tabindex="-1"></a>    test<span class="ot">&lt;-</span><span class="fu">replicate</span>(<span class="at">n=</span>replicates,<span class="fu">resample_fun</span>(NGT_to_clone[[sample_to_test]]),<span class="at">simplify =</span> <span class="st">&quot;array&quot;</span>)</span>
+<span id="cb31-25"><a href="assessing-clonal-abundance.html#cb31-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">class</span>(test)<span class="sc">==</span><span class="st">&quot;list&quot;</span>){</span>
+<span id="cb31-26"><a href="assessing-clonal-abundance.html#cb31-26" aria-hidden="true" tabindex="-1"></a>      y <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(test,data.frame),<span class="dv">1</span><span class="sc">:</span>replicates) <span class="sc">%&gt;%</span></span>
+<span id="cb31-27"><a href="assessing-clonal-abundance.html#cb31-27" aria-hidden="true" tabindex="-1"></a>           <span class="fu">imap</span>(<span class="at">.x =</span> ., <span class="sc">~</span> <span class="fu">set_names</span>(.x, <span class="fu">c</span>(<span class="st">&quot;Clone&quot;</span>, .y))) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-28"><a href="assessing-clonal-abundance.html#cb31-28" aria-hidden="true" tabindex="-1"></a>           purrr<span class="sc">::</span><span class="fu">reduce</span>(full_join, <span class="at">by =</span> <span class="st">&quot;Clone&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb31-29"><a href="assessing-clonal-abundance.html#cb31-29" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_if</span>(<span class="fu">names</span>(.)<span class="sc">!=</span><span class="st">&quot;Clone&quot;</span>,as.numeric)<span class="sc">%&gt;%</span></span>
+<span id="cb31-30"><a href="assessing-clonal-abundance.html#cb31-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_each</span>(<span class="fu">funs</span>(<span class="fu">replace</span>(., <span class="fu">is.na</span>(.), <span class="dv">0</span>)))</span>
+<span id="cb31-31"><a href="assessing-clonal-abundance.html#cb31-31" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb31-32"><a href="assessing-clonal-abundance.html#cb31-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">class</span>(test)<span class="sc">==</span><span class="st">&quot;array&quot;</span>){</span>
+<span id="cb31-33"><a href="assessing-clonal-abundance.html#cb31-33" aria-hidden="true" tabindex="-1"></a>      y <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">apply</span>(test,<span class="dv">3</span>,data.frame),<span class="dv">1</span><span class="sc">:</span>replicates) <span class="sc">%&gt;%</span></span>
+<span id="cb31-34"><a href="assessing-clonal-abundance.html#cb31-34" aria-hidden="true" tabindex="-1"></a>           <span class="fu">imap</span>(<span class="at">.x =</span> ., <span class="sc">~</span> <span class="fu">set_names</span>(.x, <span class="fu">c</span>(<span class="st">&quot;Clone&quot;</span>, .y))) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-35"><a href="assessing-clonal-abundance.html#cb31-35" aria-hidden="true" tabindex="-1"></a>           purrr<span class="sc">::</span><span class="fu">reduce</span>(full_join, <span class="at">by =</span> <span class="st">&quot;Clone&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb31-36"><a href="assessing-clonal-abundance.html#cb31-36" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_if</span>(<span class="fu">names</span>(.)<span class="sc">!=</span><span class="st">&quot;Clone&quot;</span>,as.numeric)<span class="sc">%&gt;%</span></span>
+<span id="cb31-37"><a href="assessing-clonal-abundance.html#cb31-37" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_each</span>(<span class="fu">funs</span>(<span class="fu">replace</span>(., <span class="fu">is.na</span>(.), <span class="dv">0</span>)))</span>
+<span id="cb31-38"><a href="assessing-clonal-abundance.html#cb31-38" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb31-39"><a href="assessing-clonal-abundance.html#cb31-39" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">apply</span>(y<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>Clone),<span class="dv">1</span>,<span class="cf">function</span>(p){</span>
+<span id="cb31-40"><a href="assessing-clonal-abundance.html#cb31-40" aria-hidden="true" tabindex="-1"></a>            <span class="fu">quantile</span>(p,<span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span>
+<span id="cb31-41"><a href="assessing-clonal-abundance.html#cb31-41" aria-hidden="true" tabindex="-1"></a>         })),<span class="st">&quot;Clone&quot;</span><span class="ot">=</span>y<span class="sc">$</span>Clone)</span>
+<span id="cb31-42"><a href="assessing-clonal-abundance.html#cb31-42" aria-hidden="true" tabindex="-1"></a>    set <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">data.frame</span>(<span class="fu">inner_join</span>(<span class="fu">data.frame</span>(clonal_abundance[[sample_to_test]]),z,<span class="at">by=</span><span class="st">&quot;Clone&quot;</span>)),</span>
+<span id="cb31-43"><a href="assessing-clonal-abundance.html#cb31-43" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;Clone&quot;</span>,<span class="st">&quot;Count&quot;</span>,<span class="st">&quot;LCI&quot;</span>,<span class="st">&quot;UCI&quot;</span>))<span class="sc">%&gt;%</span><span class="fu">filter</span>(LCI<span class="sc">&gt;=</span>clone_cutoff)</span>
+<span id="cb31-44"><a href="assessing-clonal-abundance.html#cb31-44" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb31-45"><a href="assessing-clonal-abundance.html#cb31-45" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clonal_abundance_boot_CI) <span class="ot">&lt;-</span><span class="fu">names</span>(clonal_abundance)</span></code></pre></div>
 <p>Now that we have a set of clones that we believe reproducibily have at least 10 cells, we remove cells and variants that are no longer represented at sufficient coverage.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="assessing-clonal-abundance.html#cb9-1"></a>clone_filtered_NGTs &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(sample_to_test){</span>
-<span id="cb9-2"><a href="assessing-clonal-abundance.html#cb9-2"></a></span>
-<span id="cb9-3"><a href="assessing-clonal-abundance.html#cb9-3"></a>  <span class="co"># Determine if there are any clones left to process</span></span>
-<span id="cb9-4"><a href="assessing-clonal-abundance.html#cb9-4"></a>  <span class="cf">if</span>(<span class="kw">nrow</span>(clonal_abundance_boot_CI[[sample_to_test]])<span class="op">==</span><span class="dv">0</span>) {</span>
-<span id="cb9-5"><a href="assessing-clonal-abundance.html#cb9-5"></a>    <span class="kw">return</span>(<span class="st">&quot;No clones after boostrapping&quot;</span>)</span>
-<span id="cb9-6"><a href="assessing-clonal-abundance.html#cb9-6"></a>  }</span>
-<span id="cb9-7"><a href="assessing-clonal-abundance.html#cb9-7"></a>  </span>
-<span id="cb9-8"><a href="assessing-clonal-abundance.html#cb9-8"></a>  <span class="co"># Determine if there are any mutations that are no longer found in a stable clone</span></span>
-<span id="cb9-9"><a href="assessing-clonal-abundance.html#cb9-9"></a>  clone_matrix&lt;-<span class="kw">as.matrix</span>(<span class="kw">do.call</span>(rbind,</span>
-<span id="cb9-10"><a href="assessing-clonal-abundance.html#cb9-10"></a>                                <span class="kw">strsplit</span>(clonal_abundance_boot_CI[[sample_to_test]][,<span class="st">&quot;Clone&quot;</span>],<span class="dt">split=</span><span class="st">&quot;_&quot;</span>)))</span>
-<span id="cb9-11"><a href="assessing-clonal-abundance.html#cb9-11"></a>  <span class="kw">mode</span>(clone_matrix) &lt;-<span class="st"> &quot;numeric&quot;</span></span>
-<span id="cb9-12"><a href="assessing-clonal-abundance.html#cb9-12"></a>  <span class="kw">colnames</span>(clone_matrix) &lt;-<span class="kw">colnames</span>(NGT_to_clone[[sample_to_test]])[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span>
-<span id="cb9-13"><a href="assessing-clonal-abundance.html#cb9-13"></a>  variants_to_remove&lt;-<span class="kw">names</span>(<span class="kw">which</span>(<span class="kw">colSums</span>(clone_matrix)<span class="op">==</span><span class="dv">0</span>))</span>
-<span id="cb9-14"><a href="assessing-clonal-abundance.html#cb9-14"></a></span>
-<span id="cb9-15"><a href="assessing-clonal-abundance.html#cb9-15"></a>  <span class="co"># Check other conditions of interest that might remove sample from further processing</span></span>
-<span id="cb9-16"><a href="assessing-clonal-abundance.html#cb9-16"></a>  <span class="cf">if</span>(<span class="kw">nrow</span>(clone_matrix)<span class="op">==</span><span class="dv">1</span>) {</span>
-<span id="cb9-17"><a href="assessing-clonal-abundance.html#cb9-17"></a>    <span class="kw">return</span>(<span class="st">&quot;Only 1 clone left&quot;</span>)</span>
-<span id="cb9-18"><a href="assessing-clonal-abundance.html#cb9-18"></a>  }<span class="cf">else</span>  <span class="cf">if</span>(<span class="kw">length</span>(<span class="kw">setdiff</span>(<span class="kw">colnames</span>(clone_matrix),<span class="kw">c</span>(variants_to_remove)))<span class="op">&lt;=</span><span class="dv">1</span>){</span>
-<span id="cb9-19"><a href="assessing-clonal-abundance.html#cb9-19"></a>    <span class="kw">return</span>(<span class="st">&quot;Removed all but 1 variant&quot;</span>)</span>
-<span id="cb9-20"><a href="assessing-clonal-abundance.html#cb9-20"></a>  }<span class="cf">else</span> {</span>
-<span id="cb9-21"><a href="assessing-clonal-abundance.html#cb9-21"></a>      <span class="co"># Select only clones that survive the bootstrapping, and remove variants that fall out</span></span>
-<span id="cb9-22"><a href="assessing-clonal-abundance.html#cb9-22"></a>      NGT_to_clone_subset &lt;-<span class="st"> </span>NGT_to_clone[[sample_to_test]]<span class="op">%&gt;%</span></span>
-<span id="cb9-23"><a href="assessing-clonal-abundance.html#cb9-23"></a><span class="st">                                </span><span class="kw">filter</span>(Clone<span class="op">%in%</span>clonal_abundance_boot_CI[[sample_to_test]]<span class="op">$</span>Clone)<span class="op">%&gt;%</span></span>
-<span id="cb9-24"><a href="assessing-clonal-abundance.html#cb9-24"></a><span class="st">                                </span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove))</span>
-<span id="cb9-25"><a href="assessing-clonal-abundance.html#cb9-25"></a>        </span>
-<span id="cb9-26"><a href="assessing-clonal-abundance.html#cb9-26"></a>      <span class="co"># Create a key for the new and old clone names after removing variants that are no longer present</span></span>
-<span id="cb9-27"><a href="assessing-clonal-abundance.html#cb9-27"></a>      clone_key &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;New&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix)<span class="op">%&gt;%</span><span class="kw">select</span>(<span class="op">!</span><span class="kw">all_of</span>(variants_to_remove)),<span class="dt">MARGIN=</span><span class="dv">1</span>,</span>
-<span id="cb9-28"><a href="assessing-clonal-abundance.html#cb9-28"></a>                                            <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}),</span>
-<span id="cb9-29"><a href="assessing-clonal-abundance.html#cb9-29"></a>                                <span class="st">&quot;Old&quot;</span>=<span class="kw">apply</span>(<span class="kw">data.frame</span>(clone_matrix),<span class="dt">MARGIN=</span><span class="dv">1</span>,</span>
-<span id="cb9-30"><a href="assessing-clonal-abundance.html#cb9-30"></a>                                            <span class="cf">function</span>(x){ <span class="kw">paste</span>(x,<span class="dt">sep=</span><span class="st">&quot;_&quot;</span>,<span class="dt">collapse=</span><span class="st">&quot;_&quot;</span>)}))</span>
-<span id="cb9-31"><a href="assessing-clonal-abundance.html#cb9-31"></a>        </span>
-<span id="cb9-32"><a href="assessing-clonal-abundance.html#cb9-32"></a>      <span class="co"># If there are any variants to remove and clones that need to be renamed</span></span>
-<span id="cb9-33"><a href="assessing-clonal-abundance.html#cb9-33"></a>      <span class="cf">if</span>(<span class="kw">any</span>(clone_key<span class="op">$</span>New<span class="op">!=</span>clone_key<span class="op">$</span>Old)){</span>
-<span id="cb9-34"><a href="assessing-clonal-abundance.html#cb9-34"></a>            NGT_to_clone_subset<span class="op">$</span>Clone &lt;-<span class="st"> </span><span class="kw">sapply</span>(NGT_to_clone_subset<span class="op">$</span>Clone,<span class="cf">function</span>(x){</span>
-<span id="cb9-35"><a href="assessing-clonal-abundance.html#cb9-35"></a>                                              clone_key<span class="op">$</span>New[<span class="kw">match</span>(x,clone_key<span class="op">$</span>Old)]})</span>
-<span id="cb9-36"><a href="assessing-clonal-abundance.html#cb9-36"></a>      }</span>
-<span id="cb9-37"><a href="assessing-clonal-abundance.html#cb9-37"></a>      <span class="kw">return</span>(NGT_to_clone_subset)</span>
-<span id="cb9-38"><a href="assessing-clonal-abundance.html#cb9-38"></a>    }</span>
-<span id="cb9-39"><a href="assessing-clonal-abundance.html#cb9-39"></a>}),<span class="kw">names</span>(clonal_abundance_boot_CI))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="assessing-clonal-abundance.html#cb32-1" aria-hidden="true" tabindex="-1"></a>clone_filtered_NGTs <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(sample_to_test){</span>
+<span id="cb32-2"><a href="assessing-clonal-abundance.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="assessing-clonal-abundance.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Determine if there are any clones left to process</span></span>
+<span id="cb32-4"><a href="assessing-clonal-abundance.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">nrow</span>(clonal_abundance_boot_CI[[sample_to_test]])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb32-5"><a href="assessing-clonal-abundance.html#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">&quot;No clones after boostrapping&quot;</span>)</span>
+<span id="cb32-6"><a href="assessing-clonal-abundance.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-7"><a href="assessing-clonal-abundance.html#cb32-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-8"><a href="assessing-clonal-abundance.html#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Determine if there are any mutations that are no longer found in a stable clone</span></span>
+<span id="cb32-9"><a href="assessing-clonal-abundance.html#cb32-9" aria-hidden="true" tabindex="-1"></a>  clone_matrix<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(<span class="fu">do.call</span>(rbind,</span>
+<span id="cb32-10"><a href="assessing-clonal-abundance.html#cb32-10" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">strsplit</span>(clonal_abundance_boot_CI[[sample_to_test]][,<span class="st">&quot;Clone&quot;</span>],<span class="at">split=</span><span class="st">&quot;_&quot;</span>)))</span>
+<span id="cb32-11"><a href="assessing-clonal-abundance.html#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mode</span>(clone_matrix) <span class="ot">&lt;-</span> <span class="st">&quot;numeric&quot;</span></span>
+<span id="cb32-12"><a href="assessing-clonal-abundance.html#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(clone_matrix) <span class="ot">&lt;-</span><span class="fu">colnames</span>(NGT_to_clone[[sample_to_test]])[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span>
+<span id="cb32-13"><a href="assessing-clonal-abundance.html#cb32-13" aria-hidden="true" tabindex="-1"></a>  variants_to_remove<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">which</span>(<span class="fu">colSums</span>(clone_matrix)<span class="sc">==</span><span class="dv">0</span>))</span>
+<span id="cb32-14"><a href="assessing-clonal-abundance.html#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="assessing-clonal-abundance.html#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check other conditions of interest that might remove sample from further processing</span></span>
+<span id="cb32-16"><a href="assessing-clonal-abundance.html#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">nrow</span>(clone_matrix)<span class="sc">==</span><span class="dv">1</span>) {</span>
+<span id="cb32-17"><a href="assessing-clonal-abundance.html#cb32-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">&quot;Only 1 clone left&quot;</span>)</span>
+<span id="cb32-18"><a href="assessing-clonal-abundance.html#cb32-18" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>  <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">setdiff</span>(<span class="fu">colnames</span>(clone_matrix),<span class="fu">c</span>(variants_to_remove)))<span class="sc">&lt;=</span><span class="dv">1</span>){</span>
+<span id="cb32-19"><a href="assessing-clonal-abundance.html#cb32-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">&quot;Removed all but 1 variant&quot;</span>)</span>
+<span id="cb32-20"><a href="assessing-clonal-abundance.html#cb32-20" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span> {</span>
+<span id="cb32-21"><a href="assessing-clonal-abundance.html#cb32-21" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Select only clones that survive the bootstrapping, and remove variants that fall out</span></span>
+<span id="cb32-22"><a href="assessing-clonal-abundance.html#cb32-22" aria-hidden="true" tabindex="-1"></a>      NGT_to_clone_subset <span class="ot">&lt;-</span> NGT_to_clone[[sample_to_test]]<span class="sc">%&gt;%</span></span>
+<span id="cb32-23"><a href="assessing-clonal-abundance.html#cb32-23" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">filter</span>(Clone<span class="sc">%in%</span>clonal_abundance_boot_CI[[sample_to_test]]<span class="sc">$</span>Clone)<span class="sc">%&gt;%</span></span>
+<span id="cb32-24"><a href="assessing-clonal-abundance.html#cb32-24" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">select</span>(<span class="sc">!</span><span class="fu">all_of</span>(variants_to_remove))</span>
+<span id="cb32-25"><a href="assessing-clonal-abundance.html#cb32-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-26"><a href="assessing-clonal-abundance.html#cb32-26" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Create a key for the new and old clone names after removing variants that are no longer present</span></span>
+<span id="cb32-27"><a href="assessing-clonal-abundance.html#cb32-27" aria-hidden="true" tabindex="-1"></a>      clone_key <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;New&quot;</span><span class="ot">=</span><span class="fu">apply</span>(<span class="fu">data.frame</span>(clone_matrix)<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">!</span><span class="fu">all_of</span>(variants_to_remove)),<span class="at">MARGIN=</span><span class="dv">1</span>,</span>
+<span id="cb32-28"><a href="assessing-clonal-abundance.html#cb32-28" aria-hidden="true" tabindex="-1"></a>                                            <span class="cf">function</span>(x){ <span class="fu">paste</span>(x,<span class="at">sep=</span><span class="st">&quot;_&quot;</span>,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>)}),</span>
+<span id="cb32-29"><a href="assessing-clonal-abundance.html#cb32-29" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Old&quot;</span><span class="ot">=</span><span class="fu">apply</span>(<span class="fu">data.frame</span>(clone_matrix),<span class="at">MARGIN=</span><span class="dv">1</span>,</span>
+<span id="cb32-30"><a href="assessing-clonal-abundance.html#cb32-30" aria-hidden="true" tabindex="-1"></a>                                            <span class="cf">function</span>(x){ <span class="fu">paste</span>(x,<span class="at">sep=</span><span class="st">&quot;_&quot;</span>,<span class="at">collapse=</span><span class="st">&quot;_&quot;</span>)}))</span>
+<span id="cb32-31"><a href="assessing-clonal-abundance.html#cb32-31" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-32"><a href="assessing-clonal-abundance.html#cb32-32" aria-hidden="true" tabindex="-1"></a>      <span class="co"># If there are any variants to remove and clones that need to be renamed</span></span>
+<span id="cb32-33"><a href="assessing-clonal-abundance.html#cb32-33" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(clone_key<span class="sc">$</span>New<span class="sc">!=</span>clone_key<span class="sc">$</span>Old)){</span>
+<span id="cb32-34"><a href="assessing-clonal-abundance.html#cb32-34" aria-hidden="true" tabindex="-1"></a>            NGT_to_clone_subset<span class="sc">$</span>Clone <span class="ot">&lt;-</span> <span class="fu">sapply</span>(NGT_to_clone_subset<span class="sc">$</span>Clone,<span class="cf">function</span>(x){</span>
+<span id="cb32-35"><a href="assessing-clonal-abundance.html#cb32-35" aria-hidden="true" tabindex="-1"></a>                                              clone_key<span class="sc">$</span>New[<span class="fu">match</span>(x,clone_key<span class="sc">$</span>Old)]})</span>
+<span id="cb32-36"><a href="assessing-clonal-abundance.html#cb32-36" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb32-37"><a href="assessing-clonal-abundance.html#cb32-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(NGT_to_clone_subset)</span>
+<span id="cb32-38"><a href="assessing-clonal-abundance.html#cb32-38" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb32-39"><a href="assessing-clonal-abundance.html#cb32-39" aria-hidden="true" tabindex="-1"></a>}),<span class="fu">names</span>(clonal_abundance_boot_CI))</span></code></pre></div>
 <p>One last step I find useful is to explicitly state the genotype of each mutation in each clone. This si useful for the clonotype plots we’ll make later.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="assessing-clonal-abundance.html#cb10-1"></a>clonal_architecture &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(test_sample){</span>
-<span id="cb10-2"><a href="assessing-clonal-abundance.html#cb10-2"></a></span>
-<span id="cb10-3"><a href="assessing-clonal-abundance.html#cb10-3"></a>  clonal_architecture&lt;-clone_filtered_NGTs[[test_sample]]<span class="op">%&gt;%</span></span>
-<span id="cb10-4"><a href="assessing-clonal-abundance.html#cb10-4"></a><span class="st">                                            </span><span class="kw">select</span>(<span class="op">!</span>Cell)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-5"><a href="assessing-clonal-abundance.html#cb10-5"></a><span class="st">                                            </span><span class="kw">distinct</span>()<span class="op">%&gt;%</span></span>
-<span id="cb10-6"><a href="assessing-clonal-abundance.html#cb10-6"></a><span class="st">                                            </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">!</span>Clone,</span>
-<span id="cb10-7"><a href="assessing-clonal-abundance.html#cb10-7"></a>                                                         <span class="dt">names_to=</span><span class="st">&quot;Mutant&quot;</span>,</span>
-<span id="cb10-8"><a href="assessing-clonal-abundance.html#cb10-8"></a>                                                         <span class="dt">values_to=</span><span class="st">&quot;Genotype&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb10-9"><a href="assessing-clonal-abundance.html#cb10-9"></a><span class="st">                                            </span><span class="kw">mutate</span>(<span class="dt">Genotype=</span><span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">3</span>,<span class="ot">NA</span>,</span>
-<span id="cb10-10"><a href="assessing-clonal-abundance.html#cb10-10"></a>                                                             <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">0</span>,<span class="st">&quot;WT&quot;</span>,</span>
-<span id="cb10-11"><a href="assessing-clonal-abundance.html#cb10-11"></a>                                                              <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">1</span>,<span class="st">&quot;Heterozygous&quot;</span>,                                                                          <span class="kw">ifelse</span>(Genotype<span class="op">==</span><span class="dv">2</span>,<span class="st">&quot;Homozygous&quot;</span>,<span class="ot">NA</span>)))))</span>
-<span id="cb10-12"><a href="assessing-clonal-abundance.html#cb10-12"></a>}), <span class="kw">names</span>(clonal_abundance_boot_CI))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="assessing-clonal-abundance.html#cb33-1" aria-hidden="true" tabindex="-1"></a>clonal_architecture <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(clonal_abundance_boot_CI),<span class="cf">function</span>(test_sample){</span>
+<span id="cb33-2"><a href="assessing-clonal-abundance.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="assessing-clonal-abundance.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  clonal_architecture<span class="ot">&lt;-</span>clone_filtered_NGTs[[test_sample]]<span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="assessing-clonal-abundance.html#cb33-4" aria-hidden="true" tabindex="-1"></a>                                            dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">!</span>Cell)<span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="assessing-clonal-abundance.html#cb33-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">distinct</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="assessing-clonal-abundance.html#cb33-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">!</span>Clone,</span>
+<span id="cb33-7"><a href="assessing-clonal-abundance.html#cb33-7" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">names_to=</span><span class="st">&quot;Mutant&quot;</span>,</span>
+<span id="cb33-8"><a href="assessing-clonal-abundance.html#cb33-8" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">values_to=</span><span class="st">&quot;Genotype&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-9"><a href="assessing-clonal-abundance.html#cb33-9" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">mutate</span>(<span class="at">Genotype=</span><span class="fu">ifelse</span>(Genotype<span class="sc">==</span><span class="dv">3</span>,<span class="cn">NA</span>,</span>
+<span id="cb33-10"><a href="assessing-clonal-abundance.html#cb33-10" aria-hidden="true" tabindex="-1"></a>                                                             <span class="fu">ifelse</span>(Genotype<span class="sc">==</span><span class="dv">0</span>,<span class="st">&quot;WT&quot;</span>,</span>
+<span id="cb33-11"><a href="assessing-clonal-abundance.html#cb33-11" aria-hidden="true" tabindex="-1"></a>                                                              <span class="fu">ifelse</span>(Genotype<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;Heterozygous&quot;</span>,                                                                          <span class="fu">ifelse</span>(Genotype<span class="sc">==</span><span class="dv">2</span>,<span class="st">&quot;Homozygous&quot;</span>,<span class="cn">NA</span>)))))</span>
+<span id="cb33-12"><a href="assessing-clonal-abundance.html#cb33-12" aria-hidden="true" tabindex="-1"></a>}), <span class="fu">names</span>(clonal_abundance_boot_CI))</span></code></pre></div>
 <p>Lastly, we are going to package everything together into a list format for easy access later.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="assessing-clonal-abundance.html#cb11-1"></a>final_sample_summary&lt;-<span class="kw">setNames</span>(<span class="kw">lapply</span>(<span class="kw">names</span>(clonal_architecture),<span class="cf">function</span>(sample){</span>
-<span id="cb11-2"><a href="assessing-clonal-abundance.html#cb11-2"></a>   <span class="kw">return</span>(<span class="kw">list</span>(<span class="st">&quot;Clones&quot;</span>=clonal_abundance_boot_CI[[sample]],</span>
-<span id="cb11-3"><a href="assessing-clonal-abundance.html#cb11-3"></a>               <span class="st">&quot;NGT&quot;</span>=clone_filtered_NGTs[[sample]],</span>
-<span id="cb11-4"><a href="assessing-clonal-abundance.html#cb11-4"></a>               <span class="st">&quot;Architecture&quot;</span>=clonal_architecture[[sample]]))</span>
-<span id="cb11-5"><a href="assessing-clonal-abundance.html#cb11-5"></a>}),<span class="kw">names</span>(clonal_abundance_boot_CI))</span>
-<span id="cb11-6"><a href="assessing-clonal-abundance.html#cb11-6"></a></span>
-<span id="cb11-7"><a href="assessing-clonal-abundance.html#cb11-7"></a><span class="kw">saveRDS</span>(final_sample_summary,<span class="dt">file=</span><span class="st">&quot;./analysis/final_sample_summary.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="assessing-clonal-abundance.html#cb34-1" aria-hidden="true" tabindex="-1"></a>final_sample_summary<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(<span class="fu">names</span>(clonal_architecture),<span class="cf">function</span>(sample){</span>
+<span id="cb34-2"><a href="assessing-clonal-abundance.html#cb34-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(<span class="fu">list</span>(<span class="st">&quot;Clones&quot;</span><span class="ot">=</span>clonal_abundance_boot_CI[[sample]],</span>
+<span id="cb34-3"><a href="assessing-clonal-abundance.html#cb34-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;NGT&quot;</span><span class="ot">=</span>clone_filtered_NGTs[[sample]],</span>
+<span id="cb34-4"><a href="assessing-clonal-abundance.html#cb34-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Architecture&quot;</span><span class="ot">=</span>clonal_architecture[[sample]]))</span>
+<span id="cb34-5"><a href="assessing-clonal-abundance.html#cb34-5" aria-hidden="true" tabindex="-1"></a>}),<span class="fu">names</span>(clonal_abundance_boot_CI))</span>
+<span id="cb34-6"><a href="assessing-clonal-abundance.html#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="assessing-clonal-abundance.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(final_sample_summary,<span class="at">file=</span><span class="st">&quot;./analysis/final_sample_summary.rds&quot;</span>)</span></code></pre></div>
 
 </div>
 <!-- </div> -->
@@ -331,6 +339,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

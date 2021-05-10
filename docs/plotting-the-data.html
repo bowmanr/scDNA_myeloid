@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.4 Plotting the data | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</title>
+  <meta name="description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  <meta name="generator" content="bookdown 0.22.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.4 Plotting the data | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.4 Plotting the data | Single cell mutational profiling delineates clonal trajectories in myeloid malignancies" />
+  
+  <meta name="twitter:description" content="This is a code base for all of the analyses performed in Miles, Bowman et al. " />
+  
+
+<meta name="author" content="Robert Bowman" />
+
+
+<meta name="date" content="2021-05-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="executing-the-analysis.html"/>
+
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreward</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-extraction-and-setup.html"><a href="data-extraction-and-setup.html"><i class="fa fa-check"></i><b>2.1</b> Data Extraction and Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="hdf5-and-loom-input.html"><a href="hdf5-and-loom-input.html"><i class="fa fa-check"></i><b>2.2</b> HDF5 and Loom input</a></li>
+<li class="chapter" data-level="2.3" data-path="tapestri-package.html"><a href="tapestri-package.html"><i class="fa fa-check"></i><b>2.3</b> Tapestri Package</a></li>
+<li class="chapter" data-level="2.4" data-path="post-processing.html"><a href="post-processing.html"><i class="fa fa-check"></i><b>2.4</b> Post processing</a></li>
+<li class="chapter" data-level="2.5" data-path="assessing-clonal-abundance.html"><a href="assessing-clonal-abundance.html"><i class="fa fa-check"></i><b>2.5</b> Assessing clonal abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="manuscript-analysis.html"><a href="manuscript-analysis.html"><i class="fa fa-check"></i><b>3</b> Manuscript analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html"><i class="fa fa-check"></i><b>3.1</b> Figure 1: Cohort characterization</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#cohort-characteristics-ef1a-d"><i class="fa fa-check"></i><b>3.1.1</b> Cohort characteristics (EF1A-D)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#mutation-co-occurence"><i class="fa fa-check"></i><b>3.1.2</b> Mutation Co-occurence</a></li>
+<li class="chapter" data-level="3.1.3" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#oncoprint-figure-1a"><i class="fa fa-check"></i><b>3.1.3</b> Oncoprint: Figure 1A</a></li>
+<li class="chapter" data-level="3.1.4" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#sample-clonality-figure-1ce-figure-2ab"><i class="fa fa-check"></i><b>3.1.4</b> Sample clonality: Figure 1C,E Figure 2A,B</a></li>
+<li class="chapter" data-level="3.1.5" data-path="figure-1-cohort-characterization.html"><a href="figure-1-cohort-characterization.html#clonograph-figure-1d"><i class="fa fa-check"></i><b>3.1.5</b> Clonograph: Figure 1D</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html"><i class="fa fa-check"></i><b>3.2</b> Figure 2: Clonality</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-disease-states"><i class="fa fa-check"></i><b>3.2.1</b> Clonality in disease states</a></li>
+<li class="chapter" data-level="3.2.2" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-in-co-mutational-groups"><i class="fa fa-check"></i><b>3.2.2</b> Clonality in co-mutational groups</a></li>
+<li class="chapter" data-level="3.2.3" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#clonality-assocation-with-vaf"><i class="fa fa-check"></i><b>3.2.3</b> Clonality assocation with VAF</a></li>
+<li class="chapter" data-level="3.2.4" data-path="figure-2-clonality.html"><a href="figure-2-clonality.html#co-mutation-and-clonality"><i class="fa fa-check"></i><b>3.2.4</b> Co-mutation and clonality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="figure-3-genetic-trajectory-analysis.html"><a href="figure-3-genetic-trajectory-analysis.html"><i class="fa fa-check"></i><b>4</b> Figure 3: Genetic Trajectory analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introductory-text-and-philisophy-of-approach.html"><a href="introductory-text-and-philisophy-of-approach.html"><i class="fa fa-check"></i><b>4.1</b> Introductory text and philisophy of approach:</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-for-reward-matrix-and-querying-initating-mutations.html"><a href="functions-for-reward-matrix-and-querying-initating-mutations.html"><i class="fa fa-check"></i><b>4.2</b> Functions for reward matrix and querying initating mutations</a></li>
+<li class="chapter" data-level="4.3" data-path="executing-the-analysis.html"><a href="executing-the-analysis.html"><i class="fa fa-check"></i><b>4.3</b> Executing the Analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="plotting-the-data.html"><a href="plotting-the-data.html"><i class="fa fa-check"></i><b>4.4</b> Plotting the data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single cell mutational profiling delineates clonal trajectories in myeloid malignancies</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plotting-the-data" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Plotting the data</h2>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="plotting-the-data.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb88-2"><a href="plotting-the-data.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb88-3"><a href="plotting-the-data.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb88-4"><a href="plotting-the-data.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb88-5"><a href="plotting-the-data.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb88-6"><a href="plotting-the-data.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb88-7"><a href="plotting-the-data.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Users/bowmanr/Projects/scDNA/scDNA_myeloid/&quot;</span>)</span>
+<span id="cb88-8"><a href="plotting-the-data.html#cb88-8" aria-hidden="true" tabindex="-1"></a>final_sample_summary<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="at">file=</span><span class="st">&quot;./data/final_sample_summary.rds&quot;</span>)</span>
+<span id="cb88-9"><a href="plotting-the-data.html#cb88-9" aria-hidden="true" tabindex="-1"></a>pheno<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="at">file=</span><span class="st">&quot;./data/pheno.rds&quot;</span>)</span>
+<span id="cb88-10"><a href="plotting-the-data.html#cb88-10" aria-hidden="true" tabindex="-1"></a>graph_results <span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="at">file=</span><span class="st">&quot;./data/graph_results_complete.rds&quot;</span>)</span>
+<span id="cb88-11"><a href="plotting-the-data.html#cb88-11" aria-hidden="true" tabindex="-1"></a>final_results<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="at">file=</span><span class="st">&quot;./data/MDP_trajectory_final.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="plotting-the-data.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_optimal_graph_for_trajectory_new</span>(<span class="st">&quot;MSK78&quot;</span>,<span class="at">optimal_mutants_only=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="scDNA_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="plotting-the-data.html#cb90-1" aria-hidden="true" tabindex="-1"></a>output<span class="ot">&lt;-</span><span class="fu">lapply</span>(<span class="fu">names</span>(final_results),<span class="cf">function</span>(sample){</span>
+<span id="cb90-2"><a href="plotting-the-data.html#cb90-2" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb90-3"><a href="plotting-the-data.html#cb90-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(<span class="sc">!</span>sample<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">&quot;MSK94&quot;</span>)){</span>
+<span id="cb90-4"><a href="plotting-the-data.html#cb90-4" aria-hidden="true" tabindex="-1"></a>            final<span class="ot">&lt;-</span><span class="fu">trajectory_summariztion</span>(sample,<span class="at">optimal_mutants_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb90-5"><a href="plotting-the-data.html#cb90-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(final<span class="sc">==</span><span class="st">&quot;error&quot;</span>){</span>
+<span id="cb90-6"><a href="plotting-the-data.html#cb90-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb90-7"><a href="plotting-the-data.html#cb90-7" aria-hidden="true" tabindex="-1"></a>            } <span class="cf">else</span> {</span>
+<span id="cb90-8"><a href="plotting-the-data.html#cb90-8" aria-hidden="true" tabindex="-1"></a>              final<span class="sc">%&gt;%</span><span class="fu">group_by</span>(initiating_mutation)<span class="sc">%&gt;%</span></span>
+<span id="cb90-9"><a href="plotting-the-data.html#cb90-9" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">distinct</span>(nextState,reward)<span class="sc">%&gt;%</span></span>
+<span id="cb90-10"><a href="plotting-the-data.html#cb90-10" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">summarize</span>(<span class="at">total=</span><span class="fu">sum</span>(reward))</span>
+<span id="cb90-11"><a href="plotting-the-data.html#cb90-11" aria-hidden="true" tabindex="-1"></a>            }}</span>
+<span id="cb90-12"><a href="plotting-the-data.html#cb90-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb90-13"><a href="plotting-the-data.html#cb90-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-14"><a href="plotting-the-data.html#cb90-14" aria-hidden="true" tabindex="-1"></a>genes_of_interest <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ASXL1&quot;</span>,<span class="st">&quot;DNMT3A&quot;</span>,<span class="st">&quot;TET2&quot;</span>,<span class="st">&quot;IDH1&quot;</span>,<span class="st">&quot;IDH2&quot;</span>,<span class="st">&quot;NPM1&quot;</span>,<span class="st">&quot;KRAS&quot;</span>,<span class="st">&quot;NRAS&quot;</span>,<span class="st">&quot;PTPN11&quot;</span>,<span class="st">&quot;FLT3&quot;</span>,<span class="st">&quot;JAK2&quot;</span>)</span>
+<span id="cb90-15"><a href="plotting-the-data.html#cb90-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-16"><a href="plotting-the-data.html#cb90-16" aria-hidden="true" tabindex="-1"></a>out_mat<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">do.call</span>(rbind,output))<span class="sc">%&gt;%</span><span class="fu">filter</span>(initiating_mutation<span class="sc">!=</span><span class="st">&quot;exclude&quot;</span>)</span>
+<span id="cb90-17"><a href="plotting-the-data.html#cb90-17" aria-hidden="true" tabindex="-1"></a>out_mat<span class="sc">$</span>Gene <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind,<span class="fu">strsplit</span>(out_mat<span class="sc">$</span>initiating_mutation,<span class="at">split=</span><span class="st">&quot;[_</span><span class="sc">\\</span><span class="st">.]&quot;</span>))[,<span class="dv">1</span>]</span>
+<span id="cb90-18"><a href="plotting-the-data.html#cb90-18" aria-hidden="true" tabindex="-1"></a>out_mat<span class="ot">&lt;-</span> out_mat<span class="sc">%&gt;%</span><span class="fu">filter</span>(Gene<span class="sc">%in%</span>genes_of_interest)</span>
+<span id="cb90-19"><a href="plotting-the-data.html#cb90-19" aria-hidden="true" tabindex="-1"></a>out_mat<span class="sc">$</span>total <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(out_mat<span class="sc">$</span>total)</span>
+<span id="cb90-20"><a href="plotting-the-data.html#cb90-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-21"><a href="plotting-the-data.html#cb90-21" aria-hidden="true" tabindex="-1"></a>gene_order <span class="ot">&lt;-</span> out_mat<span class="sc">%&gt;%</span><span class="fu">group_by</span>(Gene)<span class="sc">%&gt;%</span><span class="fu">summarize</span>(<span class="at">median=</span><span class="fu">median</span>(total))<span class="sc">%&gt;%</span><span class="fu">arrange</span>(median)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Gene)</span>
+<span id="cb90-22"><a href="plotting-the-data.html#cb90-22" aria-hidden="true" tabindex="-1"></a>out_mat<span class="sc">$</span>Gene <span class="ot">&lt;-</span> <span class="fu">factor</span>(out_mat<span class="sc">$</span>Gene,<span class="at">levels=</span>gene_order)</span>
+<span id="cb90-23"><a href="plotting-the-data.html#cb90-23" aria-hidden="true" tabindex="-1"></a>ggA<span class="ot">&lt;-</span><span class="fu">ggplot</span>(out_mat,<span class="fu">aes</span>(<span class="at">x=</span>Gene,<span class="at">y=</span>total,<span class="at">fill=</span>Gene))<span class="sc">+</span></span>
+<span id="cb90-24"><a href="plotting-the-data.html#cb90-24" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape=</span><span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb90-25"><a href="plotting-the-data.html#cb90-25" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">tol.rainbow</span>(<span class="at">n=</span><span class="fu">length</span>(<span class="fu">levels</span>(out_mat<span class="sc">$</span>Gene))))<span class="sc">+</span></span>
+<span id="cb90-26"><a href="plotting-the-data.html#cb90-26" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>,<span class="at">size=</span><span class="fl">0.5</span>)<span class="sc">+</span>  <span class="fu">coord_flip</span>()<span class="sc">+</span><span class="fu">theme_bw</span>(<span class="at">base_size=</span><span class="dv">8</span>)<span class="sc">+</span></span>
+<span id="cb90-27"><a href="plotting-the-data.html#cb90-27" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb90-28"><a href="plotting-the-data.html#cb90-28" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ylab</span>(<span class="st">&quot;Fraction of sample explained </span><span class="sc">\n</span><span class="st"> by initiating mutation&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="plotting-the-data.html#cb91-1" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span> <span class="st">&quot;NPM1&quot;</span></span>
+<span id="cb91-2"><a href="plotting-the-data.html#cb91-2" aria-hidden="true" tabindex="-1"></a>B<span class="ot">&lt;-</span><span class="st">&quot;NRAS&quot;</span></span>
+<span id="cb91-3"><a href="plotting-the-data.html#cb91-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="plotting-the-data.html#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="plotting-the-data.html#cb91-5" aria-hidden="true" tabindex="-1"></a>double_mutant_samples<span class="ot">&lt;-</span><span class="fu">names</span>(graph_results)[<span class="fu">do.call</span>(c,<span class="fu">lapply</span>(<span class="fu">names</span>(graph_results),<span class="cf">function</span>(x){</span>
+<span id="cb91-6"><a href="plotting-the-data.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(graph_results[[x]],<span class="fu">any</span>(<span class="fu">grepl</span>(A,<span class="fu">unique</span>(Action)))<span class="sc">&amp;</span><span class="fu">any</span>(<span class="fu">grepl</span>(B,<span class="fu">unique</span>(Action))))</span>
+<span id="cb91-7"><a href="plotting-the-data.html#cb91-7" aria-hidden="true" tabindex="-1"></a>}))]</span>
+<span id="cb91-8"><a href="plotting-the-data.html#cb91-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-9"><a href="plotting-the-data.html#cb91-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-10"><a href="plotting-the-data.html#cb91-10" aria-hidden="true" tabindex="-1"></a>double_mutant_order<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">lapply</span>(double_mutant_samples,<span class="cf">function</span>(x){</span>
+<span id="cb91-11"><a href="plotting-the-data.html#cb91-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-12"><a href="plotting-the-data.html#cb91-12" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> final_sample_summary[[x]]</span>
+<span id="cb91-13"><a href="plotting-the-data.html#cb91-13" aria-hidden="true" tabindex="-1"></a>  mutations <span class="ot">&lt;-</span> <span class="fu">colnames</span>(sample<span class="sc">$</span>NGT)</span>
+<span id="cb91-14"><a href="plotting-the-data.html#cb91-14" aria-hidden="true" tabindex="-1"></a>  clones<span class="ot">&lt;-</span> sample<span class="sc">$</span>Clone</span>
+<span id="cb91-15"><a href="plotting-the-data.html#cb91-15" aria-hidden="true" tabindex="-1"></a>  A_het_clones <span class="ot">&lt;-</span>sample<span class="sc">$</span>Architecture<span class="sc">%&gt;%</span><span class="fu">filter</span>(Genotype<span class="sc">==</span><span class="st">&quot;Heterozygous&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(A,Mutant))<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Clone)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Clone)</span>
+<span id="cb91-16"><a href="plotting-the-data.html#cb91-16" aria-hidden="true" tabindex="-1"></a>  B_het_clones <span class="ot">&lt;-</span>sample<span class="sc">$</span>Architecture<span class="sc">%&gt;%</span><span class="fu">filter</span>(Genotype<span class="sc">==</span><span class="st">&quot;Heterozygous&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(B,Mutant))<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Clone)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Clone)</span>
+<span id="cb91-17"><a href="plotting-the-data.html#cb91-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-18"><a href="plotting-the-data.html#cb91-18" aria-hidden="true" tabindex="-1"></a>  AB_het_clones<span class="ot">&lt;-</span><span class="fu">intersect</span>(A_het_clones,B_het_clones)</span>
+<span id="cb91-19"><a href="plotting-the-data.html#cb91-19" aria-hidden="true" tabindex="-1"></a>  AB_clone_sizes <span class="ot">&lt;-</span> graph_results[[x]]<span class="sc">%&gt;%</span><span class="fu">filter</span>(NextState<span class="sc">%in%</span>AB_het_clones)<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(A,Action)<span class="sc">|</span><span class="fu">grepl</span>(B,Action))<span class="sc">%&gt;%</span><span class="fu">filter</span>(Reward<span class="sc">==</span><span class="fu">max</span>(Reward))<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Reward)<span class="sc">%&gt;%</span><span class="fu">pull</span>(Reward)</span>
+<span id="cb91-20"><a href="plotting-the-data.html#cb91-20" aria-hidden="true" tabindex="-1"></a>  antecdenent_options<span class="ot">&lt;-</span>graph_results[[x]]<span class="sc">%&gt;%</span><span class="fu">filter</span>(NextState<span class="sc">%in%</span>AB_het_clones)<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(A,Action)<span class="sc">|</span><span class="fu">grepl</span>(B,Action))<span class="sc">%&gt;%</span><span class="fu">filter</span>(Reward<span class="sc">==</span><span class="fu">max</span>(Reward))</span>
+<span id="cb91-21"><a href="plotting-the-data.html#cb91-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-22"><a href="plotting-the-data.html#cb91-22" aria-hidden="true" tabindex="-1"></a>  antecendent_clones<span class="ot">&lt;-</span>graph_results[[x]]<span class="sc">%&gt;%</span><span class="fu">filter</span>(NextState<span class="sc">%in%</span>antecdenent_options<span class="sc">$</span>State)<span class="sc">%&gt;%</span><span class="fu">filter</span>(Reward<span class="sc">!=</span><span class="dv">0</span>)</span>
+<span id="cb91-23"><a href="plotting-the-data.html#cb91-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-24"><a href="plotting-the-data.html#cb91-24" aria-hidden="true" tabindex="-1"></a>  set<span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">merge</span>(antecdenent_options[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],antecendent_clones[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>],<span class="at">by.x=</span><span class="st">&quot;State&quot;</span>,<span class="at">by.y=</span><span class="st">&quot;NextState&quot;</span>),</span>
+<span id="cb91-25"><a href="plotting-the-data.html#cb91-25" aria-hidden="true" tabindex="-1"></a>                <span class="fu">c</span>(<span class="st">&quot;Antecedent&quot;</span>,<span class="st">&quot;Mutation&quot;</span>,<span class="st">&quot;Max_het_state&quot;</span>,<span class="st">&quot;Max_het_size&quot;</span>,<span class="st">&quot;Antecednet_size&quot;</span>))</span>
+<span id="cb91-26"><a href="plotting-the-data.html#cb91-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-27"><a href="plotting-the-data.html#cb91-27" aria-hidden="true" tabindex="-1"></a>  Mut_A <span class="ot">&lt;-</span> set<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(A,set<span class="sc">$</span>Mutation))<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Mutation,Antecednet_size)<span class="sc">%&gt;%</span><span class="fu">filter</span>(Antecednet_size<span class="sc">==</span><span class="fu">max</span>(Antecednet_size))<span class="sc">%&gt;%</span><span class="fu">pull</span>(Mutation)</span>
+<span id="cb91-28"><a href="plotting-the-data.html#cb91-28" aria-hidden="true" tabindex="-1"></a>  Mut_B <span class="ot">&lt;-</span> set<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(B,set<span class="sc">$</span>Mutation))<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Mutation,Antecednet_size)<span class="sc">%&gt;%</span><span class="fu">filter</span>(Antecednet_size<span class="sc">==</span><span class="fu">max</span>(Antecednet_size))<span class="sc">%&gt;%</span><span class="fu">pull</span>(Mutation)</span>
+<span id="cb91-29"><a href="plotting-the-data.html#cb91-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-30"><a href="plotting-the-data.html#cb91-30" aria-hidden="true" tabindex="-1"></a>  set <span class="ot">&lt;-</span> set<span class="sc">%&gt;%</span><span class="fu">filter</span>(Mutation<span class="sc">%in%</span><span class="fu">c</span>(Mut_A,Mut_B))</span>
+<span id="cb91-31"><a href="plotting-the-data.html#cb91-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-32"><a href="plotting-the-data.html#cb91-32" aria-hidden="true" tabindex="-1"></a>  convergence <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((<span class="fu">any</span>(<span class="fu">grepl</span>(A,set<span class="sc">$</span>Mutation)) <span class="sc">&amp;</span><span class="fu">any</span>(<span class="fu">grepl</span>(B,set<span class="sc">$</span>Mutation))),<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>)</span>
+<span id="cb91-33"><a href="plotting-the-data.html#cb91-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-34"><a href="plotting-the-data.html#cb91-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-35"><a href="plotting-the-data.html#cb91-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(convergence<span class="sc">==</span><span class="st">&quot;Yes&quot;</span>){</span>
+<span id="cb91-36"><a href="plotting-the-data.html#cb91-36" aria-hidden="true" tabindex="-1"></a>    sizes <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">data.frame</span>(<span class="st">&quot;Double_mutant&quot;</span><span class="ot">=</span><span class="fu">unique</span>(set<span class="sc">$</span>Max_het_size),</span>
+<span id="cb91-37"><a href="plotting-the-data.html#cb91-37" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">B=</span><span class="fu">unique</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(A,set<span class="sc">$</span>Mutation))<span class="sc">%&gt;%</span><span class="fu">pull</span>(Antecednet_size)),</span>
+<span id="cb91-38"><a href="plotting-the-data.html#cb91-38" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">A=</span><span class="fu">unique</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(B,set<span class="sc">$</span>Mutation))<span class="sc">%&gt;%</span><span class="fu">pull</span>(Antecednet_size))),</span>
+<span id="cb91-39"><a href="plotting-the-data.html#cb91-39" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">c</span>(<span class="st">&quot;Double_mutant&quot;</span>,B,A))</span>
+<span id="cb91-40"><a href="plotting-the-data.html#cb91-40" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">grepl</span>(B,set<span class="sc">$</span>Mutation))) {</span>
+<span id="cb91-41"><a href="plotting-the-data.html#cb91-41" aria-hidden="true" tabindex="-1"></a>    sizes <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">data.frame</span>(<span class="st">&quot;Double_mutant&quot;</span><span class="ot">=</span><span class="fu">unique</span>(set<span class="sc">$</span>Max_het_size),</span>
+<span id="cb91-42"><a href="plotting-the-data.html#cb91-42" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">A=</span><span class="fu">unique</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(B,set<span class="sc">$</span>Mutation))<span class="sc">%&gt;%</span><span class="fu">pull</span>(Antecednet_size))),</span>
+<span id="cb91-43"><a href="plotting-the-data.html#cb91-43" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">c</span>(<span class="st">&quot;Double_mutant&quot;</span>,A))</span>
+<span id="cb91-44"><a href="plotting-the-data.html#cb91-44" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">grepl</span>(A,set<span class="sc">$</span>Mutation))) {</span>
+<span id="cb91-45"><a href="plotting-the-data.html#cb91-45" aria-hidden="true" tabindex="-1"></a>    sizes <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">data.frame</span>(<span class="st">&quot;Double_mutant&quot;</span><span class="ot">=</span><span class="fu">unique</span>(set<span class="sc">$</span>Max_het_size),</span>
+<span id="cb91-46"><a href="plotting-the-data.html#cb91-46" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">B=</span><span class="fu">unique</span>(set<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="fu">grepl</span>(A,set<span class="sc">$</span>Mutation))<span class="sc">%&gt;%</span><span class="fu">pull</span>(Antecednet_size))),</span>
+<span id="cb91-47"><a href="plotting-the-data.html#cb91-47" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">c</span>(<span class="st">&quot;Double_mutant&quot;</span>,B))</span>
+<span id="cb91-48"><a href="plotting-the-data.html#cb91-48" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">nrow</span>(set)<span class="sc">&lt;</span><span class="dv">1</span>){</span>
+<span id="cb91-49"><a href="plotting-the-data.html#cb91-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="st">&quot;Double_mutant&quot;</span><span class="ot">=</span><span class="dv">0</span>))</span>
+<span id="cb91-50"><a href="plotting-the-data.html#cb91-50" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb91-51"><a href="plotting-the-data.html#cb91-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sizes)</span>
+<span id="cb91-52"><a href="plotting-the-data.html#cb91-52" aria-hidden="true" tabindex="-1"></a>}),double_mutant_samples)</span>
+<span id="cb91-53"><a href="plotting-the-data.html#cb91-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-54"><a href="plotting-the-data.html#cb91-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-55"><a href="plotting-the-data.html#cb91-55" aria-hidden="true" tabindex="-1"></a>double_mutant_order<span class="sc">$</span>Dummy <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">A=</span><span class="dv">0</span>,</span>
+<span id="cb91-56"><a href="plotting-the-data.html#cb91-56" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&quot;Double_mutant&quot;</span><span class="ot">=</span><span class="dv">0</span>,</span>
+<span id="cb91-57"><a href="plotting-the-data.html#cb91-57" aria-hidden="true" tabindex="-1"></a>                              <span class="at">B=</span><span class="dv">0</span>)</span>
+<span id="cb91-58"><a href="plotting-the-data.html#cb91-58" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(double_mutant_order<span class="sc">$</span>Dummy) <span class="ot">&lt;-</span> <span class="fu">c</span>(A,<span class="st">&quot;Double_mutant&quot;</span>,B)</span>
+<span id="cb91-59"><a href="plotting-the-data.html#cb91-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-60"><a href="plotting-the-data.html#cb91-60" aria-hidden="true" tabindex="-1"></a>double_mutant_order_mat<span class="ot">&lt;-</span>plyr<span class="sc">::</span><span class="fu">rbind.fill</span>(<span class="fu">setNames</span>(<span class="fu">lapply</span>(double_mutant_order,<span class="cf">function</span>(x){<span class="fu">data.frame</span>(x)}),<span class="fu">c</span>(double_mutant_samples)))</span>
+<span id="cb91-61"><a href="plotting-the-data.html#cb91-61" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(double_mutant_order_mat) <span class="ot">&lt;-</span>    <span class="fu">c</span>(double_mutant_samples,<span class="st">&quot;Dummy&quot;</span>)</span>
+<span id="cb91-62"><a href="plotting-the-data.html#cb91-62" aria-hidden="true" tabindex="-1"></a>double_mutant_order_mat<span class="sc">$</span>Sample <span class="ot">&lt;-</span> <span class="fu">rownames</span>(double_mutant_order_mat)</span>
+<span id="cb91-63"><a href="plotting-the-data.html#cb91-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-64"><a href="plotting-the-data.html#cb91-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-65"><a href="plotting-the-data.html#cb91-65" aria-hidden="true" tabindex="-1"></a>double_mutant_order_mat<span class="ot">&lt;-</span> double_mutant_order_mat<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span>Double_mutant<span class="sc">==</span><span class="dv">0</span><span class="sc">&amp;!</span>Sample<span class="sc">==</span><span class="st">&quot;Dummy&quot;</span>)</span>
+<span id="cb91-66"><a href="plotting-the-data.html#cb91-66" aria-hidden="true" tabindex="-1"></a>double_mutant_order_mat<span class="sc">$</span>Convergence <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((<span class="sc">!</span><span class="fu">is.na</span>(double_mutant_order_mat[,A])<span class="sc">&amp;!</span><span class="fu">is.na</span>(double_mutant_order_mat[,B]))<span class="sc">&amp;</span>  </span>
+<span id="cb91-67"><a href="plotting-the-data.html#cb91-67" aria-hidden="true" tabindex="-1"></a>                                                double_mutant_order_mat[,A]<span class="sc">&gt;</span><span class="dv">0</span><span class="sc">&amp;</span></span>
+<span id="cb91-68"><a href="plotting-the-data.html#cb91-68" aria-hidden="true" tabindex="-1"></a>                                                double_mutant_order_mat[,B]<span class="sc">&gt;</span><span class="dv">0</span>,<span class="st">&quot;Convergent&quot;</span>,</span>
+<span id="cb91-69"><a href="plotting-the-data.html#cb91-69" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">ifelse</span>(<span class="fu">is.na</span>(double_mutant_order_mat[,A])<span class="sc">&amp;</span>double_mutant_order_mat[,B]<span class="sc">&gt;</span><span class="dv">0</span>,B,A))</span>
+<span id="cb91-70"><a href="plotting-the-data.html#cb91-70" aria-hidden="true" tabindex="-1"></a>melted_set <span class="ot">&lt;-</span><span class="fu">setNames</span>(<span class="fu">melt</span>(double_mutant_order_mat),<span class="fu">c</span>(<span class="st">&quot;Sample&quot;</span>,<span class="st">&quot;Convergence&quot;</span>,<span class="st">&quot;Clone&quot;</span>,<span class="st">&quot;Size&quot;</span>))</span>
+<span id="cb91-71"><a href="plotting-the-data.html#cb91-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-72"><a href="plotting-the-data.html#cb91-72" aria-hidden="true" tabindex="-1"></a>melted_set<span class="sc">$</span>Clone <span class="ot">&lt;-</span><span class="fu">factor</span>(melted_set<span class="sc">$</span>Clone,<span class="at">levels=</span><span class="fu">c</span>(A,<span class="st">&quot;Double_mutant&quot;</span>,B))                                     </span>
+<span id="cb91-73"><a href="plotting-the-data.html#cb91-73" aria-hidden="true" tabindex="-1"></a>melted_set<span class="sc">$</span>Clone <span class="ot">&lt;-</span>plyr<span class="sc">::</span><span class="fu">revalue</span>(melted_set<span class="sc">$</span>Clone,<span class="fu">c</span>(<span class="st">&quot;Double_mutant&quot;</span><span class="ot">=</span><span class="st">&quot;Double mutant&quot;</span>))                                     </span>
+<span id="cb91-74"><a href="plotting-the-data.html#cb91-74" aria-hidden="true" tabindex="-1"></a>melted_set<span class="sc">$</span>Convergence <span class="ot">&lt;-</span><span class="fu">factor</span>(melted_set<span class="sc">$</span>Convergence,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Convergent&quot;</span>,A,B))  </span>
+<span id="cb91-75"><a href="plotting-the-data.html#cb91-75" aria-hidden="true" tabindex="-1"></a>melted_set[<span class="fu">is.na</span>(melted_set)]<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb91-76"><a href="plotting-the-data.html#cb91-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-77"><a href="plotting-the-data.html#cb91-77" aria-hidden="true" tabindex="-1"></a>gene_name_A <span class="ot">&lt;-</span> melted_set<span class="sc">%&gt;%</span><span class="fu">filter</span>(Convergence<span class="sc">==</span>A)</span>
+<span id="cb91-78"><a href="plotting-the-data.html#cb91-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-79"><a href="plotting-the-data.html#cb91-79" aria-hidden="true" tabindex="-1"></a>colors_set <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,</span>
+<span id="cb91-80"><a href="plotting-the-data.html#cb91-80" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb91-81"><a href="plotting-the-data.html#cb91-81" aria-hidden="true" tabindex="-1"></a>                <span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Blues&quot;</span>)[<span class="dv">5</span>],</span>
+<span id="cb91-82"><a href="plotting-the-data.html#cb91-82" aria-hidden="true" tabindex="-1"></a>                <span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Reds&quot;</span>)[<span class="dv">5</span>])</span>
+<span id="cb91-83"><a href="plotting-the-data.html#cb91-83" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colors_set) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Double mutant&quot;</span>,<span class="st">&quot;Convergent&quot;</span>,A,B)</span>
+<span id="cb91-84"><a href="plotting-the-data.html#cb91-84" aria-hidden="true" tabindex="-1"></a>alpha_set <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb91-85"><a href="plotting-the-data.html#cb91-85" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alpha_set) <span class="ot">&lt;-</span> <span class="fu">names</span>(colors_set)</span>
+<span id="cb91-86"><a href="plotting-the-data.html#cb91-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-87"><a href="plotting-the-data.html#cb91-87" aria-hidden="true" tabindex="-1"></a>melted_set<span class="sc">$</span>Mutation_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(melted_set<span class="sc">$</span>Clone<span class="sc">==</span><span class="st">&quot;Double mutant&quot;</span>,<span class="st">&quot;Double mutant&quot;</span>,<span class="st">&quot;Single Mutant&quot;</span>),<span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Single Mutant&quot;</span>,<span class="st">&quot;Double mutant&quot;</span>))</span>
+<span id="cb91-88"><a href="plotting-the-data.html#cb91-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-89"><a href="plotting-the-data.html#cb91-89" aria-hidden="true" tabindex="-1"></a>melted_set_x<span class="ot">&lt;-</span><span class="fu">rbind</span>(melted_set<span class="sc">%&gt;%</span><span class="fu">filter</span>(Mutation_status<span class="sc">==</span><span class="st">&quot;Double mutant&quot;</span>),melted_set)</span>
+<span id="cb91-90"><a href="plotting-the-data.html#cb91-90" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">tally</span>(melted_set<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Sample))<span class="sc">%&gt;%</span><span class="fu">pull</span>(n)</span>
+<span id="cb91-91"><a href="plotting-the-data.html#cb91-91" aria-hidden="true" tabindex="-1"></a>melted_set_x[<span class="dv">1</span><span class="sc">:</span>(samples),<span class="st">&quot;Gene&quot;</span>] <span class="ot">&lt;-</span>A</span>
+<span id="cb91-92"><a href="plotting-the-data.html#cb91-92" aria-hidden="true" tabindex="-1"></a>melted_set_x[(samples<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="dv">2</span><span class="sc">*</span>samples),<span class="st">&quot;Gene&quot;</span>] <span class="ot">&lt;-</span>B</span>
+<span id="cb91-93"><a href="plotting-the-data.html#cb91-93" aria-hidden="true" tabindex="-1"></a>melted_set_x[<span class="fu">is.na</span>(melted_set_x<span class="sc">$</span>Gene),<span class="st">&quot;Gene&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(melted_set_x[<span class="fu">is.na</span>(melted_set_x<span class="sc">$</span>Gene),<span class="st">&quot;Clone&quot;</span>])</span>
+<span id="cb91-94"><a href="plotting-the-data.html#cb91-94" aria-hidden="true" tabindex="-1"></a>melted_set_x<span class="sc">$</span>Group2 <span class="ot">&lt;-</span> <span class="fu">paste</span>(melted_set_x<span class="sc">$</span>Sample,melted_set_x<span class="sc">$</span>Gene,<span class="at">sep=</span><span class="st">&quot; &quot;</span>)</span>
+<span id="cb91-95"><a href="plotting-the-data.html#cb91-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-96"><a href="plotting-the-data.html#cb91-96" aria-hidden="true" tabindex="-1"></a>ggA<span class="ot">&lt;-</span><span class="fu">ggplot</span>(melted_set_x<span class="co">#%&gt;%</span></span>
+<span id="cb91-97"><a href="plotting-the-data.html#cb91-97" aria-hidden="true" tabindex="-1"></a>               <span class="co"># filter(Convergence==&quot;Convergent&quot;)%&gt;%</span></span>
+<span id="cb91-98"><a href="plotting-the-data.html#cb91-98" aria-hidden="true" tabindex="-1"></a>             <span class="co">#   distinct(Sample,Clone,Size,Gene)</span></span>
+<span id="cb91-99"><a href="plotting-the-data.html#cb91-99" aria-hidden="true" tabindex="-1"></a>            ,<span class="fu">aes</span>(<span class="at">x=</span>Clone,<span class="at">y=</span>Size<span class="sc">/</span><span class="dv">100</span>,<span class="at">group=</span>Sample))<span class="sc">+</span></span>
+<span id="cb91-100"><a href="plotting-the-data.html#cb91-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Clone),<span class="at">shape=</span><span class="fu">ifelse</span>(melted_set_x<span class="sc">$</span>Size<span class="sc">==</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">21</span>), <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb91-101"><a href="plotting-the-data.html#cb91-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>Gene),<span class="at">guide=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb91-102"><a href="plotting-the-data.html#cb91-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colors_set[<span class="sc">-</span><span class="dv">2</span>],<span class="at">guide=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb91-103"><a href="plotting-the-data.html#cb91-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values=</span>colors_set[<span class="sc">-</span><span class="dv">2</span>],<span class="at">guide=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb91-104"><a href="plotting-the-data.html#cb91-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(A,B))<span class="sc">+</span></span>
+<span id="cb91-105"><a href="plotting-the-data.html#cb91-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">8</span>)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb91-106"><a href="plotting-the-data.html#cb91-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Fraction of sample </span><span class="sc">\n</span><span class="st"> in mutant clone&quot;</span>)<span class="sc">+</span></span>
+<span id="cb91-107"><a href="plotting-the-data.html#cb91-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="co">#+</span></span>
+<span id="cb91-108"><a href="plotting-the-data.html#cb91-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-109"><a href="plotting-the-data.html#cb91-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-110"><a href="plotting-the-data.html#cb91-110" aria-hidden="true" tabindex="-1"></a><span class="co">#melted_set%&gt;%filter(Clone%in%c(A,B))%&gt;%summarize(p=t.test(Size~Clone)$p.value)</span></span>
+<span id="cb91-111"><a href="plotting-the-data.html#cb91-111" aria-hidden="true" tabindex="-1"></a><span class="co">#melted_set%&gt;%filter(Clone%in%c(A,&quot;Double_mutant&quot;))%&gt;%summarize(p=t.test(Size~Clone)$p.value)</span></span>
+<span id="cb91-112"><a href="plotting-the-data.html#cb91-112" aria-hidden="true" tabindex="-1"></a><span class="co">#melted_set%&gt;%filter(Clone%in%c(B,&quot;Double_mutant&quot;))%&gt;%summarize(p=t.test(Size~Clone)$p.value)</span></span>
+<span id="cb91-113"><a href="plotting-the-data.html#cb91-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-114"><a href="plotting-the-data.html#cb91-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-115"><a href="plotting-the-data.html#cb91-115" aria-hidden="true" tabindex="-1"></a>ggB<span class="ot">&lt;-</span><span class="fu">ggplot</span>(melted_set<span class="sc">%&gt;%</span><span class="fu">distinct</span>(Sample,Convergence),</span>
+<span id="cb91-116"><a href="plotting-the-data.html#cb91-116" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>Convergence,<span class="at">fill=</span>Convergence))<span class="sc">+</span></span>
+<span id="cb91-117"><a href="plotting-the-data.html#cb91-117" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colors_set,<span class="at">guide=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb91-118"><a href="plotting-the-data.html#cb91-118" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_bar</span>()<span class="sc">+</span><span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">8</span>)<span class="sc">+</span></span>
+<span id="cb91-119"><a href="plotting-the-data.html#cb91-119" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggtitle</span>(<span class="st">&quot;Initiating Mutation&quot;</span>)<span class="sc">+</span></span>
+<span id="cb91-120"><a href="plotting-the-data.html#cb91-120" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_y_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb91-121"><a href="plotting-the-data.html#cb91-121" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb91-122"><a href="plotting-the-data.html#cb91-122" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_x_discrete</span>(<span class="at">drop=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb91-123"><a href="plotting-the-data.html#cb91-123" aria-hidden="true" tabindex="-1"></a>            <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="co">#+</span></span>
+<span id="cb91-124"><a href="plotting-the-data.html#cb91-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-125"><a href="plotting-the-data.html#cb91-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-126"><a href="plotting-the-data.html#cb91-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-127"><a href="plotting-the-data.html#cb91-127" aria-hidden="true" tabindex="-1"></a>ggC<span class="ot">&lt;-</span><span class="fu">ggplot</span>(melted_set<span class="sc">%&gt;%</span><span class="fu">filter</span>(Clone<span class="sc">%in%</span><span class="fu">c</span>(A,B)),<span class="fu">aes</span>(<span class="at">x=</span>Clone,<span class="at">y=</span>Size<span class="sc">/</span><span class="dv">100</span>,<span class="at">fill=</span>Clone))<span class="sc">+</span></span>
+<span id="cb91-128"><a href="plotting-the-data.html#cb91-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb91-129"><a href="plotting-the-data.html#cb91-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">8</span>)<span class="sc">+</span></span>
+<span id="cb91-130"><a href="plotting-the-data.html#cb91-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colors_set,<span class="at">guide=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb91-131"><a href="plotting-the-data.html#cb91-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Single mutant </span><span class="sc">\n</span><span class="st"> clone size&quot;</span>)<span class="sc">+</span></span>
+<span id="cb91-132"><a href="plotting-the-data.html#cb91-132" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Fraction of sample in </span><span class="sc">\n</span><span class="st"> single mutant clone&quot;</span>)<span class="sc">+</span></span>
+<span id="cb91-133"><a href="plotting-the-data.html#cb91-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb91-134"><a href="plotting-the-data.html#cb91-134" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_x_discrete(drop=FALSE)+</span></span>
+<span id="cb91-135"><a href="plotting-the-data.html#cb91-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="co">#+</span></span></code></pre></div>
+
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="executing-the-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scDNA.pdf", "scDNA.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

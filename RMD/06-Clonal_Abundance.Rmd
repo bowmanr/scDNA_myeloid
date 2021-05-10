@@ -103,7 +103,7 @@ One last step I find useful is to explicitly state the genotype of each mutation
 clonal_architecture <- setNames(lapply(names(clonal_abundance_boot_CI),function(test_sample){
 
   clonal_architecture<-clone_filtered_NGTs[[test_sample]]%>%
-                                            select(!Cell)%>% 
+                                            dplyr::select(!Cell)%>% 
                                             distinct()%>%
                                             pivot_longer(cols=!Clone,
                                                          names_to="Mutant",

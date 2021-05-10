@@ -5,7 +5,7 @@ This is probably our favorite way of looking at the data.
 library(RColorBrewer)
 final_sample_summary<-readRDS(file="./data/final_sample_summary.rds")
 
-sample <-"MSK45"
+sample <-"MSK8"
 sample_list <-final_sample_summary
 
 # Extract out the sample of interest    
